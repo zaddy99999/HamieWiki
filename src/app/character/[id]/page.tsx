@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import {
@@ -14,6 +15,16 @@ export default function CharacterPage() {
   const params = useParams();
   const router = useRouter();
   const characterId = params.id as string;
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showBackToTop, setShowBackToTop] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowBackToTop(window.scrollY > 400);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
   const character = getCharacter(characterId);
   const relationships = getCharacterRelationships(characterId);
   const allCharacters = getAllCharacters();
@@ -94,8 +105,34 @@ export default function CharacterPage() {
             <span>🎲</span>
             <span>Random</span>
           </button>
+
+          {/* Mobile Menu Button */}
+          <button
+            className="wiki-mobile-menu-btn"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            <span className={`wiki-hamburger ${mobileMenuOpen ? 'open' : ''}`}>
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+          </button>
         </div>
       </nav>
+
+      {/* Mobile Menu Overlay */}
+      <div className={`wiki-mobile-menu ${mobileMenuOpen ? 'open' : ''}`}>
+        <div className="wiki-mobile-menu-content">
+          <a href="/#characters" className="wiki-mobile-link" onClick={() => setMobileMenuOpen(false)}>Main Characters</a>
+          <a href="/#supporting" className="wiki-mobile-link" onClick={() => setMobileMenuOpen(false)}>Supporting</a>
+          <a href="/#factions" className="wiki-mobile-link" onClick={() => setMobileMenuOpen(false)}>Factions</a>
+          <a href="/#glossary" className="wiki-mobile-link" onClick={() => setMobileMenuOpen(false)}>Glossary</a>
+          <button className="wiki-mobile-random" onClick={() => { goToRandomCharacter(); setMobileMenuOpen(false); }}>
+            🎲 Random Character
+          </button>
+        </div>
+      </div>
 
       {/* Article Content */}
       <article className="wiki-article">
@@ -412,6 +449,15 @@ export default function CharacterPage() {
           </div>
         </div>
       </footer>
+
+      {/* Back to Top Button */}
+      <button
+        className={`wiki-back-to-top ${showBackToTop ? 'visible' : ''}`}
+        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        aria-label="Back to top"
+      >
+        <span>↑</span>
+      </button>
     </div>
   );
 }

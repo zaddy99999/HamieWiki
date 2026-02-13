@@ -1,14 +1,28 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { getAllCharacters, getFactions, getThemes, getGlossary, getLogline } from '@/lib/hamieverse/characters';
+import { getAllCharacters, getFactions, getGlossary, getLogline } from '@/lib/hamieverse/characters';
 
 export default function WikiHome() {
   const router = useRouter();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showBackToTop, setShowBackToTop] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowBackToTop(window.scrollY > 400);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
   const characters = getAllCharacters();
   const factions = getFactions();
-  const themes = getThemes();
   const glossary = getGlossary();
   const logline = getLogline();
 
@@ -59,8 +73,34 @@ export default function WikiHome() {
             <span>🎲</span>
             <span>Random</span>
           </button>
+
+          {/* Mobile Menu Button */}
+          <button
+            className="wiki-mobile-menu-btn"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            <span className={`wiki-hamburger ${mobileMenuOpen ? 'open' : ''}`}>
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+          </button>
         </div>
       </nav>
+
+      {/* Mobile Menu Overlay */}
+      <div className={`wiki-mobile-menu ${mobileMenuOpen ? 'open' : ''}`}>
+        <div className="wiki-mobile-menu-content">
+          <a href="#characters" className="wiki-mobile-link" onClick={() => setMobileMenuOpen(false)}>Main Characters</a>
+          <a href="#supporting" className="wiki-mobile-link" onClick={() => setMobileMenuOpen(false)}>Supporting</a>
+          <a href="#factions" className="wiki-mobile-link" onClick={() => setMobileMenuOpen(false)}>Factions</a>
+          <a href="#glossary" className="wiki-mobile-link" onClick={() => setMobileMenuOpen(false)}>Glossary</a>
+          <button className="wiki-mobile-random" onClick={() => { goToRandomCharacter(); setMobileMenuOpen(false); }}>
+            🎲 Random Character
+          </button>
+        </div>
+      </div>
 
       {/* Hero Section */}
       <section className="wiki-hero">
@@ -86,19 +126,6 @@ export default function WikiHome() {
             </div>
           </div>
 
-          <div className="wiki-hero-featured">
-            <div className="wiki-hero-featured-header">
-              <span className="wiki-hero-featured-badge">Themes</span>
-              <span className="wiki-hero-featured-title">Core Narrative</span>
-            </div>
-            <div className="wiki-theme-grid">
-              {themes.slice(0, 8).map((theme, i) => (
-                <span key={i} className="wiki-theme-chip">
-                  {theme.replace(/_/g, ' ')}
-                </span>
-              ))}
-            </div>
-          </div>
         </div>
       </section>
 
@@ -231,6 +258,15 @@ export default function WikiHome() {
           </div>
         </div>
       </footer>
+
+      {/* Back to Top Button */}
+      <button
+        className={`wiki-back-to-top ${showBackToTop ? 'visible' : ''}`}
+        onClick={scrollToTop}
+        aria-label="Back to top"
+      >
+        <span>↑</span>
+      </button>
     </div>
   );
 }
