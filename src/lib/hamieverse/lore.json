@@ -1,0 +1,724 @@
+{
+  "meta": {
+    "title": "THE HAMIEVERSE CODEX: Songs the City Forgot",
+    "version": "2.0-fuller",
+    "canon_status": "primary",
+    "source_pdf": "ecf1c3c3-17ad-41c1-99d4-a4d2eb6eb0bc.pdf",
+    "page_count": 108,
+    "last_updated": "2026-02-10",
+    "intended_use": "Claude Code agent memory + consistency anchor",
+    "warnings": [
+      "This JSON is a lore bible/continuity file, not a scene-by-scene reproduction.",
+      "All details are derived from the provided PDF; if you add later books/chapters, extend this file rather than overwrite."
+    ]
+  },
+  "logline": "A numbered factory worker in a motion-mandated surveillance city discovers a cracked pendant concealing a bridge chip and a USB that unlock the Undercode—an attention-driven shadow economy able to destabilize Aetherion—forcing him to choose between compliance, love, and a dangerous new identity: Simba.",
+  "tone_and_style": {
+    "genre": [
+      "dystopian",
+      "industrial",
+      "cyberpunk-adjacent",
+      "poetic-surreal"
+    ],
+    "narration": "sensory, lyrical, tense; warmth of memory cutting through sterile systems",
+    "recurring_sensory_palette": {
+      "city": [
+        "cold neon veins",
+        "choking grey steam",
+        "iron and glass",
+        "mechanical hum",
+        "fluorescent glare",
+        "oil and metal"
+      ],
+      "beyond": [
+        "fresh grass",
+        "woodsmoke",
+        "firelight amber",
+        "roasted crickets",
+        "earthy concoctions"
+      ],
+      "undercode": [
+        "ghostlike interfaces",
+        "pulsing timers",
+        "viral headlines",
+        "shimmering code",
+        "market-chaos as weather"
+      ]
+    },
+    "dialogue_rules": {
+      "city_workers": "short, careful, emotionally guarded; jokes are clipped and coded",
+      "ironpaws": "flat procedural phrasing; regulation codes; minimal empathy",
+      "undercode_elites": "charismatic, ironic, performative; power-talk framed as narrative steering"
+    }
+  },
+  "themes": [
+    "motion_vs_stillness",
+    "identity_vs_number",
+    "memory_vs_erasure",
+    "obedience_vs_free_will",
+    "love_vs_utility",
+    "revolution_vs_manipulation",
+    "attention_as_power",
+    "music_as_resistance"
+  ],
+  "world_rules": {
+    "identity_policy": {
+      "rule": "In the City, personal identity is suppressed; citizens are known by numeric IDs.",
+      "examples": [
+        "#146B",
+        "#257A",
+        "#479C",
+        "Subject #101B"
+      ],
+      "narrative_effect": "Names feel like contraband; using one can signal trust or danger."
+    },
+    "motion_policy": {
+      "rule": "Movement is mandatory; infrastructure enforces motion via belts, treadmills, and flow systems.",
+      "consequence": "Stillness reads as a fault in the machine—psychologically and politically."
+    },
+    "surveillance": {
+      "rule": "Observation is constant via Red Eye cameras, terminals, and IronPaw patrols.",
+      "exception": "Surveillance can be disrupted temporarily through Undercode countermeasures (e.g., Doppel Protocol)."
+    },
+    "contraband": {
+      "rule": "Unregistered devices (chips, USBs, hidden storage) are forbidden; punishment escalates to disappearance.",
+      "stakes": "Possession turns an object into a bomb (socially and physically)."
+    },
+    "beyond_doctrine": {
+      "rule": "The City claims its sacrifice preserves the Beyond’s purity.",
+      "function": "Moral alibi for exploitation; seeds resentment in those who remember the Beyond."
+    },
+    "attention_economy": {
+      "rule": "In the Undercode, attention/virality functions as currency and as leverage over markets and security systems.",
+      "mechanisms": [
+        "echo raids",
+        "viral loops",
+        "echoloops",
+        "synchronized buy/sell cascades"
+      ]
+    },
+    "memory_persistence": {
+      "rule": "Songs, hums, chants, and oral memory can survive suppression and reactivate identity.",
+      "function": "Music acts like encryption—portable, human, hard to police."
+    }
+  },
+  "setting": {
+    "the_city": {
+      "type": "industrial_megastructure",
+      "mantra_at_sunrise": "Work is purpose. Order is freedom. Obedience is peace.",
+      "landmarks": {
+        "the_wheel": {
+          "type": "colossal_energy_construct",
+          "description": "A spiraling rail-and-gear structure powered by Hamster Orbs: each orb contains a living runner acting as a battery.",
+          "symbolism": [
+            "exploitation",
+            "endless_obedience",
+            "the_system_as_machine_god"
+          ]
+        },
+        "tower_c_12": {
+          "type": "housing_block",
+          "description": "Hamie’s shoebox flat of steel and observation with a ceiling Red Eye camera."
+        },
+        "central_factory_gates": {
+          "type": "industrial_checkpoint",
+          "description": "Cold metal teeth opening daily to receive workers into repetition."
+        },
+        "the_overpass_ruins": {
+          "type": "system_seam",
+          "description": "A crumbling underpass beneath the City where the homeless man and dog lived; later becomes an IronPaw hunting ground."
+        }
+      },
+      "daily_life": {
+        "uniform": "Sand-grey regulation-compliant utility rags, unchanged for years.",
+        "food": "Cube-shaped protein blocks; cafeteria rituals under watch.",
+        "work": "Energy Relay Maintenance (ERM): conduits, blinking panels, heat, oil; strict procedures around repairs."
+      },
+      "surveillance_stack": {
+        "red_eyes": "Ceiling/wall cameras that blink and log behavior.",
+        "ironpaws": "Enforcers with red visors and protocol language.",
+        "investigations": "Outside teams called in when a rule is broken; interrogations and disappearances spike."
+      }
+    },
+    "the_beyond": {
+      "type": "wilderness / ancestral world",
+      "key_region": {
+        "virella": {
+          "type": "settlement/region",
+          "description": "Hamie’s remembered home: grass under bare paws, woodsmoke, elders’ faces in firelight, roasted crickets; later referenced as location of a care facility."
+        },
+        "virella_care_facility": {
+          "type": "institution",
+          "description": "Grandma’s room; distant but emotionally central via calls."
+        }
+      }
+    },
+    "undercode_space": {
+      "type": "shadow_digital_ecosystem",
+      "presentation": [
+        "ghostlike logos appearing in interface corners",
+        "feeds of coordinated ops",
+        "countdowns that pulse before viral attacks",
+        "status markers like 'creator elite'"
+      ]
+    },
+    "elite_spaces": {
+      "respeculators_penthouse": {
+        "type": "high-rise penthouse",
+        "description": "Neon-lit city views; strategic discussions; pills; late-night charisma; the rebellion-as-mask headquarters."
+      },
+      "neon_spire": {
+        "type": "rendezvous point",
+        "description": "Coded invitation location: Neon Spire, midnight sharp; associated with an ancient/alien emblem."
+      }
+    }
+  },
+  "factions": {
+    "aetherion": {
+      "type": "corporate_state / regime",
+      "goals": [
+        "maintain_order",
+        "suppress_identity",
+        "control_information",
+        "keep_the_wheel_turning"
+      ],
+      "methods": [
+        "mantra_broadcast",
+        "surveillance",
+        "forced_labor",
+        "investigations",
+        "cleanups/disappearances"
+      ],
+      "assets": [
+        "ironpaws",
+        "factory_systems",
+        "outside_investigation_teams"
+      ],
+      "notes": "Aetherion functions like a state-corporation with ideological programming; portrayed as oppressive and efficiency-obsessed."
+    },
+    "ironpaws": {
+      "type": "enforcement_units",
+      "alignment": "aetherion",
+      "traits": [
+        "black_armor",
+        "faceless_visors",
+        "red_scanners",
+        "mechanical_precision",
+        "protocol_language"
+      ],
+      "tools": [
+        "pacifier_weapon",
+        "scanners",
+        "terminal_authority"
+      ],
+      "operations": [
+        "patrols",
+        "interrogations",
+        "cleanups",
+        "search_and_seize"
+      ]
+    },
+    "section_9": {
+      "type": "cleanup_escalation_unit/operation",
+      "alignment": "aetherion",
+      "function": "Erases people and traces; appears as a named cleanup action around the overpass event."
+    },
+    "undercode": {
+      "type": "clandestine network / attention economy",
+      "core_concept": "Influence is currency; culture is an attack vector.",
+      "capabilities": [
+        "echo_raids (disrupt liquidity in shadow banks)",
+        "viral_video_loops (overload/fry security AIs)",
+        "echoloops (tank stocks via waves of attention)",
+        "synchronized_buy_sell_cascades"
+      ],
+      "currencies_and_markers": {
+        "AC": {
+          "name": "AC",
+          "aka": [
+            "Echo currency"
+          ],
+          "function": "Denominates wealth and influence in the Undercode."
+        },
+        "creator_elite": {
+          "type": "status_marker",
+          "function": "Forged badge overlay granting prestige/permissions inside the network."
+        }
+      },
+      "counter_surveillance": {
+        "doppel_protocol": {
+          "type": "forbidden mimic-script",
+          "function": "Can dissolve surveillance at a local node (e.g., disabling the ceiling Red Eye)."
+        }
+      }
+    },
+    "respeculators": {
+      "type": "elite shadow coalition",
+      "public_face": "Rebels and heroes fighting Aetherion.",
+      "true_mode": "Narrative/market steering in the grey zone; rebellion as mask until a certain point.",
+      "doctrine": [
+        "Influence matters more than trust.",
+        "Burn enough to light the path, not enough to destroy the fuel.",
+        "Change without wealth/power ends under the Wheel."
+      ],
+      "leaders": [
+        "sam",
+        "lira"
+      ],
+      "relationship_to_simba": "Sees Simba as a dangerous new asset and potential answer to long-held questions."
+    }
+  },
+  "systems_and_mechanics": {
+    "the_wheel_energy_system": {
+      "hamster_orbs": {
+        "definition": "Energy nodes containing a living runner powering circuits through motion.",
+        "ethics": "Living exploitation normalized as infrastructure.",
+        "symbolic_role": "Citizens mirror the orbs—running to uphold an impossible system."
+      }
+    },
+    "workplace_mechanics": {
+      "erm": "Energy Relay Maintenance; conduits, terminals, and strict compliance around repairs.",
+      "burnout": "Common pretext used to miss work without scrutiny; institutionalized exhaustion."
+    },
+    "enforcement_protocols": {
+      "self_dismissal_procedure": {
+        "definition": "Worker request for immediate termination of employment rights.",
+        "stakes": "Not framed as freedom; risk of being ground under the Wheel if you fall out of the system."
+      },
+      "protocol_four_seven_grey": {
+        "definition": "Burnout delay protocol invoked to postpone a self-dismissal request pending evaluation.",
+        "used_by": "#257A",
+        "effect": "Creates a small pocket of choice/time under surveillance."
+      }
+    },
+    "undercode_ops": {
+      "echo_raid": "Coordinated action to disrupt liquidity/shadow banking flows.",
+      "echoloop": "Short explosive post designed to tank stocks through cultural attention waves.",
+      "viral_loop": "Media payload engineered to overwhelm/fry security AIs.",
+      "aethercreed_operation": "Example viral op: 'Operation: Fuck the System' with countdown and mocking hamster media."
+    }
+  },
+  "motifs_and_symbols": {
+    "butterfly": {
+      "appears_in": "Prologue",
+      "meaning": "Fleeting freedom, caged power, the ache of choice denied."
+    },
+    "music_progression": {
+      "structure": [
+        "A Hum",
+        "A Chant",
+        "A Melody",
+        "A Hymn",
+        "A Song"
+      ],
+      "meaning": "Memory and resistance scaling from private signal to collective force."
+    },
+    "the_red_eye": {
+      "meaning": "Obedience made architectural; surveillance as domestic presence."
+    },
+    "the_pendant": {
+      "meaning": "Memory artifact and key; cracked but alive; contains hidden bridge tech."
+    },
+    "the_dog": {
+      "meaning": "Survival, loyalty, living archive; carries hidden storage."
+    }
+  },
+  "glossary": {
+    "Aetherion": "The regime/corporate-state controlling the City.",
+    "IronPaws": "Black-armored enforcers; speak in protocols; conduct patrols, interrogations, cleanups.",
+    "Red Eye": "Ceiling/wall surveillance camera that blinks and logs.",
+    "The Wheel": "Colossal spiraling construct; City’s power symbol; driven by living runners in Hamster Orbs.",
+    "Hamster Orbs": "Energy orbs containing a living runner acting as a battery.",
+    "ERM": "Energy Relay Maintenance work unit; conduit/terminal maintenance under strict rules.",
+    "Section 9": "Cleanup operation; escalated enforcement that erases people/traces.",
+    "Subject #101B": "A subject referenced during investigations; tied to the missing USB inquiry.",
+    "Self-dismissal procedure": "Request to terminate employment rights; framed as dangerous rather than freeing.",
+    "Protocol Four-Seven-Grey": "Burnout delay protocol invoked by #257A to pause Hamie’s self-dismissal request.",
+    "Undercode": "Shadow digital ecosystem where attention/virality drives currency and power.",
+    "AC": "Echo currency used in the Undercode.",
+    "Echo raid": "Undercode operation to disrupt liquidity/shadow banks.",
+    "Echoloop": "Short viral post designed to tank markets via attention waves.",
+    "Doppel Protocol": "Forbidden mimic-script that can dissolve surveillance (e.g., disable the Red Eye).",
+    "Creator elite": "Status marker in the Undercode; can be forged/overlaid.",
+    "Neonburn": "Alcohol referenced as sour on breath; used to numb or signal elite excess.",
+    "Neon Spire": "Rendezvous location named in a coded invitation; associated with an ancient emblem."
+  },
+  "characters": {
+    "hamie": {
+      "id": "#146B",
+      "display_name": "Hamie",
+      "roles": [
+        "factory_worker",
+        "protagonist",
+        "undercode_newcomer"
+      ],
+      "origin": "Virella (Beyond)",
+      "home": "Tower C-12",
+      "traits": [
+        "observant",
+        "anxious_under_surveillance",
+        "morally_driven",
+        "protective",
+        "yearning_for_memory"
+      ],
+      "core_conflicts": [
+        "survival_vs_defiance",
+        "obedience_vs_identity",
+        "love_for_grandma_vs_risk",
+        "new_power_vs_exposure"
+      ],
+      "inventory": [
+        "cracked_green_pendant",
+        "bridge_chip",
+        "usb_drive",
+        "terminal_access"
+      ],
+      "arc": "A compliant runner becomes Simba in the Undercode after unlocking contraband tech and gaining sudden influence."
+    },
+    "simba_digital_identity": {
+      "id": "simba",
+      "type": "alias",
+      "owner": "hamie",
+      "meaning": "Hamie’s Undercode persona; marks his shift from faceless worker to player in a larger game.",
+      "known_events": [
+        "Undercode buy action confirms +13,000,000 AC",
+        "Creator elite marker is overlaid/forged on his digital badge"
+      ]
+    },
+    "grandma": {
+      "display_name": "Grandma",
+      "relationship": "Hamie’s grandmother",
+      "location": "Virella care facility",
+      "traits": [
+        "warm",
+        "concerned",
+        "memory_keeper"
+      ],
+      "function": "Emotional anchor; calls reveal Hamie’s fatigue and the persistence of love across distance."
+    },
+    "257A": {
+      "id": "#257A",
+      "display_name": "#257A",
+      "roles": [
+        "senior_worker",
+        "quiet_intervenor"
+      ],
+      "traits": [
+        "world_weary",
+        "sharp",
+        "not_unkind",
+        "strategic"
+      ],
+      "notable_actions": [
+        "Invokes Protocol Four-Seven-Grey to delay Hamie’s self-dismissal request",
+        "Warns that falling out of the Wheel means being ground under it"
+      ],
+      "symbolic_role": "Embodies survived resistance—small cracks of choice inside the machine."
+    },
+    "479C": {
+      "id": "#479C",
+      "display_name": "#479C",
+      "roles": [
+        "younger_worker",
+        "spark_of_defiance"
+      ],
+      "traits": [
+        "bold",
+        "rebellious"
+      ],
+      "notes": "Associated with subtle identity rebellion (e.g., pink markers/studs)."
+    },
+    "mitch": {
+      "display_name": "Mitch",
+      "roles": [
+        "neighbor",
+        "informal_explainer"
+      ],
+      "traits": [
+        "nosy",
+        "street_smart"
+      ],
+      "notable_info": "Explains the bridge chip concept/function; unusually uses a real name in a world of numbers."
+    },
+    "sam": {
+      "display_name": "Sam",
+      "roles": [
+        "respeculator_leader",
+        "strategist",
+        "negotiator",
+        "charismatic_operator"
+      ],
+      "traits": [
+        "charismatic",
+        "calculating",
+        "narrative_steerer",
+        "power_seeking"
+      ],
+      "doctrine": [
+        "Influence is the point, not trust.",
+        "Use rebellion as mask to evade scrutiny while amassing power."
+      ],
+      "interest_in_simba": "Views Simba as dangerous and unpredictable, and as a potential answer to questions he has long wanted solved.",
+      "private_context": "Shown in vulnerable drugged/pill-fueled late-night moments, but remains strategic."
+    },
+    "lira": {
+      "display_name": "Lira",
+      "roles": [
+        "respeculator_partner",
+        "skeptical_enforcer"
+      ],
+      "species_note": "Described as panther-like.",
+      "traits": [
+        "volatile",
+        "intuitive",
+        "suspicious"
+      ],
+      "dynamics": "Rolls eyes at Sam’s nicknames; participates in recruitment strategy; wary of Simba."
+    },
+    "luna": {
+      "display_name": "Luna",
+      "roles": [
+        "undercode_associate",
+        "party_companion",
+        "warning_voice"
+      ],
+      "species_note": "Described as a lithe ferret with eyes like spun glass.",
+      "traits": [
+        "smooth",
+        "insistent",
+        "streetwise"
+      ],
+      "notable_line_summary": "Warns Simba he is 'running on empty' during Undercode-fueled nights."
+    },
+    "homeless_man_under_overpass": {
+      "display_name": "Unnamed homeless man",
+      "roles": [
+        "mysterious_contact",
+        "catalyst"
+      ],
+      "notes": "Linked to the pendant and the melody motif; disappears during cleanup/investigation escalation.",
+      "status": "missing/disappeared"
+    },
+    "dog_simba": {
+      "display_name": "Simba (dog)",
+      "roles": [
+        "survivor",
+        "living_archive"
+      ],
+      "notes": "Connected to the overpass; carries hidden storage in collar; returns after the man disappears.",
+      "status": "alive"
+    },
+    "alistair_veynar": {
+      "display_name": "Alistair Veynar",
+      "roles": [
+        "prologue_antagonistic_father_figure"
+      ],
+      "traits": [
+        "violent",
+        "elitist",
+        "discipline_as_cruelty"
+      ],
+      "symbols": [
+        "family_crest_ring",
+        "Neonburn_breath"
+      ],
+      "notes": "Represents inherited malevolent power framed as a curse."
+    },
+    "silas": {
+      "display_name": "Silas",
+      "roles": [
+        "prologue_witness"
+      ],
+      "traits": [
+        "silent",
+        "tense",
+        "wants_to_help_but_cannot"
+      ],
+      "notes": "Observes abuse from behind a doorframe; a seed of future divergence."
+    },
+    "veynar_mother": {
+      "display_name": "Unnamed Veynar mother",
+      "roles": [
+        "prologue_elite_mother_figure"
+      ],
+      "traits": [
+        "cold",
+        "contemptuous",
+        "status-obsessed"
+      ],
+      "notes": "Reinforces the ideology that kindness is weakness; expects emotional suppression."
+    }
+  },
+  "plot_outline": {
+    "prologue": {
+      "title": "PROLOGUE",
+      "beats": [
+        "Elite household: Alistair Veynar punishes a boy for showing emotion and 'weakness'.",
+        "Family power is described as malevolent and inherited like a curse.",
+        "A butterfly outside a window symbolizes fleeting freedom.",
+        "Silas watches silently from behind a doorframe, tense and unable to intervene."
+      ],
+      "introduces": [
+        "Alistair Veynar",
+        "Silas",
+        "Veynar family ethos",
+        "butterfly motif",
+        "Neonburn"
+      ]
+    },
+    "chapters": [
+      {
+        "number": 1,
+        "title": "A HUM",
+        "beats": [
+          "The City is introduced as an industrial titan powered by the Wheel and Hamster Orbs.",
+          "Sunrise mantra broadcasts obedience into citizens’ bodies.",
+          "Hamie wakes in Tower C-12 under a Red Eye camera, exhausted from years without true rest.",
+          "Hamie remembers the Beyond in fragments—grass, woodsmoke, roasted crickets, elders in firelight—especially Virella.",
+          "Daily routine: regulation uniform, moving infrastructure, work funneling life into the factory system."
+        ],
+        "introduces": [
+          "Hamie (#146B)",
+          "Tower C-12",
+          "Red Eye surveillance",
+          "Wheel/Hamster Orbs",
+          "Virella/Beyond memory"
+        ]
+      },
+      {
+        "number": 2,
+        "title": "A CHANT",
+        "beats": [
+          "Hamie’s world tightens; the overpass seam becomes a locus of danger and curiosity.",
+          "Section 9 is referenced as escalation; enforcement presence grows harsher.",
+          "The dog (Simba) and the overpass connection sharpen Hamie’s sense that the City’s narrative is a lie.",
+          "Contraband stakes begin to crystallize as hidden objects become potential death sentences."
+        ],
+        "introduces": [
+          "Section 9",
+          "overpass as seam",
+          "Simba (dog) as motif"
+        ]
+      },
+      {
+        "number": 3,
+        "title": "A MELODY",
+        "beats": [
+          "A USB becomes central: it is treated as a 'live grenade' with secrets that could shatter control.",
+          "Grandma checks in from Virella care facility; Hamie lies about being fine.",
+          "Factory headquarters shifts: investigation teams arrive; interrogations begin.",
+          "Workers disappear; whispers ask about Subject #101B and the USB.",
+          "Hamie returns toward the overpass ruins despite danger; IronPaws search blankets and crevices."
+        ],
+        "introduces": [
+          "USB as contraband center",
+          "Subject #101B",
+          "Grandma (active)",
+          "IronPaw investigations"
+        ]
+      },
+      {
+        "number": 4,
+        "title": "A HYMN",
+        "beats": [
+          "Hamie attempts self-dismissal (termination of employment rights) at the central terminal.",
+          "An IronPaw logs the request and demands confirmation.",
+          "#257A intervenes, invoking Protocol Four-Seven-Grey to delay self-dismissal due to burnout.",
+          "#257A warns: leaving the Wheel doesn’t mean freedom; it can mean being ground under it.",
+          "Cut to Respeculators: Sam outlines recruitment strategy—offer protection/resources to steer the narrative.",
+          "Respeculators are described as thriving in grey zones: rebellion as mask, power accumulation as true aim.",
+          "Sam becomes fixated on Simba as a new, unpredictable piece on the board."
+        ],
+        "introduces": [
+          "self-dismissal procedure",
+          "Protocol Four-Seven-Grey",
+          "#257A",
+          "Respeculators (Sam/Lira)"
+        ]
+      },
+      {
+        "number": 5,
+        "title": "A SONG",
+        "beats": [
+          "Hamie scrolls Undercode ops: echo raids, viral loops, echoloops tanking stocks via attention waves.",
+          "Aethercreed operation launches with countdown and a mocking hamster; markets convulse under synchronized chaos.",
+          "Hamie clicks buy—confirmation hits: +13,000,000 AC.",
+          "Undercode consumes Hamie’s time; he learns legacy codes, hidden plugins, and deploys the Doppel Protocol.",
+          "The Red Eye in Hamie’s ceiling flickers and goes dark.",
+          "Hamie’s badge gains a forged creator elite marker; he misses work under burnout pretext.",
+          "Luna warns Simba he is running on empty; nightlife and influence spiral together.",
+          "A coded invitation arrives with an ancient emblem: rendezvous at the Neon Spire, midnight sharp.",
+          "Hamie ends in doubt: can he survive the game he has entered?"
+        ],
+        "introduces": [
+          "Undercode mechanics",
+          "Aethercreed op",
+          "AC windfall",
+          "Doppel Protocol",
+          "creator elite",
+          "Luna",
+          "Neon Spire invitation"
+        ]
+      }
+    ]
+  },
+  "relationships": [
+    {
+      "a": "hamie",
+      "b": "grandma",
+      "type": "family",
+      "valence": "love_anchor"
+    },
+    {
+      "a": "hamie",
+      "b": "257A",
+      "type": "workplace",
+      "valence": "cautious_protection"
+    },
+    {
+      "a": "hamie",
+      "b": "mitch",
+      "type": "neighbor",
+      "valence": "information_exchange"
+    },
+    {
+      "a": "sam",
+      "b": "lira",
+      "type": "alliance",
+      "valence": "volatile_partnerhood"
+    },
+    {
+      "a": "respeculators",
+      "b": "simba_digital_identity",
+      "type": "target",
+      "valence": "asset_recruitment"
+    },
+    {
+      "a": "aetherion",
+      "b": "hamie",
+      "type": "oppression",
+      "valence": "surveillance_pressure"
+    },
+    {
+      "a": "ironpaws",
+      "b": "hamie",
+      "type": "enforcement",
+      "valence": "active_risk"
+    }
+  ],
+  "agent_operating_rules": {
+    "continuity_constraints": [
+      "City residents default to numeric IDs; names are rare and meaningful.",
+      "The City’s infrastructure enforces motion; characters feel pulled/dragged by it.",
+      "Surveillance is constant unless explicitly disabled by Undercode countermeasures.",
+      "IronPaws speak procedurally and escalate based on protocol logic, not emotion.",
+      "Undercode actions translate into real-world consequences (market shocks, security failures, scrutiny).",
+      "Respeculators present as rebels publicly but operate as power brokers privately."
+    ],
+    "do_not_invent": [
+      "Do not invent additional chapters beyond 1–5 for this book without new source material.",
+      "Do not change the sunrise mantra wording.",
+      "Do not portray Aetherion as benevolent or accidental."
+    ]
+  }
+}

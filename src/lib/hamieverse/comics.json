@@ -1,0 +1,435 @@
+{
+  "schema_version": "1.0.0",
+  "source": {
+    "type": "user_provided_images",
+    "collection_title": "Hamie Saga Comics (Issue 1–2)",
+    "notes": "Structured lore bible built from the comic pages provided in-chat as images. Text is paraphrased; wording in captions/dialogue may be approximate."
+  },
+  "canon": {
+    "logline": "In a neon megacity powered by living batteries and enforced obedience, a hamster runner named Hamie begins to hear the 'crack' in the system—an undercode that turns into wealth, then a weapon—pulling him into a shadow war between royalty, speculators, and a ruthless ruler named Silas.",
+    "tone": [
+      "cyberpunk dystopia",
+      "satirical corporate-authoritarianism",
+      "mystery thriller",
+      "class revolt",
+      "crypto/market mania allegory"
+    ],
+    "themes": [
+      "obedience as infrastructure",
+      "the cost of comfort and complicity",
+      "identity as a label/ID",
+      "information as power and as bomb",
+      "revolt vs controlled opposition",
+      "class stratification and spectacle",
+      "friendship as forbidden stillness"
+    ],
+    "core_slogans_and_mottos": [
+      "Work is purpose.",
+      "Order is freedom.",
+      "Obedience is peace.",
+      "Run. Repeat. Run."
+    ]
+  },
+  "world": {
+    "primary_setting": {
+      "name": "The City (Neon Metropolis)",
+      "description": "A dense vertical city of neon towers, elevated walkways, surveillance screens, and mechanized transit. The city is depicted as a living machine that 'never stops spinning'.",
+      "aesthetic_tags": [
+        "neon",
+        "industrial",
+        "tower blocks",
+        "sky bridges",
+        "retro-futurist tech",
+        "propaganda signage"
+      ]
+    },
+    "power_and_control_system": {
+      "overview": "The City runs on a central mechanical energy system visually represented by a massive Wheel structure tethered by cables and conduits. Energy is implied to be generated via 'living batteries'—citizens/animals embedded in obedient routines.",
+      "mechanics": [
+        "Citizens commute in pod-like transport bubbles that enforce movement and timing.",
+        "Work routines and movement patterns are regulated to maintain the city's 'spin'.",
+        "Propaganda messaging reinforces compliance and frames labor as freedom."
+      ],
+      "key_infrastructure": [
+        {
+          "name": "The Wheel",
+          "role": "Symbol and engine of the city's perpetual motion; a locus of power and later a target of sabotage/explosion."
+        },
+        {
+          "name": "Central Factory",
+          "role": "Industrial core where 'living batteries' are implied to be exploited; later tied to the concert/factory convergence plan."
+        },
+        {
+          "name": "Pod Commute Grid",
+          "role": "Mass transit of bubble pods enforcing rhythm: 'Weightless commute. Run. Repeat.'"
+        }
+      ]
+    },
+    "social_strata": {
+      "runner_class": {
+        "description": "Working-class citizens labeled/numbered, kept in strict loops of commute and labor.",
+        "signifiers": [
+          "uniform jumpsuits",
+          "ID codes on chest",
+          "small cramped rooms",
+          "surveillance"
+        ]
+      },
+      "upper_city_elite": {
+        "description": "High-rise penthouses, exclusive clubs, Inner Court politics, and spectatorship over the city below.",
+        "signifiers": [
+          "lavish venues",
+          "tailored suits",
+          "private vehicles",
+          "status upgrades"
+        ]
+      }
+    },
+    "technology": {
+      "surveillance": "Screens and system monitors track citizens and broadcast propaganda.",
+      "security_forces": {
+        "name": "Ironpaw (Security/Enforcement)",
+        "description": "Heavily armored enforcers deployed against dissent and investigations; operate in squads with red/black armor and high-powered weapons."
+      },
+      "network_layer": {
+        "name": "Undercode",
+        "description": "A hidden digital layer that can be accessed via devices/USB-like data shards; can trigger market events and social manipulation.",
+        "tags": [
+          "exploit",
+          "backdoor",
+          "secret network",
+          "viral memetics"
+        ]
+      }
+    }
+  },
+  "entities": {
+    "characters": {
+      "hamie": {
+        "name": "Hamie",
+        "aliases": [
+          "Simba",
+          "Subject #146B (seen as #146-B / 146B on uniform)",
+          "Creator Elite (status)"
+        ],
+        "species": "hamster",
+        "role": "Protagonist; runner who discovers Undercode and becomes a pivotal figure targeted by competing factions.",
+        "personality": {
+          "baseline": [
+            "conscientious",
+            "anxious",
+            "curious",
+            "compassionate"
+          ],
+          "conflicts": [
+            "ambition vs guilt",
+            "safety vs truth",
+            "loneliness vs connection"
+          ]
+        },
+        "motivations": [
+          "survive the system",
+          "understand the voice/undercode and the 'crack'",
+          "help his grandmother",
+          "make meaning beyond running"
+        ],
+        "notable_traits": [
+          "feels pulled toward danger/answers",
+          "hears/feels the city 'crack'",
+          "becomes wealthy quickly via Undercode, but remains unsettled"
+        ]
+      },
+      "grandma": {
+        "name": "Grandma (Hamie's grandmother)",
+        "role": "Emotional anchor; prompts Hamie to eat/rest; later becomes the 'second' to feel the undercode pull.",
+        "notes": "Her unread messages and Hamie's avoidance are recurring guilt symbols."
+      },
+      "kira": {
+        "name": "Kira",
+        "aliases": [
+          "#479C"
+        ],
+        "species": "hamster (pink holographic/AR avatar form appears at Neon Spire interface)",
+        "role": "Key missing person / catalyst; her identity is discovered as code #479C; linked to the conspiracy and the planned operation.",
+        "status": "Missing/hidden; her reveal is a major plot turn."
+      },
+      "sam": {
+        "name": "Sam",
+        "species": "mouse",
+        "role": "Inner Court contact; introduces Hamie to the Respeculators; claims unique lineage and frames Hamie as a useful outsider.",
+        "notes": "Tells Hamie that 'the only existing panther lineage is the Royals' and implies Sam is tied to it (or knows it intimately)."
+      },
+      "lira": {
+        "name": "Lira Veyna",
+        "species": "panther (humanoid-styled, black hair, eyepatch)",
+        "role": "Operative inside Inner Court; claims royal family connection but rejects the current order; runs monitoring/ops and negotiates a risky plan.",
+        "traits": [
+          "strategic",
+          "tense",
+          "controlled",
+          "conflicted loyalties"
+        ],
+        "motivations": [
+          "stop Silas",
+          "expose/undo the system",
+          "protect what remains of the Royals' legacy"
+        ],
+        "notable_quote_paraphrases": [
+          "There are very few who loathe the order as much as I do.",
+          "If we don't move quickly, we must evacuate."
+        ]
+      },
+      "iris": {
+        "name": "Iris",
+        "species": "mouse",
+        "role": "Sam's associate/assistant in Inner Court scenes; warns about 'Orrien' planning and manages information flow."
+      },
+      "silas": {
+        "name": "Silas",
+        "species": "unknown (depicted as a ruler figure; also shown as a red-lit throne silhouette/portrait)",
+        "role": "Primary antagonist; leader of the Aetherion (or the city's ruling structure); feared, ruthless, and framed as more dangerous than anyone else.",
+        "notes": "Discussed as 'the leader of the Aetherion' and 'not the scary one' by some, implying an even deeper threat or mythos beyond him."
+      },
+      "halo": {
+        "name": "Halo",
+        "species": "deer/elk-like royal figure (white hair, antlers, ornate jewelry)",
+        "role": "Celebrity/royal-class presence drawn into Inner Court politics; tied to the concert spectacle; used as distraction/propaganda leverage."
+      },
+      "weylor": {
+        "name": "Weylor",
+        "species": "cat",
+        "role": "Inner Court member; provides insider info; helps with 'concert <-> factory' reasoning; part of operational planning."
+      },
+      "veylor": {
+        "name": "Veylor",
+        "species": "cat",
+        "role": "Inner Court attendee; introduced as having been part of a past movement; present at planning table."
+      },
+      "contractor_friend": {
+        "name": "Old Contractor (bearded figure)",
+        "species": "unknown (small animal; older male with beard)",
+        "role": "Represents rare 'stillness' and human connection; shares a simple moment and warns about the 'kill zone' / danger areas."
+      },
+      "pet_companion": {
+        "name": "Companion (small dog/fox-like pet in tech harness)",
+        "role": "Hamie's companion; present during key scenes; used as emotional mirror and as a witness."
+      }
+    },
+    "factions": {
+      "the_system": {
+        "name": "The City System / Order",
+        "description": "The authoritarian apparatus maintaining obedience through labor loops, surveillance, and propaganda.",
+        "assets": [
+          "propaganda towers",
+          "commute pods",
+          "regulated work",
+          "ID labeling"
+        ]
+      },
+      "ironpaw": {
+        "name": "Ironpaw",
+        "description": "Armored enforcers/security forces used for raids and suppression; conduct investigations and 'sweep' operations.",
+        "tactics": [
+          "patrol routes",
+          "raids",
+          "intimidation",
+          "capture of suspects"
+        ]
+      },
+      "respeculators": {
+        "name": "The Respeculators",
+        "description": "Shadowy elite network operating in the 'shadows' but in plain sight; treat politics as a market/game and plan operations using spectacle.",
+        "notes": "They frame themselves as helping the city by manipulating outcomes; invite Hamie as a potentially useful outsider."
+      },
+      "aetherion": {
+        "name": "The Aetherion",
+        "description": "Ruling faction/organization associated with Silas. Seen as the deeper power structure behind the city's control.",
+        "threat_level": "extreme"
+      }
+    },
+    "objects_and_artifacts": {
+      "data_shard_usb": {
+        "name": "Data Shard / USB-like device",
+        "description": "A small crystalline/blue object connected to Undercode access. Characters state it is 'not just data' but 'a bomb'."
+      },
+      "pendant": {
+        "name": "Geometric Blue Pendant",
+        "description": "A blue crystal pendant in a gold cage. It heats/burns against Hamie's fur, implying resonance with truth, danger, or proximity to key events.",
+        "effects": [
+          "burning sensation",
+          "warning signal",
+          "possible key to identity/lineage"
+        ]
+      },
+      "id_codes": {
+        "name": "Citizen ID Codes",
+        "description": "Alphanumeric labels used to define status/identity (e.g., #146B, #479C).",
+        "notes": "IDs function as both bureaucratic control and story mysteries."
+      }
+    },
+    "currencies_and_markets": {
+      "loilcoin": {
+        "name": "LOILCOIN (LOLCOIN spelling appears as LOILCOIN/LOLCOIN in-screen)",
+        "description": "A meme-like market asset that 'soars' after Undercode actions; used to depict wealth creation and manipulation."
+      }
+    }
+  },
+  "plot": {
+    "issue_1": {
+      "title": "Issue 1 (Runner Loop → Undercode Spark)",
+      "summary": "Hamie lives inside the City's obedience machine: pod commutes, propaganda slogans, and endless running. A rare moment of connection shows him what stillness feels like. He stumbles into an Undercode entry point via a data shard, triggering a rapid rise in wealth and status—yet it deepens his dread. A mysterious invite sets a rendezvous at the Neon Spire.",
+      "beats": [
+        "The City is introduced as a wounded titan that groans and turns, powered by living obedience.",
+        "Hamie wakes early, always 'regulation compliant', and enters the daily loop: run, repeat, commute.",
+        "Propaganda towers repeat the doctrine: Work/Order/Obedience.",
+        "Hamie notices the emptiness—no deviation—and begins overthinking the loop.",
+        "A quiet alley encounter provides 'one fragment of stillness' and real human connection; talk of a 'kill zone' hints at forbidden areas.",
+        "Ironpaw presence and surveillance intensify; danger feels closer.",
+        "Hamie finds/uses a blue data shard; learns Undercode exists; screens display 'Welcome to Undercode' and #LOILCOIN soars.",
+        "A single click (invest) results in a massive gain (+13,000,000 LC shown); Hamie gains 'Creator Elite' status and decides he's 'not running anymore'.",
+        "Despite wealth, Hamie avoids grandma messages and feels something missing; the undercode is 'just the beginning'.",
+        "A hooded figure delivers a message: rendezvous at the Neon Spire at midnight sharp."
+      ],
+      "key_questions_raised": [
+        "What is Undercode really—and who built it?",
+        "Why is Hamie being selected?",
+        "Who is #479C and why does she matter?",
+        "What is the Wheel's true function?",
+        "Why does the pendant respond (burn) to certain truths?"
+      ]
+    },
+    "issue_2": {
+      "title": "Issue 2 (Neon Spire → Inner Court → Operation Ignition)",
+      "summary": "Hamie enters the elite world at the Neon Spire and is brought before the Inner Court/Respeculators. They reveal the city's deeper power struggle (Silas/Aetherion), the Royals' hidden lineage, and a plan: use spectacle (a concert) and a factory convergence to exploit patrol routes and plant charges—non-breathing directional blasts—to fracture the system. As operations unfold, the Wheel is struck, riots ignite, and Kira is revealed as #479C.",
+      "beats": [
+        "Hamie reaches the Neon Spire—an unfamiliar, higher-tier district—torn between trap and necessity.",
+        "A pink holographic hamster entity greets him at the Spire interface; the name 'Simba' is used, hinting at identity masking.",
+        "Hamie is escorted into Inner Court spaces under guard; elite hedonism contrasts with runner life.",
+        "Sam introduces himself and frames Hamie as an 'underdog legend' whose outsider status is useful.",
+        "Lira Veyna is introduced—tense, controlled, and implied royal—warning about real stakes and the need for discretion.",
+        "Respeculators explain they operate in the shadows with enemies and leverage; they invite Hamie into their orbit.",
+        "They describe Silas as dangerous, connected to the Aetherion, and central to the city's oppression.",
+        "Hamie’s pendant burns; he realizes he’s becoming physically entangled with the conspiracy.",
+        "A plan forms: coordinate a 'concert <-> factory' convergence; use distractions, crowd movement, and inside info to plant directional, non-breathing charges.",
+        "Screens show patrol route maps and scheduled maintenance windows; teams are assigned (e.g., distraction, monitoring, insider info).",
+        "Ironpaw raids and sweeps intensify; the system is 'compromised' and suspects are hunted.",
+        "The operation triggers: explosions at the tower/factory district; fire spreads; riots/uprising erupt.",
+        "A crucial ID reveal: #479C, tied to Kira, is confirmed amid the chaos.",
+        "Characters shout names and warnings; separation and sacrifice are implied as the city burns."
+      ],
+      "operation_plan_artifacts": {
+        "codename": "Concert–Factory Convergence",
+        "time_horizon": "72 hours (shown on panel)",
+        "constraints": [
+          "Must avoid mass casualties (directional charges, 'non-breathing').",
+          "Need crowd manipulation and distraction.",
+          "Patrol timing and maintenance windows are critical."
+        ],
+        "teams_and_roles": [
+          {
+            "team": "Distraction",
+            "lead": "Halo (implied) / Inner Court assets",
+            "goal": "Use spectacle to mask movement and attention."
+          },
+          {
+            "team": "Monitoring",
+            "lead": "Lira",
+            "goal": "Track Ironpaw patrols and system responses; coordinate timing."
+          },
+          {
+            "team": "Insider Info",
+            "lead": "Weylor / Veylor (implied)",
+            "goal": "Provide access and internal schedules."
+          },
+          {
+            "team": "Crowd Movement",
+            "lead": "Kira (implied by later reveal)",
+            "goal": "Steer masses to reduce casualties and maximize impact."
+          }
+        ]
+      }
+    }
+  },
+  "glossary": [
+    {
+      "term": "Runner",
+      "definition": "Working-class citizen trapped in regulated loops of labor and movement."
+    },
+    {
+      "term": "Wheel",
+      "definition": "Central engine/symbol of the city's perpetual motion; target of sabotage."
+    },
+    {
+      "term": "Undercode",
+      "definition": "Hidden network layer/exploit that can manipulate markets and information; not merely data—treated as a weapon."
+    },
+    {
+      "term": "Respeculators",
+      "definition": "Elite shadow network using political strategy like markets/speculation; Inner Court clique."
+    },
+    {
+      "term": "Aetherion",
+      "definition": "Core ruling power tied to Silas; implied to be above normal elite politics."
+    },
+    {
+      "term": "Ironpaw",
+      "definition": "Armored enforcement units conducting raids/sweeps to suppress dissent and protect the system."
+    },
+    {
+      "term": "#146B",
+      "definition": "Hamie’s runner ID; connects to identity masking and social control."
+    },
+    {
+      "term": "#479C",
+      "definition": "Kira’s ID; major reveal tied to missing person/catalyst role."
+    },
+    {
+      "term": "Neon Spire",
+      "definition": "High-tier district and rendezvous point; gateway into Inner Court society."
+    },
+    {
+      "term": "Living Batteries",
+      "definition": "Metaphor/system claim that the city is powered by citizens’ obedient labor/life force."
+    }
+  ],
+  "relationship_map": {
+    "hamie_to_grandma": "Love + guilt; he avoids her messages while chasing answers and status.",
+    "hamie_to_kira": "Mystery pull; her ID (#479C) becomes central to the conspiracy and operation.",
+    "hamie_to_sam": "Recruitment dynamic; Sam flatters and weaponizes Hamie’s outsider status.",
+    "hamie_to_lira": "Tense alliance; Lira tests Hamie’s trust and uses him as a wedge against the system.",
+    "lira_to_sam": "Co-leaders/partners within the Respeculators; Lira more severe and operational, Sam more social/manipulative.",
+    "respeculators_to_aetherion": "Opposition/fear; they plan against Silas while acknowledging deeper dangers.",
+    "ironpaw_to_everyone": "Enforcement antagonists; raids intensify as Undercode leaks spread."
+  },
+  "continuity_flags": {
+    "identity_masking": {
+      "description": "Hamie is called Simba; his runner ID (#146B) appears; elites treat names as flexible but IDs as control points.",
+      "open_questions": [
+        "Is Simba his assigned persona? A cover identity? A legacy name?"
+      ]
+    },
+    "pendant_resonance": {
+      "description": "The pendant burns during key moments, implying it reacts to truth, lineage, or proximity to system fractures."
+    },
+    "undercode_as_weapon": {
+      "description": "Undercode is framed as more than data—capable of destabilizing the city and markets (LOILCOIN surge) and possibly triggering physical consequences."
+    }
+  },
+  "agent_hooks": {
+    "for_roleplay": [
+      "Respond as Hamie/Simba: anxious but determined, torn between safety and truth.",
+      "Respond as Lira: clipped, tactical, distrustful of elites, hates the order.",
+      "Respond as Sam: charming, cynical, treats politics as a game.",
+      "Respond as Ironpaw comms: terse, procedural, dehumanizing."
+    ],
+    "for_story_generation": [
+      "Write scenes that contrast runner loops with elite spectacle.",
+      "Use the Wheel as omnipresent symbol: turning, groaning, threatening to break.",
+      "Make Undercode feel like a whispering backdoor—temptation and dread."
+    ],
+    "for_game_design": [
+      "Core loop: run/commute/work → discover anomalies → access Undercode → attract attention → choose factions → plan heists/operations.",
+      "Faction reputations: Respeculators vs Aetherion vs System vs Underground civilians."
+    ]
+  }
+}
