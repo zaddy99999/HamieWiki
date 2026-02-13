@@ -28,6 +28,66 @@ const characterColors: Record<string, string> = {
   ironpaws: '#1F2937',
 };
 
+// Character quotes
+const characterQuotes: Record<string, string[]> = {
+  hamie: [
+    "The City never sleeps, and neither do its cameras.",
+    "Sometimes the only way out is through.",
+    "I remember the grass. I remember the firelight. I won't let them take that too.",
+  ],
+  sam: [
+    "Influence is the point, not trust.",
+    "Use rebellion as mask to evade scrutiny while amassing power.",
+    "Burn enough to light the path, not enough to destroy the fuel.",
+  ],
+  lira: [
+    "Trust is a currency. Spend it wisely.",
+    "Everyone wants something. The trick is knowing what.",
+  ],
+  '257a': [
+    "Fall out of the Wheel, and you'll be ground under it.",
+    "Burnout isn't weakness. It's survival.",
+  ],
+  luna: [
+    "You're running on empty, Simba. Even stars burn out.",
+  ],
+  ace: [
+    "An echo raid isn't just noise—it's a symphony of chaos.",
+    "In the Undercode, attention is power. Use it.",
+  ],
+  hikari: [
+    "Every system has a seam. You just have to find it.",
+    "Code doesn't lie. People do.",
+  ],
+  kael: [
+    "I wore the visor. I know what they're capable of.",
+    "Some orders you can't follow and still call yourself alive.",
+  ],
+  orrien: [
+    "Information flows like water. I'm just the riverbed.",
+    "Loyalty is expensive. I deal in cheaper currencies.",
+  ],
+};
+
+// Character factions
+const characterFactions: Record<string, string> = {
+  hamie: 'Undercode',
+  sam: 'Respeculators',
+  lira: 'Respeculators',
+  silas: 'Aetherion Elite',
+  grandma: 'The Beyond',
+  mitch: 'The City',
+  '257a': 'The City',
+  '479c': 'The City',
+  ace: 'Undercode',
+  hikari: 'Undercode',
+  kael: 'Undercode',
+  orrien: 'Independent',
+  luna: 'Undercode',
+  alistair_veynar: 'Aetherion Elite',
+  veynar_mother: 'Aetherion Elite',
+};
+
 // Transform raw character data into wiki-friendly format
 function transformCharacter(key: string, data: any): HamieCharacter {
   return {
@@ -60,6 +120,8 @@ function transformCharacter(key: string, data: any): HamieCharacter {
     summary: data.summary,
     gifFile: characterGifs[key.toLowerCase()] || undefined,
     color: characterColors[key.toLowerCase()] || '#888888',
+    quotes: characterQuotes[key.toLowerCase()] || undefined,
+    faction: characterFactions[key.toLowerCase()] || undefined,
   };
 }
 

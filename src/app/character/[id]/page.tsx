@@ -11,6 +11,7 @@ import {
   getGlossary,
   getFactions,
 } from '@/lib/hamieverse/characters';
+import CharacterRating from '@/components/CharacterRating';
 
 interface SearchResult {
   type: 'character' | 'faction' | 'glossary';
@@ -348,24 +349,26 @@ export default function CharacterPage() {
               </section>
             )}
 
-            {/* Notable Quote */}
-            {character.notableLineSummary && (
+            {/* Quotes */}
+            {(character.quotes && character.quotes.length > 0) || character.notableLineSummary ? (
               <section className="wiki-article-section">
-                <h2>Notable Quote</h2>
-                <div style={{
-                  background: 'var(--bg-card)',
-                  border: '1px solid var(--border-default)',
-                  borderLeft: '3px solid var(--brand-secondary)',
-                  borderRadius: '0 8px 8px 0',
-                  padding: '1.5rem'
-                }}>
-                  <p style={{ fontStyle: 'italic', fontSize: '1.1rem', marginBottom: '0.5rem' }}>
-                    "{character.notableLineSummary}"
-                  </p>
-                  <p style={{ color: 'var(--brand-primary)', fontWeight: 600 }}>— {character.displayName}</p>
+                <h2>Quotes</h2>
+                <div className="wiki-quotes-list">
+                  {character.quotes?.map((quote, i) => (
+                    <div key={i} className="wiki-quote-card">
+                      <p className="wiki-quote-text">"{quote}"</p>
+                      <p className="wiki-quote-attr">— {character.displayName}</p>
+                    </div>
+                  ))}
+                  {character.notableLineSummary && !character.quotes?.includes(character.notableLineSummary) && (
+                    <div className="wiki-quote-card">
+                      <p className="wiki-quote-text">"{character.notableLineSummary}"</p>
+                      <p className="wiki-quote-attr">— {character.displayName}</p>
+                    </div>
+                  )}
                 </div>
               </section>
-            )}
+            ) : null}
 
             {/* Relationships */}
             {relationships.length > 0 && (
@@ -553,6 +556,9 @@ export default function CharacterPage() {
                 </p>
               </div>
             )}
+
+            {/* Character Rating */}
+            <CharacterRating characterId={characterId} characterName={character.displayName} />
           </aside>
         </div>
       </article>
@@ -562,8 +568,8 @@ export default function CharacterPage() {
         <div className="wiki-footer-inner">
           <p className="wiki-footer-text">© 2024 Hamieverse Wiki — Part of the Hamie Saga</p>
           <div className="wiki-footer-links">
-            <a href="https://twitter.com/hamaborz" className="wiki-footer-link" target="_blank" rel="noopener noreferrer">Twitter</a>
-            <a href="#" className="wiki-footer-link">Discord</a>
+            <a href="https://x.com/hamieverse" className="wiki-footer-link" target="_blank" rel="noopener noreferrer">Twitter</a>
+            <a href="https://discord.gg/XpheMErdk6" className="wiki-footer-link" target="_blank" rel="noopener noreferrer">Discord</a>
           </div>
         </div>
       </footer>

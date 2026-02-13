@@ -1,0 +1,1079 @@
+/* ============================================================
+   HAMIEVERSE WIKI - RETRO VAPORWAVE THEME
+   Theme: 80s Synthwave / Vaporwave Aesthetic
+
+   A dramatic, visually distinct theme featuring:
+   - Pink/Cyan/Purple vaporwave gradients
+   - Glowing neon text effects
+   - Shifting gradient backgrounds
+   - Heavy colorful box-shadows
+   - Rounded corners everywhere
+   - Italic/stylized text transforms
+   ============================================================ */
+
+/* ==================== VAPORWAVE DESIGN TOKENS ==================== */
+[data-theme="retro"] {
+  /* Core Vaporwave Palette */
+  --retro-pink: #ff71ce;
+  --retro-pink-light: #ffa4e0;
+  --retro-pink-dark: #cc5aa5;
+  --retro-pink-glow: rgba(255, 113, 206, 0.6);
+
+  --retro-cyan: #01cdfe;
+  --retro-cyan-light: #5de4ff;
+  --retro-cyan-dark: #00a3cc;
+  --retro-cyan-glow: rgba(1, 205, 254, 0.6);
+
+  --retro-mint: #05ffa1;
+  --retro-mint-light: #66ffbf;
+  --retro-mint-dark: #00cc80;
+  --retro-mint-glow: rgba(5, 255, 161, 0.6);
+
+  --retro-purple: #b967ff;
+  --retro-purple-light: #d4a3ff;
+  --retro-purple-dark: #8a4dcc;
+  --retro-purple-glow: rgba(185, 103, 255, 0.6);
+
+  /* Extended Synthwave Colors */
+  --retro-sunset-orange: #ff9f43;
+  --retro-hot-magenta: #ff006e;
+  --retro-electric-yellow: #fffb96;
+  --retro-laser-red: #ff2e63;
+
+  /* Background Colors - Deep synthwave purple/blue */
+  --retro-bg-deep: #0d0221;
+  --retro-bg-dark: #150734;
+  --retro-bg-mid: #1a0a40;
+  --retro-bg-surface: #251255;
+  --retro-bg-elevated: #2d1666;
+  --retro-bg-card: linear-gradient(145deg, #1a0a40 0%, #0d0221 100%);
+
+  /* Override Brand Colors */
+  --brand-primary: var(--retro-pink);
+  --brand-secondary: var(--retro-cyan);
+  --brand-accent: var(--retro-purple);
+  --brand-danger: var(--retro-laser-red);
+
+  /* Override Semantic Colors */
+  --bg-page: var(--retro-bg-deep);
+  --bg-card: var(--retro-bg-surface);
+  --bg-card-hover: var(--retro-bg-elevated);
+  --bg-elevated: var(--retro-bg-mid);
+  --bg-input: var(--retro-bg-dark);
+
+  /* Neon Borders */
+  --border-subtle: rgba(185, 103, 255, 0.2);
+  --border-default: rgba(255, 113, 206, 0.35);
+  --border-strong: rgba(1, 205, 254, 0.5);
+  --border-neon: var(--retro-pink);
+
+  /* Text Colors */
+  --text-primary: #ffffff;
+  --text-secondary: #e0b3ff;
+  --text-muted: #9966cc;
+  --text-disabled: #5533aa;
+  --text-neon: var(--retro-cyan);
+
+  /* Dramatic Neon Shadows */
+  --shadow-retro-pink:
+    0 0 5px var(--retro-pink),
+    0 0 15px var(--retro-pink),
+    0 0 30px var(--retro-pink-glow),
+    0 0 60px var(--retro-pink-glow);
+  --shadow-retro-cyan:
+    0 0 5px var(--retro-cyan),
+    0 0 15px var(--retro-cyan),
+    0 0 30px var(--retro-cyan-glow),
+    0 0 60px var(--retro-cyan-glow);
+  --shadow-retro-purple:
+    0 0 5px var(--retro-purple),
+    0 0 15px var(--retro-purple),
+    0 0 30px var(--retro-purple-glow),
+    0 0 60px var(--retro-purple-glow);
+  --shadow-retro-mint:
+    0 0 5px var(--retro-mint),
+    0 0 15px var(--retro-mint),
+    0 0 30px var(--retro-mint-glow),
+    0 0 60px var(--retro-mint-glow);
+  --shadow-retro-multi:
+    0 0 10px var(--retro-pink),
+    0 0 20px var(--retro-cyan),
+    0 0 40px var(--retro-purple-glow);
+
+  /* Card & Element Shadows */
+  --shadow-sm:
+    0 4px 6px rgba(0, 0, 0, 0.4),
+    0 0 15px rgba(185, 103, 255, 0.2);
+  --shadow-md:
+    0 8px 20px rgba(0, 0, 0, 0.5),
+    0 0 30px rgba(255, 113, 206, 0.25);
+  --shadow-lg:
+    0 12px 40px rgba(0, 0, 0, 0.6),
+    0 0 50px rgba(1, 205, 254, 0.3);
+  --shadow-glow: var(--shadow-retro-pink);
+  --shadow-glow-accent: var(--shadow-retro-cyan);
+
+  /* Vaporwave Gradients */
+  --gradient-sunset: linear-gradient(
+    180deg,
+    var(--retro-pink) 0%,
+    var(--retro-purple) 50%,
+    var(--retro-cyan) 100%
+  );
+  --gradient-horizon: linear-gradient(
+    0deg,
+    var(--retro-cyan) 0%,
+    var(--retro-purple) 40%,
+    var(--retro-pink) 80%,
+    var(--retro-sunset-orange) 100%
+  );
+  --gradient-neon-shift: linear-gradient(
+    90deg,
+    var(--retro-pink),
+    var(--retro-cyan),
+    var(--retro-mint),
+    var(--retro-purple),
+    var(--retro-pink)
+  );
+  --gradient-synthwave: linear-gradient(
+    135deg,
+    var(--retro-bg-deep) 0%,
+    var(--retro-bg-mid) 25%,
+    var(--retro-purple-dark) 50%,
+    var(--retro-bg-mid) 75%,
+    var(--retro-bg-deep) 100%
+  );
+
+  /* Typography */
+  --font-retro: 'Orbitron', 'Audiowide', 'Rajdhani', 'Inter', sans-serif;
+  --font-retro-display: 'Monoton', 'Bungee Outline', 'Orbitron', sans-serif;
+  --font-retro-body: 'Rajdhani', 'Exo 2', 'Inter', sans-serif;
+
+  /* Rounded Corners - Heavily rounded */
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-2xl: 48px;
+  --radius-full: 9999px;
+
+  /* Animation Timings */
+  --retro-pulse-speed: 2s;
+  --retro-shift-speed: 8s;
+  --retro-glow-speed: 3s;
+}
+
+
+/* ==================== BODY & ANIMATED BACKGROUND ==================== */
+[data-theme="retro"] body {
+  background: var(--retro-bg-deep);
+  background-image:
+    /* Animated gradient layer */
+    linear-gradient(
+      135deg,
+      rgba(255, 113, 206, 0.08) 0%,
+      rgba(185, 103, 255, 0.08) 25%,
+      rgba(1, 205, 254, 0.08) 50%,
+      rgba(5, 255, 161, 0.08) 75%,
+      rgba(255, 113, 206, 0.08) 100%
+    ),
+    /* Synthwave grid */
+    linear-gradient(transparent 0%, transparent 49%, rgba(255, 113, 206, 0.03) 50%, transparent 51%, transparent 100%),
+    linear-gradient(90deg, transparent 0%, transparent 49%, rgba(1, 205, 254, 0.03) 50%, transparent 51%, transparent 100%),
+    /* Base gradient */
+    linear-gradient(180deg, #0d0221 0%, #150734 30%, #1a0a40 60%, #0d0221 100%);
+  background-size: 400% 400%, 60px 60px, 60px 60px, 100% 100%;
+  background-attachment: fixed;
+  animation: retroBackgroundShift var(--retro-shift-speed) ease-in-out infinite;
+}
+
+@keyframes retroBackgroundShift {
+  0%, 100% {
+    background-position: 0% 50%, 0 0, 0 0, 0 0;
+  }
+  50% {
+    background-position: 100% 50%, 0 0, 0 0, 0 0;
+  }
+}
+
+/* Vaporwave sun/horizon effect overlay */
+[data-theme="retro"] body::before {
+  content: '';
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60%;
+  background:
+    radial-gradient(
+      ellipse 120% 80% at 50% 100%,
+      rgba(255, 113, 206, 0.15) 0%,
+      rgba(185, 103, 255, 0.1) 30%,
+      rgba(1, 205, 254, 0.05) 60%,
+      transparent 100%
+    );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Perspective grid lines overlay */
+[data-theme="retro"] body::after {
+  content: '';
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(185, 103, 255, 0.08) 0px,
+      rgba(185, 103, 255, 0.08) 1px,
+      transparent 1px,
+      transparent 80px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      rgba(1, 205, 254, 0.06) 0px,
+      rgba(1, 205, 254, 0.06) 1px,
+      transparent 1px,
+      transparent 40px
+    );
+  transform: perspective(500px) rotateX(60deg);
+  transform-origin: bottom center;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.6;
+}
+
+
+/* ==================== GLOWING NEON TEXT EFFECTS ==================== */
+[data-theme="retro"] h1,
+[data-theme="retro"] h2,
+[data-theme="retro"] h3,
+[data-theme="retro"] h4,
+[data-theme="retro"] h5,
+[data-theme="retro"] h6 {
+  font-family: var(--font-retro);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-style: italic;
+}
+
+[data-theme="retro"] h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  background: var(--gradient-neon-shift);
+  background-size: 300% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: retroTextGradient 4s ease-in-out infinite;
+  filter: drop-shadow(0 0 20px var(--retro-pink-glow))
+          drop-shadow(0 0 40px var(--retro-purple-glow));
+}
+
+@keyframes retroTextGradient {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+[data-theme="retro"] h2 {
+  color: var(--retro-cyan);
+  text-shadow:
+    0 0 10px var(--retro-cyan),
+    0 0 20px var(--retro-cyan),
+    0 0 40px var(--retro-cyan-glow),
+    2px 2px 0 var(--retro-purple);
+}
+
+[data-theme="retro"] h3 {
+  color: var(--retro-pink);
+  text-shadow:
+    0 0 10px var(--retro-pink),
+    0 0 20px var(--retro-pink-glow),
+    2px 2px 0 var(--retro-cyan-dark);
+}
+
+[data-theme="retro"] h4,
+[data-theme="retro"] h5,
+[data-theme="retro"] h6 {
+  color: var(--retro-mint);
+  text-shadow:
+    0 0 8px var(--retro-mint),
+    0 0 16px var(--retro-mint-glow);
+}
+
+
+/* ==================== CARDS WITH DRAMATIC STYLING ==================== */
+[data-theme="retro"] .card,
+[data-theme="retro"] .wiki-card,
+[data-theme="retro"] .content-card,
+[data-theme="retro"] [class*="card"] {
+  background: linear-gradient(
+    145deg,
+    rgba(26, 10, 64, 0.9) 0%,
+    rgba(13, 2, 33, 0.95) 100%
+  );
+  border: 2px solid var(--retro-purple);
+  border-radius: var(--radius-xl);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.5),
+    0 0 20px var(--retro-purple-glow),
+    inset 0 1px 0 rgba(255, 113, 206, 0.2),
+    inset 0 -1px 0 rgba(1, 205, 254, 0.1);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="retro"] .card::before,
+[data-theme="retro"] .wiki-card::before,
+[data-theme="retro"] .content-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient-neon-shift);
+  background-size: 300% 100%;
+  animation: retroBorderShift 4s linear infinite;
+}
+
+@keyframes retroBorderShift {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 300% 50%; }
+}
+
+[data-theme="retro"] .card:hover,
+[data-theme="retro"] .wiki-card:hover,
+[data-theme="retro"] .content-card:hover {
+  border-color: var(--retro-pink);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.6),
+    0 0 40px var(--retro-pink-glow),
+    0 0 80px var(--retro-cyan-glow),
+    inset 0 1px 0 rgba(255, 113, 206, 0.4),
+    inset 0 -1px 0 rgba(1, 205, 254, 0.2);
+}
+
+
+/* ==================== BUTTONS - CHUNKY NEON STYLE ==================== */
+[data-theme="retro"] button,
+[data-theme="retro"] .btn,
+[data-theme="retro"] .button,
+[data-theme="retro"] [class*="btn"] {
+  font-family: var(--font-retro);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-style: italic;
+  background: linear-gradient(135deg, var(--retro-purple) 0%, var(--retro-pink-dark) 100%);
+  border: 2px solid var(--retro-pink);
+  border-radius: var(--radius-full);
+  color: white;
+  padding: 12px 32px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow:
+    0 4px 15px rgba(255, 113, 206, 0.4),
+    0 0 20px var(--retro-pink-glow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  text-shadow: 0 0 10px var(--retro-pink);
+}
+
+[data-theme="retro"] button::before,
+[data-theme="retro"] .btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+[data-theme="retro"] button:hover,
+[data-theme="retro"] .btn:hover,
+[data-theme="retro"] .button:hover {
+  background: linear-gradient(135deg, var(--retro-cyan) 0%, var(--retro-mint-dark) 100%);
+  border-color: var(--retro-cyan);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow:
+    0 8px 30px rgba(1, 205, 254, 0.5),
+    0 0 40px var(--retro-cyan-glow),
+    0 0 60px var(--retro-mint-glow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  text-shadow: 0 0 15px var(--retro-cyan);
+}
+
+[data-theme="retro"] button:hover::before,
+[data-theme="retro"] .btn:hover::before {
+  left: 100%;
+}
+
+[data-theme="retro"] button:active,
+[data-theme="retro"] .btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Primary button variant */
+[data-theme="retro"] .btn-primary,
+[data-theme="retro"] button[type="submit"] {
+  background: linear-gradient(135deg, var(--retro-pink) 0%, var(--retro-hot-magenta) 100%);
+  border-color: var(--retro-pink-light);
+}
+
+/* Secondary button variant */
+[data-theme="retro"] .btn-secondary {
+  background: linear-gradient(135deg, var(--retro-cyan-dark) 0%, var(--retro-purple) 100%);
+  border-color: var(--retro-cyan);
+}
+
+
+/* ==================== HEADER & NAVIGATION ==================== */
+[data-theme="retro"] header,
+[data-theme="retro"] .header,
+[data-theme="retro"] .wiki-header {
+  background: linear-gradient(
+    180deg,
+    rgba(13, 2, 33, 0.98) 0%,
+    rgba(26, 10, 64, 0.95) 100%
+  );
+  border-bottom: 3px solid transparent;
+  border-image: var(--gradient-neon-shift) 1;
+  box-shadow:
+    0 4px 30px rgba(0, 0, 0, 0.5),
+    0 0 40px var(--retro-purple-glow);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+[data-theme="retro"] nav,
+[data-theme="retro"] .nav,
+[data-theme="retro"] .navbar {
+  background: transparent;
+}
+
+[data-theme="retro"] nav a,
+[data-theme="retro"] .nav-link,
+[data-theme="retro"] .navbar a {
+  font-family: var(--font-retro);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-style: italic;
+  color: var(--text-secondary);
+  position: relative;
+  padding: 8px 16px;
+  border-radius: var(--radius-lg);
+  transition: all 0.3s ease;
+}
+
+[data-theme="retro"] nav a::after,
+[data-theme="retro"] .nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 3px;
+  background: var(--gradient-neon-shift);
+  background-size: 200% 100%;
+  transform: translateX(-50%);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+  animation: retroBorderShift 2s linear infinite;
+}
+
+[data-theme="retro"] nav a:hover,
+[data-theme="retro"] .nav-link:hover {
+  color: var(--retro-cyan);
+  text-shadow:
+    0 0 10px var(--retro-cyan),
+    0 0 20px var(--retro-cyan-glow);
+  background: rgba(1, 205, 254, 0.1);
+}
+
+[data-theme="retro"] nav a:hover::after,
+[data-theme="retro"] .nav-link:hover::after {
+  width: 80%;
+}
+
+[data-theme="retro"] nav a.active,
+[data-theme="retro"] .nav-link.active {
+  color: var(--retro-pink);
+  text-shadow: var(--shadow-retro-pink);
+  background: rgba(255, 113, 206, 0.15);
+}
+
+[data-theme="retro"] nav a.active::after,
+[data-theme="retro"] .nav-link.active::after {
+  width: 100%;
+}
+
+
+/* ==================== SIDEBAR ==================== */
+[data-theme="retro"] .sidebar,
+[data-theme="retro"] aside {
+  background: linear-gradient(
+    180deg,
+    rgba(21, 7, 52, 0.98) 0%,
+    rgba(13, 2, 33, 0.98) 100%
+  );
+  border-right: 2px solid var(--retro-purple);
+  box-shadow:
+    4px 0 30px rgba(0, 0, 0, 0.4),
+    0 0 30px var(--retro-purple-glow);
+  border-radius: 0 var(--radius-xl) var(--radius-xl) 0;
+}
+
+[data-theme="retro"] .sidebar a,
+[data-theme="retro"] .sidebar-link {
+  font-family: var(--font-retro);
+  font-style: italic;
+  color: var(--text-secondary);
+  padding: 12px 20px;
+  border-radius: var(--radius-lg);
+  border-left: 3px solid transparent;
+  transition: all 0.3s ease;
+}
+
+[data-theme="retro"] .sidebar a:hover,
+[data-theme="retro"] .sidebar-link:hover {
+  color: var(--retro-mint);
+  background: rgba(5, 255, 161, 0.1);
+  border-left-color: var(--retro-mint);
+  text-shadow: 0 0 10px var(--retro-mint-glow);
+  padding-left: 28px;
+}
+
+
+/* ==================== LINKS ==================== */
+[data-theme="retro"] a {
+  color: var(--retro-cyan);
+  text-decoration: none;
+  font-style: italic;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+[data-theme="retro"] a:hover {
+  color: var(--retro-pink);
+  text-shadow:
+    0 0 10px var(--retro-pink),
+    0 0 20px var(--retro-pink-glow);
+}
+
+[data-theme="retro"] a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--retro-pink);
+  box-shadow: 0 0 10px var(--retro-pink);
+  transition: width 0.3s ease;
+}
+
+[data-theme="retro"] a:hover::after {
+  width: 100%;
+}
+
+
+/* ==================== INPUTS & FORMS ==================== */
+[data-theme="retro"] input,
+[data-theme="retro"] textarea,
+[data-theme="retro"] select {
+  font-family: var(--font-retro-body);
+  background: rgba(13, 2, 33, 0.9);
+  border: 2px solid var(--retro-purple);
+  border-radius: var(--radius-lg);
+  color: var(--text-primary);
+  padding: 14px 18px;
+  transition: all 0.3s ease;
+  box-shadow:
+    inset 0 2px 10px rgba(0, 0, 0, 0.3),
+    0 0 10px var(--retro-purple-glow);
+}
+
+[data-theme="retro"] input::placeholder,
+[data-theme="retro"] textarea::placeholder {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+[data-theme="retro"] input:focus,
+[data-theme="retro"] textarea:focus,
+[data-theme="retro"] select:focus {
+  outline: none;
+  border-color: var(--retro-cyan);
+  box-shadow:
+    inset 0 2px 10px rgba(0, 0, 0, 0.3),
+    0 0 20px var(--retro-cyan-glow),
+    0 0 40px var(--retro-cyan-glow);
+}
+
+[data-theme="retro"] .search-bar,
+[data-theme="retro"] .search-input,
+[data-theme="retro"] input[type="search"] {
+  background: rgba(37, 18, 85, 0.9);
+  border: 2px solid var(--retro-pink);
+  border-radius: var(--radius-full);
+  box-shadow:
+    0 0 15px var(--retro-pink-glow),
+    inset 0 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="retro"] .search-bar:focus-within,
+[data-theme="retro"] input[type="search"]:focus {
+  border-color: var(--retro-mint);
+  box-shadow:
+    0 0 30px var(--retro-mint-glow),
+    0 0 60px var(--retro-cyan-glow),
+    inset 0 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+
+/* ==================== CODE BLOCKS ==================== */
+[data-theme="retro"] code,
+[data-theme="retro"] pre {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  background: rgba(13, 2, 33, 0.95);
+  border: 1px solid var(--retro-cyan);
+  border-radius: var(--radius-md);
+  color: var(--retro-mint);
+  text-shadow: 0 0 5px var(--retro-mint-glow);
+}
+
+[data-theme="retro"] pre {
+  padding: 24px;
+  border-radius: var(--radius-xl);
+  box-shadow:
+    0 8px 30px rgba(0, 0, 0, 0.5),
+    0 0 20px var(--retro-cyan-glow),
+    inset 0 0 40px rgba(1, 205, 254, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+[data-theme="retro"] pre::before {
+  content: '// RETRO.SYS';
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  font-size: 10px;
+  color: var(--retro-pink);
+  text-shadow: 0 0 5px var(--retro-pink-glow);
+  font-style: italic;
+  letter-spacing: 0.1em;
+}
+
+[data-theme="retro"] code {
+  padding: 4px 10px;
+}
+
+
+/* ==================== TABLES ==================== */
+[data-theme="retro"] table {
+  border: 2px solid var(--retro-purple);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  background: rgba(26, 10, 64, 0.8);
+  box-shadow:
+    0 8px 30px rgba(0, 0, 0, 0.4),
+    0 0 20px var(--retro-purple-glow);
+}
+
+[data-theme="retro"] th {
+  background: linear-gradient(135deg, var(--retro-purple-dark) 0%, var(--retro-bg-mid) 100%);
+  color: var(--retro-cyan);
+  font-family: var(--font-retro);
+  font-style: italic;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border-bottom: 2px solid var(--retro-pink);
+  text-shadow: 0 0 10px var(--retro-cyan-glow);
+  padding: 16px;
+}
+
+[data-theme="retro"] td {
+  border-bottom: 1px solid rgba(185, 103, 255, 0.3);
+  padding: 14px 16px;
+}
+
+[data-theme="retro"] tr:hover {
+  background: rgba(255, 113, 206, 0.1);
+}
+
+[data-theme="retro"] tr:last-child td {
+  border-bottom: none;
+}
+
+
+/* ==================== BADGES & TAGS ==================== */
+[data-theme="retro"] .badge,
+[data-theme="retro"] .tag,
+[data-theme="retro"] [class*="badge"],
+[data-theme="retro"] [class*="tag"] {
+  font-family: var(--font-retro);
+  font-style: italic;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 6px 16px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, var(--retro-purple-dark) 0%, var(--retro-pink-dark) 100%);
+  border: 1px solid var(--retro-pink);
+  color: white;
+  box-shadow:
+    0 2px 10px rgba(255, 113, 206, 0.3),
+    0 0 15px var(--retro-pink-glow);
+  text-shadow: 0 0 5px var(--retro-pink);
+}
+
+[data-theme="retro"] .badge:hover,
+[data-theme="retro"] .tag:hover {
+  transform: scale(1.1);
+  box-shadow:
+    0 4px 20px rgba(1, 205, 254, 0.4),
+    0 0 25px var(--retro-cyan-glow);
+  border-color: var(--retro-cyan);
+}
+
+
+/* ==================== SCROLLBAR ==================== */
+[data-theme="retro"] ::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+[data-theme="retro"] ::-webkit-scrollbar-track {
+  background: var(--retro-bg-deep);
+  border-left: 1px solid var(--retro-purple);
+}
+
+[data-theme="retro"] ::-webkit-scrollbar-thumb {
+  background: var(--gradient-sunset);
+  border-radius: var(--radius-full);
+  border: 2px solid var(--retro-bg-deep);
+  box-shadow: 0 0 10px var(--retro-pink-glow);
+}
+
+[data-theme="retro"] ::-webkit-scrollbar-thumb:hover {
+  background: var(--gradient-horizon);
+  box-shadow: 0 0 20px var(--retro-cyan-glow);
+}
+
+[data-theme="retro"] ::-webkit-scrollbar-corner {
+  background: var(--retro-bg-deep);
+}
+
+/* Firefox Scrollbar */
+[data-theme="retro"] * {
+  scrollbar-width: auto;
+  scrollbar-color: var(--retro-pink) var(--retro-bg-deep);
+}
+
+
+/* ==================== SELECTION ==================== */
+[data-theme="retro"] ::selection {
+  background: var(--retro-pink);
+  color: white;
+  text-shadow: none;
+}
+
+[data-theme="retro"] ::-moz-selection {
+  background: var(--retro-pink);
+  color: white;
+  text-shadow: none;
+}
+
+
+/* ==================== FOCUS STATES ==================== */
+[data-theme="retro"] *:focus {
+  outline: 2px solid var(--retro-cyan);
+  outline-offset: 3px;
+  box-shadow: 0 0 20px var(--retro-cyan-glow);
+}
+
+[data-theme="retro"] *:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
+}
+
+[data-theme="retro"] *:focus-visible {
+  outline: 3px solid var(--retro-cyan);
+  outline-offset: 3px;
+  box-shadow:
+    0 0 20px var(--retro-cyan-glow),
+    0 0 40px var(--retro-pink-glow);
+}
+
+
+/* ==================== DIVIDERS & SEPARATORS ==================== */
+[data-theme="retro"] hr,
+[data-theme="retro"] .divider {
+  border: none;
+  height: 3px;
+  background: var(--gradient-neon-shift);
+  background-size: 200% 100%;
+  border-radius: var(--radius-full);
+  box-shadow: 0 0 15px var(--retro-purple-glow);
+  margin: 32px 0;
+  animation: retroBorderShift 4s linear infinite;
+}
+
+
+/* ==================== MODALS & DIALOGS ==================== */
+[data-theme="retro"] .modal,
+[data-theme="retro"] .dialog,
+[data-theme="retro"] [role="dialog"] {
+  background: linear-gradient(
+    145deg,
+    rgba(26, 10, 64, 0.98) 0%,
+    rgba(13, 2, 33, 0.98) 100%
+  );
+  border: 3px solid var(--retro-pink);
+  border-radius: var(--radius-2xl);
+  box-shadow:
+    0 25px 80px rgba(0, 0, 0, 0.7),
+    0 0 60px var(--retro-pink-glow),
+    0 0 120px var(--retro-purple-glow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+}
+
+[data-theme="retro"] .modal-overlay,
+[data-theme="retro"] .dialog-overlay {
+  background: rgba(13, 2, 33, 0.9);
+  backdrop-filter: blur(8px);
+}
+
+
+/* ==================== LOADING & SPINNERS ==================== */
+[data-theme="retro"] .spinner,
+[data-theme="retro"] .loading,
+[data-theme="retro"] [class*="spinner"] {
+  width: 50px;
+  height: 50px;
+  border: 4px solid transparent;
+  border-top-color: var(--retro-pink);
+  border-right-color: var(--retro-cyan);
+  border-bottom-color: var(--retro-mint);
+  border-left-color: var(--retro-purple);
+  border-radius: 50%;
+  animation: retroSpin 1s linear infinite;
+  box-shadow:
+    0 0 20px var(--retro-pink-glow),
+    inset 0 0 20px var(--retro-cyan-glow);
+}
+
+@keyframes retroSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Loading bar */
+[data-theme="retro"] .loading-bar,
+[data-theme="retro"] .progress-bar {
+  width: 100%;
+  height: 8px;
+  background: var(--retro-bg-dark);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--retro-purple);
+}
+
+[data-theme="retro"] .loading-bar::after,
+[data-theme="retro"] .progress-bar-fill {
+  content: '';
+  display: block;
+  width: 40%;
+  height: 100%;
+  background: var(--gradient-neon-shift);
+  background-size: 200% 100%;
+  border-radius: var(--radius-full);
+  box-shadow: 0 0 15px var(--retro-pink);
+  animation: retroLoadingSlide 1.5s ease-in-out infinite;
+}
+
+@keyframes retroLoadingSlide {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(350%); }
+}
+
+
+/* ==================== TOOLTIPS ==================== */
+[data-theme="retro"] .tooltip,
+[data-theme="retro"] [data-tooltip]::after {
+  font-family: var(--font-retro);
+  font-style: italic;
+  font-size: 12px;
+  background: linear-gradient(135deg, var(--retro-bg-surface) 0%, var(--retro-bg-dark) 100%);
+  border: 2px solid var(--retro-cyan);
+  border-radius: var(--radius-lg);
+  color: var(--retro-cyan);
+  padding: 10px 16px;
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.5),
+    0 0 20px var(--retro-cyan-glow);
+  text-shadow: 0 0 5px var(--retro-cyan-glow);
+}
+
+
+/* ==================== SPECIAL RETRO ELEMENTS ==================== */
+
+/* Neon text utility classes */
+[data-theme="retro"] .text-neon-pink {
+  color: var(--retro-pink);
+  text-shadow: var(--shadow-retro-pink);
+}
+
+[data-theme="retro"] .text-neon-cyan {
+  color: var(--retro-cyan);
+  text-shadow: var(--shadow-retro-cyan);
+}
+
+[data-theme="retro"] .text-neon-purple {
+  color: var(--retro-purple);
+  text-shadow: var(--shadow-retro-purple);
+}
+
+[data-theme="retro"] .text-neon-mint {
+  color: var(--retro-mint);
+  text-shadow: var(--shadow-retro-mint);
+}
+
+/* Gradient text */
+[data-theme="retro"] .text-gradient {
+  background: var(--gradient-neon-shift);
+  background-size: 300% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: retroTextGradient 4s ease-in-out infinite;
+}
+
+/* Pulsing glow effect */
+[data-theme="retro"] .pulse-glow {
+  animation: retroPulseGlow var(--retro-pulse-speed) ease-in-out infinite;
+}
+
+@keyframes retroPulseGlow {
+  0%, 100% {
+    box-shadow:
+      0 0 10px var(--retro-pink-glow),
+      0 0 20px var(--retro-purple-glow);
+  }
+  50% {
+    box-shadow:
+      0 0 20px var(--retro-pink-glow),
+      0 0 40px var(--retro-purple-glow),
+      0 0 60px var(--retro-cyan-glow);
+  }
+}
+
+/* VHS tracking effect on hover */
+[data-theme="retro"] .vhs-effect:hover {
+  animation: vhsTracking 0.3s steps(2) infinite;
+}
+
+@keyframes vhsTracking {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-2px); }
+  50% { transform: translateX(2px); }
+  75% { transform: translateX(-1px); }
+  100% { transform: translateX(0); }
+}
+
+
+/* ==================== RESPONSIVE ADJUSTMENTS ==================== */
+@media (max-width: 768px) {
+  [data-theme="retro"] body::after {
+    /* Simplify grid on mobile */
+    height: 25%;
+    opacity: 0.4;
+  }
+
+  [data-theme="retro"] h1 {
+    font-size: clamp(1.5rem, 6vw, 2.5rem);
+  }
+
+  [data-theme="retro"] .card,
+  [data-theme="retro"] .wiki-card {
+    border-radius: var(--radius-lg);
+  }
+
+  [data-theme="retro"] button,
+  [data-theme="retro"] .btn {
+    padding: 10px 24px;
+    font-size: 14px;
+  }
+}
+
+
+/* ==================== REDUCED MOTION ==================== */
+@media (prefers-reduced-motion: reduce) {
+  [data-theme="retro"] body {
+    animation: none;
+    background-size: 100% 100%, 60px 60px, 60px 60px, 100% 100%;
+  }
+
+  [data-theme="retro"] h1,
+  [data-theme="retro"] .text-gradient,
+  [data-theme="retro"] .card::before,
+  [data-theme="retro"] hr,
+  [data-theme="retro"] .divider,
+  [data-theme="retro"] nav a::after,
+  [data-theme="retro"] .loading-bar::after,
+  [data-theme="retro"] .pulse-glow,
+  [data-theme="retro"] .vhs-effect:hover {
+    animation: none;
+  }
+
+  [data-theme="retro"] .spinner,
+  [data-theme="retro"] .loading {
+    animation: none;
+    border-color: var(--retro-pink);
+    border-top-color: transparent;
+  }
+}
+
+
+/* ==================== PRINT STYLES ==================== */
+@media print {
+  [data-theme="retro"] {
+    --bg-page: white;
+    --text-primary: black;
+    --text-secondary: #333;
+  }
+
+  [data-theme="retro"] body::before,
+  [data-theme="retro"] body::after {
+    display: none;
+  }
+
+  [data-theme="retro"] * {
+    text-shadow: none !important;
+    box-shadow: none !important;
+    animation: none !important;
+    background: white !important;
+    color: black !important;
+    border-color: #ccc !important;
+  }
+}

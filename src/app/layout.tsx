@@ -1,5 +1,16 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import '@/styles/theme-neon.css';
+import '@/styles/theme-glass.css';
+import '@/styles/theme-brutalist.css';
+import '@/styles/theme-arcade.css';
+import '@/styles/theme-minimal.css';
+import '@/styles/theme-retro.css';
+import '@/styles/theme-matrix.css';
+import '@/styles/theme-sunset.css';
+import '@/styles/theme-ocean.css';
+import HelpChat from '@/components/HelpChat';
+import ThemeSwitcher from '@/components/ThemeSwitcher';
 
 export const metadata: Metadata = {
   title: 'Hamieverse Wiki',
@@ -58,6 +69,17 @@ export default function RootLayout({
             `,
           }}
         />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if ('serviceWorker' in navigator) {
+                window.addEventListener('load', function() {
+                  navigator.serviceWorker.register('/sw.js').catch(function() {});
+                });
+              }
+            `,
+          }}
+        />
       </head>
       <body>
         {/* Cyberpunk Background System */}
@@ -112,6 +134,12 @@ export default function RootLayout({
         <div className="wiki-scanlines" />
 
         {children}
+
+        {/* Help Chat */}
+        <HelpChat />
+
+        {/* Theme Switcher */}
+        <ThemeSwitcher />
       </body>
     </html>
   );

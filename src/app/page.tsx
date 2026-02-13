@@ -2,8 +2,16 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { getAllCharacters, getFactions, getGlossary, getLogline, getThemes } from '@/lib/hamieverse/characters';
+import TriviaCard from '@/components/TriviaCard';
+import LoreLinks from '@/components/LoreLinks';
+import RelationshipsMap from '@/components/RelationshipsMap';
+import AudioPlayer from '@/components/AudioPlayer';
+import FavoriteButton from '@/components/FavoriteButton';
+import CharacterOfTheDay from '@/components/CharacterOfTheDay';
+import { useKeyboardNav } from '@/hooks/useKeyboardNav';
 
 interface SearchResult {
   type: 'character' | 'faction' | 'glossary';
@@ -20,6 +28,16 @@ export default function WikiHome() {
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [showSearchResults, setShowSearchResults] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  // Keyboard navigation
+  useKeyboardNav({
+    searchInputRef,
+    onEscape: () => {
+      setShowSearchResults(false);
+      setMobileMenuOpen(false);
+    }
+  });
 
   const characters = getAllCharacters();
   const factions = getFactions();
@@ -125,20 +143,22 @@ export default function WikiHome() {
           </Link>
 
           <div className="wiki-topbar-nav">
-            <a href="#characters" className="wiki-topbar-link active">Main Characters</a>
-            <a href="#supporting" className="wiki-topbar-link">Supporting</a>
-            <a href="#factions" className="wiki-topbar-link">Factions</a>
-            <a href="#glossary" className="wiki-topbar-link">Glossary</a>
+            <a href="#characters" className="wiki-topbar-link active">Characters</a>
+            <Link href="/factions" className="wiki-topbar-link">Factions</Link>
             <Link href="/timeline" className="wiki-topbar-link">Timeline</Link>
+            <Link href="/chapters" className="wiki-topbar-link">Chapters</Link>
+            <Link href="/compare" className="wiki-topbar-link">Compare</Link>
             <Link href="/quiz" className="wiki-topbar-link">Quiz</Link>
+            <Link href="/gallery" className="wiki-topbar-link">Gallery</Link>
           </div>
 
           <div className="wiki-search-box" ref={searchRef}>
             <span className="wiki-search-icon">🔍</span>
             <input
+              ref={searchInputRef}
               type="text"
               className="wiki-search-input"
-              placeholder="Search the wiki..."
+              placeholder="Search... (press /)"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               onFocus={() => setShowSearchResults(true)}
@@ -189,12 +209,13 @@ export default function WikiHome() {
       {/* Mobile Menu Overlay */}
       <div className={`wiki-mobile-menu ${mobileMenuOpen ? 'open' : ''}`}>
         <div className="wiki-mobile-menu-content">
-          <a href="#characters" className="wiki-mobile-link" onClick={() => setMobileMenuOpen(false)}>Main Characters</a>
-          <a href="#supporting" className="wiki-mobile-link" onClick={() => setMobileMenuOpen(false)}>Supporting</a>
+          <a href="#characters" className="wiki-mobile-link" onClick={() => setMobileMenuOpen(false)}>Characters</a>
           <a href="#factions" className="wiki-mobile-link" onClick={() => setMobileMenuOpen(false)}>Factions</a>
-          <a href="#glossary" className="wiki-mobile-link" onClick={() => setMobileMenuOpen(false)}>Glossary</a>
           <Link href="/timeline" className="wiki-mobile-link" onClick={() => setMobileMenuOpen(false)}>Timeline</Link>
+          <Link href="/chapters" className="wiki-mobile-link" onClick={() => setMobileMenuOpen(false)}>Chapters</Link>
+          <Link href="/compare" className="wiki-mobile-link" onClick={() => setMobileMenuOpen(false)}>Compare</Link>
           <Link href="/quiz" className="wiki-mobile-link" onClick={() => setMobileMenuOpen(false)}>Quiz</Link>
+          <Link href="/gallery" className="wiki-mobile-link" onClick={() => setMobileMenuOpen(false)}>Gallery</Link>
           <button className="wiki-mobile-random" onClick={() => { goToRandomCharacter(); setMobileMenuOpen(false); }}>
             🎲 Random Character
           </button>
@@ -230,6 +251,15 @@ export default function WikiHome() {
 
       {/* Main Content */}
       <main className="wiki-main">
+        {/* Character of the Day & Trivia */}
+        <section className="wiki-section wiki-intro-section">
+          <div className="wiki-intro-grid-3">
+            <CharacterOfTheDay />
+            <TriviaCard />
+            <LoreLinks />
+          </div>
+        </section>
+
         {/* Main Characters */}
         <section id="characters" className="wiki-section">
           <div className="wiki-section-header">
@@ -246,6 +276,9 @@ export default function WikiHome() {
                 className="wiki-character-card"
                 style={{ '--char-color': char.color } as React.CSSProperties}
               >
+                <div className="wiki-character-favorite">
+                  <FavoriteButton characterId={char.id} size="sm" />
+                </div>
                 <div className="wiki-character-avatar">
                   {char.gifFile ? (
                     <img
@@ -282,17 +315,33 @@ export default function WikiHome() {
               <span className="wiki-section-count">({supportingCharacters.length})</span>
             </h2>
           </div>
-          <div className="wiki-character-list">
+          <div className="wiki-supporting-grid">
             {supportingCharacters.map((char) => (
               <Link
                 key={char.id}
                 href={`/character/${char.id}`}
-                className="wiki-character-row"
+                className="wiki-supporting-card"
+                style={{ '--char-color': char.color } as React.CSSProperties}
               >
-                <span className="wiki-character-name">{char.displayName}</span>
-                <span className="wiki-character-role">
-                  {char.roles[0] || char.symbolicRole || 'Character'}
-                </span>
+                <div className="wiki-supporting-avatar">
+                  {char.gifFile ? (
+                    <img
+                      src={`/images/${char.gifFile}`}
+                      alt={char.displayName}
+                      className="wiki-supporting-img"
+                    />
+                  ) : (
+                    <div className="wiki-supporting-placeholder">
+                      {char.displayName[0]}
+                    </div>
+                  )}
+                </div>
+                <div className="wiki-supporting-info">
+                  <span className="wiki-supporting-name">{char.displayName}</span>
+                  <span className="wiki-supporting-role">
+                    {char.roles[0]?.replace(/_/g, ' ') || char.symbolicRole || char.species || 'Character'}
+                  </span>
+                </div>
               </Link>
             ))}
           </div>
@@ -346,6 +395,11 @@ export default function WikiHome() {
           </div>
         </section>
 
+        {/* Relationships Map */}
+        <section id="relationships" className="wiki-section">
+          <RelationshipsMap />
+        </section>
+
         {/* Themes */}
         <section id="themes" className="wiki-section">
           <div className="wiki-section-header">
@@ -369,8 +423,8 @@ export default function WikiHome() {
         <div className="wiki-footer-inner">
           <p className="wiki-footer-text">© 2024 Hamieverse Wiki — Part of the Hamie Saga</p>
           <div className="wiki-footer-links">
-            <a href="https://twitter.com/hamaborz" className="wiki-footer-link" target="_blank" rel="noopener noreferrer">Twitter</a>
-            <a href="#" className="wiki-footer-link">Discord</a>
+            <a href="https://x.com/hamieverse" className="wiki-footer-link" target="_blank" rel="noopener noreferrer">Twitter</a>
+            <a href="https://discord.gg/XpheMErdk6" className="wiki-footer-link" target="_blank" rel="noopener noreferrer">Discord</a>
           </div>
         </div>
       </footer>
@@ -383,6 +437,9 @@ export default function WikiHome() {
       >
         <span>↑</span>
       </button>
+
+      {/* Audio Player */}
+      <AudioPlayer />
     </div>
   );
 }

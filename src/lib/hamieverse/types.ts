@@ -28,6 +28,8 @@ export interface HamieCharacter {
   summary?: string;
   gifFile?: string;
   color?: string;
+  quotes?: string[];
+  faction?: string;
 }
 
 export interface HamieRelationship {

@@ -1,0 +1,497 @@
+/**
+ * Hamieverse Wiki - Retro Arcade Theme
+ * 80s/90s Arcade Game Aesthetic with CRT effects
+ */
+
+/* ========================================
+   ARCADE THEME - BASE STYLES
+   ======================================== */
+
+[data-theme="arcade"] {
+  /* Override ALL colors */
+  --bg-page: #0a0a12 !important;
+  --bg-card: #12121f !important;
+  --bg-card-hover: #1a1a2e !important;
+  --text-primary: #ffffff !important;
+  --text-secondary: #00ffff !important;
+  --text-muted: #ff1493 !important;
+  --accent-primary: #ff1493 !important;
+  --accent-secondary: #00d4ff !important;
+  --border-default: #39ff14 !important;
+  --border-subtle: #bf00ff !important;
+}
+
+[data-theme="arcade"] body {
+  background: #0a0a12 !important;
+  color: #ffffff !important;
+  font-family: 'VT323', 'Courier New', monospace !important;
+  image-rendering: pixelated;
+}
+
+/* CRT Scanlines overlay */
+[data-theme="arcade"] body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.3) 2px,
+    rgba(0, 0, 0, 0.3) 4px
+  );
+  z-index: 9999;
+  opacity: 0.4;
+}
+
+/* ========================================
+   BACKGROUNDS
+   ======================================== */
+
+[data-theme="arcade"] .wiki-bg-effects,
+[data-theme="arcade"] .wiki-orb,
+[data-theme="arcade"] .wiki-aurora,
+[data-theme="arcade"] .wiki-neon-grid,
+[data-theme="arcade"] .wiki-holo-shimmer,
+[data-theme="arcade"] .wiki-lightning,
+[data-theme="arcade"] .wiki-bolt,
+[data-theme="arcade"] .wiki-energy-stream,
+[data-theme="arcade"] .wiki-particles,
+[data-theme="arcade"] .wiki-particle,
+[data-theme="arcade"] .wiki-cyber-corner,
+[data-theme="arcade"] .wiki-scanlines {
+  display: none !important;
+}
+
+/* Starfield background */
+[data-theme="arcade"] body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  background:
+    radial-gradient(2px 2px at 20% 30%, #ff1493, transparent),
+    radial-gradient(2px 2px at 40% 70%, #00d4ff, transparent),
+    radial-gradient(2px 2px at 50% 50%, #39ff14, transparent),
+    radial-gradient(2px 2px at 80% 20%, #fff01f, transparent),
+    radial-gradient(2px 2px at 10% 80%, #bf00ff, transparent),
+    radial-gradient(2px 2px at 70% 60%, #ff1493, transparent),
+    radial-gradient(2px 2px at 30% 10%, #00d4ff, transparent),
+    radial-gradient(2px 2px at 90% 90%, #39ff14, transparent),
+    radial-gradient(2px 2px at 60% 40%, #fff01f, transparent),
+    radial-gradient(2px 2px at 5% 50%, #bf00ff, transparent);
+  animation: arcade-stars 8s ease-in-out infinite;
+}
+
+@keyframes arcade-stars {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* ========================================
+   TYPOGRAPHY
+   ======================================== */
+
+[data-theme="arcade"] h1,
+[data-theme="arcade"] h2,
+[data-theme="arcade"] h3,
+[data-theme="arcade"] h4,
+[data-theme="arcade"] h5,
+[data-theme="arcade"] h6 {
+  font-family: 'Press Start 2P', 'VT323', monospace !important;
+  text-transform: uppercase !important;
+  letter-spacing: 2px !important;
+  text-shadow:
+    3px 3px 0 #000,
+    0 0 20px currentColor !important;
+}
+
+[data-theme="arcade"] h1 {
+  background: linear-gradient(90deg, #ff1493, #ff6b00, #fff01f, #39ff14, #00d4ff, #bf00ff) !important;
+  background-size: 200% 100% !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  animation: arcade-rainbow 3s linear infinite !important;
+}
+
+@keyframes arcade-rainbow {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+[data-theme="arcade"] h2 {
+  color: #ff1493 !important;
+}
+
+[data-theme="arcade"] h3 {
+  color: #00d4ff !important;
+}
+
+[data-theme="arcade"] a {
+  color: #00d4ff !important;
+  text-decoration: none !important;
+  transition: all 0.2s !important;
+}
+
+[data-theme="arcade"] a:hover {
+  color: #ff1493 !important;
+  text-shadow: 0 0 10px #ff1493 !important;
+}
+
+/* ========================================
+   CARDS
+   ======================================== */
+
+[data-theme="arcade"] .wiki-card,
+[data-theme="arcade"] .character-card,
+[data-theme="arcade"] [class*="card"] {
+  background: #12121f !important;
+  border: 4px solid #bf00ff !important;
+  border-radius: 0 !important;
+  box-shadow:
+    4px 4px 0 0 #000,
+    0 0 20px rgba(191, 0, 255, 0.3) !important;
+  position: relative;
+  overflow: visible !important;
+}
+
+[data-theme="arcade"] .wiki-card::before,
+[data-theme="arcade"] .character-card::before,
+[data-theme="arcade"] [class*="card"]::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #ff1493, #ff6b00, #fff01f, #39ff14, #00d4ff, #bf00ff);
+  background-size: 200% 100%;
+  animation: arcade-rainbow 3s linear infinite;
+}
+
+[data-theme="arcade"] .wiki-card:hover,
+[data-theme="arcade"] .character-card:hover,
+[data-theme="arcade"] [class*="card"]:hover {
+  border-color: #39ff14 !important;
+  transform: translateY(-4px) !important;
+  box-shadow:
+    4px 8px 0 0 #000,
+    0 0 30px rgba(57, 255, 20, 0.4) !important;
+}
+
+/* ========================================
+   BUTTONS
+   ======================================== */
+
+[data-theme="arcade"] button,
+[data-theme="arcade"] .btn,
+[data-theme="arcade"] [class*="button"] {
+  background: linear-gradient(180deg, #ff1493, #cc1177) !important;
+  border: none !important;
+  color: #fff !important;
+  font-family: 'Press Start 2P', monospace !important;
+  font-size: 12px !important;
+  text-transform: uppercase !important;
+  padding: 12px 24px !important;
+  cursor: pointer !important;
+  position: relative !important;
+  box-shadow:
+    inset 0 4px 0 0 rgba(255,255,255,0.4),
+    inset 0 -4px 0 0 rgba(0,0,0,0.3),
+    0 4px 0 0 #990055,
+    0 8px 0 0 #660033,
+    0 12px 0 0 #330019 !important;
+  transition: transform 0.1s, box-shadow 0.1s !important;
+}
+
+[data-theme="arcade"] button:hover,
+[data-theme="arcade"] .btn:hover {
+  transform: translateY(2px) !important;
+  box-shadow:
+    inset 0 4px 0 0 rgba(255,255,255,0.4),
+    inset 0 -4px 0 0 rgba(0,0,0,0.3),
+    0 2px 0 0 #990055,
+    0 6px 0 0 #660033 !important;
+}
+
+[data-theme="arcade"] button:active,
+[data-theme="arcade"] .btn:active {
+  transform: translateY(8px) !important;
+  box-shadow:
+    inset 0 4px 0 0 rgba(0,0,0,0.2),
+    0 0 0 0 #990055 !important;
+}
+
+/* ========================================
+   NAVIGATION
+   ======================================== */
+
+[data-theme="arcade"] header,
+[data-theme="arcade"] nav,
+[data-theme="arcade"] .main-nav {
+  background: #0a0a12 !important;
+  border-bottom: 4px solid #ff1493 !important;
+  box-shadow: 0 0 20px rgba(255, 20, 147, 0.5) !important;
+}
+
+[data-theme="arcade"] nav a,
+[data-theme="arcade"] .nav-link {
+  color: #00d4ff !important;
+  font-family: 'Press Start 2P', monospace !important;
+  font-size: 10px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+}
+
+[data-theme="arcade"] nav a:hover {
+  color: #fff01f !important;
+  text-shadow: 0 0 15px #fff01f !important;
+}
+
+/* ========================================
+   SIDEBAR
+   ======================================== */
+
+[data-theme="arcade"] aside,
+[data-theme="arcade"] .sidebar {
+  background: #12121f !important;
+  border-right: 4px solid #39ff14 !important;
+  box-shadow: 0 0 20px rgba(57, 255, 20, 0.3) !important;
+}
+
+[data-theme="arcade"] .sidebar a {
+  color: #fff !important;
+  border-left: 4px solid transparent !important;
+  transition: all 0.2s !important;
+}
+
+[data-theme="arcade"] .sidebar a:hover {
+  color: #39ff14 !important;
+  border-left-color: #39ff14 !important;
+  background: rgba(57, 255, 20, 0.1) !important;
+}
+
+/* ========================================
+   INPUTS & FORMS
+   ======================================== */
+
+[data-theme="arcade"] input,
+[data-theme="arcade"] textarea,
+[data-theme="arcade"] select,
+[data-theme="arcade"] .search-input {
+  background: #0a0a12 !important;
+  border: 3px solid #bf00ff !important;
+  color: #fff !important;
+  font-family: 'VT323', monospace !important;
+  font-size: 18px !important;
+  padding: 12px !important;
+  box-shadow: inset 0 0 20px rgba(191, 0, 255, 0.2) !important;
+}
+
+[data-theme="arcade"] input:focus,
+[data-theme="arcade"] textarea:focus,
+[data-theme="arcade"] select:focus {
+  border-color: #00d4ff !important;
+  outline: none !important;
+  box-shadow:
+    inset 0 0 20px rgba(0, 212, 255, 0.2),
+    0 0 20px rgba(0, 212, 255, 0.5) !important;
+}
+
+[data-theme="arcade"] input::placeholder {
+  color: #666 !important;
+}
+
+/* ========================================
+   BADGES & TAGS
+   ======================================== */
+
+[data-theme="arcade"] .badge,
+[data-theme="arcade"] .tag,
+[data-theme="arcade"] [class*="badge"],
+[data-theme="arcade"] [class*="tag"] {
+  background: #bf00ff !important;
+  border: 2px solid #fff !important;
+  color: #fff !important;
+  font-family: 'Press Start 2P', monospace !important;
+  font-size: 8px !important;
+  text-transform: uppercase !important;
+  box-shadow: 2px 2px 0 #000 !important;
+}
+
+/* ========================================
+   PROGRESS BARS & LOADING
+   ======================================== */
+
+[data-theme="arcade"] .progress,
+[data-theme="arcade"] [class*="progress"] {
+  background: #0a0a12 !important;
+  border: 3px solid #fff !important;
+  height: 24px !important;
+  overflow: hidden;
+}
+
+[data-theme="arcade"] .progress-bar,
+[data-theme="arcade"] [class*="progress"] > div {
+  background: linear-gradient(180deg, #39ff14 0%, #39ff14 40%, #28cc00 40%, #28cc00 60%, #1a8800 60%) !important;
+}
+
+/* ========================================
+   SCORES & STATS DISPLAYS
+   ======================================== */
+
+[data-theme="arcade"] .stat,
+[data-theme="arcade"] .score,
+[data-theme="arcade"] [class*="stat"] {
+  font-family: 'Press Start 2P', monospace !important;
+  color: #fff01f !important;
+  text-shadow:
+    2px 2px 0 #000,
+    0 0 20px #fff01f !important;
+}
+
+/* ========================================
+   MODALS & DIALOGS
+   ======================================== */
+
+[data-theme="arcade"] .modal,
+[data-theme="arcade"] dialog,
+[data-theme="arcade"] [class*="modal"],
+[data-theme="arcade"] [class*="dialog"] {
+  background: #12121f !important;
+  border: 4px solid #ff1493 !important;
+  box-shadow:
+    8px 8px 0 #000,
+    0 0 40px rgba(255, 20, 147, 0.5) !important;
+}
+
+/* ========================================
+   SCROLLBAR
+   ======================================== */
+
+[data-theme="arcade"] ::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+}
+
+[data-theme="arcade"] ::-webkit-scrollbar-track {
+  background: #0a0a12;
+  border: 2px solid #333;
+}
+
+[data-theme="arcade"] ::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #bf00ff, #8800aa);
+  border: 2px solid #fff;
+  box-shadow: inset 0 0 10px rgba(255,255,255,0.3);
+}
+
+[data-theme="arcade"] ::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #ff1493, #cc0077);
+}
+
+/* ========================================
+   HIGH SCORE / INSERT COIN ELEMENTS
+   ======================================== */
+
+[data-theme="arcade"] .title,
+[data-theme="arcade"] .heading {
+  position: relative;
+}
+
+/* Blinking text effect for important elements */
+[data-theme="arcade"] .blink,
+[data-theme="arcade"] .highlight {
+  animation: arcade-blink 0.5s step-end infinite;
+}
+
+@keyframes arcade-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+/* ========================================
+   THEME SWITCHER OVERRIDES
+   ======================================== */
+
+[data-theme="arcade"] .theme-switcher {
+  background: #12121f !important;
+  border: 3px solid #39ff14 !important;
+}
+
+[data-theme="arcade"] .theme-switcher-dropdown {
+  background: #12121f !important;
+  border: 3px solid #bf00ff !important;
+}
+
+[data-theme="arcade"] .theme-option {
+  font-family: 'VT323', monospace !important;
+  color: #00d4ff !important;
+}
+
+[data-theme="arcade"] .theme-option:hover {
+  background: rgba(0, 212, 255, 0.2) !important;
+}
+
+/* ========================================
+   HELP CHAT OVERRIDES
+   ======================================== */
+
+[data-theme="arcade"] .help-chat,
+[data-theme="arcade"] [class*="help-chat"] {
+  background: #12121f !important;
+  border: 4px solid #ff1493 !important;
+}
+
+/* ========================================
+   SPECIAL EFFECTS
+   ======================================== */
+
+/* Pixel corners on images */
+[data-theme="arcade"] img {
+  image-rendering: pixelated;
+}
+
+/* Selection color */
+[data-theme="arcade"] ::selection {
+  background: #ff1493 !important;
+  color: #fff !important;
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 768px) {
+  [data-theme="arcade"] h1 {
+    font-size: 18px !important;
+  }
+
+  [data-theme="arcade"] button,
+  [data-theme="arcade"] .btn {
+    font-size: 10px !important;
+    padding: 8px 16px !important;
+  }
+}
+
+/* ========================================
+   REDUCED MOTION
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  [data-theme="arcade"] * {
+    animation: none !important;
+  }
+
+  [data-theme="arcade"] body::before {
+    display: none;
+  }
+}

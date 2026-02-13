@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { getPlotOutline, getAllCharacters, getFactions, getGlossary } from '@/lib/hamieverse/characters';
+import { getAllCharacters, getFactions, getGlossary } from '@/lib/hamieverse/characters';
 
 interface SearchResult {
   type: 'character' | 'faction' | 'glossary';
@@ -12,17 +12,125 @@ interface SearchResult {
   subtitle?: string;
 }
 
+interface TimelineEvent {
+  id: string;
+  title: string;
+  description: string;
+  era: string;
+  characters?: string[];
+  type: 'origin' | 'discovery' | 'conflict' | 'transformation' | 'mystery';
+}
+
+const timelineEvents: TimelineEvent[] = [
+  {
+    id: 'origins',
+    era: 'Before the City',
+    title: 'Life in Virella',
+    description: 'Hamie lives in the Beyond with his grandmother. Memories of grass, woodsmoke, and roasted crickets.',
+    characters: ['hamie', 'grandma'],
+    type: 'origin',
+  },
+  {
+    id: 'veynar-prologue',
+    era: 'Before the City',
+    title: 'The Veynar Legacy',
+    description: 'Alistair Veynar punishes emotion as weakness. Silas watches silently. A butterfly symbolizes fleeting freedom.',
+    characters: ['silas'],
+    type: 'origin',
+  },
+  {
+    id: 'arrival',
+    era: 'City Life',
+    title: 'Worker #146B',
+    description: 'Hamie becomes a numbered factory worker in Aetherion\'s motion-mandated surveillance city.',
+    characters: ['hamie'],
+    type: 'transformation',
+  },
+  {
+    id: 'overpass',
+    era: 'City Life',
+    title: 'The Overpass Encounter',
+    description: 'A homeless man and his dog Simba live beneath the overpass. Hamie receives a cracked pendant containing secrets.',
+    characters: ['hamie'],
+    type: 'discovery',
+  },
+  {
+    id: 'usb-discovery',
+    era: 'The Awakening',
+    title: 'The USB Discovery',
+    description: 'The pendant reveals a hidden bridge chip and USB drive—contraband that could shatter Aetherion\'s control.',
+    characters: ['hamie'],
+    type: 'discovery',
+  },
+  {
+    id: 'section-9',
+    era: 'The Awakening',
+    title: 'Section 9 Cleanup',
+    description: 'IronPaw enforcers escalate. The homeless man disappears. Workers are interrogated about Subject #101B.',
+    type: 'conflict',
+  },
+  {
+    id: '257a-intervention',
+    era: 'The Awakening',
+    title: '#257A Intervenes',
+    description: 'Hamie attempts self-dismissal. Senior worker #257A invokes Protocol Four-Seven-Grey to save him.',
+    characters: ['hamie'],
+    type: 'transformation',
+  },
+  {
+    id: 'undercode-entry',
+    era: 'The Undercode',
+    title: 'Welcome to Undercode',
+    description: 'Hamie accesses the shadow digital ecosystem. Echo raids, viral loops, and echoloops that can tank markets.',
+    characters: ['hamie'],
+    type: 'discovery',
+  },
+  {
+    id: 'simba-windfall',
+    era: 'The Undercode',
+    title: '+13,000,000 AC',
+    description: 'A single click during the Aethercreed operation. Hamie becomes wealthy. The alias "Simba" is born.',
+    characters: ['hamie'],
+    type: 'transformation',
+  },
+  {
+    id: 'doppel-protocol',
+    era: 'The Undercode',
+    title: 'Doppel Protocol',
+    description: 'Hamie deploys the forbidden mimic-script. The Red Eye in his ceiling flickers and goes dark.',
+    characters: ['hamie'],
+    type: 'discovery',
+  },
+  {
+    id: 'respeculators',
+    era: 'The Conspiracy',
+    title: 'The Respeculators',
+    description: 'Sam and Lira run an elite shadow coalition. Rebellion as mask. They see Simba as a dangerous new asset.',
+    characters: ['sam', 'lira'],
+    type: 'mystery',
+  },
+  {
+    id: 'neon-spire',
+    era: 'The Conspiracy',
+    title: 'Neon Spire Invitation',
+    description: 'A coded message with an ancient emblem arrives. Rendezvous at midnight. The game has just begun.',
+    characters: ['hamie'],
+    type: 'mystery',
+  },
+];
+
 export default function TimelinePage() {
   const router = useRouter();
-  const plotOutline = getPlotOutline();
   const allCharacters = getAllCharacters();
   const factions = getFactions();
   const glossary = getGlossary();
+  const timelineRef = useRef<HTMLDivElement>(null);
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [showSearchResults, setShowSearchResults] = useState(false);
+  const [activeEvent, setActiveEvent] = useState<string | null>(null);
   const searchRef = useRef<HTMLDivElement>(null);
 
   const allSearchItems: SearchResult[] = [
@@ -83,8 +191,30 @@ export default function TimelinePage() {
     router.push(`/character/${randomChar.id}`);
   };
 
-  const chapters = plotOutline.chapters || [];
-  const prologue = plotOutline.prologue;
+  // Group events by era
+  const eras = Array.from(new Set(timelineEvents.map(e => e.era)));
+
+  const getTypeColor = (type: string) => {
+    switch (type) {
+      case 'origin': return 'var(--brand-secondary)';
+      case 'discovery': return 'var(--brand-primary)';
+      case 'conflict': return 'var(--brand-danger)';
+      case 'transformation': return 'var(--brand-purple)';
+      case 'mystery': return 'var(--brand-accent)';
+      default: return 'var(--brand-primary)';
+    }
+  };
+
+  const getTypeIcon = (type: string) => {
+    switch (type) {
+      case 'origin': return '🌱';
+      case 'discovery': return '💡';
+      case 'conflict': return '⚔️';
+      case 'transformation': return '✨';
+      case 'mystery': return '❓';
+      default: return '📍';
+    }
+  };
 
   return (
     <div className="wiki-container">
@@ -171,103 +301,97 @@ export default function TimelinePage() {
       <header className="timeline-header">
         <div className="timeline-header-content">
           <h1>Story Timeline</h1>
-          <p>Follow Hamie's journey from factory worker to Undercode player</p>
+          <p>Major events in the Hamieverse saga</p>
+          <div className="timeline-legend">
+            <span className="timeline-legend-item" style={{ '--legend-color': 'var(--brand-secondary)' } as React.CSSProperties}>
+              <span className="timeline-legend-dot"></span> Origin
+            </span>
+            <span className="timeline-legend-item" style={{ '--legend-color': 'var(--brand-primary)' } as React.CSSProperties}>
+              <span className="timeline-legend-dot"></span> Discovery
+            </span>
+            <span className="timeline-legend-item" style={{ '--legend-color': 'var(--brand-danger)' } as React.CSSProperties}>
+              <span className="timeline-legend-dot"></span> Conflict
+            </span>
+            <span className="timeline-legend-item" style={{ '--legend-color': 'var(--brand-purple)' } as React.CSSProperties}>
+              <span className="timeline-legend-dot"></span> Transformation
+            </span>
+            <span className="timeline-legend-item" style={{ '--legend-color': 'var(--brand-accent)' } as React.CSSProperties}>
+              <span className="timeline-legend-dot"></span> Mystery
+            </span>
+          </div>
         </div>
       </header>
 
-      {/* Timeline Content */}
-      <main className="timeline-main">
-        <div className="timeline-line" />
+      {/* Horizontal Timeline */}
+      <main className="htimeline-main">
+        <div className="htimeline-scroll" ref={timelineRef}>
+          <div className="htimeline-track">
+            <div className="htimeline-line" />
 
-        {/* Prologue */}
-        {prologue && (
-          <div className="timeline-item timeline-item-prologue">
-            <div className="timeline-marker">
-              <span>P</span>
-            </div>
-            <div className="timeline-card">
-              <div className="timeline-card-header">
-                <span className="timeline-chapter-label">Prologue</span>
-                <h2 className="timeline-chapter-title">{prologue.title}</h2>
-              </div>
-              <div className="timeline-beats">
-                {prologue.beats?.map((beat: string, i: number) => (
-                  <p key={i} className="timeline-beat">{beat}</p>
-                ))}
-              </div>
-              {prologue.introduces && prologue.introduces.length > 0 && (
-                <div className="timeline-introduces">
-                  <span className="timeline-introduces-label">Introduces:</span>
-                  <div className="timeline-introduces-list">
-                    {prologue.introduces.map((name: string, i: number) => {
-                      const char = allCharacters.find(c =>
-                        c.displayName.toLowerCase() === name.toLowerCase() ||
-                        c.id.toLowerCase() === name.toLowerCase()
-                      );
-                      return char ? (
-                        <Link key={i} href={`/character/${char.id}`} className="timeline-character-chip">
-                          {name}
-                        </Link>
-                      ) : (
-                        <span key={i} className="timeline-element-chip">{name}</span>
-                      );
-                    })}
+            {eras.map((era, eraIndex) => {
+              const eraEvents = timelineEvents.filter(e => e.era === era);
+              return (
+                <div key={era} className="htimeline-era">
+                  <div className="htimeline-era-label">{era}</div>
+                  <div className="htimeline-events">
+                    {eraEvents.map((event, i) => (
+                      <div
+                        key={event.id}
+                        className={`htimeline-event ${activeEvent === event.id ? 'active' : ''}`}
+                        style={{ '--event-color': getTypeColor(event.type) } as React.CSSProperties}
+                        onClick={() => setActiveEvent(activeEvent === event.id ? null : event.id)}
+                      >
+                        <div className="htimeline-marker">
+                          <span>{getTypeIcon(event.type)}</span>
+                        </div>
+                        <div className="htimeline-content">
+                          <h3 className="htimeline-title">{event.title}</h3>
+                          <p className="htimeline-desc">{event.description}</p>
+                          {event.characters && event.characters.length > 0 && (
+                            <div className="htimeline-characters">
+                              {event.characters.map(charId => {
+                                const char = allCharacters.find(c => c.id === charId);
+                                return char ? (
+                                  <Link
+                                    key={charId}
+                                    href={`/character/${charId}`}
+                                    className="htimeline-char-chip"
+                                    onClick={(e) => e.stopPropagation()}
+                                  >
+                                    {char.displayName}
+                                  </Link>
+                                ) : null;
+                              })}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
-              )}
-            </div>
-          </div>
-        )}
+              );
+            })}
 
-        {/* Chapters */}
-        {chapters.map((chapter: any, index: number) => (
-          <div key={chapter.number} className={`timeline-item ${index % 2 === 0 ? 'timeline-item-left' : 'timeline-item-right'}`}>
-            <div className="timeline-marker">
-              <span>{chapter.number}</span>
-            </div>
-            <div className="timeline-card">
-              <div className="timeline-card-header">
-                <span className="timeline-chapter-label">Chapter {chapter.number}</span>
-                <h2 className="timeline-chapter-title">{chapter.title}</h2>
-              </div>
-              <div className="timeline-beats">
-                {chapter.beats?.map((beat: string, i: number) => (
-                  <p key={i} className="timeline-beat">{beat}</p>
-                ))}
-              </div>
-              {chapter.introduces && chapter.introduces.length > 0 && (
-                <div className="timeline-introduces">
-                  <span className="timeline-introduces-label">Introduces:</span>
-                  <div className="timeline-introduces-list">
-                    {chapter.introduces.map((name: string, i: number) => {
-                      const char = allCharacters.find(c =>
-                        c.displayName.toLowerCase().includes(name.toLowerCase()) ||
-                        name.toLowerCase().includes(c.displayName.toLowerCase())
-                      );
-                      return char ? (
-                        <Link key={i} href={`/character/${char.id}`} className="timeline-character-chip">
-                          {name}
-                        </Link>
-                      ) : (
-                        <span key={i} className="timeline-element-chip">{name}</span>
-                      );
-                    })}
+            {/* To Be Continued */}
+            <div className="htimeline-era htimeline-era-end">
+              <div className="htimeline-era-label">???</div>
+              <div className="htimeline-events">
+                <div className="htimeline-event htimeline-tbc">
+                  <div className="htimeline-marker">
+                    <span>🔮</span>
+                  </div>
+                  <div className="htimeline-content">
+                    <h3 className="htimeline-title">To Be Continued...</h3>
+                    <p className="htimeline-desc">The story continues in future chapters.</p>
                   </div>
                 </div>
-              )}
+              </div>
             </div>
           </div>
-        ))}
+        </div>
 
-        {/* To Be Continued */}
-        <div className="timeline-item timeline-item-end">
-          <div className="timeline-marker timeline-marker-end">
-            <span>?</span>
-          </div>
-          <div className="timeline-card timeline-card-tbc">
-            <h2>To Be Continued...</h2>
-            <p>The story continues as Hamie faces new challenges in the Undercode.</p>
-          </div>
+        <div className="htimeline-scroll-hint">
+          <span>← Scroll to explore →</span>
         </div>
       </main>
 
@@ -276,8 +400,8 @@ export default function TimelinePage() {
         <div className="wiki-footer-inner">
           <p className="wiki-footer-text">© 2024 Hamieverse Wiki — Part of the Hamie Saga</p>
           <div className="wiki-footer-links">
-            <a href="https://twitter.com/hamaborz" className="wiki-footer-link" target="_blank" rel="noopener noreferrer">Twitter</a>
-            <a href="#" className="wiki-footer-link">Discord</a>
+            <a href="https://x.com/hamieverse" className="wiki-footer-link" target="_blank" rel="noopener noreferrer">Twitter</a>
+            <a href="https://discord.gg/XpheMErdk6" className="wiki-footer-link" target="_blank" rel="noopener noreferrer">Discord</a>
           </div>
         </div>
       </footer>
