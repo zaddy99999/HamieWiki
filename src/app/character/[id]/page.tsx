@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import {
@@ -9,7 +9,15 @@ import {
   getAllCharacters,
   getPlotOutline,
   getGlossary,
+  getFactions,
 } from '@/lib/hamieverse/characters';
+
+interface SearchResult {
+  type: 'character' | 'faction' | 'glossary';
+  id: string;
+  name: string;
+  subtitle?: string;
+}
 
 export default function CharacterPage() {
   const params = useParams();
@@ -17,6 +25,39 @@ export default function CharacterPage() {
   const characterId = params.id as string;
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
+  const [showSearchResults, setShowSearchResults] = useState(false);
+  const searchRef = useRef<HTMLDivElement>(null);
+
+  const character = getCharacter(characterId);
+  const relationships = getCharacterRelationships(characterId);
+  const allCharacters = getAllCharacters();
+  const plotOutline = getPlotOutline();
+  const glossary = getGlossary();
+  const factions = getFactions();
+
+  // Build search index
+  const allSearchItems: SearchResult[] = [
+    ...allCharacters.map(c => ({
+      type: 'character' as const,
+      id: c.id,
+      name: c.displayName,
+      subtitle: c.roles[0]?.replace(/_/g, ' ') || c.species || '',
+    })),
+    ...Object.keys(factions).map(key => ({
+      type: 'faction' as const,
+      id: key,
+      name: key.charAt(0).toUpperCase() + key.slice(1).replace(/_/g, ' '),
+      subtitle: factions[key].type || 'Faction',
+    })),
+    ...Object.keys(glossary).map(term => ({
+      type: 'glossary' as const,
+      id: term,
+      name: term,
+      subtitle: glossary[term].slice(0, 50) + (glossary[term].length > 50 ? '...' : ''),
+    })),
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,11 +66,43 @@ export default function CharacterPage() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-  const character = getCharacter(characterId);
-  const relationships = getCharacterRelationships(characterId);
-  const allCharacters = getAllCharacters();
-  const plotOutline = getPlotOutline();
-  const glossary = getGlossary();
+
+  // Close search results when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
+        setShowSearchResults(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  // Filter search results
+  useEffect(() => {
+    if (searchQuery.trim().length < 2) {
+      setSearchResults([]);
+      return;
+    }
+    const query = searchQuery.toLowerCase();
+    const filtered = allSearchItems.filter(item =>
+      item.name.toLowerCase().includes(query) ||
+      item.subtitle?.toLowerCase().includes(query)
+    ).slice(0, 8);
+    setSearchResults(filtered);
+  }, [searchQuery]);
+
+  const handleSearchSelect = (result: SearchResult) => {
+    setSearchQuery('');
+    setShowSearchResults(false);
+    if (result.type === 'character') {
+      router.push(`/character/${result.id}`);
+    } else if (result.type === 'faction') {
+      router.push('/#factions');
+    } else if (result.type === 'glossary') {
+      router.push('/#glossary');
+    }
+  };
 
   const goToRandomCharacter = () => {
     const otherCharacters = allCharacters.filter(c => c.id !== characterId);
@@ -91,14 +164,37 @@ export default function CharacterPage() {
             <a href="/#glossary" className="wiki-topbar-link">Glossary</a>
           </div>
 
-          <div className="wiki-search-box">
+          <div className="wiki-search-box" ref={searchRef}>
             <span className="wiki-search-icon">🔍</span>
             <input
               type="text"
               className="wiki-search-input"
               placeholder="Search the wiki..."
-              disabled
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onFocus={() => setShowSearchResults(true)}
             />
+            {showSearchResults && searchResults.length > 0 && (
+              <div className="wiki-search-dropdown">
+                {searchResults.map((result, i) => (
+                  <button
+                    key={`${result.type}-${result.id}-${i}`}
+                    className="wiki-search-result"
+                    onClick={() => handleSearchSelect(result)}
+                  >
+                    <span className={`wiki-search-type wiki-search-type-${result.type}`}>
+                      {result.type === 'character' ? '👤' : result.type === 'faction' ? '⚔️' : '📖'}
+                    </span>
+                    <div className="wiki-search-result-text">
+                      <span className="wiki-search-result-name">{result.name}</span>
+                      {result.subtitle && (
+                        <span className="wiki-search-result-subtitle">{result.subtitle}</span>
+                      )}
+                    </div>
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
           <button className="wiki-random-btn" onClick={goToRandomCharacter}>

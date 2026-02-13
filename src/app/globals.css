@@ -747,6 +747,102 @@ button {
   font-size: var(--text-sm);
 }
 
+.wiki-search-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: var(--space-2);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  z-index: 200;
+  animation: dropdownFade 0.2s ease-out;
+}
+
+@keyframes dropdownFade {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.wiki-search-result {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border-subtle);
+  text-align: left;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.wiki-search-result:last-child {
+  border-bottom: none;
+}
+
+.wiki-search-result:hover {
+  background: var(--bg-card-hover);
+}
+
+.wiki-search-type {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: var(--neutral-800);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  flex-shrink: 0;
+}
+
+.wiki-search-type-character {
+  background: rgba(247, 147, 26, 0.2);
+}
+
+.wiki-search-type-faction {
+  background: rgba(239, 68, 68, 0.2);
+}
+
+.wiki-search-type-glossary {
+  background: rgba(0, 217, 165, 0.2);
+}
+
+.wiki-search-result-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.wiki-search-result-name {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.wiki-search-result-subtitle {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .wiki-random-btn {
   display: flex;
   align-items: center;
