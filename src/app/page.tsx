@@ -11,6 +11,7 @@ import RelationshipsMap from '@/components/RelationshipsMap';
 import AudioPlayer from '@/components/AudioPlayer';
 import FavoriteButton from '@/components/FavoriteButton';
 import CharacterOfTheDay from '@/components/CharacterOfTheDay';
+import QuizTeaser from '@/components/QuizTeaser';
 import { useKeyboardNav } from '@/hooks/useKeyboardNav';
 
 interface SearchResult {
@@ -253,9 +254,10 @@ export default function WikiHome() {
       <main className="wiki-main">
         {/* Character of the Day & Trivia */}
         <section className="wiki-section wiki-intro-section">
-          <div className="wiki-intro-grid-3">
+          <div className="wiki-intro-grid-4">
             <CharacterOfTheDay />
             <TriviaCard />
+            <QuizTeaser />
             <LoreLinks />
           </div>
         </section>
