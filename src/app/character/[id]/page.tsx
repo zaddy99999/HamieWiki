@@ -239,11 +239,11 @@ export default function CharacterPage() {
               <section id="motivations" className="wiki-article-section">
                 <h2>Motivations & Conflicts</h2>
                 <p>{character.displayName} is driven by internal conflicts and external pressures:</p>
-                <ul className="wiki-bullet-list">
+                <div className="wiki-traits-grid">
                   {character.coreConflicts.map((conflict, i) => (
-                    <li key={i}>{conflict.replace(/_/g, ' ').replace(/vs/g, ' versus ')}</li>
+                    <span key={i} className="wiki-conflict-badge">{conflict.replace(/_/g, ' ').replace(/vs/g, ' vs ')}</span>
                   ))}
-                </ul>
+                </div>
               </section>
             )}
 

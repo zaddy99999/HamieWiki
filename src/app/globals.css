@@ -1140,6 +1140,27 @@ a {
   transform: translateY(-1px);
 }
 
+.wiki-conflict-badge {
+  background: linear-gradient(135deg, rgba(153, 69, 255, 0.15) 0%, rgba(153, 69, 255, 0.08) 100%);
+  border: 1px solid rgba(153, 69, 255, 0.3);
+  color: #b794f6;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  text-transform: capitalize;
+  letter-spacing: 0.03em;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.wiki-conflict-badge:hover {
+  background: linear-gradient(135deg, rgba(153, 69, 255, 0.25) 0%, rgba(153, 69, 255, 0.15) 100%);
+  border-color: rgba(153, 69, 255, 0.5);
+  box-shadow: 0 4px 12px rgba(153, 69, 255, 0.2);
+  transform: translateY(-1px);
+}
+
 .wiki-infobox-list {
   list-style: none;
 }
