@@ -1,8 +1,10 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import WikiNavbar from '@/components/WikiNavbar';
+import Breadcrumb from '@/components/Breadcrumb';
+import { Skeleton } from '@/components/SkeletonLoader';
 
 interface FanArt {
   id: string;
@@ -89,12 +91,29 @@ export default function GalleryPage() {
     }
   };
 
+  const breadcrumbItems = [
+    { label: 'Wiki', href: '/' },
+    { label: 'Gallery' },
+  ];
+
+  // Keyboard navigation for lightbox
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (selectedArt && e.key === 'Escape') {
+        setSelectedArt(null);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedArt]);
+
   return (
     <div className="wiki-container">
       <WikiNavbar currentPage="gallery" />
 
-      <main className="gallery-main">
+      <main className="gallery-main" id="main-content" role="main">
         <header className="gallery-header">
+          <Breadcrumb items={breadcrumbItems} />
           <h1>Fan Art Gallery</h1>
           <p>Community creations from the Hamieverse</p>
 
@@ -123,9 +142,16 @@ export default function GalleryPage() {
         </header>
 
         {loading ? (
-          <div className="gallery-loading">
-            <div className="gallery-loading-spinner"></div>
+          <div className="gallery-loading" role="alert" aria-busy="true" aria-label="Loading gallery">
+            <div className="gallery-loading-spinner" aria-hidden="true"></div>
             <p>Loading gallery...</p>
+            <div className="gallery-skeleton-grid" aria-hidden="true">
+              {[1, 2, 3, 4, 5, 6].map(i => (
+                <div key={i} className="gallery-skeleton-item">
+                  <Skeleton variant="rectangular" height={200} className="skeleton-pulse" />
+                </div>
+              ))}
+            </div>
           </div>
         ) : filteredArt.length === 0 ? (
           <div className="gallery-empty">
@@ -265,12 +291,24 @@ export default function GalleryPage() {
 
         {/* Lightbox Modal */}
         {selectedArt && (
-          <div className="gallery-lightbox" onClick={() => setSelectedArt(null)}>
+          <div
+            className="gallery-lightbox"
+            onClick={() => setSelectedArt(null)}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="lightbox-title"
+          >
             <div className="gallery-lightbox-content" onClick={e => e.stopPropagation()}>
-              <button className="gallery-lightbox-close" onClick={() => setSelectedArt(null)}>×</button>
-              <img src={selectedArt.imageUrl} alt={selectedArt.title} />
+              <button
+                className="gallery-lightbox-close"
+                onClick={() => setSelectedArt(null)}
+                aria-label="Close lightbox"
+              >
+                &#x2715;
+              </button>
+              <img src={selectedArt.imageUrl} alt={`${selectedArt.title} by ${selectedArt.artist}`} />
               <div className="gallery-lightbox-info">
-                <h3>{selectedArt.title}</h3>
+                <h3 id="lightbox-title">{selectedArt.title}</h3>
                 <p>
                   by{' '}
                   {selectedArt.artistUrl ? (
@@ -283,7 +321,7 @@ export default function GalleryPage() {
                 </p>
                 {selectedArt.character && (
                   <Link href={`/character/${selectedArt.character}`} className="gallery-lightbox-char">
-                    View {selectedArt.character}'s profile →
+                    View {selectedArt.character}'s profile &#x2192;
                   </Link>
                 )}
               </div>

@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import WikiNavbar from '@/components/WikiNavbar';
+import Breadcrumb from '@/components/Breadcrumb';
+import { useReadingProgress } from '@/hooks/useReadingProgress';
 
 interface Chapter {
   number: number;
@@ -77,6 +79,14 @@ const chapters: Chapter[] = [
 export default function ChaptersPage() {
   const [expandedChapters, setExpandedChapters] = useState<Set<number>>(new Set());
   const [showSpoilers, setShowSpoilers] = useState<Set<number>>(new Set());
+  const {
+    progress,
+    isLoaded,
+    toggleChapterComplete,
+    isChapterComplete,
+    getProgressPercentage,
+    resetProgress
+  } = useReadingProgress();
 
   const toggleChapter = (num: number) => {
     setExpandedChapters(prev => {
@@ -111,15 +121,77 @@ export default function ChaptersPage() {
     }
   };
 
+  const progressPercent = getProgressPercentage(chapters.length);
+  const completedCount = progress.completedChapters.length;
+
+  const breadcrumbItems = [
+    { label: 'Wiki', href: '/' },
+    { label: 'Chapters' },
+  ];
+
   return (
     <div className="wiki-container">
       <WikiNavbar currentPage="chapters" />
 
-      <main className="chapters-main">
+      <main className="chapters-main" id="main-content" role="main">
         <header className="chapters-header">
+          <Breadcrumb items={breadcrumbItems} />
           <h1>Chapter Summaries</h1>
           <p>Songs the City Forgot - Book One</p>
         </header>
+
+        {/* Reading Progress Tracker */}
+        {isLoaded && (
+          <div className="reading-progress-section">
+            <div className="reading-progress-header">
+              <h2>Your Reading Progress</h2>
+              {completedCount > 0 && (
+                <button
+                  className="reading-progress-reset"
+                  onClick={() => {
+                    if (confirm('Reset all reading progress?')) {
+                      resetProgress();
+                    }
+                  }}
+                >
+                  Reset
+                </button>
+              )}
+            </div>
+
+            <div className="reading-progress-stats">
+              <div className="reading-progress-bar-container">
+                <div
+                  className="reading-progress-bar"
+                  style={{ width: `${progressPercent}%` }}
+                />
+                <span className="reading-progress-label">
+                  {completedCount} / {chapters.length} chapters
+                </span>
+              </div>
+              <div className="reading-progress-percent">{progressPercent}%</div>
+            </div>
+
+            <div className="reading-progress-chapters">
+              {chapters.map(chapter => (
+                <button
+                  key={chapter.number}
+                  className={`reading-progress-dot ${isChapterComplete(chapter.number) ? 'completed' : ''}`}
+                  onClick={() => toggleChapterComplete(chapter.number)}
+                  title={`Chapter ${chapter.number}: ${chapter.title} ${isChapterComplete(chapter.number) ? '(completed)' : '(click to mark as read)'}`}
+                >
+                  {isChapterComplete(chapter.number) ? '✓' : chapter.number}
+                </button>
+              ))}
+            </div>
+
+            {progress.lastReadAt && (
+              <div className="reading-progress-last">
+                Last read: {new Date(progress.lastReadAt).toLocaleDateString()}
+              </div>
+            )}
+          </div>
+        )}
 
         <div className="chapters-read-section">
           <h2 className="chapters-read-title">Read the Full Story</h2>
@@ -154,18 +226,19 @@ export default function ChaptersPage() {
           {chapters.map(chapter => {
             const isExpanded = expandedChapters.has(chapter.number);
             const showingSpoiler = showSpoilers.has(chapter.number);
+            const isComplete = isChapterComplete(chapter.number);
 
             return (
               <div
                 key={chapter.number}
-                className={`chapter-card ${isExpanded ? 'expanded' : ''}`}
+                className={`chapter-card ${isExpanded ? 'expanded' : ''} ${isComplete ? 'completed' : ''}`}
               >
                 <button
                   className="chapter-header"
                   onClick={() => toggleChapter(chapter.number)}
                 >
-                  <div className="chapter-number">
-                    <span>{chapter.number}</span>
+                  <div className={`chapter-number ${isComplete ? 'completed' : ''}`}>
+                    <span>{isComplete ? '✓' : chapter.number}</span>
                   </div>
                   <div className="chapter-title-wrap">
                     <h2 className="chapter-title">{chapter.title}</h2>
@@ -207,6 +280,15 @@ export default function ChaptersPage() {
                           <span key={i} className="chapter-character">{char}</span>
                         ))}
                       </div>
+                    </div>
+
+                    <div className="chapter-actions">
+                      <button
+                        className={`chapter-mark-read ${isComplete ? 'completed' : ''}`}
+                        onClick={() => toggleChapterComplete(chapter.number)}
+                      >
+                        {isComplete ? '✓ Marked as Read' : 'Mark as Read'}
+                      </button>
                     </div>
                   </div>
                 )}

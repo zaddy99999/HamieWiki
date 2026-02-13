@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import WikiNavbar from '@/components/WikiNavbar';
+import Breadcrumb from '@/components/Breadcrumb';
 import { getAllCharacters } from '@/lib/hamieverse/characters';
 
 interface Quote {
@@ -74,19 +75,20 @@ export default function QuotesPage() {
   // Group quotes by character
   const charactersWithQuotes = characters.filter(c => c.quotes && c.quotes.length > 0);
 
+  const breadcrumbItems = [
+    { label: 'Wiki', href: '/' },
+    { label: 'Quotes' },
+  ];
+
   return (
     <div className="wiki-container">
       <WikiNavbar currentPage="quotes" />
 
       {/* Main Content */}
-      <main className="quotes-main">
+      <main className="quotes-main" id="main-content" role="main">
         {/* Header */}
         <header className="quotes-header">
-          <div className="wiki-breadcrumb">
-            <Link href="/">Wiki</Link>
-            <span className="wiki-breadcrumb-sep">/</span>
-            <span>Quotes</span>
-          </div>
+          <Breadcrumb items={breadcrumbItems} />
           <h1 className="quotes-title">Character Quotes</h1>
           <p className="quotes-subtitle">Memorable lines from across the Hamieverse</p>
         </header>

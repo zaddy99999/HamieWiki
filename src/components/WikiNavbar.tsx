@@ -23,8 +23,10 @@ export default function WikiNavbar({ currentPage }: WikiNavbarProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [showSearchResults, setShowSearchResults] = useState(false);
+  const [selectedResultIndex, setSelectedResultIndex] = useState(-1);
   const searchRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const resultRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   // Character GIF mappings
   const characterGifs: Record<string, string> = {
@@ -90,6 +92,41 @@ export default function WikiNavbar({ currentPage }: WikiNavbarProps) {
     setSearchResults(filtered);
   }, [searchQuery]);
 
+  // Reset selected index when results change
+  useEffect(() => {
+    setSelectedResultIndex(-1);
+  }, [searchResults]);
+
+  // Keyboard navigation for search
+  const handleSearchKeyDown = (e: React.KeyboardEvent) => {
+    if (!showSearchResults || searchResults.length === 0) return;
+
+    switch (e.key) {
+      case 'ArrowDown':
+        e.preventDefault();
+        setSelectedResultIndex(prev =>
+          prev < searchResults.length - 1 ? prev + 1 : 0
+        );
+        break;
+      case 'ArrowUp':
+        e.preventDefault();
+        setSelectedResultIndex(prev =>
+          prev > 0 ? prev - 1 : searchResults.length - 1
+        );
+        break;
+      case 'Enter':
+        e.preventDefault();
+        if (selectedResultIndex >= 0 && searchResults[selectedResultIndex]) {
+          handleSearchSelect(searchResults[selectedResultIndex]);
+        }
+        break;
+      case 'Escape':
+        setShowSearchResults(false);
+        setSelectedResultIndex(-1);
+        break;
+    }
+  };
+
   // Keyboard shortcut for search
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -100,6 +137,7 @@ export default function WikiNavbar({ currentPage }: WikiNavbarProps) {
       if (e.key === 'Escape') {
         setShowSearchResults(false);
         setMobileMenuOpen(false);
+        setSelectedResultIndex(-1);
       }
     };
     document.addEventListener('keydown', handleKeyDown);
@@ -159,8 +197,8 @@ export default function WikiNavbar({ currentPage }: WikiNavbarProps) {
             ))}
           </div>
 
-          <div className="wiki-search-box" ref={searchRef}>
-            <span className="wiki-search-icon">🔍</span>
+          <div className="wiki-search-box" ref={searchRef} role="combobox" aria-expanded={showSearchResults} aria-haspopup="listbox">
+            <span className="wiki-search-icon" aria-hidden="true">&#x1F50D;</span>
             <input
               ref={searchInputRef}
               type="text"
@@ -169,24 +207,34 @@ export default function WikiNavbar({ currentPage }: WikiNavbarProps) {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               onFocus={() => setShowSearchResults(true)}
+              onKeyDown={handleSearchKeyDown}
+              aria-label="Search the wiki"
+              aria-autocomplete="list"
+              aria-controls="search-results"
+              aria-activedescendant={selectedResultIndex >= 0 ? `search-result-${selectedResultIndex}` : undefined}
             />
             {showSearchResults && searchResults.length > 0 && (
-              <div className="wiki-search-dropdown">
+              <div className="wiki-search-dropdown" id="search-results" role="listbox" aria-label="Search results">
                 {searchResults.map((result, i) => (
                   <button
                     key={`${result.type}-${result.id}-${i}`}
-                    className="wiki-search-result"
+                    id={`search-result-${i}`}
+                    ref={el => { resultRefs.current[i] = el; }}
+                    className={`wiki-search-result ${selectedResultIndex === i ? 'selected' : ''}`}
                     onClick={() => handleSearchSelect(result)}
+                    role="option"
+                    aria-selected={selectedResultIndex === i}
                   >
                     {result.type === 'character' && result.image ? (
                       <img
                         src={result.image}
-                        alt={result.name}
+                        alt=""
                         className="wiki-search-result-img"
+                        aria-hidden="true"
                       />
                     ) : (
-                      <span className={`wiki-search-type wiki-search-type-${result.type}`}>
-                        {result.type === 'character' ? '👤' : result.type === 'faction' ? '⚔️' : '📖'}
+                      <span className={`wiki-search-type wiki-search-type-${result.type}`} aria-hidden="true">
+                        {result.type === 'character' ? '\uD83D\uDC64' : result.type === 'faction' ? '\u2694\uFE0F' : '\uD83D\uDCD6'}
                       </span>
                     )}
                     <div className="wiki-search-result-text">
@@ -195,8 +243,18 @@ export default function WikiNavbar({ currentPage }: WikiNavbarProps) {
                         <span className="wiki-search-result-subtitle">{result.subtitle}</span>
                       )}
                     </div>
+                    <span className="wiki-search-result-type-badge">{result.type}</span>
                   </button>
                 ))}
+                <div className="wiki-search-hint" aria-live="polite">
+                  {searchResults.length} result{searchResults.length !== 1 ? 's' : ''} - Use arrow keys to navigate
+                </div>
+              </div>
+            )}
+            {showSearchResults && searchQuery.length >= 2 && searchResults.length === 0 && (
+              <div className="wiki-search-dropdown wiki-search-no-results" role="status">
+                <p>No results found for "{searchQuery}"</p>
+                <p className="wiki-search-no-results-hint">Try different keywords or browse the wiki</p>
               </div>
             )}
           </div>

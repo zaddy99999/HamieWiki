@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import WikiNavbar from '@/components/WikiNavbar';
+import Breadcrumb from '@/components/Breadcrumb';
 import { getAllCharacters, getFactions } from '@/lib/hamieverse/characters';
 
 const factionColors: Record<string, string> = {
@@ -39,6 +40,11 @@ export default function FactionsPage() {
     }
   });
 
+  const breadcrumbItems = [
+    { label: 'Wiki', href: '/' },
+    { label: 'Factions' },
+  ];
+
   return (
     <div className="wiki-container">
       <WikiNavbar currentPage="factions" />
@@ -46,13 +52,14 @@ export default function FactionsPage() {
       {/* Header */}
       <header className="factions-header">
         <div className="factions-header-content">
+          <Breadcrumb items={breadcrumbItems} />
           <h1>Factions & Organizations</h1>
           <p>The powers that shape the Hamieverse</p>
         </div>
       </header>
 
       {/* Factions Grid */}
-      <main className="factions-main">
+      <main className="factions-main" id="main-content" role="main">
         <div className="factions-grid">
           {Object.entries(factions).map(([key, faction]) => {
             const members = charactersByFaction[key] || [];

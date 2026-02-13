@@ -1,0 +1,92 @@
+'use client';
+
+import { useEffect } from 'react';
+import Link from 'next/link';
+import { useRecentlyViewed, RecentItem } from '@/hooks/useRecentlyViewed';
+
+interface RecentlyViewedProps {
+  currentType?: string;
+  currentId?: string;
+  maxShow?: number;
+}
+
+export default function RecentlyViewed({
+  currentType,
+  currentId,
+  maxShow = 5
+}: RecentlyViewedProps) {
+  const { items, isLoaded, getItemsExcluding, clearAll } = useRecentlyViewed();
+
+  if (!isLoaded) return null;
+
+  const displayItems = currentType && currentId
+    ? getItemsExcluding(currentType, currentId).slice(0, maxShow)
+    : items.slice(0, maxShow);
+
+  if (displayItems.length === 0) return null;
+
+  const formatTime = (timestamp: number) => {
+    const diff = Date.now() - timestamp;
+    const minutes = Math.floor(diff / 60000);
+    const hours = Math.floor(diff / 3600000);
+    const days = Math.floor(diff / 86400000);
+
+    if (minutes < 1) return 'Just now';
+    if (minutes < 60) return `${minutes}m ago`;
+    if (hours < 24) return `${hours}h ago`;
+    return `${days}d ago`;
+  };
+
+  return (
+    <div className="recently-viewed">
+      <div className="recently-viewed-header">
+        <h3>Recently Viewed</h3>
+        {displayItems.length > 0 && (
+          <button className="recently-viewed-clear" onClick={clearAll}>
+            Clear
+          </button>
+        )}
+      </div>
+      <div className="recently-viewed-list">
+        {displayItems.map((item, i) => (
+          <Link
+            key={`${item.type}-${item.id}-${i}`}
+            href={item.path}
+            className="recently-viewed-item"
+          >
+            {item.image ? (
+              <img
+                src={item.image}
+                alt={item.name}
+                className="recently-viewed-avatar"
+              />
+            ) : (
+              <div className="recently-viewed-placeholder">
+                {item.type === 'character' ? '👤' : item.type === 'location' ? '📍' : '📄'}
+              </div>
+            )}
+            <div className="recently-viewed-info">
+              <span className="recently-viewed-name">{item.name}</span>
+              <span className="recently-viewed-time">{formatTime(item.viewedAt)}</span>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// Hook to track page views
+export function useTrackPageView(
+  type: 'character' | 'location' | 'page',
+  id: string,
+  name: string,
+  path: string,
+  image?: string
+) {
+  const { addItem } = useRecentlyViewed();
+
+  useEffect(() => {
+    addItem({ type, id, name, path, image });
+  }, [type, id, name, path, image, addItem]);
+}

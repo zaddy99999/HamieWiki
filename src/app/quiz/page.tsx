@@ -1,8 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import Link from 'next/link';
 import WikiNavbar from '@/components/WikiNavbar';
+import Breadcrumb from '@/components/Breadcrumb';
 
 interface QuizQuestion {
   id: string;
@@ -173,6 +174,9 @@ export default function QuizPage() {
   const [totalAnswered, setTotalAnswered] = useState(0);
   const [streak, setStreak] = useState(0);
   const [bestStreak, setBestStreak] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const optionRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const nextButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     // Load best streak from localStorage
@@ -183,34 +187,83 @@ export default function QuizPage() {
     setCurrentQuestion(getRandomQuestion());
   }, []);
 
-  const handleAnswer = (index: number) => {
-    if (showResult || !currentQuestion) return;
-    setSelectedAnswer(index);
-    setShowResult(true);
-    setTotalAnswered(prev => prev + 1);
+  // Keyboard navigation for quiz options
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (isAnimating) return;
 
-    if (index === currentQuestion.correctIndex) {
-      setScore(prev => prev + 1);
-      const newStreak = streak + 1;
-      setStreak(newStreak);
-      if (newStreak > bestStreak) {
-        setBestStreak(newStreak);
-        localStorage.setItem('quiz-best-streak', newStreak.toString());
+      // Number keys 1-4 or A-D to select answers
+      if (!showResult && currentQuestion) {
+        const keyMap: Record<string, number> = {
+          '1': 0, '2': 1, '3': 2, '4': 3,
+          'a': 0, 'b': 1, 'c': 2, 'd': 3,
+          'A': 0, 'B': 1, 'C': 2, 'D': 3,
+        };
+        if (e.key in keyMap) {
+          e.preventDefault();
+          handleAnswer(keyMap[e.key]);
+        }
       }
-    } else {
-      setStreak(0);
+
+      // Enter or Space to go to next question when result is showing
+      if (showResult && (e.key === 'Enter' || e.key === ' ')) {
+        e.preventDefault();
+        nextQuestion();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [showResult, currentQuestion, isAnimating]);
+
+  // Focus management after answer
+  useEffect(() => {
+    if (showResult && nextButtonRef.current) {
+      nextButtonRef.current.focus();
     }
-  };
+  }, [showResult]);
 
-  const nextQuestion = () => {
-    if (!currentQuestion) return;
+  const handleAnswer = useCallback((index: number) => {
+    if (showResult || !currentQuestion || isAnimating) return;
 
+    setIsAnimating(true);
+    setSelectedAnswer(index);
+
+    // Small delay before showing result for animation
+    setTimeout(() => {
+      setShowResult(true);
+      setTotalAnswered(prev => prev + 1);
+
+      if (index === currentQuestion.correctIndex) {
+        setScore(prev => prev + 1);
+        const newStreak = streak + 1;
+        setStreak(newStreak);
+        if (newStreak > bestStreak) {
+          setBestStreak(newStreak);
+          localStorage.setItem('quiz-best-streak', newStreak.toString());
+        }
+      } else {
+        setStreak(0);
+      }
+      setIsAnimating(false);
+    }, 150);
+  }, [showResult, currentQuestion, isAnimating, streak, bestStreak]);
+
+  const nextQuestion = useCallback(() => {
+    if (!currentQuestion || isAnimating) return;
+
+    setIsAnimating(true);
     const newUsedIds = [...usedQuestionIds, currentQuestion.id];
     setUsedQuestionIds(newUsedIds);
-    setCurrentQuestion(getRandomQuestion(newUsedIds));
-    setSelectedAnswer(null);
-    setShowResult(false);
-  };
+
+    // Animate out then in
+    setTimeout(() => {
+      setCurrentQuestion(getRandomQuestion(newUsedIds));
+      setSelectedAnswer(null);
+      setShowResult(false);
+      setIsAnimating(false);
+    }, 200);
+  }, [currentQuestion, usedQuestionIds, isAnimating]);
 
   const getOptionClass = (index: number) => {
     if (!currentQuestion) return '';
@@ -238,55 +291,77 @@ export default function QuizPage() {
     );
   }
 
+  const breadcrumbItems = [
+    { label: 'Wiki', href: '/' },
+    { label: 'Quiz' },
+  ];
+
   return (
     <div className="wiki-container">
       <WikiNavbar currentPage="quiz" />
 
-      <main className="quiz-main">
-        <div className="quiz-stats-bar">
+      <main className="quiz-main" role="main" aria-label="Hamieverse Knowledge Quiz">
+        <Breadcrumb items={breadcrumbItems} />
+
+        <div className="quiz-stats-bar" role="status" aria-live="polite">
           <div className="quiz-stat-item">
             <span className="quiz-stat-label">Current Streak</span>
-            <span className="quiz-stat-value">{streak}</span>
+            <span className="quiz-stat-value" aria-label={`Current streak: ${streak}`}>{streak}</span>
           </div>
           <div className="quiz-stat-item">
             <span className="quiz-stat-label">Best Streak</span>
-            <span className="quiz-stat-value">{bestStreak}</span>
+            <span className="quiz-stat-value" aria-label={`Best streak: ${bestStreak}`}>{bestStreak}</span>
           </div>
           <div className="quiz-stat-item">
             <span className="quiz-stat-label">Correct</span>
-            <span className="quiz-stat-value">{score}/{totalAnswered}</span>
+            <span className="quiz-stat-value" aria-label={`${score} correct out of ${totalAnswered}`}>{score}/{totalAnswered}</span>
           </div>
         </div>
 
-        <div className="quiz-card">
-          <span className="quiz-category">{currentQuestion.category}</span>
-          <h2 className="quiz-question">{currentQuestion.question}</h2>
+        <div className={`quiz-card ${isAnimating ? 'quiz-card-animating' : ''}`} role="form" aria-labelledby="quiz-question">
+          <span className="quiz-category" aria-label={`Category: ${currentQuestion.category}`}>{currentQuestion.category}</span>
+          <h2 id="quiz-question" className="quiz-question">{currentQuestion.question}</h2>
 
-          <div className="quiz-options">
+          <p className="quiz-keyboard-hint sr-only">Press 1-4 or A-D to select an answer</p>
+
+          <div className="quiz-options" role="radiogroup" aria-labelledby="quiz-question">
             {currentQuestion.options.map((option, index) => (
               <button
                 key={index}
+                ref={el => { optionRefs.current[index] = el; }}
                 className={`quiz-option ${getOptionClass(index)}`}
                 onClick={() => handleAnswer(index)}
-                disabled={showResult}
+                disabled={showResult || isAnimating}
+                role="radio"
+                aria-checked={selectedAnswer === index}
+                aria-label={`Option ${String.fromCharCode(65 + index)}: ${option}`}
               >
-                <span className="quiz-option-letter">{String.fromCharCode(65 + index)}</span>
+                <span className="quiz-option-letter" aria-hidden="true">{String.fromCharCode(65 + index)}</span>
                 <span className="quiz-option-text">{option}</span>
+                <span className="quiz-option-key" aria-hidden="true">Press {index + 1}</span>
               </button>
             ))}
           </div>
 
           {showResult && (
-            <div className="quiz-result">
+            <div className="quiz-result" role="alert" aria-live="assertive">
               {selectedAnswer === currentQuestion.correctIndex ? (
-                <p className="quiz-correct">Correct! {streak > 1 && `${streak} in a row!`}</p>
+                <p className="quiz-correct">
+                  <span aria-hidden="true">&#10003;</span> Correct! {streak > 1 && `${streak} in a row!`}
+                </p>
               ) : (
                 <p className="quiz-incorrect">
-                  Wrong! The answer was {String.fromCharCode(65 + currentQuestion.correctIndex)}: {currentQuestion.options[currentQuestion.correctIndex]}
+                  <span aria-hidden="true">&#10007;</span> Wrong! The answer was {String.fromCharCode(65 + currentQuestion.correctIndex)}: {currentQuestion.options[currentQuestion.correctIndex]}
                 </p>
               )}
-              <button onClick={nextQuestion} className="quiz-btn primary">
+              <button
+                ref={nextButtonRef}
+                onClick={nextQuestion}
+                className="quiz-btn primary"
+                disabled={isAnimating}
+              >
                 Next Question
+                <span className="quiz-btn-hint" aria-hidden="true">Press Enter</span>
               </button>
             </div>
           )}

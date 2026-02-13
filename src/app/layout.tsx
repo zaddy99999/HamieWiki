@@ -19,9 +19,14 @@ import '@/styles/theme-volcanic.css';
 import '@/styles/theme-noir.css';
 import '@/styles/theme-candy.css';
 import '@/styles/theme-hacker.css';
+import '@/styles/premium-polish.css';
 import HelpChat from '@/components/HelpChat';
 import ThemeSwitcher from '@/components/ThemeSwitcher';
 import MusicPlayer from '@/components/MusicPlayer';
+import ScrollProgress from '@/components/ScrollProgress';
+import BackToTop from '@/components/BackToTop';
+import KeyboardShortcutsHelp from '@/components/KeyboardShortcutsHelp';
+import EasterEggs from '@/components/EasterEggs';
 
 export const metadata: Metadata = {
   title: 'Hamieverse Wiki',
@@ -93,6 +98,11 @@ export default function RootLayout({
         />
       </head>
       <body>
+        {/* Skip to main content for accessibility */}
+        <a href="#main-content" className="skip-to-content">
+          Skip to main content
+        </a>
+
         {/* Cyberpunk Background System */}
         <div className="wiki-bg-effects">
           {/* Glowing Orbs */}
@@ -144,6 +154,9 @@ export default function RootLayout({
         {/* Scan Lines Overlay */}
         <div className="wiki-scanlines" />
 
+        {/* Scroll Progress Indicator */}
+        <ScrollProgress />
+
         {children}
 
         {/* Help Chat */}
@@ -154,6 +167,15 @@ export default function RootLayout({
 
         {/* Theme Switcher */}
         <ThemeSwitcher />
+
+        {/* Back to Top Button */}
+        <BackToTop />
+
+        {/* Keyboard Shortcuts Help */}
+        <KeyboardShortcutsHelp />
+
+        {/* Easter Eggs */}
+        <EasterEggs />
       </body>
     </html>
   );

@@ -8,6 +8,7 @@ import { getAllCharacters, getFactions, getGlossary, getLogline, getThemes } fro
 import TriviaCard from '@/components/TriviaCard';
 import LoreLinks from '@/components/LoreLinks';
 import RelationshipsMap from '@/components/RelationshipsMap';
+import RelationshipWeb from '@/components/RelationshipWeb';
 import FavoriteButton from '@/components/FavoriteButton';
 import CharacterOfTheDay from '@/components/CharacterOfTheDay';
 import QuizTeaser from '@/components/QuizTeaser';
@@ -252,7 +253,7 @@ export default function WikiHome() {
       </section>
 
       {/* Main Content */}
-      <main className="wiki-main">
+      <main className="wiki-main" id="main-content" role="main">
         {/* Character of the Day & Trivia */}
         <section className="wiki-section wiki-intro-section">
           <div className="wiki-intro-grid-4">
@@ -401,6 +402,11 @@ export default function WikiHome() {
         {/* Relationships Map */}
         <section id="relationships" className="wiki-section">
           <RelationshipsMap />
+        </section>
+
+        {/* Interactive Relationship Web */}
+        <section id="relationship-web" className="wiki-section">
+          <RelationshipWeb />
         </section>
 
         {/* Themes */}

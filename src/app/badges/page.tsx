@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import WikiNavbar from '@/components/WikiNavbar';
+import Breadcrumb from '@/components/Breadcrumb';
 import BadgeNotification from '@/components/BadgeNotification';
 import { useBadges, BADGE_DEFINITIONS } from '@/hooks/useBadges';
 
@@ -65,19 +66,20 @@ export default function BadgesPage() {
     );
   }
 
+  const breadcrumbItems = [
+    { label: 'Wiki', href: '/' },
+    { label: 'Badges' },
+  ];
+
   return (
     <div className="wiki-container">
       <WikiNavbar currentPage="badges" />
       <BadgeNotification badge={newBadge} onClose={clearNewBadge} />
 
-      <main className="badges-main">
+      <main className="badges-main" id="main-content" role="main">
         {/* Header */}
         <header className="badges-header">
-          <div className="wiki-breadcrumb">
-            <Link href="/">Wiki</Link>
-            <span className="wiki-breadcrumb-sep">/</span>
-            <span>Badges</span>
-          </div>
+          <Breadcrumb items={breadcrumbItems} />
           <h1 className="badges-title">Achievement Badges</h1>
           <p className="badges-subtitle">
             Unlock badges by exploring the Hamieverse Wiki

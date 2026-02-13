@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import WikiNavbar from '@/components/WikiNavbar';
+import Breadcrumb from '@/components/Breadcrumb';
 import { getAllCharacters } from '@/lib/hamieverse/characters';
 
 interface TimelineEvent {
@@ -426,6 +427,11 @@ export default function TimelinePage() {
     return char?.displayName || charId;
   };
 
+  const breadcrumbItems = [
+    { label: 'Wiki', href: '/' },
+    { label: 'Timeline' },
+  ];
+
   return (
     <div className="wiki-container">
       <WikiNavbar currentPage="timeline" />
@@ -433,8 +439,9 @@ export default function TimelinePage() {
       {/* Header */}
       <header className="lore-timeline-header">
         <div className="lore-timeline-header-content">
+          <Breadcrumb items={breadcrumbItems} />
           <div className="lore-timeline-title-row">
-            <span className="lore-timeline-icon">📜</span>
+            <span className="lore-timeline-icon" aria-hidden="true">&#x1F4DC;</span>
             <h1>Hamieverse Lore Timeline</h1>
           </div>
           <p className="lore-timeline-subtitle">

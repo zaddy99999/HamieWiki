@@ -12,17 +12,35 @@ import {
   getGlossary,
 } from '@/lib/hamieverse/characters';
 import CharacterRating from '@/components/CharacterRating';
+import Breadcrumb from '@/components/Breadcrumb';
+import FavoriteButton from '@/components/FavoriteButton';
+import RecentlyViewed from '@/components/RecentlyViewed';
+import { useRecentlyViewed } from '@/hooks/useRecentlyViewed';
 
 export default function CharacterPage() {
   const params = useParams();
   const characterId = params.id as string;
   const [showBackToTop, setShowBackToTop] = useState(false);
+  const { addItem } = useRecentlyViewed();
 
   const character = getCharacter(characterId);
   const relationships = getCharacterRelationships(characterId);
   const allCharacters = getAllCharacters();
   const plotOutline = getPlotOutline();
   const glossary = getGlossary();
+
+  // Track page view
+  useEffect(() => {
+    if (character) {
+      addItem({
+        type: 'character',
+        id: characterId,
+        name: character.displayName,
+        path: `/character/${characterId}`,
+        image: character.gifFile ? `/images/${character.gifFile}` : undefined,
+      });
+    }
+  }, [characterId, character, addItem]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -83,22 +101,25 @@ export default function CharacterPage() {
     term.toLowerCase().includes(character.displayName.toLowerCase())
   );
 
+  const breadcrumbItems = [
+    { label: 'Wiki', href: '/' },
+    { label: 'Characters', href: '/#characters' },
+    { label: character.displayName },
+  ];
+
   return (
     <div className="wiki-container">
       <WikiNavbar currentPage="home" />
 
       {/* Article Content */}
-      <article className="wiki-article">
+      <article className="wiki-article" id="main-content" role="main">
         {/* Breadcrumb */}
         <header className="wiki-article-header">
-          <div className="wiki-breadcrumb">
-            <Link href="/">Wiki</Link>
-            <span className="wiki-breadcrumb-sep">/</span>
-            <Link href="/#characters">Characters</Link>
-            <span className="wiki-breadcrumb-sep">/</span>
-            <span>{character.displayName}</span>
+          <Breadcrumb items={breadcrumbItems} />
+          <div className="wiki-article-title-row">
+            <h1 className="wiki-article-title">{character.displayName}</h1>
+            <FavoriteButton characterId={characterId} size="lg" showLabel />
           </div>
-          <h1 className="wiki-article-title">{character.displayName}</h1>
           {character.symbolicRole && (
             <p className="wiki-article-subtitle">{character.symbolicRole}</p>
           )}
@@ -318,17 +339,55 @@ export default function CharacterPage() {
               </section>
             )}
 
+            {/* Related Characters */}
+            {relatedCharacters.length > 0 && (
+              <section className="wiki-article-section">
+                <h2>Related Characters</h2>
+                <div className="related-characters-grid">
+                  {relatedCharacters.slice(0, 6).map((char: any) => (
+                    <Link
+                      key={char.id}
+                      href={`/character/${char.id}`}
+                      className="related-character-card"
+                      style={{ '--char-color': char.color || 'var(--brand-primary)' } as React.CSSProperties}
+                    >
+                      {char.gifFile ? (
+                        <img
+                          src={`/images/${char.gifFile}`}
+                          alt={char.displayName}
+                          className="related-character-avatar"
+                        />
+                      ) : (
+                        <div className="related-character-placeholder">
+                          {char.displayName[0]}
+                        </div>
+                      )}
+                      <div className="related-character-info">
+                        <span className="related-character-name">{char.displayName}</span>
+                        {char.roles[0] && (
+                          <span className="related-character-role">
+                            {char.roles[0].replace(/_/g, ' ')}
+                          </span>
+                        )}
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </section>
+            )}
+
             {/* See Also */}
             <div className="wiki-see-also">
               <h3>See Also</h3>
               <div className="wiki-see-also-grid">
-                {relatedCharacters.slice(0, 6).map((char: any) => (
-                  <Link key={char.id} href={`/character/${char.id}`} className="wiki-see-also-link">
-                    {char.displayName}
-                  </Link>
-                ))}
+                <Link href="/compare" className="wiki-see-also-link">
+                  Compare Characters
+                </Link>
+                <Link href="/timeline" className="wiki-see-also-link">
+                  Story Timeline
+                </Link>
                 <Link href="/" className="wiki-see-also-link">
-                  ← Main Page
+                  Main Page
                 </Link>
               </div>
             </div>
@@ -419,6 +478,9 @@ export default function CharacterPage() {
 
             {/* Character Rating */}
             <CharacterRating characterId={characterId} characterName={character.displayName} />
+
+            {/* Recently Viewed */}
+            <RecentlyViewed currentType="character" currentId={characterId} maxShow={4} />
           </aside>
         </div>
       </article>

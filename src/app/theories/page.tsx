@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import WikiNavbar from '@/components/WikiNavbar';
+import Breadcrumb from '@/components/Breadcrumb';
 
 interface Theory {
   id: string;
@@ -206,12 +207,17 @@ export default function TheoriesPage() {
       return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
     });
 
+  const breadcrumbItems = [
+    { label: 'Wiki', href: '/' },
+    { label: 'Theories' },
+  ];
+
   if (isLoading) {
     return (
       <div className="wiki-container">
         <WikiNavbar currentPage="theories" />
-        <div className="theories-loading">
-          <div className="quiz-spinner"></div>
+        <div className="theories-loading" role="alert" aria-busy="true">
+          <div className="quiz-spinner" aria-hidden="true"></div>
           <p>Loading theories...</p>
         </div>
       </div>
@@ -223,6 +229,7 @@ export default function TheoriesPage() {
       <WikiNavbar currentPage="theories" />
 
       <header className="theories-header">
+        <Breadcrumb items={breadcrumbItems} />
         <h1>Fan Theories</h1>
         <p>Share your speculations about the Hamieverse lore, characters, and plot</p>
       </header>

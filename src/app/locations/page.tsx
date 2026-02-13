@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import WikiNavbar from '@/components/WikiNavbar';
+import Breadcrumb from '@/components/Breadcrumb';
 import { getAllLocations } from '@/lib/hamieverse/locations';
 
 export default function LocationsPage() {
@@ -17,6 +18,11 @@ export default function LocationsPage() {
     router.push(`/locations/${randomLoc.id}`);
   };
 
+  const breadcrumbItems = [
+    { label: 'Wiki', href: '/' },
+    { label: 'Locations' },
+  ];
+
   return (
     <div className="wiki-container">
       <WikiNavbar currentPage="locations" />
@@ -24,6 +30,7 @@ export default function LocationsPage() {
       {/* Header */}
       <header className="locations-header">
         <div className="locations-header-content">
+          <Breadcrumb items={breadcrumbItems} />
           <h1>Locations of the Hamieverse</h1>
           <p>Navigate the dystopian landscape from the machine City to the remembered Beyond</p>
         </div>

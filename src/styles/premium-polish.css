@@ -1,0 +1,904 @@
+/*
+ * ============================================================================
+ * HAMIEVERSE WIKI - PREMIUM VISUAL POLISH
+ * ============================================================================
+ * Enhanced animations, smooth transitions, and professional UI polish
+ * This file adds refined visual enhancements across all themes
+ * ============================================================================
+ */
+
+/* ==================== PAGE LOAD ANIMATIONS ==================== */
+/* Smooth page entrance with staggered content reveal */
+@keyframes premiumFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+    filter: blur(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes premiumSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes premiumScaleIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes premiumReveal {
+  0% {
+    clip-path: inset(0 100% 0 0);
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* Apply to main content areas */
+.wiki-main {
+  animation: premiumFadeIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.wiki-hero {
+  animation: premiumFadeIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.wiki-topbar {
+  animation: premiumSlideIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Staggered section reveals */
+.wiki-section:nth-child(1) { animation: premiumFadeIn 0.5s 0.1s cubic-bezier(0.22, 1, 0.36, 1) backwards; }
+.wiki-section:nth-child(2) { animation: premiumFadeIn 0.5s 0.2s cubic-bezier(0.22, 1, 0.36, 1) backwards; }
+.wiki-section:nth-child(3) { animation: premiumFadeIn 0.5s 0.3s cubic-bezier(0.22, 1, 0.36, 1) backwards; }
+.wiki-section:nth-child(4) { animation: premiumFadeIn 0.5s 0.4s cubic-bezier(0.22, 1, 0.36, 1) backwards; }
+.wiki-section:nth-child(5) { animation: premiumFadeIn 0.5s 0.5s cubic-bezier(0.22, 1, 0.36, 1) backwards; }
+
+/* ==================== ENHANCED CARD HOVER EFFECTS ==================== */
+/* Premium card lift with perspective */
+.wiki-character-card,
+.wiki-faction-card,
+.wiki-supporting-card,
+.cotd-card,
+.quiz-teaser-card {
+  transition:
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.3s ease;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.wiki-character-card:hover,
+.wiki-faction-card:hover {
+  transform: translateY(-8px) rotateX(2deg) scale(1.02);
+}
+
+/* Subtle shine effect on cards */
+.wiki-character-card::after,
+.wiki-faction-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.08),
+    transparent
+  );
+  transition: left 0.7s ease;
+  pointer-events: none;
+}
+
+.wiki-character-card:hover::after,
+.wiki-faction-card:hover::after {
+  left: 150%;
+}
+
+/* Card inner shadow for depth */
+.wiki-character-card,
+.wiki-faction-card,
+.wiki-supporting-card {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* ==================== GRADIENT TEXT EFFECTS ==================== */
+/* Premium gradient text for headings */
+.gradient-text-primary {
+  background: linear-gradient(
+    135deg,
+    var(--brand-primary) 0%,
+    var(--brand-secondary) 50%,
+    var(--brand-primary) 100%
+  );
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 4s ease infinite;
+}
+
+.gradient-text-accent {
+  background: linear-gradient(
+    135deg,
+    var(--brand-accent) 0%,
+    var(--brand-purple) 50%,
+    var(--brand-accent) 100%
+  );
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 5s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Auto-apply gradient to main titles */
+.wiki-hero-text h1 span,
+.wiki-article-title,
+.wiki-section-title {
+  background: linear-gradient(
+    135deg,
+    var(--brand-primary) 0%,
+    var(--brand-secondary) 50%,
+    var(--brand-primary) 100%
+  );
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 6s ease infinite;
+}
+
+/* ==================== VISUAL HIERARCHY IMPROVEMENTS ==================== */
+/* Enhanced spacing rhythm */
+.wiki-section {
+  margin-bottom: clamp(48px, 8vw, 80px);
+}
+
+.wiki-section-header {
+  margin-bottom: clamp(24px, 4vw, 36px);
+}
+
+/* Better heading hierarchy */
+.wiki-section-title {
+  font-size: clamp(1.25rem, 3vw, 1.5rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+
+.wiki-article-section h2 {
+  font-size: clamp(1.125rem, 2.5vw, 1.375rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  position: relative;
+  padding-left: 16px;
+}
+
+.wiki-article-section h2::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 70%;
+  background: linear-gradient(180deg, var(--brand-primary), var(--brand-secondary));
+  border-radius: 2px;
+}
+
+/* ==================== SUBTLE BACKGROUND PATTERNS ==================== */
+/* Noise texture overlay */
+.wiki-container::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.02;
+  pointer-events: none;
+  z-index: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Subtle dot pattern */
+.wiki-main::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 0;
+  background-image: radial-gradient(circle, var(--brand-primary) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* ==================== PREMIUM BUTTON STYLES ==================== */
+/* Base button enhancement */
+button,
+.btn,
+.wiki-random-btn,
+.quiz-teaser-btn {
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.3s ease;
+}
+
+/* Button hover glow */
+button:hover,
+.btn:hover,
+.wiki-random-btn:hover,
+.quiz-teaser-btn:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 4px 20px rgba(var(--brand-primary-rgb, 247, 147, 26), 0.3),
+    0 0 40px rgba(var(--brand-primary-rgb, 247, 147, 26), 0.15);
+}
+
+/* Button active state */
+button:active,
+.btn:active {
+  transform: translateY(0) scale(0.98);
+  transition-duration: 0.1s;
+}
+
+/* Button disabled state */
+button:disabled,
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+  filter: grayscale(30%);
+}
+
+/* Ripple effect on buttons */
+button::after,
+.btn::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease, height 0.6s ease;
+}
+
+button:active::after,
+.btn:active::after {
+  width: 300px;
+  height: 300px;
+  opacity: 0;
+}
+
+/* ==================== LOADING SHIMMER EFFECTS ==================== */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.loading-shimmer,
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--bg-card) 0%,
+    var(--bg-elevated) 20%,
+    var(--bg-card-hover) 40%,
+    var(--bg-elevated) 60%,
+    var(--bg-card) 80%,
+    var(--bg-card) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  border-radius: var(--radius-md);
+}
+
+/* Shimmer text placeholder */
+.shimmer-text {
+  height: 1em;
+  border-radius: 4px;
+  margin-bottom: 0.5em;
+}
+
+.shimmer-text.short { width: 40%; }
+.shimmer-text.medium { width: 70%; }
+.shimmer-text.long { width: 100%; }
+
+/* Shimmer avatar placeholder */
+.shimmer-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: var(--radius-lg);
+}
+
+/* Card skeleton */
+.skeleton-card {
+  padding: var(--space-5);
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+/* ==================== ENHANCED FOCUS STATES ==================== */
+/* Premium focus ring */
+*:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px var(--bg-page),
+    0 0 0 4px var(--brand-primary),
+    0 0 20px rgba(var(--brand-primary-rgb, 247, 147, 26), 0.4);
+  border-radius: var(--radius-md);
+  transition: box-shadow 0.2s ease;
+}
+
+/* Accessible focus for links */
+a:focus-visible {
+  outline: 2px solid var(--brand-primary);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Input focus enhancement */
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  border-color: var(--brand-primary);
+  box-shadow:
+    0 0 0 3px rgba(var(--brand-primary-rgb, 247, 147, 26), 0.15),
+    0 0 20px rgba(var(--brand-primary-rgb, 247, 147, 26), 0.1);
+}
+
+/* Skip link for keyboard navigation */
+.skip-link {
+  position: fixed;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--brand-primary);
+  color: var(--bg-page);
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  z-index: 9999;
+  transition: top 0.3s ease;
+}
+
+.skip-link:focus {
+  top: var(--space-4);
+}
+
+/* ==================== PARALLAX EFFECTS ==================== */
+/* Subtle parallax for hero section */
+.wiki-hero {
+  overflow: hidden;
+}
+
+.wiki-hero-bg {
+  transform: translateZ(-1px) scale(1.5);
+  transition: transform 0.1s linear;
+}
+
+/* Parallax orbs with different depths */
+.wiki-orb-1 {
+  transform: translateZ(-2px) scale(2);
+}
+
+.wiki-orb-2 {
+  transform: translateZ(-1.5px) scale(1.75);
+}
+
+.wiki-orb-3 {
+  transform: translateZ(-1px) scale(1.5);
+}
+
+/* ==================== COLOR PALETTE CONSISTENCY ==================== */
+:root {
+  /* RGB versions for rgba() usage */
+  --brand-primary-rgb: 247, 147, 26;
+  --brand-secondary-rgb: 0, 217, 165;
+  --brand-accent-rgb: 98, 126, 234;
+  --brand-purple-rgb: 147, 51, 234;
+  --brand-danger-rgb: 239, 68, 68;
+
+  /* Consistent semantic colors */
+  --success-color: #10B981;
+  --warning-color: #F59E0B;
+  --info-color: #3B82F6;
+  --error-color: var(--brand-danger);
+
+  /* Surface colors for layering */
+  --surface-0: var(--bg-page);
+  --surface-1: var(--bg-card);
+  --surface-2: var(--bg-card-hover);
+  --surface-3: var(--bg-elevated);
+
+  /* Consistent overlay colors */
+  --overlay-light: rgba(255, 255, 255, 0.05);
+  --overlay-medium: rgba(255, 255, 255, 0.1);
+  --overlay-dark: rgba(0, 0, 0, 0.5);
+}
+
+/* ==================== CSS-ONLY DECORATIVE ELEMENTS ==================== */
+/* Corner accents for cards */
+.corner-accent {
+  position: relative;
+}
+
+.corner-accent::before,
+.corner-accent::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--brand-primary);
+  opacity: 0.5;
+  transition: all 0.3s ease;
+}
+
+.corner-accent::before {
+  top: -2px;
+  left: -2px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.corner-accent::after {
+  bottom: -2px;
+  right: -2px;
+  border-left: none;
+  border-top: none;
+}
+
+.corner-accent:hover::before,
+.corner-accent:hover::after {
+  opacity: 1;
+  width: 30px;
+  height: 30px;
+  filter: drop-shadow(0 0 8px var(--brand-primary));
+}
+
+/* Glowing line divider */
+.glow-divider {
+  border: none;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--brand-primary) 20%,
+    var(--brand-secondary) 50%,
+    var(--brand-primary) 80%,
+    transparent
+  );
+  box-shadow: 0 0 20px rgba(var(--brand-primary-rgb), 0.3);
+  margin: var(--space-8) 0;
+}
+
+/* Animated border frame */
+.animated-border {
+  position: relative;
+}
+
+.animated-border::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(
+    90deg,
+    var(--brand-primary),
+    var(--brand-secondary),
+    var(--brand-accent),
+    var(--brand-primary)
+  );
+  background-size: 300% 100%;
+  border-radius: inherit;
+  z-index: -1;
+  animation: borderFlow 4s linear infinite;
+}
+
+@keyframes borderFlow {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 300% 50%; }
+}
+
+/* ==================== ENHANCED TABLE STYLING ==================== */
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+thead {
+  background: linear-gradient(180deg, var(--bg-elevated), var(--bg-card));
+}
+
+th {
+  padding: var(--space-4) var(--space-5);
+  text-align: left;
+  font-weight: 600;
+  font-size: var(--text-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  border-bottom: 2px solid var(--border-default);
+  position: relative;
+}
+
+th::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--brand-primary), var(--brand-secondary));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+th:hover::after {
+  opacity: 1;
+}
+
+td {
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  transition: all 0.2s ease;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+tr:hover td {
+  background: var(--bg-card-hover);
+  color: var(--text-primary);
+}
+
+/* Sortable column indicator */
+th.sortable {
+  cursor: pointer;
+}
+
+th.sortable::before {
+  content: '';
+  position: absolute;
+  right: var(--space-3);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 6px solid var(--text-muted);
+  opacity: 0.5;
+}
+
+th.sortable.asc::before {
+  border-bottom: none;
+  border-top: 6px solid var(--brand-primary);
+  opacity: 1;
+}
+
+th.sortable.desc::before {
+  border-top: none;
+  border-bottom: 6px solid var(--brand-primary);
+  opacity: 1;
+}
+
+/* Striped rows (optional) */
+.table-striped tbody tr:nth-child(odd) {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* ==================== SMOOTH SCROLLING & SCROLL ANIMATIONS ==================== */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px; /* Account for sticky header */
+}
+
+/* Scroll-triggered fade in */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.scroll-reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Scroll progress indicator */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--bg-card);
+  z-index: 9999;
+}
+
+.scroll-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--brand-primary), var(--brand-secondary));
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 0.1s linear;
+  box-shadow: 0 0 10px var(--brand-primary);
+}
+
+/* Back to top button */
+.back-to-top {
+  position: fixed;
+  bottom: var(--space-8);
+  right: var(--space-8);
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+  border: none;
+  border-radius: var(--radius-full);
+  color: white;
+  font-size: 1.25rem;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  z-index: 100;
+  box-shadow: var(--shadow-lg);
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  transform: translateY(-4px) scale(1.1);
+  box-shadow: 0 8px 30px rgba(var(--brand-primary-rgb), 0.4);
+}
+
+/* ==================== FOOTER POLISH ==================== */
+.wiki-footer {
+  position: relative;
+  background: linear-gradient(180deg, var(--bg-card) 0%, var(--surface-0) 100%);
+  border-top: 1px solid var(--border-subtle);
+  overflow: hidden;
+}
+
+/* Footer top border glow */
+.wiki-footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--brand-primary) 20%,
+    var(--brand-secondary) 50%,
+    var(--brand-primary) 80%,
+    transparent
+  );
+  box-shadow: 0 0 20px rgba(var(--brand-primary-rgb), 0.3);
+}
+
+/* Footer background pattern */
+.wiki-footer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  pointer-events: none;
+  background-image: radial-gradient(circle, var(--brand-primary) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+.wiki-footer-inner {
+  position: relative;
+  z-index: 1;
+}
+
+.wiki-footer-link {
+  position: relative;
+  padding: var(--space-1) 0;
+}
+
+.wiki-footer-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--brand-primary);
+  transition: width 0.3s ease;
+}
+
+.wiki-footer-link:hover::after {
+  width: 100%;
+}
+
+/* ==================== NAVIGATION BAR POLISH ==================== */
+.wiki-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(10, 10, 11, 0.85);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+}
+
+/* Nav link hover underline */
+.wiki-topbar-link {
+  position: relative;
+  overflow: hidden;
+}
+
+.wiki-topbar-link::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--brand-primary), var(--brand-secondary));
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateX(-50%);
+}
+
+.wiki-topbar-link:hover::before,
+.wiki-topbar-link.active::before {
+  width: 80%;
+}
+
+/* Active nav link glow */
+.wiki-topbar-link.active {
+  color: var(--brand-primary);
+  text-shadow: 0 0 20px rgba(var(--brand-primary-rgb), 0.5);
+}
+
+/* Search box enhancement */
+.wiki-search-input {
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    background 0.3s ease;
+}
+
+.wiki-search-input:focus {
+  background: var(--bg-card);
+  border-color: var(--brand-primary);
+  box-shadow:
+    0 0 0 3px rgba(var(--brand-primary-rgb), 0.15),
+    0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* ==================== REDUCED MOTION SUPPORT ==================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .gradient-text-primary,
+  .gradient-text-accent,
+  .wiki-hero-text h1 span,
+  .wiki-article-title,
+  .wiki-section-title {
+    animation: none;
+    background-size: 100% 100%;
+  }
+
+  .loading-shimmer,
+  .skeleton {
+    animation: none;
+    background: var(--bg-elevated);
+  }
+}
+
+/* ==================== PRINT STYLES ==================== */
+@media print {
+  .wiki-topbar,
+  .wiki-footer,
+  .wiki-bg-effects,
+  .wiki-scanlines,
+  .wiki-orb,
+  .wiki-particles,
+  .back-to-top,
+  .scroll-progress {
+    display: none !important;
+  }
+
+  .wiki-character-card,
+  .wiki-faction-card {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  * {
+    background: white !important;
+    color: black !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+}
+
+/* ==================== HIGH CONTRAST MODE ==================== */
+@media (prefers-contrast: high) {
+  :root {
+    --border-subtle: rgba(255, 255, 255, 0.3);
+    --border-default: rgba(255, 255, 255, 0.5);
+    --border-strong: rgba(255, 255, 255, 0.7);
+  }
+
+  .wiki-character-card,
+  .wiki-faction-card,
+  .wiki-supporting-card {
+    border: 2px solid var(--text-primary);
+  }
+
+  button,
+  .btn {
+    border: 2px solid currentColor;
+  }
+}
