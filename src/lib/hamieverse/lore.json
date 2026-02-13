@@ -540,6 +540,62 @@
       ],
       "notes": "Observes abuse from behind a doorframe; a seed of future divergence."
     },
+    "ace": {
+      "display_name": "Ace",
+      "roles": [
+        "undercode_operative",
+        "echo_specialist"
+      ],
+      "traits": [
+        "quick-witted",
+        "resourceful",
+        "risk-taking",
+        "loyal_to_crew"
+      ],
+      "notes": "A skilled operator in the Undercode who specializes in echo raids and viral coordination."
+    },
+    "hikari": {
+      "display_name": "Hikari",
+      "roles": [
+        "tech_specialist",
+        "code_breaker"
+      ],
+      "traits": [
+        "brilliant",
+        "introverted",
+        "meticulous",
+        "pattern_seeker"
+      ],
+      "notes": "A reclusive genius who can crack legacy codes and develop countermeasures against Aetherion surveillance."
+    },
+    "kael": {
+      "display_name": "Kael",
+      "roles": [
+        "enforcer_turned_rebel",
+        "muscle"
+      ],
+      "traits": [
+        "strong",
+        "conflicted",
+        "protective",
+        "haunted_by_past"
+      ],
+      "notes": "Former IronPaw who defected after witnessing the system's cruelty firsthand."
+    },
+    "orrien": {
+      "display_name": "Orrien",
+      "roles": [
+        "information_broker",
+        "shadow_networker"
+      ],
+      "traits": [
+        "mysterious",
+        "well-connected",
+        "calculating",
+        "speaks_in_riddles"
+      ],
+      "notes": "Moves between factions gathering and trading secrets; their true loyalties remain unclear."
+    },
     "veynar_mother": {
       "display_name": "Unnamed Veynar mother",
       "roles": [
