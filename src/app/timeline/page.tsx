@@ -328,62 +328,81 @@ export default function TimelinePage() {
           <div className="htimeline-track">
             <div className="htimeline-line" />
 
+            {/* Era markers on the line */}
             {eras.map((era, eraIndex) => {
-              const eraEvents = timelineEvents.filter(e => e.era === era);
+              const eraStartIndex = timelineEvents.findIndex(e => e.era === era);
               return (
-                <div key={era} className="htimeline-era">
-                  <div className="htimeline-era-label">{era}</div>
-                  <div className="htimeline-events">
-                    {eraEvents.map((event, i) => (
-                      <div
-                        key={event.id}
-                        className={`htimeline-event ${activeEvent === event.id ? 'active' : ''}`}
-                        style={{ '--event-color': getTypeColor(event.type) } as React.CSSProperties}
-                        onClick={() => setActiveEvent(activeEvent === event.id ? null : event.id)}
-                      >
-                        <div className="htimeline-marker">
-                          <span>{getTypeIcon(event.type)}</span>
+                <div
+                  key={`era-${era}`}
+                  className="htimeline-era-marker"
+                  style={{ '--era-offset': `${eraStartIndex * 300 + 140}px` } as React.CSSProperties}
+                >
+                  <span className="htimeline-era-label">{era}</span>
+                </div>
+              );
+            })}
+
+            {/* All events laid out horizontally */}
+            {timelineEvents.map((event, globalIndex) => {
+              const isAbove = globalIndex % 2 === 0;
+
+              return (
+                <div
+                  key={event.id}
+                  className={`htimeline-event ${activeEvent === event.id ? 'active' : ''} ${isAbove ? 'htimeline-above' : 'htimeline-below'}`}
+                  style={{
+                    '--event-color': getTypeColor(event.type),
+                    left: `${globalIndex * 300 + 50}px`,
+                  } as React.CSSProperties}
+                  onClick={() => setActiveEvent(activeEvent === event.id ? null : event.id)}
+                >
+                  <div className="htimeline-connector" />
+                  <div className="htimeline-event-inner">
+                    <div className="htimeline-marker">
+                      <span>{getTypeIcon(event.type)}</span>
+                    </div>
+                    <div className="htimeline-content">
+                      <h3 className="htimeline-title">{event.title}</h3>
+                      <p className="htimeline-desc">{event.description}</p>
+                      {event.characters && event.characters.length > 0 && (
+                        <div className="htimeline-characters">
+                          {event.characters.map(charId => {
+                            const char = allCharacters.find(c => c.id === charId);
+                            return char ? (
+                              <Link
+                                key={charId}
+                                href={`/character/${charId}`}
+                                className="htimeline-char-chip"
+                                onClick={(e) => e.stopPropagation()}
+                              >
+                                {char.displayName}
+                              </Link>
+                            ) : null;
+                          })}
                         </div>
-                        <div className="htimeline-content">
-                          <h3 className="htimeline-title">{event.title}</h3>
-                          <p className="htimeline-desc">{event.description}</p>
-                          {event.characters && event.characters.length > 0 && (
-                            <div className="htimeline-characters">
-                              {event.characters.map(charId => {
-                                const char = allCharacters.find(c => c.id === charId);
-                                return char ? (
-                                  <Link
-                                    key={charId}
-                                    href={`/character/${charId}`}
-                                    className="htimeline-char-chip"
-                                    onClick={(e) => e.stopPropagation()}
-                                  >
-                                    {char.displayName}
-                                  </Link>
-                                ) : null;
-                              })}
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    ))}
+                      )}
+                    </div>
                   </div>
                 </div>
               );
             })}
 
             {/* To Be Continued */}
-            <div className="htimeline-era htimeline-era-end">
-              <div className="htimeline-era-label">???</div>
-              <div className="htimeline-events">
-                <div className="htimeline-event htimeline-tbc">
-                  <div className="htimeline-marker">
-                    <span>🔮</span>
-                  </div>
-                  <div className="htimeline-content">
-                    <h3 className="htimeline-title">To Be Continued...</h3>
-                    <p className="htimeline-desc">The story continues in future chapters.</p>
-                  </div>
+            <div
+              className="htimeline-event htimeline-tbc htimeline-above"
+              style={{
+                '--event-color': 'var(--brand-purple)',
+                left: `${timelineEvents.length * 300 + 50}px`,
+              } as React.CSSProperties}
+            >
+              <div className="htimeline-connector" />
+              <div className="htimeline-event-inner">
+                <div className="htimeline-marker">
+                  <span>🔮</span>
+                </div>
+                <div className="htimeline-content">
+                  <h3 className="htimeline-title">To Be Continued...</h3>
+                  <p className="htimeline-desc">The story continues in future chapters.</p>
                 </div>
               </div>
             </div>
@@ -391,7 +410,7 @@ export default function TimelinePage() {
         </div>
 
         <div className="htimeline-scroll-hint">
-          <span>← Scroll to explore →</span>
+          <span>← Scroll to explore the timeline →</span>
         </div>
       </main>
 
