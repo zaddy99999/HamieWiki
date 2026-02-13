@@ -1,64 +1,28 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
+import { useParams } from 'next/navigation';
 import Link from 'next/link';
+import WikiNavbar from '@/components/WikiNavbar';
 import {
   getCharacter,
   getCharacterRelationships,
   getAllCharacters,
   getPlotOutline,
   getGlossary,
-  getFactions,
 } from '@/lib/hamieverse/characters';
 import CharacterRating from '@/components/CharacterRating';
 
-interface SearchResult {
-  type: 'character' | 'faction' | 'glossary';
-  id: string;
-  name: string;
-  subtitle?: string;
-}
-
 export default function CharacterPage() {
   const params = useParams();
-  const router = useRouter();
   const characterId = params.id as string;
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
-  const [showSearchResults, setShowSearchResults] = useState(false);
-  const searchRef = useRef<HTMLDivElement>(null);
 
   const character = getCharacter(characterId);
   const relationships = getCharacterRelationships(characterId);
   const allCharacters = getAllCharacters();
   const plotOutline = getPlotOutline();
   const glossary = getGlossary();
-  const factions = getFactions();
-
-  // Build search index
-  const allSearchItems: SearchResult[] = [
-    ...allCharacters.map(c => ({
-      type: 'character' as const,
-      id: c.id,
-      name: c.displayName,
-      subtitle: c.roles[0]?.replace(/_/g, ' ') || c.species || '',
-    })),
-    ...Object.keys(factions).map(key => ({
-      type: 'faction' as const,
-      id: key,
-      name: key.charAt(0).toUpperCase() + key.slice(1).replace(/_/g, ' '),
-      subtitle: factions[key].type || 'Faction',
-    })),
-    ...Object.keys(glossary).map(term => ({
-      type: 'glossary' as const,
-      id: term,
-      name: term,
-      subtitle: glossary[term].slice(0, 50) + (glossary[term].length > 50 ? '...' : ''),
-    })),
-  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -68,50 +32,15 @@ export default function CharacterPage() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close search results when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
-        setShowSearchResults(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
-
-  // Filter search results
-  useEffect(() => {
-    if (searchQuery.trim().length < 2) {
-      setSearchResults([]);
-      return;
-    }
-    const query = searchQuery.toLowerCase();
-    const filtered = allSearchItems.filter(item =>
-      item.name.toLowerCase().includes(query) ||
-      item.subtitle?.toLowerCase().includes(query)
-    ).slice(0, 8);
-    setSearchResults(filtered);
-  }, [searchQuery]);
-
-  const handleSearchSelect = (result: SearchResult) => {
-    setSearchQuery('');
-    setShowSearchResults(false);
-    if (result.type === 'character') {
-      router.push(`/character/${result.id}`);
-    } else if (result.type === 'faction') {
-      router.push('/#factions');
-    } else if (result.type === 'glossary') {
-      router.push('/#glossary');
-    }
-  };
-
-  const goToRandomCharacter = () => {
-    const otherCharacters = allCharacters.filter(c => c.id !== characterId);
-    const randomChar = otherCharacters[Math.floor(Math.random() * otherCharacters.length)];
-    router.push(`/character/${randomChar.id}`);
-  };
-
   const [showShareModal, setShowShareModal] = useState(false);
+  const [copiedQuote, setCopiedQuote] = useState<string | null>(null);
+
+  const copyQuote = (quote: string) => {
+    const textToCopy = `"${quote}" - ${character?.displayName}, Hamieverse`;
+    navigator.clipboard.writeText(textToCopy);
+    setCopiedQuote(quote);
+    setTimeout(() => setCopiedQuote(null), 2000);
+  };
 
   const shareOnTwitter = () => {
     const text = `Check out ${character?.displayName} from the Hamieverse! ${character?.roles[0]?.replace(/_/g, ' ') || ''}`;
@@ -127,18 +56,11 @@ export default function CharacterPage() {
   if (!character) {
     return (
       <div className="wiki-container">
-        <nav className="wiki-topbar">
-          <div className="wiki-topbar-inner">
-            <Link href="/" className="wiki-topbar-brand">
-              <img src="/images/hamiepfp.png" alt="Hamie" className="wiki-topbar-logo" />
-              <span className="wiki-topbar-title">Hamieverse</span>
-            </Link>
-          </div>
-        </nav>
+        <WikiNavbar currentPage="home" />
         <div className="wiki-not-found">
           <h1>Character Not Found</h1>
           <p>The character "{characterId}" doesn't exist in the Hamieverse.</p>
-          <Link href="/" className="wiki-not-found-btn">← Back to Wiki</Link>
+          <Link href="/" className="wiki-not-found-btn">Back to Wiki</Link>
         </div>
       </div>
     );
@@ -163,90 +85,7 @@ export default function CharacterPage() {
 
   return (
     <div className="wiki-container">
-      {/* Top Navigation Bar */}
-      <nav className="wiki-topbar">
-        <div className="wiki-topbar-inner">
-          <Link href="/" className="wiki-topbar-brand">
-            <img src="/images/hamiepfp.png" alt="Hamie" className="wiki-topbar-logo" />
-            <span className="wiki-topbar-title">Hamieverse</span>
-          </Link>
-
-          <div className="wiki-topbar-nav">
-            <a href="/#characters" className="wiki-topbar-link">Main Characters</a>
-            <a href="/#supporting" className="wiki-topbar-link">Supporting</a>
-            <a href="/#factions" className="wiki-topbar-link">Factions</a>
-            <a href="/#glossary" className="wiki-topbar-link">Glossary</a>
-            <Link href="/timeline" className="wiki-topbar-link">Timeline</Link>
-            <Link href="/quiz" className="wiki-topbar-link">Quiz</Link>
-          </div>
-
-          <div className="wiki-search-box" ref={searchRef}>
-            <span className="wiki-search-icon">🔍</span>
-            <input
-              type="text"
-              className="wiki-search-input"
-              placeholder="Search the wiki..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              onFocus={() => setShowSearchResults(true)}
-            />
-            {showSearchResults && searchResults.length > 0 && (
-              <div className="wiki-search-dropdown">
-                {searchResults.map((result, i) => (
-                  <button
-                    key={`${result.type}-${result.id}-${i}`}
-                    className="wiki-search-result"
-                    onClick={() => handleSearchSelect(result)}
-                  >
-                    <span className={`wiki-search-type wiki-search-type-${result.type}`}>
-                      {result.type === 'character' ? '👤' : result.type === 'faction' ? '⚔️' : '📖'}
-                    </span>
-                    <div className="wiki-search-result-text">
-                      <span className="wiki-search-result-name">{result.name}</span>
-                      {result.subtitle && (
-                        <span className="wiki-search-result-subtitle">{result.subtitle}</span>
-                      )}
-                    </div>
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-
-          <button className="wiki-random-btn" onClick={goToRandomCharacter}>
-            <span>🎲</span>
-            <span>Random</span>
-          </button>
-
-          {/* Mobile Menu Button */}
-          <button
-            className="wiki-mobile-menu-btn"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            <span className={`wiki-hamburger ${mobileMenuOpen ? 'open' : ''}`}>
-              <span></span>
-              <span></span>
-              <span></span>
-            </span>
-          </button>
-        </div>
-      </nav>
-
-      {/* Mobile Menu Overlay */}
-      <div className={`wiki-mobile-menu ${mobileMenuOpen ? 'open' : ''}`}>
-        <div className="wiki-mobile-menu-content">
-          <a href="/#characters" className="wiki-mobile-link" onClick={() => setMobileMenuOpen(false)}>Main Characters</a>
-          <a href="/#supporting" className="wiki-mobile-link" onClick={() => setMobileMenuOpen(false)}>Supporting</a>
-          <a href="/#factions" className="wiki-mobile-link" onClick={() => setMobileMenuOpen(false)}>Factions</a>
-          <a href="/#glossary" className="wiki-mobile-link" onClick={() => setMobileMenuOpen(false)}>Glossary</a>
-          <Link href="/timeline" className="wiki-mobile-link" onClick={() => setMobileMenuOpen(false)}>Timeline</Link>
-          <Link href="/quiz" className="wiki-mobile-link" onClick={() => setMobileMenuOpen(false)}>Quiz</Link>
-          <button className="wiki-mobile-random" onClick={() => { goToRandomCharacter(); setMobileMenuOpen(false); }}>
-            🎲 Random Character
-          </button>
-        </div>
-      </div>
+      <WikiNavbar currentPage="home" />
 
       {/* Article Content */}
       <article className="wiki-article">
@@ -352,18 +191,39 @@ export default function CharacterPage() {
             {/* Quotes */}
             {(character.quotes && character.quotes.length > 0) || character.notableLineSummary ? (
               <section className="wiki-article-section">
-                <h2>Quotes</h2>
+                <div className="wiki-section-header-with-link">
+                  <h2>Quotes</h2>
+                  <Link href="/quotes" className="wiki-section-link">View All Quotes</Link>
+                </div>
                 <div className="wiki-quotes-list">
                   {character.quotes?.map((quote, i) => (
-                    <div key={i} className="wiki-quote-card">
+                    <div key={i} className="wiki-quote-card wiki-quote-card-shareable">
                       <p className="wiki-quote-text">"{quote}"</p>
-                      <p className="wiki-quote-attr">— {character.displayName}</p>
+                      <div className="wiki-quote-footer">
+                        <p className="wiki-quote-attr">— {character.displayName}</p>
+                        <button
+                          className="wiki-quote-copy-btn"
+                          onClick={() => copyQuote(quote)}
+                          title="Copy quote"
+                        >
+                          {copiedQuote === quote ? '✓ Copied!' : '📋 Copy'}
+                        </button>
+                      </div>
                     </div>
                   ))}
                   {character.notableLineSummary && !character.quotes?.includes(character.notableLineSummary) && (
-                    <div className="wiki-quote-card">
+                    <div className="wiki-quote-card wiki-quote-card-shareable">
                       <p className="wiki-quote-text">"{character.notableLineSummary}"</p>
-                      <p className="wiki-quote-attr">— {character.displayName}</p>
+                      <div className="wiki-quote-footer">
+                        <p className="wiki-quote-attr">— {character.displayName}</p>
+                        <button
+                          className="wiki-quote-copy-btn"
+                          onClick={() => copyQuote(character.notableLineSummary!)}
+                          title="Copy quote"
+                        >
+                          {copiedQuote === character.notableLineSummary ? '✓ Copied!' : '📋 Copy'}
+                        </button>
+                      </div>
                     </div>
                   )}
                 </div>

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import WikiNavbar from '@/components/WikiNavbar';
 
 interface FanArt {
   id: string;
@@ -90,19 +91,7 @@ export default function GalleryPage() {
 
   return (
     <div className="wiki-container">
-      <nav className="wiki-topbar">
-        <div className="wiki-topbar-inner">
-          <Link href="/" className="wiki-topbar-brand">
-            <img src="/images/hamiepfp.png" alt="Hamie" className="wiki-topbar-logo" />
-            <span className="wiki-topbar-title">Hamieverse</span>
-          </Link>
-          <div className="wiki-topbar-nav">
-            <Link href="/" className="wiki-topbar-link">Home</Link>
-            <Link href="/timeline" className="wiki-topbar-link">Timeline</Link>
-            <Link href="/gallery" className="wiki-topbar-link active">Fan Art</Link>
-          </div>
-        </div>
-      </nav>
+      <WikiNavbar currentPage="gallery" />
 
       <main className="gallery-main">
         <header className="gallery-header">

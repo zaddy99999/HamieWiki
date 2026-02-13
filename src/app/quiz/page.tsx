@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import WikiNavbar from '@/components/WikiNavbar';
 
 interface QuizQuestion {
   id: string;
@@ -154,52 +155,65 @@ const quizQuestions: QuizQuestion[] = [
   },
 ];
 
+function getRandomQuestion(excludeIds: string[] = []): QuizQuestion {
+  const available = quizQuestions.filter(q => !excludeIds.includes(q.id));
+  if (available.length === 0) {
+    // If all questions used, reset and pick any
+    return quizQuestions[Math.floor(Math.random() * quizQuestions.length)];
+  }
+  return available[Math.floor(Math.random() * available.length)];
+}
+
 export default function QuizPage() {
-  const [questions, setQuestions] = useState<QuizQuestion[]>([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentQuestion, setCurrentQuestion] = useState<QuizQuestion | null>(null);
+  const [usedQuestionIds, setUsedQuestionIds] = useState<string[]>([]);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [showResult, setShowResult] = useState(false);
   const [score, setScore] = useState(0);
-  const [quizComplete, setQuizComplete] = useState(false);
+  const [totalAnswered, setTotalAnswered] = useState(0);
+  const [streak, setStreak] = useState(0);
+  const [bestStreak, setBestStreak] = useState(0);
 
   useEffect(() => {
-    // Shuffle and pick 10 questions
-    const shuffled = [...quizQuestions].sort(() => Math.random() - 0.5);
-    setQuestions(shuffled.slice(0, 10));
+    // Load best streak from localStorage
+    const saved = localStorage.getItem('quiz-best-streak');
+    if (saved) setBestStreak(parseInt(saved));
+
+    // Load first question
+    setCurrentQuestion(getRandomQuestion());
   }, []);
 
-  const currentQuestion = questions[currentIndex];
-
   const handleAnswer = (index: number) => {
-    if (showResult) return;
+    if (showResult || !currentQuestion) return;
     setSelectedAnswer(index);
     setShowResult(true);
+    setTotalAnswered(prev => prev + 1);
+
     if (index === currentQuestion.correctIndex) {
-      setScore(score + 1);
+      setScore(prev => prev + 1);
+      const newStreak = streak + 1;
+      setStreak(newStreak);
+      if (newStreak > bestStreak) {
+        setBestStreak(newStreak);
+        localStorage.setItem('quiz-best-streak', newStreak.toString());
+      }
+    } else {
+      setStreak(0);
     }
   };
 
   const nextQuestion = () => {
-    if (currentIndex < questions.length - 1) {
-      setCurrentIndex(currentIndex + 1);
-      setSelectedAnswer(null);
-      setShowResult(false);
-    } else {
-      setQuizComplete(true);
-    }
-  };
+    if (!currentQuestion) return;
 
-  const restartQuiz = () => {
-    const shuffled = [...quizQuestions].sort(() => Math.random() - 0.5);
-    setQuestions(shuffled.slice(0, 10));
-    setCurrentIndex(0);
+    const newUsedIds = [...usedQuestionIds, currentQuestion.id];
+    setUsedQuestionIds(newUsedIds);
+    setCurrentQuestion(getRandomQuestion(newUsedIds));
     setSelectedAnswer(null);
     setShowResult(false);
-    setScore(0);
-    setQuizComplete(false);
   };
 
   const getOptionClass = (index: number) => {
+    if (!currentQuestion) return '';
     if (!showResult) {
       return selectedAnswer === index ? 'selected' : '';
     }
@@ -212,17 +226,10 @@ export default function QuizPage() {
     return '';
   };
 
-  if (questions.length === 0) {
+  if (!currentQuestion) {
     return (
       <div className="wiki-container">
-        <nav className="wiki-topbar">
-          <div className="wiki-topbar-inner">
-            <Link href="/" className="wiki-topbar-brand">
-              <img src="/images/hamiepfp.png" alt="Hamie" className="wiki-topbar-logo" />
-              <span className="wiki-topbar-title">Hamieverse</span>
-            </Link>
-          </div>
-        </nav>
+        <WikiNavbar currentPage="quiz" />
         <div className="quiz-loading">
           <div className="quiz-spinner"></div>
           <p>Loading quiz...</p>
@@ -231,78 +238,24 @@ export default function QuizPage() {
     );
   }
 
-  if (quizComplete) {
-    const percentage = Math.round((score / questions.length) * 100);
-    let message = '';
-    let emoji = '';
-    if (percentage === 100) {
-      message = 'Perfect! You are a true Hamieverse expert!';
-      emoji = '🏆';
-    } else if (percentage >= 80) {
-      message = 'Excellent! You know your lore!';
-      emoji = '🌟';
-    } else if (percentage >= 60) {
-      message = 'Good job! Keep exploring the wiki!';
-      emoji = '👍';
-    } else if (percentage >= 40) {
-      message = 'Not bad! Time to read more lore!';
-      emoji = '📚';
-    } else {
-      message = 'Keep studying the Hamieverse!';
-      emoji = '🔍';
-    }
-
-    return (
-      <div className="wiki-container">
-        <nav className="wiki-topbar">
-          <div className="wiki-topbar-inner">
-            <Link href="/" className="wiki-topbar-brand">
-              <img src="/images/hamiepfp.png" alt="Hamie" className="wiki-topbar-logo" />
-              <span className="wiki-topbar-title">Hamieverse</span>
-            </Link>
-          </div>
-        </nav>
-        <div className="quiz-complete">
-          <div className="quiz-complete-emoji">{emoji}</div>
-          <h1>Quiz Complete!</h1>
-          <div className="quiz-score-display">
-            <div className="quiz-score-circle">
-              <span className="quiz-score-number">{score}</span>
-              <span className="quiz-score-total">/ {questions.length}</span>
-            </div>
-            <p className="quiz-percentage">{percentage}%</p>
-          </div>
-          <p className="quiz-message">{message}</p>
-          <div className="quiz-actions">
-            <button onClick={restartQuiz} className="quiz-btn primary">Play Again</button>
-            <Link href="/" className="quiz-btn">Back to Wiki</Link>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="wiki-container">
-      <nav className="wiki-topbar">
-        <div className="wiki-topbar-inner">
-          <Link href="/" className="wiki-topbar-brand">
-            <img src="/images/hamiepfp.png" alt="Hamie" className="wiki-topbar-logo" />
-            <span className="wiki-topbar-title">Hamieverse</span>
-          </Link>
-          <div className="quiz-progress-info">
-            <span>Question {currentIndex + 1} of {questions.length}</span>
-            <span className="quiz-score-inline">Score: {score}</span>
-          </div>
-        </div>
-      </nav>
+      <WikiNavbar currentPage="quiz" />
 
       <main className="quiz-main">
-        <div className="quiz-progress-bar">
-          <div
-            className="quiz-progress-fill"
-            style={{ width: `${((currentIndex + 1) / questions.length) * 100}%` }}
-          />
+        <div className="quiz-stats-bar">
+          <div className="quiz-stat-item">
+            <span className="quiz-stat-label">Current Streak</span>
+            <span className="quiz-stat-value">{streak}</span>
+          </div>
+          <div className="quiz-stat-item">
+            <span className="quiz-stat-label">Best Streak</span>
+            <span className="quiz-stat-value">{bestStreak}</span>
+          </div>
+          <div className="quiz-stat-item">
+            <span className="quiz-stat-label">Correct</span>
+            <span className="quiz-stat-value">{score}/{totalAnswered}</span>
+          </div>
         </div>
 
         <div className="quiz-card">
@@ -326,17 +279,22 @@ export default function QuizPage() {
           {showResult && (
             <div className="quiz-result">
               {selectedAnswer === currentQuestion.correctIndex ? (
-                <p className="quiz-correct">Correct!</p>
+                <p className="quiz-correct">Correct! {streak > 1 && `${streak} in a row!`}</p>
               ) : (
                 <p className="quiz-incorrect">
                   Wrong! The answer was {String.fromCharCode(65 + currentQuestion.correctIndex)}: {currentQuestion.options[currentQuestion.correctIndex]}
                 </p>
               )}
               <button onClick={nextQuestion} className="quiz-btn primary">
-                {currentIndex < questions.length - 1 ? 'Next Question' : 'See Results'}
+                Next Question
               </button>
             </div>
           )}
+        </div>
+
+        <div className="quiz-nav-links">
+          <Link href="/faction-quiz" className="quiz-link">Take the Faction Quiz</Link>
+          <Link href="/" className="quiz-link">Back to Wiki</Link>
         </div>
       </main>
     </div>

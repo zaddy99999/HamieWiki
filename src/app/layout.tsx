@@ -21,6 +21,7 @@ import '@/styles/theme-candy.css';
 import '@/styles/theme-hacker.css';
 import HelpChat from '@/components/HelpChat';
 import ThemeSwitcher from '@/components/ThemeSwitcher';
+import MusicPlayer from '@/components/MusicPlayer';
 
 export const metadata: Metadata = {
   title: 'Hamieverse Wiki',
@@ -147,6 +148,9 @@ export default function RootLayout({
 
         {/* Help Chat */}
         <HelpChat />
+
+        {/* Music Player */}
+        <MusicPlayer />
 
         {/* Theme Switcher */}
         <ThemeSwitcher />

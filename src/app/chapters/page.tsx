@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
+import WikiNavbar from '@/components/WikiNavbar';
 
 interface Chapter {
   number: number;
@@ -86,29 +86,24 @@ export default function ChaptersPage() {
 
   return (
     <div className="wiki-container">
-      <nav className="wiki-topbar">
-        <div className="wiki-topbar-inner">
-          <Link href="/" className="wiki-topbar-brand">
-            <img src="/images/hamiepfp.png" alt="Hamie" className="wiki-topbar-logo" />
-            <span className="wiki-topbar-title">Hamieverse</span>
-          </Link>
-          <div className="wiki-topbar-nav">
-            <Link href="/" className="wiki-topbar-link">Home</Link>
-            <Link href="/timeline" className="wiki-topbar-link">Timeline</Link>
-            <Link href="/chapters" className="wiki-topbar-link active">Chapters</Link>
-          </div>
-        </div>
-      </nav>
+      <WikiNavbar currentPage="chapters" />
 
       <main className="chapters-main">
         <header className="chapters-header">
           <h1>Chapter Summaries</h1>
           <p>Songs the City Forgot - Book One</p>
-          <div className="chapters-warning">
-            <span>⚠️</span>
-            <span>Spoiler warnings are enabled. Click "Show Spoilers" to reveal full details.</span>
-          </div>
         </header>
+
+        <div className="chapters-book-link">
+          <a href="https://amazon.com/dp/B0F3H1Y3PK" target="_blank" rel="noopener noreferrer" className="book-link-btn">
+            Read the Full Book on Amazon
+          </a>
+        </div>
+
+        <div className="chapters-warning">
+          <span>Warning</span>
+          <span>Spoiler warnings are enabled. Click "Show Spoilers" to reveal full details.</span>
+        </div>
 
         <div className="chapters-list">
           {chapters.map(chapter => {
