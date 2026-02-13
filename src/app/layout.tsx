@@ -60,15 +60,36 @@ export default function RootLayout({
         />
       </head>
       <body>
-        {/* Animated Background Effects */}
-        <div className="wiki-orb wiki-orb-1" />
-        <div className="wiki-orb wiki-orb-2" />
-        <div className="wiki-orb wiki-orb-3" />
-        <div className="wiki-energy-lines">
-          <div className="wiki-energy-line" />
-          <div className="wiki-energy-line" />
-          <div className="wiki-energy-line" />
+        {/* Cyberpunk Background System */}
+        <div className="wiki-bg-effects">
+          {/* Glowing Orbs */}
+          <div className="wiki-orb wiki-orb-1" />
+          <div className="wiki-orb wiki-orb-2" />
+          <div className="wiki-orb wiki-orb-3" />
+
+          {/* Aurora Effect */}
+          <div className="wiki-aurora" />
+
+          {/* Neon Grid Floor */}
+          <div className="wiki-neon-grid" />
+
+          {/* Holographic Shimmer */}
+          <div className="wiki-holo-shimmer" />
         </div>
+
+        {/* Lightning Effects */}
+        <div className="wiki-lightning">
+          <div className="wiki-bolt wiki-bolt-1" />
+          <div className="wiki-bolt wiki-bolt-2" />
+          <div className="wiki-bolt wiki-bolt-3" />
+        </div>
+
+        {/* Energy Streams */}
+        <div className="wiki-energy-stream wiki-stream-1" />
+        <div className="wiki-energy-stream wiki-stream-2" />
+        <div className="wiki-energy-stream wiki-stream-3" />
+
+        {/* Rising Particles with Trails */}
         <div className="wiki-particles">
           <div className="wiki-particle" />
           <div className="wiki-particle" />
@@ -76,7 +97,20 @@ export default function RootLayout({
           <div className="wiki-particle" />
           <div className="wiki-particle" />
           <div className="wiki-particle" />
+          <div className="wiki-particle" />
+          <div className="wiki-particle" />
+          <div className="wiki-particle" />
         </div>
+
+        {/* Cyber Corner Accents */}
+        <div className="wiki-cyber-corner wiki-cyber-corner-tl" />
+        <div className="wiki-cyber-corner wiki-cyber-corner-tr" />
+        <div className="wiki-cyber-corner wiki-cyber-corner-bl" />
+        <div className="wiki-cyber-corner wiki-cyber-corner-br" />
+
+        {/* Scan Lines Overlay */}
+        <div className="wiki-scanlines" />
+
         {children}
       </body>
     </html>
