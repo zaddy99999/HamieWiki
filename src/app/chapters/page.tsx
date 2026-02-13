@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import WikiNavbar from '@/components/WikiNavbar';
 
 interface Chapter {
@@ -12,14 +12,24 @@ interface Chapter {
   themes: string[];
 }
 
-interface LoreLink {
-  type: 'novel' | 'comic' | 'other';
-  title: string;
-  url: string;
-  description?: string;
-}
-
-const SHEET_ID = '1djbRNl6LB-g9k-IDmn4FEaPJHEKcg1FyVu0FQ9NsG10';
+const loreLinks = [
+  {
+    type: 'novel',
+    title: 'Songs the City Forgot',
+    url: 'https://read.hamieverse.com/songs-the-city-forgot',
+    description: 'The Novel',
+  },
+  {
+    type: 'comic',
+    title: 'Comic #1',
+    url: 'https://publuu.com/flip-book/1028492/2277031',
+  },
+  {
+    type: 'comic',
+    title: 'Comic #2',
+    url: 'https://publuu.com/flip-book/1028492/2289607',
+  },
+];
 
 const chapters: Chapter[] = [
   {
@@ -67,70 +77,6 @@ const chapters: Chapter[] = [
 export default function ChaptersPage() {
   const [expandedChapters, setExpandedChapters] = useState<Set<number>>(new Set());
   const [showSpoilers, setShowSpoilers] = useState<Set<number>>(new Set());
-  const [loreLinks, setLoreLinks] = useState<LoreLink[]>([]);
-  const [linksLoading, setLinksLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchLinks() {
-      try {
-        const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=lore_links`;
-        const res = await fetch(url);
-        const text = await res.text();
-
-        // Parse CSV
-        const rows: string[][] = [];
-        const lines = text.split('\n');
-
-        for (const line of lines) {
-          if (!line.trim()) continue;
-
-          const row: string[] = [];
-          let current = '';
-          let inQuotes = false;
-
-          for (let i = 0; i < line.length; i++) {
-            const char = line[i];
-            if (char === '"') {
-              if (inQuotes && line[i + 1] === '"') {
-                current += '"';
-                i++;
-              } else {
-                inQuotes = !inQuotes;
-              }
-            } else if (char === ',' && !inQuotes) {
-              row.push(current.trim());
-              current = '';
-            } else {
-              current += char;
-            }
-          }
-          row.push(current.trim());
-          rows.push(row);
-        }
-
-        // Skip header row, parse data
-        const parsedLinks: LoreLink[] = [];
-        for (let i = 1; i < rows.length; i++) {
-          const r = rows[i];
-          if (!r[0] || !r[1] || !r[2]) continue;
-
-          parsedLinks.push({
-            type: (r[0].toLowerCase() as 'novel' | 'comic' | 'other') || 'other',
-            title: r[1],
-            url: r[2],
-            description: r[3] || undefined,
-          });
-        }
-
-        setLoreLinks(parsedLinks);
-      } catch (err) {
-        console.error('Failed to fetch lore links:', err);
-      } finally {
-        setLinksLoading(false);
-      }
-    }
-    fetchLinks();
-  }, []);
 
   const toggleChapter = (num: number) => {
     setExpandedChapters(prev => {
@@ -175,39 +121,28 @@ export default function ChaptersPage() {
           <p>Songs the City Forgot - Book One</p>
         </header>
 
-        {/* Read the Story Links */}
         <div className="chapters-read-section">
           <h2 className="chapters-read-title">Read the Full Story</h2>
-          {linksLoading ? (
-            <div className="chapters-links-loading">
-              <div className="chapters-link-skeleton"></div>
-              <div className="chapters-link-skeleton"></div>
-            </div>
-          ) : loreLinks.length > 0 ? (
-            <div className="chapters-links-grid">
-              {loreLinks.map((link, i) => (
-                <a
-                  key={i}
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`chapters-link-card chapters-link-${link.type}`}
-                >
-                  <span className="chapters-link-icon">{getTypeIcon(link.type)}</span>
-                  <div className="chapters-link-content">
-                    <span className="chapters-link-type">
-                      {link.type === 'novel' ? 'Novel' : link.type === 'comic' ? 'Comic' : 'Link'}
-                    </span>
-                    <span className="chapters-link-name">{link.title}</span>
-                    {link.description && (
-                      <span className="chapters-link-desc">{link.description}</span>
-                    )}
-                  </div>
-                  <span className="chapters-link-arrow">→</span>
-                </a>
-              ))}
-            </div>
-          ) : null}
+          <div className="chapters-links-grid">
+            {loreLinks.map((link, i) => (
+              <a
+                key={i}
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`chapters-link-card chapters-link-${link.type}`}
+              >
+                <span className="chapters-link-icon">{getTypeIcon(link.type)}</span>
+                <div className="chapters-link-content">
+                  <span className="chapters-link-type">
+                    {link.type === 'novel' ? 'Novel' : 'Comic'}
+                  </span>
+                  <span className="chapters-link-name">{link.title}</span>
+                </div>
+                <span className="chapters-link-arrow">→</span>
+              </a>
+            ))}
+          </div>
         </div>
 
         <div className="chapters-warning">
