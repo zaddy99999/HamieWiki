@@ -227,11 +227,11 @@ export default function CharacterPage() {
               <section id="personality" className="wiki-article-section">
                 <h2>Personality & Traits</h2>
                 <p>{character.displayName} is characterized by the following traits:</p>
-                <ul className="wiki-bullet-list">
+                <div className="wiki-traits-grid">
                   {character.traits.map((trait, i) => (
-                    <li key={i}><strong>{trait.replace(/_/g, ' ')}</strong></li>
+                    <span key={i} className="wiki-trait-badge-large">{trait.replace(/_/g, ' ')}</span>
                   ))}
-                </ul>
+                </div>
               </section>
             )}
 
