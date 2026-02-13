@@ -18,10 +18,10 @@ export default function WikiHome() {
   const logline = getLogline();
 
   const mainCharacters = characters.filter(c =>
-    ['hamie', 'sam', 'lira', 'silas'].includes(c.id)
+    ['hamie', 'sam', 'lira', 'silas', 'ace', 'hikari', 'kael', 'orrien'].includes(c.id)
   );
   const supportingCharacters = characters.filter(c =>
-    !['hamie', 'sam', 'lira', 'silas', 'simba_digital_identity'].includes(c.id)
+    !['hamie', 'sam', 'lira', 'silas', 'ace', 'hikari', 'kael', 'orrien', 'simba_digital_identity'].includes(c.id)
   );
 
   return (
