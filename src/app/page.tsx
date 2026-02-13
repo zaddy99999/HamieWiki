@@ -21,7 +21,7 @@ export default function WikiHome() {
     ['hamie', 'sam', 'lira', 'silas', 'ace', 'hikari', 'kael', 'orrien'].includes(c.id)
   );
   const supportingCharacters = characters.filter(c =>
-    !['hamie', 'sam', 'lira', 'silas', 'ace', 'hikari', 'kael', 'orrien', 'simba_digital_identity'].includes(c.id)
+    !['hamie', 'sam', 'lira', 'silas', 'ace', 'hikari', 'kael', 'orrien', 'simba_digital_identity', 'homeless_man_under_overpass', 'dog_simba', '479c', 'veynar_mother'].includes(c.id.toLowerCase())
   );
 
   return (
