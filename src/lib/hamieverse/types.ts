@@ -25,6 +25,7 @@ export interface HamieCharacter {
   notableInfo?: string;
   notableLineSummary?: string;
   meaning?: string;
+  summary?: string;
   gifFile?: string;
   color?: string;
 }

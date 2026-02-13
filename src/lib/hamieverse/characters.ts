@@ -57,6 +57,7 @@ function transformCharacter(key: string, data: any): HamieCharacter {
     notableInfo: data.notable_info,
     notableLineSummary: data.notable_line_summary,
     meaning: data.meaning,
+    summary: data.summary,
     gifFile: characterGifs[key.toLowerCase()] || undefined,
     color: characterColors[key.toLowerCase()] || '#888888',
   };

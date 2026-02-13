@@ -354,12 +354,16 @@
       ],
       "origin": "Virella (Beyond)",
       "home": "Tower C-12",
+      "summary": "Hamie, designated #146B, is a factory worker trapped in the motion-mandated machinery of the City—a sprawling surveillance state ruled by the corporate entity Aetherion. Originally from the rural outlands of Virella, he clings to fading memories of grass, woodsmoke, and his grandmother's warmth while enduring the cold fluorescent grind of Tower C-12. His life changes forever when he discovers a cracked green pendant containing a bridge chip and USB drive—contraband tech that grants him access to the Undercode, a shadow economy where attention is currency and influence can topple empires. Under the alias 'Simba,' Hamie amasses sudden wealth and power, but this new identity paints a target on his back. Caught between the IronPaws who enforce Aetherion's will, the Respeculators who seek to recruit him, and his desperate love for his ailing grandmother, Hamie must navigate a world where every choice carries the weight of survival or annihilation.",
       "traits": [
         "observant",
         "anxious_under_surveillance",
         "morally_driven",
         "protective",
-        "yearning_for_memory"
+        "yearning_for_memory",
+        "feels_pulled_toward_danger/answers",
+        "hears/feels_the_city_'crack'",
+        "becomes_wealthy_quickly_via_Undercode,_but_remains_unsettled"
       ],
       "core_conflicts": [
         "survival_vs_defiance",

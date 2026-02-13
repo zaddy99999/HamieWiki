@@ -222,15 +222,19 @@ export default function CharacterPage() {
 
             <section id="overview" className="wiki-article-section">
               <h2>Overview</h2>
-              <p>
-                <strong>{character.displayName}</strong>
-                {character.species && ` is a ${character.species}`}
-                {character.roles.length > 0 && ` who serves as ${character.roles[0].replace(/_/g, ' ')}`}
-                {character.origin && ` originally from ${character.origin}`}.
-                {character.symbolicRole && ` ${character.symbolicRole}.`}
-              </p>
-              {character.notes && <p>{character.notes}</p>}
-              {character.notableInfo && <p>{character.notableInfo}</p>}
+              {character.summary ? (
+                <p className="wiki-summary">{character.summary}</p>
+              ) : (
+                <p>
+                  <strong>{character.displayName}</strong>
+                  {character.species && ` is a ${character.species}`}
+                  {character.roles.length > 0 && ` who serves as ${character.roles[0].replace(/_/g, ' ')}`}
+                  {character.origin && ` originally from ${character.origin}`}.
+                  {character.symbolicRole && ` ${character.symbolicRole}.`}
+                </p>
+              )}
+              {!character.summary && character.notes && <p>{character.notes}</p>}
+              {!character.summary && character.notableInfo && <p>{character.notableInfo}</p>}
               {character.speciesNote && <p><em>Species note: {character.speciesNote}</em></p>}
             </section>
 
