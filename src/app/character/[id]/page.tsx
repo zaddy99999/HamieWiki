@@ -110,6 +110,19 @@ export default function CharacterPage() {
     router.push(`/character/${randomChar.id}`);
   };
 
+  const [showShareModal, setShowShareModal] = useState(false);
+
+  const shareOnTwitter = () => {
+    const text = `Check out ${character?.displayName} from the Hamieverse! ${character?.roles[0]?.replace(/_/g, ' ') || ''}`;
+    const url = `https://hamiewiki.vercel.app/character/${characterId}`;
+    window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
+  };
+
+  const copyLink = () => {
+    navigator.clipboard.writeText(`https://hamiewiki.vercel.app/character/${characterId}`);
+    alert('Link copied to clipboard!');
+  };
+
   if (!character) {
     return (
       <div className="wiki-container">
@@ -162,6 +175,8 @@ export default function CharacterPage() {
             <a href="/#supporting" className="wiki-topbar-link">Supporting</a>
             <a href="/#factions" className="wiki-topbar-link">Factions</a>
             <a href="/#glossary" className="wiki-topbar-link">Glossary</a>
+            <Link href="/timeline" className="wiki-topbar-link">Timeline</Link>
+            <Link href="/quiz" className="wiki-topbar-link">Quiz</Link>
           </div>
 
           <div className="wiki-search-box" ref={searchRef}>
@@ -224,6 +239,8 @@ export default function CharacterPage() {
           <a href="/#supporting" className="wiki-mobile-link" onClick={() => setMobileMenuOpen(false)}>Supporting</a>
           <a href="/#factions" className="wiki-mobile-link" onClick={() => setMobileMenuOpen(false)}>Factions</a>
           <a href="/#glossary" className="wiki-mobile-link" onClick={() => setMobileMenuOpen(false)}>Glossary</a>
+          <Link href="/timeline" className="wiki-mobile-link" onClick={() => setMobileMenuOpen(false)}>Timeline</Link>
+          <Link href="/quiz" className="wiki-mobile-link" onClick={() => setMobileMenuOpen(false)}>Quiz</Link>
           <button className="wiki-mobile-random" onClick={() => { goToRandomCharacter(); setMobileMenuOpen(false); }}>
             🎲 Random Character
           </button>
@@ -458,6 +475,11 @@ export default function CharacterPage() {
           <aside className="wiki-infobox" style={{ '--char-color': character.color } as React.CSSProperties}>
             <div className="wiki-infobox-header">{character.displayName}</div>
 
+            <button className="share-card-btn" onClick={() => setShowShareModal(true)}>
+              <span>📤</span>
+              <span>Share Character</span>
+            </button>
+
             {character.gifFile && (
               <div className="wiki-infobox-image">
                 <img src={`/images/${character.gifFile}`} alt={character.displayName} />
@@ -554,6 +576,44 @@ export default function CharacterPage() {
       >
         <span>↑</span>
       </button>
+
+      {/* Share Modal */}
+      {showShareModal && (
+        <div className="share-modal-overlay" onClick={() => setShowShareModal(false)}>
+          <div className="share-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="share-modal-header">
+              <h3>Share Character</h3>
+              <button className="share-modal-close" onClick={() => setShowShareModal(false)}>×</button>
+            </div>
+
+            <div className="share-card-preview">
+              {character.gifFile && (
+                <img src={`/images/${character.gifFile}`} alt={character.displayName} />
+              )}
+              <h4>{character.displayName}</h4>
+              <p>{character.roles[0]?.replace(/_/g, ' ') || character.symbolicRole || 'Character'}</p>
+              {character.traits.length > 0 && (
+                <div className="share-traits">
+                  {character.traits.slice(0, 3).map((trait, i) => (
+                    <span key={i} className="share-trait">{trait.replace(/_/g, ' ')}</span>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <div className="share-actions">
+              <button className="share-action-btn" onClick={shareOnTwitter}>
+                <span>🐦</span>
+                <span>Twitter</span>
+              </button>
+              <button className="share-action-btn" onClick={copyLink}>
+                <span>🔗</span>
+                <span>Copy Link</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
