@@ -19,6 +19,8 @@ interface LoreLink {
   description?: string;
 }
 
+const SHEET_ID = '1djbRNl6LB-g9k-IDmn4FEaPJHEKcg1FyVu0FQ9NsG10';
+
 const chapters: Chapter[] = [
   {
     number: 1,
@@ -71,11 +73,56 @@ export default function ChaptersPage() {
   useEffect(() => {
     async function fetchLinks() {
       try {
-        const res = await fetch('https://zaddytools.vercel.app/api/lore-links?gameId=hamieverse');
-        const data = await res.json();
-        if (data.links) {
-          setLoreLinks(data.links);
+        const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=lore_links`;
+        const res = await fetch(url);
+        const text = await res.text();
+
+        // Parse CSV
+        const rows: string[][] = [];
+        const lines = text.split('\n');
+
+        for (const line of lines) {
+          if (!line.trim()) continue;
+
+          const row: string[] = [];
+          let current = '';
+          let inQuotes = false;
+
+          for (let i = 0; i < line.length; i++) {
+            const char = line[i];
+            if (char === '"') {
+              if (inQuotes && line[i + 1] === '"') {
+                current += '"';
+                i++;
+              } else {
+                inQuotes = !inQuotes;
+              }
+            } else if (char === ',' && !inQuotes) {
+              row.push(current.trim());
+              current = '';
+            } else {
+              current += char;
+            }
+          }
+          row.push(current.trim());
+          rows.push(row);
         }
+
+        // Skip header row, parse data
+        const parsedLinks: LoreLink[] = [];
+        for (let i = 1; i < rows.length; i++) {
+          const r = rows[i];
+          if (!r[0] || !r[1] || !r[2]) continue;
+
+          parsedLinks.push({
+            type: (r[0].toLowerCase() as 'novel' | 'comic' | 'other') || 'other',
+            title: r[1],
+            url: r[2],
+            description: r[3] || undefined,
+          });
+        }
+
+        setLoreLinks(parsedLinks);
       } catch (err) {
         console.error('Failed to fetch lore links:', err);
       } finally {
