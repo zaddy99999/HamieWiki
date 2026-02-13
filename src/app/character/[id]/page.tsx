@@ -1,6 +1,6 @@
 'use client';
 
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import {
@@ -13,6 +13,7 @@ import {
 
 export default function CharacterPage() {
   const params = useParams();
+  const router = useRouter();
   const characterId = params.id as string;
   const character = getCharacter(characterId);
   const relationships = getCharacterRelationships(characterId);
@@ -21,6 +22,12 @@ export default function CharacterPage() {
   const glossary = getGlossary();
 
   const [activeSection, setActiveSection] = useState('overview');
+
+  const goToRandomCharacter = () => {
+    const otherCharacters = allCharacters.filter(c => c.id !== characterId);
+    const randomChar = otherCharacters[Math.floor(Math.random() * otherCharacters.length)];
+    router.push(`/character/${randomChar.id}`);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -105,6 +112,10 @@ export default function CharacterPage() {
           <span>|</span>
           <Link href="/#glossary">Glossary</Link>
         </div>
+        <button className="wiki-random-btn" onClick={goToRandomCharacter}>
+          <span className="wiki-random-icon">🎲</span>
+          <span className="wiki-random-text">Random</span>
+        </button>
       </header>
 
       <div className="wiki-article-layout">

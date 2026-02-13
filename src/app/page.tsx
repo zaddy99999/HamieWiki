@@ -1,10 +1,17 @@
 'use client';
 
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { getAllCharacters, getFactions, getThemes, getGlossary, getLogline } from '@/lib/hamieverse/characters';
 
 export default function WikiHome() {
+  const router = useRouter();
   const characters = getAllCharacters();
+
+  const goToRandomCharacter = () => {
+    const randomChar = characters[Math.floor(Math.random() * characters.length)];
+    router.push(`/character/${randomChar.id}`);
+  };
   const factions = getFactions();
   const themes = getThemes();
   const glossary = getGlossary();
@@ -21,6 +28,10 @@ export default function WikiHome() {
     <div className="wiki-container">
       <header className="wiki-main-header">
         <div className="wiki-header-banner" />
+        <button className="wiki-random-btn" onClick={goToRandomCharacter}>
+          <span className="wiki-random-icon">🎲</span>
+          <span className="wiki-random-text">Random</span>
+        </button>
         <div className="wiki-header-content">
           <img src="/images/hamiepfp.png" alt="Hamie" className="wiki-logo" />
           <div className="wiki-header-text">

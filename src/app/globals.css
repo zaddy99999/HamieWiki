@@ -109,6 +109,7 @@ a {
   position: sticky;
   top: 0;
   z-index: 100;
+  position: relative;
 }
 
 .wiki-header-bar::after {
@@ -178,6 +179,53 @@ a {
 
 .wiki-header-nav span {
   color: var(--text-dim);
+}
+
+/* Random Button */
+.wiki-random-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(135deg, rgba(0, 255, 163, 0.15) 0%, rgba(0, 255, 163, 0.08) 100%);
+  border: 1px solid rgba(0, 255, 163, 0.3);
+  border-radius: 8px;
+  color: var(--accent);
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.wiki-random-btn:hover {
+  background: linear-gradient(135deg, rgba(0, 255, 163, 0.25) 0%, rgba(0, 255, 163, 0.15) 100%);
+  border-color: rgba(0, 255, 163, 0.5);
+  box-shadow: 0 0 20px rgba(0, 255, 163, 0.3);
+  transform: translateY(-2px);
+}
+
+.wiki-random-btn:active {
+  transform: translateY(0);
+}
+
+.wiki-random-icon {
+  font-size: 1.1rem;
+  animation: diceShake 0.5s ease-in-out;
+}
+
+.wiki-random-btn:hover .wiki-random-icon {
+  animation: diceShake 0.3s ease-in-out infinite;
+}
+
+@keyframes diceShake {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-10deg); }
+  75% { transform: rotate(10deg); }
 }
 
 /* ==================== MAIN HEADER ==================== */
