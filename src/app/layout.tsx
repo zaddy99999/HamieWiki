@@ -4,6 +4,10 @@ import './globals.css';
 export const metadata: Metadata = {
   title: 'Hamieverse Wiki',
   description: 'The comprehensive guide to the Hamieverse saga',
+  icons: {
+    icon: '/images/hamiepfp.png',
+    apple: '/images/hamiepfp.png',
+  },
 };
 
 export default function RootLayout({
