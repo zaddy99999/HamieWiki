@@ -149,39 +149,42 @@ body::after {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  z-index: -1;
+  z-index: 1;
   overflow: hidden;
 }
 
 .wiki-energy-line {
   position: absolute;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--brand-primary), transparent);
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--brand-primary), var(--brand-primary), transparent);
+  box-shadow: 0 0 10px var(--brand-primary), 0 0 20px var(--brand-primary);
   opacity: 0;
-  animation: energyLine 6s ease-in-out infinite;
+  animation: energyLine 8s ease-in-out infinite;
 }
 
 .wiki-energy-line:nth-child(1) {
-  top: 20%;
+  top: 15%;
   left: -100%;
-  width: 60%;
+  width: 70%;
   animation-delay: 0s;
 }
 
 .wiki-energy-line:nth-child(2) {
-  top: 45%;
-  right: -100%;
-  width: 40%;
-  animation-delay: 2s;
-  background: linear-gradient(90deg, transparent, var(--brand-secondary), transparent);
+  top: 50%;
+  left: -100%;
+  width: 50%;
+  animation-delay: 3s;
+  background: linear-gradient(90deg, transparent, var(--brand-secondary), var(--brand-secondary), transparent);
+  box-shadow: 0 0 10px var(--brand-secondary), 0 0 20px var(--brand-secondary);
 }
 
 .wiki-energy-line:nth-child(3) {
-  top: 70%;
+  top: 80%;
   left: -100%;
-  width: 50%;
-  animation-delay: 4s;
-  background: linear-gradient(90deg, transparent, var(--brand-accent), transparent);
+  width: 60%;
+  animation-delay: 6s;
+  background: linear-gradient(90deg, transparent, var(--brand-accent), var(--brand-accent), transparent);
+  box-shadow: 0 0 10px var(--brand-accent), 0 0 20px var(--brand-accent);
 }
 
 @keyframes energyLine {
@@ -189,11 +192,11 @@ body::after {
     transform: translateX(0);
     opacity: 0;
   }
-  10% {
-    opacity: 0.6;
+  5% {
+    opacity: 1;
   }
-  90% {
-    opacity: 0.6;
+  95% {
+    opacity: 1;
   }
   100% {
     transform: translateX(calc(100vw + 100%));
@@ -206,42 +209,41 @@ body::after {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  z-index: -1;
+  z-index: 1;
 }
 
 .wiki-particle {
   position: absolute;
-  width: 2px;
-  height: 2px;
+  width: 4px;
+  height: 4px;
   background: var(--brand-primary);
   border-radius: 50%;
+  box-shadow: 0 0 6px var(--brand-primary), 0 0 12px var(--brand-primary);
   opacity: 0;
-  animation: particle 12s ease-in-out infinite;
+  animation: particle 15s linear infinite;
 }
 
 .wiki-particle:nth-child(1) { left: 10%; animation-delay: 0s; }
-.wiki-particle:nth-child(2) { left: 25%; animation-delay: 2s; background: var(--brand-secondary); }
-.wiki-particle:nth-child(3) { left: 40%; animation-delay: 4s; }
-.wiki-particle:nth-child(4) { left: 55%; animation-delay: 6s; background: var(--brand-accent); }
-.wiki-particle:nth-child(5) { left: 70%; animation-delay: 8s; }
-.wiki-particle:nth-child(6) { left: 85%; animation-delay: 10s; background: var(--brand-secondary); }
+.wiki-particle:nth-child(2) { left: 25%; animation-delay: 2.5s; background: var(--brand-secondary); box-shadow: 0 0 6px var(--brand-secondary), 0 0 12px var(--brand-secondary); }
+.wiki-particle:nth-child(3) { left: 40%; animation-delay: 5s; }
+.wiki-particle:nth-child(4) { left: 55%; animation-delay: 7.5s; background: var(--brand-accent); box-shadow: 0 0 6px var(--brand-accent), 0 0 12px var(--brand-accent); }
+.wiki-particle:nth-child(5) { left: 70%; animation-delay: 10s; }
+.wiki-particle:nth-child(6) { left: 85%; animation-delay: 12.5s; background: var(--brand-secondary); box-shadow: 0 0 6px var(--brand-secondary), 0 0 12px var(--brand-secondary); }
 
 @keyframes particle {
   0% {
-    bottom: -10px;
+    bottom: -20px;
     opacity: 0;
-    transform: scale(1);
   }
-  10% {
-    opacity: 0.8;
+  5% {
+    opacity: 1;
   }
-  90% {
-    opacity: 0.8;
+  95% {
+    opacity: 1;
   }
   100% {
     bottom: 100vh;
     opacity: 0;
-    transform: scale(0.5);
   }
 }
 
@@ -249,39 +251,39 @@ body::after {
 .wiki-orb {
   position: fixed;
   border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.15;
+  filter: blur(100px);
+  opacity: 0.4;
   pointer-events: none;
-  z-index: -2;
+  z-index: 0;
   animation: orbFloat 20s ease-in-out infinite;
 }
 
 .wiki-orb-1 {
-  width: 400px;
-  height: 400px;
+  width: 500px;
+  height: 500px;
   background: var(--brand-primary);
   top: -200px;
-  right: -100px;
+  right: -150px;
   animation-delay: 0s;
 }
 
 .wiki-orb-2 {
-  width: 300px;
-  height: 300px;
+  width: 400px;
+  height: 400px;
   background: var(--brand-secondary);
-  bottom: -150px;
-  left: -100px;
+  bottom: -200px;
+  left: -150px;
   animation-delay: -10s;
 }
 
 .wiki-orb-3 {
-  width: 250px;
-  height: 250px;
+  width: 350px;
+  height: 350px;
   background: var(--brand-accent);
-  top: 50%;
-  right: -125px;
+  top: 40%;
+  right: -175px;
   animation-delay: -5s;
-  opacity: 0.1;
+  opacity: 0.3;
 }
 
 @keyframes orbFloat {
@@ -338,6 +340,8 @@ button {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  position: relative;
+  z-index: 10;
 }
 
 /* ==================== TOPBAR ==================== */
