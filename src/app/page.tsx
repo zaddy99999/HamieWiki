@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { getAllCharacters, getFactions, getGlossary, getLogline } from '@/lib/hamieverse/characters';
+import { getAllCharacters, getFactions, getGlossary, getLogline, getThemes } from '@/lib/hamieverse/characters';
 
 export default function WikiHome() {
   const router = useRouter();
@@ -25,6 +25,7 @@ export default function WikiHome() {
   const factions = getFactions();
   const glossary = getGlossary();
   const logline = getLogline();
+  const themes = getThemes();
 
   const goToRandomCharacter = () => {
     const randomChar = characters[Math.floor(Math.random() * characters.length)];
@@ -57,6 +58,7 @@ export default function WikiHome() {
             <a href="#supporting" className="wiki-topbar-link">Supporting</a>
             <a href="#factions" className="wiki-topbar-link">Factions</a>
             <a href="#glossary" className="wiki-topbar-link">Glossary</a>
+            <Link href="/quiz" className="wiki-topbar-link">Quiz</Link>
           </div>
 
           <div className="wiki-search-box">
@@ -96,6 +98,7 @@ export default function WikiHome() {
           <a href="#supporting" className="wiki-mobile-link" onClick={() => setMobileMenuOpen(false)}>Supporting</a>
           <a href="#factions" className="wiki-mobile-link" onClick={() => setMobileMenuOpen(false)}>Factions</a>
           <a href="#glossary" className="wiki-mobile-link" onClick={() => setMobileMenuOpen(false)}>Glossary</a>
+          <Link href="/quiz" className="wiki-mobile-link" onClick={() => setMobileMenuOpen(false)}>Quiz</Link>
           <button className="wiki-mobile-random" onClick={() => { goToRandomCharacter(); setMobileMenuOpen(false); }}>
             🎲 Random Character
           </button>
@@ -242,6 +245,23 @@ export default function WikiHome() {
               <div key={term} className="wiki-glossary-item">
                 <dt className="wiki-glossary-term">{term}</dt>
                 <dd className="wiki-glossary-def">{definition}</dd>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Themes */}
+        <section id="themes" className="wiki-section">
+          <div className="wiki-section-header">
+            <h2 className="wiki-section-title">
+              Core Themes
+              <span className="wiki-section-count">({themes.length})</span>
+            </h2>
+          </div>
+          <div className="wiki-themes-grid">
+            {themes.map((theme, i) => (
+              <div key={i} className="wiki-theme-card">
+                {theme.replace(/_/g, ' ').replace(/vs/g, ' vs ')}
               </div>
             ))}
           </div>
