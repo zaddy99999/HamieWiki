@@ -74,7 +74,8 @@ export default function CharacterPage() {
           </Link>
 
           <div className="wiki-topbar-nav">
-            <a href="/#characters" className="wiki-topbar-link">Characters</a>
+            <a href="/#characters" className="wiki-topbar-link">Main Characters</a>
+            <a href="/#supporting" className="wiki-topbar-link">Supporting</a>
             <a href="/#factions" className="wiki-topbar-link">Factions</a>
             <a href="/#glossary" className="wiki-topbar-link">Glossary</a>
           </div>

@@ -39,7 +39,8 @@ export default function WikiHome() {
           </Link>
 
           <div className="wiki-topbar-nav">
-            <a href="#characters" className="wiki-topbar-link active">Characters</a>
+            <a href="#characters" className="wiki-topbar-link active">Main Characters</a>
+            <a href="#supporting" className="wiki-topbar-link">Supporting</a>
             <a href="#factions" className="wiki-topbar-link">Factions</a>
             <a href="#glossary" className="wiki-topbar-link">Glossary</a>
           </div>
@@ -148,7 +149,7 @@ export default function WikiHome() {
         </section>
 
         {/* Supporting Characters */}
-        <section className="wiki-section">
+        <section id="supporting" className="wiki-section">
           <div className="wiki-section-header">
             <h2 className="wiki-section-title">
               Supporting Characters
