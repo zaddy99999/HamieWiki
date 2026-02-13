@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import WikiNavbar from '@/components/WikiNavbar';
 
 interface Chapter {
@@ -10,6 +10,13 @@ interface Chapter {
   spoilerSummary: string;
   characters: string[];
   themes: string[];
+}
+
+interface LoreLink {
+  type: 'novel' | 'comic' | 'other';
+  title: string;
+  url: string;
+  description?: string;
 }
 
 const chapters: Chapter[] = [
@@ -58,6 +65,25 @@ const chapters: Chapter[] = [
 export default function ChaptersPage() {
   const [expandedChapters, setExpandedChapters] = useState<Set<number>>(new Set());
   const [showSpoilers, setShowSpoilers] = useState<Set<number>>(new Set());
+  const [loreLinks, setLoreLinks] = useState<LoreLink[]>([]);
+  const [linksLoading, setLinksLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchLinks() {
+      try {
+        const res = await fetch('https://zaddytools.vercel.app/api/lore-links?gameId=hamieverse');
+        const data = await res.json();
+        if (data.links) {
+          setLoreLinks(data.links);
+        }
+      } catch (err) {
+        console.error('Failed to fetch lore links:', err);
+      } finally {
+        setLinksLoading(false);
+      }
+    }
+    fetchLinks();
+  }, []);
 
   const toggleChapter = (num: number) => {
     setExpandedChapters(prev => {
@@ -84,6 +110,14 @@ export default function ChaptersPage() {
     });
   };
 
+  const getTypeIcon = (type: string) => {
+    switch (type) {
+      case 'novel': return '📖';
+      case 'comic': return '📚';
+      default: return '🔗';
+    }
+  };
+
   return (
     <div className="wiki-container">
       <WikiNavbar currentPage="chapters" />
@@ -94,10 +128,39 @@ export default function ChaptersPage() {
           <p>Songs the City Forgot - Book One</p>
         </header>
 
-        <div className="chapters-book-link">
-          <a href="https://amazon.com/dp/B0F3H1Y3PK" target="_blank" rel="noopener noreferrer" className="book-link-btn">
-            Read the Full Book on Amazon
-          </a>
+        {/* Read the Story Links */}
+        <div className="chapters-read-section">
+          <h2 className="chapters-read-title">Read the Full Story</h2>
+          {linksLoading ? (
+            <div className="chapters-links-loading">
+              <div className="chapters-link-skeleton"></div>
+              <div className="chapters-link-skeleton"></div>
+            </div>
+          ) : loreLinks.length > 0 ? (
+            <div className="chapters-links-grid">
+              {loreLinks.map((link, i) => (
+                <a
+                  key={i}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`chapters-link-card chapters-link-${link.type}`}
+                >
+                  <span className="chapters-link-icon">{getTypeIcon(link.type)}</span>
+                  <div className="chapters-link-content">
+                    <span className="chapters-link-type">
+                      {link.type === 'novel' ? 'Novel' : link.type === 'comic' ? 'Comic' : 'Link'}
+                    </span>
+                    <span className="chapters-link-name">{link.title}</span>
+                    {link.description && (
+                      <span className="chapters-link-desc">{link.description}</span>
+                    )}
+                  </div>
+                  <span className="chapters-link-arrow">→</span>
+                </a>
+              ))}
+            </div>
+          ) : null}
         </div>
 
         <div className="chapters-warning">
@@ -145,7 +208,7 @@ export default function ChaptersPage() {
                         className={`chapter-spoiler-toggle ${showingSpoiler ? 'active' : ''}`}
                         onClick={(e) => toggleSpoiler(chapter.number, e)}
                       >
-                        {showingSpoiler ? '🔓 Hide Spoilers' : '🔒 Show Spoilers'}
+                        {showingSpoiler ? 'Hide Spoilers' : 'Show Spoilers'}
                       </button>
 
                       {showingSpoiler && (

@@ -12107,3 +12107,124 @@ button {
     width: auto;
   }
 }
+
+/* ==================== CHAPTERS READ SECTION ==================== */
+.chapters-read-section {
+  margin-bottom: var(--space-8);
+  text-align: center;
+}
+
+.chapters-read-title {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--space-4);
+}
+
+.chapters-links-loading {
+  display: flex;
+  gap: var(--space-4);
+  justify-content: center;
+}
+
+.chapters-link-skeleton {
+  width: 280px;
+  height: 80px;
+  background: var(--bg-elevated);
+  border-radius: var(--radius-lg);
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.chapters-links-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  justify-content: center;
+}
+
+.chapters-link-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  transition: all var(--transition-base);
+  min-width: 280px;
+}
+
+.chapters-link-card:hover {
+  border-color: var(--brand-primary);
+  background: var(--bg-card-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.chapters-link-novel {
+  border-left: 3px solid var(--brand-primary);
+}
+
+.chapters-link-comic {
+  border-left: 3px solid var(--brand-secondary);
+}
+
+.chapters-link-icon {
+  font-size: 2rem;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-elevated);
+  border-radius: var(--radius-md);
+}
+
+.chapters-link-content {
+  flex: 1;
+  text-align: left;
+}
+
+.chapters-link-type {
+  display: block;
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.chapters-link-name {
+  display: block;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.chapters-link-desc {
+  display: block;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  margin-top: var(--space-1);
+}
+
+.chapters-link-arrow {
+  color: var(--text-muted);
+  font-size: var(--text-lg);
+  transition: transform var(--transition-fast);
+}
+
+.chapters-link-card:hover .chapters-link-arrow {
+  transform: translateX(4px);
+  color: var(--brand-primary);
+}
+
+@media (max-width: 640px) {
+  .chapters-links-grid {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .chapters-link-card {
+    min-width: auto;
+  }
+}
