@@ -20,11 +20,14 @@ export default function WikiHome() {
   return (
     <div className="wiki-container">
       <header className="wiki-main-header">
-        <h1 className="wiki-title">
-          <span className="wiki-title-icon">🐹</span>
-          Hamieverse Wiki
-        </h1>
-        <p className="wiki-subtitle">The comprehensive guide to the Hamieverse saga</p>
+        <div className="wiki-header-banner" />
+        <div className="wiki-header-content">
+          <img src="/images/hamiepfp.png" alt="Hamie" className="wiki-logo" />
+          <div className="wiki-header-text">
+            <h1 className="wiki-title">Hamieverse Wiki</h1>
+            <p className="wiki-subtitle">The comprehensive guide to the Hamieverse saga</p>
+          </div>
+        </div>
       </header>
 
       <div className="wiki-main-layout">
