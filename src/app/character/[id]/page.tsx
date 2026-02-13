@@ -2,7 +2,6 @@
 
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
 import {
   getCharacter,
   getCharacterRelationships,
@@ -21,38 +20,27 @@ export default function CharacterPage() {
   const plotOutline = getPlotOutline();
   const glossary = getGlossary();
 
-  const [activeSection, setActiveSection] = useState('overview');
-
   const goToRandomCharacter = () => {
     const otherCharacters = allCharacters.filter(c => c.id !== characterId);
     const randomChar = otherCharacters[Math.floor(Math.random() * otherCharacters.length)];
     router.push(`/character/${randomChar.id}`);
   };
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const sections = document.querySelectorAll('.wiki-article-section');
-      let current = 'overview';
-      sections.forEach((section) => {
-        const sectionTop = (section as HTMLElement).offsetTop;
-        if (window.scrollY >= sectionTop - 100) {
-          current = section.id;
-        }
-      });
-      setActiveSection(current);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   if (!character) {
     return (
       <div className="wiki-container">
+        <nav className="wiki-topbar">
+          <div className="wiki-topbar-inner">
+            <Link href="/" className="wiki-topbar-brand">
+              <img src="/images/hamiepfp.png" alt="Hamie" className="wiki-topbar-logo" />
+              <span className="wiki-topbar-title">Hamieverse</span>
+            </Link>
+          </div>
+        </nav>
         <div className="wiki-not-found">
           <h1>Character Not Found</h1>
-          <p>The character "{characterId}" was not found.</p>
-          <Link href="/" className="wiki-back-link">Back to Wiki</Link>
+          <p>The character "{characterId}" doesn't exist in the Hamieverse.</p>
+          <Link href="/" className="wiki-not-found-btn">← Back to Wiki</Link>
         </div>
       </div>
     );
@@ -75,162 +63,71 @@ export default function CharacterPage() {
     term.toLowerCase().includes(character.displayName.toLowerCase())
   );
 
-  const tocItems = [
-    { id: 'overview', label: 'Overview' },
-    character.traits.length > 0 && { id: 'personality', label: 'Personality & Traits' },
-    (character.coreConflicts?.length || 0) > 0 && { id: 'motivations', label: 'Motivations' },
-    character.arc && { id: 'story-arc', label: 'Story Arc' },
-    (character.notableActions?.length || 0) > 0 && { id: 'notable-actions', label: 'Notable Actions' },
-    (character.doctrine?.length || 0) > 0 && { id: 'doctrine', label: 'Philosophy' },
-    relationships.length > 0 && { id: 'relationships', label: 'Relationships' },
-    characterAppearances.length > 0 && { id: 'appearances', label: 'Appearances' },
-    relatedTerms.length > 0 && { id: 'trivia', label: 'Trivia' },
-  ].filter(Boolean) as { id: string; label: string }[];
-
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  };
-
   return (
     <div className="wiki-container">
-      <header className="wiki-header-bar">
-        <div className="wiki-header-tabs">
-          <Link href="/" className="wiki-tab active">article</Link>
-          <span className="wiki-tab disabled">discussion</span>
-          <span className="wiki-tab disabled">edit</span>
-          <span className="wiki-tab disabled">history</span>
-        </div>
-        <div className="wiki-header-nav">
-          <Link href="/">Main Page</Link>
-          <span>|</span>
-          <Link href="/#characters">Characters</Link>
-          <span>|</span>
-          <Link href="/#factions">Factions</Link>
-          <span>|</span>
-          <Link href="/#glossary">Glossary</Link>
-        </div>
-        <button className="wiki-random-btn" onClick={goToRandomCharacter}>
-          <span className="wiki-random-icon">🎲</span>
-          <span className="wiki-random-text">Random</span>
-        </button>
-      </header>
+      {/* Top Navigation Bar */}
+      <nav className="wiki-topbar">
+        <div className="wiki-topbar-inner">
+          <Link href="/" className="wiki-topbar-brand">
+            <img src="/images/hamiepfp.png" alt="Hamie" className="wiki-topbar-logo" />
+            <span className="wiki-topbar-title">Hamieverse</span>
+          </Link>
 
-      <div className="wiki-article-layout">
-        <aside className="wiki-toc">
-          <div className="wiki-toc-header">Contents</div>
-          <nav className="wiki-toc-nav">
-            {tocItems.map((item, index) => (
-              <a
-                key={item.id}
-                href={`#${item.id}`}
-                className={`wiki-toc-item ${activeSection === item.id ? 'active' : ''}`}
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection(item.id);
-                }}
-              >
-                <span className="wiki-toc-num">{index + 1}</span>
-                {item.label}
-              </a>
-            ))}
-          </nav>
-        </aside>
+          <div className="wiki-topbar-nav">
+            <a href="/#characters" className="wiki-topbar-link">Characters</a>
+            <a href="/#factions" className="wiki-topbar-link">Factions</a>
+            <a href="/#glossary" className="wiki-topbar-link">Glossary</a>
+          </div>
 
-        <main className="wiki-article-main">
+          <div className="wiki-search-box">
+            <span className="wiki-search-icon">🔍</span>
+            <input
+              type="text"
+              className="wiki-search-input"
+              placeholder="Search the wiki..."
+              disabled
+            />
+          </div>
+
+          <button className="wiki-random-btn" onClick={goToRandomCharacter}>
+            <span>🎲</span>
+            <span>Random</span>
+          </button>
+        </div>
+      </nav>
+
+      {/* Article Content */}
+      <article className="wiki-article">
+        {/* Breadcrumb */}
+        <header className="wiki-article-header">
+          <div className="wiki-breadcrumb">
+            <Link href="/">Wiki</Link>
+            <span className="wiki-breadcrumb-sep">/</span>
+            <Link href="/#characters">Characters</Link>
+            <span className="wiki-breadcrumb-sep">/</span>
+            <span>{character.displayName}</span>
+          </div>
           <h1 className="wiki-article-title">{character.displayName}</h1>
+          {character.symbolicRole && (
+            <p className="wiki-article-subtitle">{character.symbolicRole}</p>
+          )}
+        </header>
 
-          <div className="wiki-article-body">
-            <aside className="wiki-infobox-float" style={{ '--char-color': character.color } as React.CSSProperties}>
-              <div className="wiki-infobox-title">{character.displayName}</div>
-
-              {character.gifFile && (
-                <div className="wiki-infobox-image">
-                  <img src={`/images/${character.gifFile}`} alt={character.displayName} />
-                  <span className="wiki-infobox-caption">Character artwork</span>
-                </div>
-              )}
-
-              {character.roles.length > 0 && (
-                <div className="wiki-infobox-badges">
-                  {character.roles.slice(0, 3).map((role, i) => (
-                    <span key={i} className="wiki-badge">{role.replace(/_/g, ' ')}</span>
-                  ))}
-                </div>
-              )}
-
-              <table className="wiki-infobox-stats">
-                <tbody>
-                  {character.species && (
-                    <tr><th>Species</th><td>{character.species}</td></tr>
-                  )}
-                  {character.origin && (
-                    <tr><th>Origin</th><td>{character.origin}</td></tr>
-                  )}
-                  {character.home && (
-                    <tr><th>Residence</th><td>{character.home}</td></tr>
-                  )}
-                  {character.location && (
-                    <tr><th>Location</th><td>{character.location}</td></tr>
-                  )}
-                  {character.status && (
-                    <tr>
-                      <th>Status</th>
-                      <td>
-                        <span className={`wiki-status-badge ${character.status.toLowerCase().replace(/\//g, '-')}`}>
-                          {character.status}
-                        </span>
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-
-              {character.traits.length > 0 && (
-                <div className="wiki-infobox-section">
-                  <div className="wiki-infobox-section-title">Key Traits</div>
-                  <div className="wiki-trait-badges">
-                    {character.traits.slice(0, 4).map((trait, i) => (
-                      <span key={i} className="wiki-trait-badge">{trait.replace(/_/g, ' ')}</span>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {character.inventory && character.inventory.length > 0 && (
-                <div className="wiki-infobox-section">
-                  <div className="wiki-infobox-section-title">Inventory</div>
-                  <ul className="wiki-infobox-list">
-                    {character.inventory.map((item, i) => (
-                      <li key={i}>{item.replace(/_/g, ' ')}</li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-
-              {characterAppearances.length > 0 && (
-                <div className="wiki-infobox-section">
-                  <div className="wiki-infobox-section-title">First Appearance</div>
-                  <div className="wiki-first-appearance">
-                    Chapter {characterAppearances[0].number}: {characterAppearances[0].title}
-                  </div>
-                </div>
-              )}
-            </aside>
-
-            <section id="overview" className="wiki-article-section">
+        {/* Two Column Layout */}
+        <div className="wiki-article-layout">
+          {/* Main Content */}
+          <div className="wiki-article-content">
+            {/* Overview */}
+            <section className="wiki-article-section">
               <h2>Overview</h2>
               {character.summary ? (
-                <p className="wiki-summary">{character.summary}</p>
+                <p>{character.summary}</p>
               ) : (
                 <p>
                   <strong>{character.displayName}</strong>
                   {character.species && ` is a ${character.species}`}
                   {character.roles.length > 0 && ` who serves as ${character.roles[0].replace(/_/g, ' ')}`}
                   {character.origin && ` originally from ${character.origin}`}.
-                  {character.symbolicRole && ` ${character.symbolicRole}.`}
                 </p>
               )}
               {!character.summary && character.notes && <p>{character.notes}</p>}
@@ -238,22 +135,22 @@ export default function CharacterPage() {
               {character.speciesNote && <p><em>Species note: {character.speciesNote}</em></p>}
             </section>
 
+            {/* Personality & Traits */}
             {character.traits.length > 0 && (
-              <section id="personality" className="wiki-article-section">
+              <section className="wiki-article-section">
                 <h2>Personality & Traits</h2>
-                <p>{character.displayName} is characterized by the following traits:</p>
                 <div className="wiki-traits-grid">
                   {character.traits.map((trait, i) => (
-                    <span key={i} className="wiki-trait-badge-large">{trait.replace(/_/g, ' ')}</span>
+                    <span key={i} className="wiki-trait-badge">{trait.replace(/_/g, ' ')}</span>
                   ))}
                 </div>
               </section>
             )}
 
+            {/* Motivations & Conflicts */}
             {character.coreConflicts && character.coreConflicts.length > 0 && (
-              <section id="motivations" className="wiki-article-section">
+              <section className="wiki-article-section">
                 <h2>Motivations & Conflicts</h2>
-                <p>{character.displayName} is driven by internal conflicts and external pressures:</p>
                 <div className="wiki-traits-grid">
                   {character.coreConflicts.map((conflict, i) => (
                     <span key={i} className="wiki-conflict-badge">{conflict.replace(/_/g, ' ').replace(/vs/g, ' vs ')}</span>
@@ -262,132 +159,258 @@ export default function CharacterPage() {
               </section>
             )}
 
+            {/* Story Arc */}
             {character.arc && (
-              <section id="story-arc" className="wiki-article-section">
+              <section className="wiki-article-section">
                 <h2>Story Arc</h2>
-                <div className="wiki-story-arc">
-                  <p>{character.arc}</p>
-                </div>
+                <p>{character.arc}</p>
               </section>
             )}
 
+            {/* Notable Actions */}
             {character.notableActions && character.notableActions.length > 0 && (
-              <section id="notable-actions" className="wiki-article-section">
+              <section className="wiki-article-section">
                 <h2>Notable Actions</h2>
-                <ul className="wiki-bullet-list">
+                <ul style={{ paddingLeft: '1.5rem', color: 'var(--text-secondary)' }}>
                   {character.notableActions.map((action, i) => (
-                    <li key={i}>{action}</li>
+                    <li key={i} style={{ marginBottom: '0.5rem' }}>{action}</li>
                   ))}
                 </ul>
               </section>
             )}
 
+            {/* Philosophy & Doctrine */}
             {character.doctrine && character.doctrine.length > 0 && (
-              <section id="doctrine" className="wiki-article-section">
-                <h2>Philosophy & Doctrine</h2>
-                <blockquote className="wiki-blockquote">
+              <section className="wiki-article-section">
+                <h2>Philosophy</h2>
+                <div style={{
+                  background: 'var(--bg-card)',
+                  border: '1px solid var(--border-default)',
+                  borderLeft: '3px solid var(--brand-primary)',
+                  borderRadius: '0 8px 8px 0',
+                  padding: '1.5rem'
+                }}>
                   {character.doctrine.map((line, i) => (
-                    <p key={i}>"{line}"</p>
+                    <p key={i} style={{ fontStyle: 'italic', marginBottom: '0.5rem' }}>"{line}"</p>
                   ))}
-                </blockquote>
-                {character.interest && <p className="wiki-note">{character.interest}</p>}
-                {character.privateContext && <p className="wiki-note"><em>{character.privateContext}</em></p>}
+                </div>
               </section>
             )}
 
+            {/* Notable Quote */}
             {character.notableLineSummary && (
               <section className="wiki-article-section">
                 <h2>Notable Quote</h2>
-                <blockquote className="wiki-blockquote wiki-quote-highlight">
-                  <p>"{character.notableLineSummary}"</p>
-                  <cite>— {character.displayName}</cite>
-                </blockquote>
+                <div style={{
+                  background: 'var(--bg-card)',
+                  border: '1px solid var(--border-default)',
+                  borderLeft: '3px solid var(--brand-secondary)',
+                  borderRadius: '0 8px 8px 0',
+                  padding: '1.5rem'
+                }}>
+                  <p style={{ fontStyle: 'italic', fontSize: '1.1rem', marginBottom: '0.5rem' }}>
+                    "{character.notableLineSummary}"
+                  </p>
+                  <p style={{ color: 'var(--brand-primary)', fontWeight: 600 }}>— {character.displayName}</p>
+                </div>
               </section>
             )}
 
+            {/* Relationships */}
             {relationships.length > 0 && (
-              <section id="relationships" className="wiki-article-section">
+              <section className="wiki-article-section">
                 <h2>Relationships</h2>
                 <div className="wiki-relationship-grid">
                   {relationships.map((rel, i) => {
                     const otherId = rel.a === characterId || rel.a.toLowerCase() === characterId.toLowerCase() ? rel.b : rel.a;
                     const otherChar = allCharacters.find(c => c.id === otherId || c.id.toLowerCase() === otherId.toLowerCase());
                     return (
-                      <div key={i} className="wiki-relationship-entry">
-                        <Link href={`/character/${otherId.toLowerCase()}`} className="wiki-rel-char">
+                      <Link
+                        key={i}
+                        href={`/character/${otherId.toLowerCase()}`}
+                        className="wiki-relationship-card"
+                      >
+                        <div className="wiki-relationship-name">
                           {otherChar?.displayName || otherId}
-                        </Link>
-                        <div className="wiki-rel-details">
-                          <span className="wiki-rel-type-badge">{rel.type.replace(/_/g, ' ')}</span>
-                          <span className="wiki-rel-valence-text">{rel.valence.replace(/_/g, ' ')}</span>
                         </div>
-                      </div>
+                        <span className="wiki-relationship-type">{rel.type.replace(/_/g, ' ')}</span>
+                      </Link>
                     );
                   })}
                 </div>
-                {character.dynamics && <p className="wiki-dynamics-text">{character.dynamics}</p>}
-                {character.relationship && <p className="wiki-relationship-note">{character.relationship}</p>}
+                {character.dynamics && (
+                  <p style={{ marginTop: '1rem', fontStyle: 'italic', color: 'var(--text-muted)' }}>
+                    {character.dynamics}
+                  </p>
+                )}
               </section>
             )}
 
+            {/* Appearances */}
             {characterAppearances.length > 0 && (
-              <section id="appearances" className="wiki-article-section">
+              <section className="wiki-article-section">
                 <h2>Appearances</h2>
-                <table className="wiki-appearances-table">
-                  <thead>
-                    <tr><th>Chapter</th><th>Title</th><th>Role</th></tr>
-                  </thead>
-                  <tbody>
-                    {characterAppearances.map((ch: any, i: number) => (
-                      <tr key={i}>
-                        <td>{ch.number}</td>
-                        <td>{ch.title}</td>
-                        <td>Introduced</td>
+                <div style={{
+                  background: 'var(--bg-card)',
+                  border: '1px solid var(--border-default)',
+                  borderRadius: '12px',
+                  overflow: 'hidden'
+                }}>
+                  <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                    <thead>
+                      <tr style={{ background: 'var(--bg-elevated)' }}>
+                        <th style={{ padding: '12px 16px', textAlign: 'left', fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Chapter</th>
+                        <th style={{ padding: '12px 16px', textAlign: 'left', fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Title</th>
+                        <th style={{ padding: '12px 16px', textAlign: 'left', fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Role</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                      {characterAppearances.map((ch: any, i: number) => (
+                        <tr key={i} style={{ borderTop: '1px solid var(--border-subtle)' }}>
+                          <td style={{ padding: '12px 16px', color: 'var(--text-secondary)' }}>{ch.number}</td>
+                          <td style={{ padding: '12px 16px', color: 'var(--text-secondary)' }}>{ch.title}</td>
+                          <td style={{ padding: '12px 16px', color: 'var(--text-secondary)' }}>Introduced</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </section>
             )}
 
+            {/* Associated Symbols */}
             {character.symbols && character.symbols.length > 0 && (
               <section className="wiki-article-section">
                 <h2>Associated Symbols</h2>
-                <ul className="wiki-bullet-list">
+                <ul style={{ paddingLeft: '1.5rem', color: 'var(--text-secondary)' }}>
                   {character.symbols.map((symbol, i) => (
-                    <li key={i}>{symbol.replace(/_/g, ' ')}</li>
+                    <li key={i} style={{ marginBottom: '0.5rem' }}>{symbol.replace(/_/g, ' ')}</li>
                   ))}
                 </ul>
               </section>
             )}
 
+            {/* Trivia */}
             {relatedTerms.length > 0 && (
-              <section id="trivia" className="wiki-article-section">
+              <section className="wiki-article-section">
                 <h2>Trivia</h2>
-                <ul className="wiki-bullet-list">
+                <ul style={{ paddingLeft: '1.5rem', color: 'var(--text-secondary)' }}>
                   {relatedTerms.map(([term, definition]) => (
-                    <li key={term}><strong>{term}</strong>: {definition}</li>
+                    <li key={term} style={{ marginBottom: '0.5rem' }}>
+                      <strong style={{ color: 'var(--text-primary)' }}>{term}</strong>: {definition}
+                    </li>
                   ))}
                 </ul>
               </section>
             )}
 
-            <section className="wiki-article-section wiki-see-also-section">
-              <h2>See Also</h2>
+            {/* See Also */}
+            <div className="wiki-see-also">
+              <h3>See Also</h3>
               <div className="wiki-see-also-grid">
                 {relatedCharacters.slice(0, 6).map((char: any) => (
-                  <Link key={char.id} href={`/character/${char.id}`} className="wiki-see-also-item">
+                  <Link key={char.id} href={`/character/${char.id}`} className="wiki-see-also-link">
                     {char.displayName}
                   </Link>
                 ))}
-                <Link href="/" className="wiki-see-also-item wiki-see-also-main">
-                  Main Page
+                <Link href="/" className="wiki-see-also-link">
+                  ← Main Page
                 </Link>
               </div>
-            </section>
+            </div>
           </div>
-        </main>
-      </div>
+
+          {/* Infobox Sidebar */}
+          <aside className="wiki-infobox" style={{ '--char-color': character.color } as React.CSSProperties}>
+            <div className="wiki-infobox-header">{character.displayName}</div>
+
+            {character.gifFile && (
+              <div className="wiki-infobox-image">
+                <img src={`/images/${character.gifFile}`} alt={character.displayName} />
+              </div>
+            )}
+
+            {character.roles.length > 0 && (
+              <div className="wiki-infobox-badges">
+                {character.roles.slice(0, 3).map((role, i) => (
+                  <span key={i} className="wiki-infobox-badge">{role.replace(/_/g, ' ')}</span>
+                ))}
+              </div>
+            )}
+
+            <table className="wiki-infobox-table">
+              <tbody>
+                {character.species && (
+                  <tr><th>Species</th><td>{character.species}</td></tr>
+                )}
+                {character.origin && (
+                  <tr><th>Origin</th><td>{character.origin}</td></tr>
+                )}
+                {character.home && (
+                  <tr><th>Residence</th><td>{character.home}</td></tr>
+                )}
+                {character.location && (
+                  <tr><th>Location</th><td>{character.location}</td></tr>
+                )}
+                {character.status && (
+                  <tr>
+                    <th>Status</th>
+                    <td>
+                      <span className={`wiki-status ${character.status.toLowerCase().replace(/\//g, '-')}`}>
+                        {character.status}
+                      </span>
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+
+            {character.traits.length > 0 && (
+              <div className="wiki-infobox-section">
+                <div className="wiki-infobox-section-title">Key Traits</div>
+                <div className="wiki-traits-grid">
+                  {character.traits.slice(0, 4).map((trait, i) => (
+                    <span key={i} className="wiki-trait-badge" style={{ fontSize: '0.75rem', padding: '4px 8px' }}>
+                      {trait.replace(/_/g, ' ')}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {character.inventory && character.inventory.length > 0 && (
+              <div className="wiki-infobox-section">
+                <div className="wiki-infobox-section-title">Inventory</div>
+                <ul style={{ listStyle: 'none', fontSize: '0.875rem', color: 'var(--text-secondary)' }}>
+                  {character.inventory.map((item, i) => (
+                    <li key={i} style={{ padding: '4px 0' }}>• {item.replace(/_/g, ' ')}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {characterAppearances.length > 0 && (
+              <div className="wiki-infobox-section">
+                <div className="wiki-infobox-section-title">First Appearance</div>
+                <p style={{ fontSize: '0.875rem', color: 'var(--brand-secondary)' }}>
+                  Chapter {characterAppearances[0].number}: {characterAppearances[0].title}
+                </p>
+              </div>
+            )}
+          </aside>
+        </div>
+      </article>
+
+      {/* Footer */}
+      <footer className="wiki-footer">
+        <div className="wiki-footer-inner">
+          <p className="wiki-footer-text">© 2024 Hamieverse Wiki — Part of the Hamie Saga</p>
+          <div className="wiki-footer-links">
+            <a href="https://twitter.com/hamaborz" className="wiki-footer-link" target="_blank" rel="noopener noreferrer">Twitter</a>
+            <a href="#" className="wiki-footer-link">Discord</a>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
