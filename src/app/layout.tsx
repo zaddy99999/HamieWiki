@@ -59,7 +59,26 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body>{children}</body>
+      <body>
+        {/* Animated Background Effects */}
+        <div className="wiki-orb wiki-orb-1" />
+        <div className="wiki-orb wiki-orb-2" />
+        <div className="wiki-orb wiki-orb-3" />
+        <div className="wiki-energy-lines">
+          <div className="wiki-energy-line" />
+          <div className="wiki-energy-line" />
+          <div className="wiki-energy-line" />
+        </div>
+        <div className="wiki-particles">
+          <div className="wiki-particle" />
+          <div className="wiki-particle" />
+          <div className="wiki-particle" />
+          <div className="wiki-particle" />
+          <div className="wiki-particle" />
+          <div className="wiki-particle" />
+        </div>
+        {children}
+      </body>
     </html>
   );
 }

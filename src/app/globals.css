@@ -106,6 +106,197 @@ body {
   color: var(--text-primary);
   background: var(--bg-page);
   min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Animated Background Effects */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(247, 147, 26, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 40% at 100% 100%, rgba(0, 217, 165, 0.05) 0%, transparent 50%),
+    radial-gradient(ellipse 40% 30% at 0% 50%, rgba(98, 126, 234, 0.04) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: -2;
+}
+
+/* Animated Grid Lines */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(247, 147, 26, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(247, 147, 26, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 20%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 20%, transparent 70%);
+  pointer-events: none;
+  z-index: -1;
+  animation: gridPulse 8s ease-in-out infinite;
+}
+
+@keyframes gridPulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* Energy Lines Container */
+.wiki-energy-lines {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.wiki-energy-line {
+  position: absolute;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--brand-primary), transparent);
+  opacity: 0;
+  animation: energyLine 6s ease-in-out infinite;
+}
+
+.wiki-energy-line:nth-child(1) {
+  top: 20%;
+  left: -100%;
+  width: 60%;
+  animation-delay: 0s;
+}
+
+.wiki-energy-line:nth-child(2) {
+  top: 45%;
+  right: -100%;
+  width: 40%;
+  animation-delay: 2s;
+  background: linear-gradient(90deg, transparent, var(--brand-secondary), transparent);
+}
+
+.wiki-energy-line:nth-child(3) {
+  top: 70%;
+  left: -100%;
+  width: 50%;
+  animation-delay: 4s;
+  background: linear-gradient(90deg, transparent, var(--brand-accent), transparent);
+}
+
+@keyframes energyLine {
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateX(calc(100vw + 100%));
+    opacity: 0;
+  }
+}
+
+/* Floating Particles */
+.wiki-particles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.wiki-particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: var(--brand-primary);
+  border-radius: 50%;
+  opacity: 0;
+  animation: particle 12s ease-in-out infinite;
+}
+
+.wiki-particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+.wiki-particle:nth-child(2) { left: 25%; animation-delay: 2s; background: var(--brand-secondary); }
+.wiki-particle:nth-child(3) { left: 40%; animation-delay: 4s; }
+.wiki-particle:nth-child(4) { left: 55%; animation-delay: 6s; background: var(--brand-accent); }
+.wiki-particle:nth-child(5) { left: 70%; animation-delay: 8s; }
+.wiki-particle:nth-child(6) { left: 85%; animation-delay: 10s; background: var(--brand-secondary); }
+
+@keyframes particle {
+  0% {
+    bottom: -10px;
+    opacity: 0;
+    transform: scale(1);
+  }
+  10% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.8;
+  }
+  100% {
+    bottom: 100vh;
+    opacity: 0;
+    transform: scale(0.5);
+  }
+}
+
+/* Glowing Orbs */
+.wiki-orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: -2;
+  animation: orbFloat 20s ease-in-out infinite;
+}
+
+.wiki-orb-1 {
+  width: 400px;
+  height: 400px;
+  background: var(--brand-primary);
+  top: -200px;
+  right: -100px;
+  animation-delay: 0s;
+}
+
+.wiki-orb-2 {
+  width: 300px;
+  height: 300px;
+  background: var(--brand-secondary);
+  bottom: -150px;
+  left: -100px;
+  animation-delay: -10s;
+}
+
+.wiki-orb-3 {
+  width: 250px;
+  height: 250px;
+  background: var(--brand-accent);
+  top: 50%;
+  right: -125px;
+  animation-delay: -5s;
+  opacity: 0.1;
+}
+
+@keyframes orbFloat {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(20px, -30px) scale(1.05);
+  }
+  50% {
+    transform: translate(-10px, 20px) scale(0.95);
+  }
+  75% {
+    transform: translate(-20px, -10px) scale(1.02);
+  }
 }
 
 a {
