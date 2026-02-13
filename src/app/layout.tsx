@@ -9,6 +9,16 @@ import '@/styles/theme-retro.css';
 import '@/styles/theme-matrix.css';
 import '@/styles/theme-sunset.css';
 import '@/styles/theme-ocean.css';
+import '@/styles/theme-cyberpunk.css';
+import '@/styles/theme-forest.css';
+import '@/styles/theme-midnight.css';
+import '@/styles/theme-cherry.css';
+import '@/styles/theme-steampunk.css';
+import '@/styles/theme-ice.css';
+import '@/styles/theme-volcanic.css';
+import '@/styles/theme-noir.css';
+import '@/styles/theme-candy.css';
+import '@/styles/theme-hacker.css';
 import HelpChat from '@/components/HelpChat';
 import ThemeSwitcher from '@/components/ThemeSwitcher';
 

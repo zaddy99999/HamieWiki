@@ -1,0 +1,1692 @@
+/* ============================================================
+   HAMIEVERSE WIKI - ICE / FROZEN THEME
+   Theme: Arctic Frozen / Crystalline Aesthetic
+
+   A dramatic, visually striking theme featuring icy blues,
+   frost whites, deep cold backgrounds, sharp crystalline edges,
+   frosted glass effects, and frozen shimmer animations.
+   Colors: Icy Cyan (#a5f3fc, #67e8f9, #22d3ee), Frost White (#f0f9ff, #e0f2fe)
+   Deep Cold Blues (#0c1929, #0f2744)
+   ============================================================ */
+
+/* ==================== ICE COLOR SYSTEM ==================== */
+[data-theme="ice"] {
+  /* Core Ice Colors - Icy Blues */
+  --ice-lightest: #a5f3fc;
+  --ice-light: #67e8f9;
+  --ice-primary: #22d3ee;
+  --ice-bright: #06b6d4;
+  --ice-deep: #0891b2;
+  --ice-dark: #0e7490;
+
+  /* Frost Whites */
+  --frost-lightest: #f0f9ff;
+  --frost-light: #e0f2fe;
+  --frost-medium: #bae6fd;
+  --frost-dim: #7dd3fc;
+
+  /* Deep Cold Blues - Backgrounds */
+  --cold-darkest: #0c1929;
+  --cold-dark: #0f2744;
+  --cold-medium: #1a3a5c;
+  --cold-light: #234b73;
+  --cold-lightest: #2d5f8a;
+
+  /* Accent Colors */
+  --ice-accent-purple: #c4b5fd;
+  --ice-accent-pink: #f9a8d4;
+  --ice-crystal: #ffffff;
+  --ice-aurora-green: #6ee7b7;
+  --ice-aurora-blue: #93c5fd;
+
+  /* Glow Colors */
+  --ice-glow-primary: rgba(34, 211, 238, 0.5);
+  --ice-glow-light: rgba(165, 243, 252, 0.4);
+  --ice-glow-frost: rgba(224, 242, 254, 0.3);
+  --ice-glow-crystal: rgba(255, 255, 255, 0.25);
+  --ice-glow-aurora: rgba(110, 231, 183, 0.3);
+
+  /* Override Brand Colors */
+  --brand-primary: var(--ice-primary);
+  --brand-secondary: var(--ice-deep);
+  --brand-accent: var(--ice-lightest);
+  --brand-danger: #f87171;
+
+  /* Frozen Backgrounds */
+  --bg-page: var(--cold-darkest);
+  --bg-card: rgba(15, 39, 68, 0.8);
+  --bg-card-hover: rgba(26, 58, 92, 0.85);
+  --bg-elevated: rgba(45, 95, 138, 0.6);
+  --bg-input: rgba(12, 25, 41, 0.9);
+
+  /* Frosted Glass Layers */
+  --frost-surface-1: rgba(165, 243, 252, 0.03);
+  --frost-surface-2: rgba(165, 243, 252, 0.06);
+  --frost-surface-3: rgba(165, 243, 252, 0.1);
+  --frost-surface-4: rgba(224, 242, 254, 0.08);
+  --frost-surface-5: rgba(224, 242, 254, 0.15);
+
+  /* Sharp Crystal Borders */
+  --border-subtle: rgba(103, 232, 249, 0.15);
+  --border-default: rgba(103, 232, 249, 0.25);
+  --border-strong: rgba(165, 243, 252, 0.4);
+  --border-glow: rgba(34, 211, 238, 0.6);
+  --border-crystal: rgba(255, 255, 255, 0.3);
+
+  /* Text Colors */
+  --text-primary: var(--frost-lightest);
+  --text-secondary: rgba(224, 242, 254, 0.85);
+  --text-muted: rgba(165, 243, 252, 0.6);
+  --text-subtle: rgba(103, 232, 249, 0.45);
+
+  /* Ice Shadows & Glows */
+  --shadow-ice-sm:
+    0 2px 8px rgba(12, 25, 41, 0.5),
+    0 0 15px rgba(34, 211, 238, 0.08);
+  --shadow-ice-md:
+    0 4px 20px rgba(12, 25, 41, 0.6),
+    0 0 30px rgba(34, 211, 238, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  --shadow-ice-lg:
+    0 8px 40px rgba(12, 25, 41, 0.7),
+    0 0 50px rgba(34, 211, 238, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  --shadow-ice-crystal:
+    0 0 20px var(--ice-glow-primary),
+    0 0 40px var(--ice-glow-light),
+    0 0 60px rgba(34, 211, 238, 0.1);
+  --shadow-ice-frozen:
+    0 10px 60px rgba(12, 25, 41, 0.8),
+    0 0 80px rgba(34, 211, 238, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    inset 0 -1px 0 rgba(34, 211, 238, 0.1);
+
+  /* Override standard shadows */
+  --shadow-sm: var(--shadow-ice-sm);
+  --shadow-md: var(--shadow-ice-md);
+  --shadow-lg: var(--shadow-ice-lg);
+  --shadow-glow: var(--shadow-ice-crystal);
+
+  /* Frozen Gradients */
+  --gradient-ice-shimmer: linear-gradient(
+    135deg,
+    rgba(165, 243, 252, 0.2) 0%,
+    rgba(103, 232, 249, 0.15) 25%,
+    rgba(34, 211, 238, 0.2) 50%,
+    rgba(103, 232, 249, 0.15) 75%,
+    rgba(165, 243, 252, 0.2) 100%
+  );
+  --gradient-ice-frost: linear-gradient(
+    180deg,
+    rgba(224, 242, 254, 0.1) 0%,
+    rgba(165, 243, 252, 0.05) 50%,
+    transparent 100%
+  );
+  --gradient-ice-crystal: linear-gradient(
+    45deg,
+    var(--cold-dark) 0%,
+    var(--cold-medium) 50%,
+    var(--cold-dark) 100%
+  );
+  --gradient-ice-aurora: linear-gradient(
+    120deg,
+    rgba(34, 211, 238, 0.15) 0%,
+    rgba(110, 231, 183, 0.1) 33%,
+    rgba(147, 197, 253, 0.12) 66%,
+    rgba(196, 181, 253, 0.1) 100%
+  );
+  --gradient-ice-edge: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--ice-lightest) 50%,
+    transparent 100%
+  );
+
+  /* Sharp Transitions */
+  --transition-freeze: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-crystal: 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  --transition-shimmer: 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Sharp Crystal Radius - Minimal for crystalline feel */
+  --radius-ice-none: 0;
+  --radius-ice-sharp: 2px;
+  --radius-ice-sm: 4px;
+  --radius-ice-md: 6px;
+  --radius-ice-lg: 8px;
+  --radius-ice-xl: 12px;
+}
+
+
+/* ==================== FROZEN BACKGROUND & BODY ==================== */
+[data-theme="ice"] body {
+  background:
+    /* Frozen aurora effect at top */
+    radial-gradient(ellipse 150% 50% at 50% -10%, rgba(34, 211, 238, 0.15) 0%, transparent 50%),
+    /* Ice crystal scatter */
+    radial-gradient(ellipse 60% 40% at 10% 30%, rgba(165, 243, 252, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 35% at 90% 20%, rgba(103, 232, 249, 0.06) 0%, transparent 50%),
+    /* Deep frozen depths */
+    radial-gradient(ellipse 80% 60% at 50% 100%, rgba(14, 116, 144, 0.2) 0%, transparent 50%),
+    /* Base frozen gradient */
+    linear-gradient(180deg,
+      var(--cold-darkest) 0%,
+      #0a1520 20%,
+      var(--cold-dark) 50%,
+      #081422 80%,
+      var(--cold-darkest) 100%
+    );
+  background-attachment: fixed;
+  color: var(--frost-lightest);
+}
+
+/* Frozen crystal pattern overlay */
+[data-theme="ice"] body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    /* Vertical ice striations */
+    repeating-linear-gradient(
+      90deg,
+      transparent 0px,
+      transparent 100px,
+      rgba(165, 243, 252, 0.02) 100px,
+      rgba(165, 243, 252, 0.02) 101px
+    ),
+    /* Horizontal frost lines */
+    repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      transparent 80px,
+      rgba(224, 242, 254, 0.015) 80px,
+      rgba(224, 242, 254, 0.015) 81px
+    );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Frost particle shimmer */
+[data-theme="ice"] body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(2px 2px at 20% 15%, rgba(255, 255, 255, 0.4), transparent),
+    radial-gradient(2px 2px at 40% 35%, rgba(165, 243, 252, 0.5), transparent),
+    radial-gradient(1px 1px at 60% 20%, rgba(255, 255, 255, 0.3), transparent),
+    radial-gradient(2px 2px at 80% 45%, rgba(103, 232, 249, 0.4), transparent),
+    radial-gradient(1px 1px at 15% 55%, rgba(255, 255, 255, 0.35), transparent),
+    radial-gradient(2px 2px at 35% 75%, rgba(165, 243, 252, 0.45), transparent),
+    radial-gradient(1px 1px at 55% 60%, rgba(255, 255, 255, 0.25), transparent),
+    radial-gradient(2px 2px at 75% 80%, rgba(34, 211, 238, 0.4), transparent),
+    radial-gradient(1px 1px at 90% 70%, rgba(255, 255, 255, 0.3), transparent);
+  pointer-events: none;
+  z-index: 0;
+  animation: iceSparkle 8s ease-in-out infinite alternate;
+  opacity: 0.6;
+}
+
+@keyframes iceSparkle {
+  0% { opacity: 0.4; transform: translateY(0); }
+  50% { opacity: 0.7; }
+  100% { opacity: 0.5; transform: translateY(-5px); }
+}
+
+
+/* ==================== ICE TEXT EFFECTS ==================== */
+[data-theme="ice"] h1,
+[data-theme="ice"] h2,
+[data-theme="ice"] h3,
+[data-theme="ice"] h4,
+[data-theme="ice"] h5,
+[data-theme="ice"] h6 {
+  color: var(--frost-lightest);
+  text-shadow: 0 2px 15px rgba(34, 211, 238, 0.4);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+[data-theme="ice"] h1 {
+  background: linear-gradient(
+    135deg,
+    var(--frost-lightest) 0%,
+    var(--ice-lightest) 30%,
+    var(--ice-light) 60%,
+    var(--ice-primary) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: none;
+  filter: drop-shadow(0 4px 25px rgba(34, 211, 238, 0.5));
+  letter-spacing: 0.04em;
+}
+
+.ice-text-gradient {
+  background: linear-gradient(
+    90deg,
+    var(--ice-lightest) 0%,
+    var(--ice-light) 25%,
+    var(--ice-primary) 50%,
+    var(--ice-light) 75%,
+    var(--ice-lightest) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.ice-text-frozen {
+  color: var(--frost-lightest);
+  text-shadow:
+    0 0 10px var(--ice-glow-frost),
+    0 0 20px var(--ice-glow-light),
+    0 0 40px var(--ice-glow-primary);
+}
+
+.ice-text-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--ice-light) 0%,
+    var(--frost-lightest) 25%,
+    var(--ice-lightest) 50%,
+    var(--frost-lightest) 75%,
+    var(--ice-light) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: iceTextShimmer 4s linear infinite;
+}
+
+@keyframes iceTextShimmer {
+  0% { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
+
+/* ==================== FROSTED GLASS CARDS ==================== */
+[data-theme="ice"] .card,
+[data-theme="ice"] .wiki-card,
+[data-theme="ice"] .content-card {
+  background: rgba(15, 39, 68, 0.7);
+  backdrop-filter: blur(20px) saturate(120%);
+  -webkit-backdrop-filter: blur(20px) saturate(120%);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-ice-md);
+  box-shadow: var(--shadow-ice-md);
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition-freeze);
+}
+
+/* Crystal top edge highlight */
+[data-theme="ice"] .card::before,
+[data-theme="ice"] .wiki-card::before,
+[data-theme="ice"] .content-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(165, 243, 252, 0.6) 20%,
+    rgba(255, 255, 255, 0.8) 50%,
+    rgba(165, 243, 252, 0.6) 80%,
+    transparent 100%
+  );
+}
+
+/* Frost overlay effect */
+[data-theme="ice"] .card::after,
+[data-theme="ice"] .wiki-card::after,
+[data-theme="ice"] .content-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--gradient-ice-frost);
+  pointer-events: none;
+  opacity: 0.5;
+  transition: opacity var(--transition-freeze);
+}
+
+[data-theme="ice"] .card:hover,
+[data-theme="ice"] .wiki-card:hover,
+[data-theme="ice"] .content-card:hover {
+  background: rgba(26, 58, 92, 0.8);
+  border-color: var(--ice-light);
+  box-shadow:
+    var(--shadow-ice-lg),
+    0 0 40px var(--ice-glow-primary);
+  transform: translateY(-4px);
+}
+
+[data-theme="ice"] .card:hover::after,
+[data-theme="ice"] .wiki-card:hover::after,
+[data-theme="ice"] .content-card:hover::after {
+  opacity: 0.8;
+}
+
+/* Ice Card Variants */
+.ice-card {
+  background: rgba(15, 39, 68, 0.65);
+  backdrop-filter: blur(24px) saturate(130%);
+  -webkit-backdrop-filter: blur(24px) saturate(130%);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-ice-md);
+  box-shadow: var(--shadow-ice-md);
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition-crystal);
+}
+
+.ice-card:hover {
+  background: rgba(26, 58, 92, 0.75);
+  border-color: var(--ice-lightest);
+  box-shadow: var(--shadow-ice-crystal);
+  transform: translateY(-3px) scale(1.01);
+}
+
+/* Crystal Card - Sharp edges, dramatic glow */
+.ice-card-crystal {
+  background: linear-gradient(
+    145deg,
+    rgba(26, 58, 92, 0.8) 0%,
+    rgba(15, 39, 68, 0.9) 100%
+  );
+  border: 1px solid rgba(165, 243, 252, 0.4);
+  border-radius: var(--radius-ice-sharp);
+  box-shadow:
+    var(--shadow-ice-md),
+    inset 0 0 60px rgba(34, 211, 238, 0.05);
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+}
+
+.ice-card-crystal::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: 12px;
+  height: 12px;
+  background: linear-gradient(135deg, transparent 50%, var(--ice-light) 50%);
+}
+
+.ice-card-crystal:hover {
+  border-color: var(--ice-primary);
+  box-shadow:
+    var(--shadow-ice-lg),
+    0 0 50px var(--ice-glow-primary),
+    inset 0 0 80px rgba(34, 211, 238, 0.1);
+}
+
+/* Frozen Card - Maximum frost effect */
+.ice-card-frozen {
+  background: linear-gradient(
+    180deg,
+    rgba(224, 242, 254, 0.1) 0%,
+    rgba(15, 39, 68, 0.85) 30%,
+    rgba(12, 25, 41, 0.9) 100%
+  );
+  border: 1px solid rgba(224, 242, 254, 0.3);
+  border-radius: var(--radius-ice-sm);
+  box-shadow:
+    var(--shadow-ice-sm),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.ice-card-frozen:hover {
+  background: linear-gradient(
+    180deg,
+    rgba(224, 242, 254, 0.15) 0%,
+    rgba(26, 58, 92, 0.85) 30%,
+    rgba(15, 39, 68, 0.9) 100%
+  );
+  border-color: var(--frost-medium);
+  box-shadow:
+    var(--shadow-ice-md),
+    0 0 40px var(--ice-glow-frost);
+}
+
+/* Floating ice shard animation */
+.ice-card-float {
+  animation: iceFloat 8s ease-in-out infinite;
+}
+
+@keyframes iceFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-6px) rotate(0.5deg); }
+}
+
+
+/* ==================== ICE BUTTONS ==================== */
+[data-theme="ice"] button,
+[data-theme="ice"] .btn,
+[data-theme="ice"] .button {
+  background: rgba(34, 211, 238, 0.12);
+  border: 1px solid var(--ice-primary);
+  color: var(--ice-lightest);
+  border-radius: var(--radius-ice-sm);
+  padding: 12px 24px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition-freeze);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Frost sweep effect */
+[data-theme="ice"] button::before,
+[data-theme="ice"] .btn::before,
+[data-theme="ice"] .button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+/* Crystal highlight on top */
+[data-theme="ice"] button::after,
+[data-theme="ice"] .btn::after,
+[data-theme="ice"] .button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+[data-theme="ice"] button:hover,
+[data-theme="ice"] .btn:hover,
+[data-theme="ice"] .button:hover {
+  background: rgba(34, 211, 238, 0.25);
+  border-color: var(--ice-lightest);
+  color: var(--frost-lightest);
+  box-shadow:
+    0 0 25px var(--ice-glow-primary),
+    0 0 50px rgba(34, 211, 238, 0.2);
+  transform: translateY(-2px);
+}
+
+[data-theme="ice"] button:hover::before,
+[data-theme="ice"] .btn:hover::before,
+[data-theme="ice"] .button:hover::before {
+  left: 100%;
+}
+
+[data-theme="ice"] button:active,
+[data-theme="ice"] .btn:active,
+[data-theme="ice"] .button:active {
+  transform: translateY(0);
+  background: rgba(34, 211, 238, 0.35);
+}
+
+/* Ice Button Variants */
+.ice-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 28px;
+  background: linear-gradient(
+    135deg,
+    rgba(14, 116, 144, 0.4) 0%,
+    rgba(34, 211, 238, 0.25) 100%
+  );
+  border: 1px solid var(--ice-primary);
+  border-radius: var(--radius-ice-sm);
+  color: var(--frost-lightest);
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition-freeze);
+  box-shadow: var(--shadow-ice-sm);
+}
+
+.ice-btn::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(165, 243, 252, 0.25);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.5s ease, height 0.5s ease;
+}
+
+.ice-btn:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(34, 211, 238, 0.4) 0%,
+    rgba(103, 232, 249, 0.3) 100%
+  );
+  border-color: var(--ice-lightest);
+  box-shadow: var(--shadow-ice-crystal);
+  transform: translateY(-3px);
+}
+
+.ice-btn:hover::after {
+  width: 300px;
+  height: 300px;
+}
+
+/* Primary Ice Button */
+.ice-btn-primary {
+  background: linear-gradient(
+    135deg,
+    var(--ice-deep) 0%,
+    var(--ice-primary) 100%
+  );
+  border: none;
+  color: var(--cold-darkest);
+  font-weight: 600;
+  box-shadow:
+    var(--shadow-ice-md),
+    0 0 25px var(--ice-glow-primary);
+}
+
+.ice-btn-primary:hover {
+  background: linear-gradient(
+    135deg,
+    var(--ice-primary) 0%,
+    var(--ice-light) 100%
+  );
+  color: var(--cold-darkest);
+  box-shadow:
+    var(--shadow-ice-lg),
+    0 0 50px var(--ice-glow-primary);
+}
+
+/* Ghost Ice Button */
+.ice-btn-ghost {
+  background: transparent;
+  border: 1px solid rgba(165, 243, 252, 0.3);
+  color: var(--ice-lightest);
+}
+
+.ice-btn-ghost:hover {
+  background: rgba(165, 243, 252, 0.1);
+  border-color: var(--ice-lightest);
+}
+
+/* Aurora Button - Special effect */
+.ice-btn-aurora {
+  background: var(--gradient-ice-aurora);
+  border: 1px solid rgba(110, 231, 183, 0.4);
+  color: var(--frost-lightest);
+  box-shadow: 0 0 20px rgba(110, 231, 183, 0.2);
+}
+
+.ice-btn-aurora:hover {
+  box-shadow:
+    0 0 35px rgba(110, 231, 183, 0.3),
+    0 0 60px rgba(147, 197, 253, 0.2);
+}
+
+
+/* ==================== HEADER / NAVIGATION ==================== */
+[data-theme="ice"] header,
+[data-theme="ice"] .header,
+[data-theme="ice"] .wiki-header {
+  background: rgba(12, 25, 41, 0.9);
+  backdrop-filter: blur(25px) saturate(150%);
+  -webkit-backdrop-filter: blur(25px) saturate(150%);
+  border-bottom: 1px solid var(--border-default);
+  box-shadow:
+    0 4px 30px rgba(12, 25, 41, 0.7),
+    0 0 50px rgba(34, 211, 238, 0.08);
+  position: relative;
+}
+
+/* Crystal edge under nav */
+[data-theme="ice"] header::after,
+[data-theme="ice"] .header::after,
+[data-theme="ice"] .wiki-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--ice-light) 20%,
+    var(--ice-lightest) 35%,
+    var(--frost-lightest) 50%,
+    var(--ice-lightest) 65%,
+    var(--ice-light) 80%,
+    transparent 100%
+  );
+  opacity: 0.7;
+}
+
+[data-theme="ice"] nav,
+[data-theme="ice"] .nav,
+[data-theme="ice"] .navbar {
+  background: transparent;
+}
+
+[data-theme="ice"] nav a,
+[data-theme="ice"] .nav-link {
+  color: var(--text-secondary);
+  position: relative;
+  padding: 8px 16px;
+  border-radius: var(--radius-ice-sm);
+  transition: all var(--transition-freeze);
+}
+
+/* Frost underline effect */
+[data-theme="ice"] nav a::after,
+[data-theme="ice"] .nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--ice-light),
+    var(--ice-lightest),
+    var(--ice-light)
+  );
+  border-radius: 1px;
+  transition: width var(--transition-freeze);
+  box-shadow: 0 0 12px var(--ice-glow-primary);
+}
+
+[data-theme="ice"] nav a:hover,
+[data-theme="ice"] .nav-link:hover {
+  color: var(--ice-lightest);
+  background: rgba(34, 211, 238, 0.1);
+}
+
+[data-theme="ice"] nav a:hover::after,
+[data-theme="ice"] .nav-link:hover::after {
+  width: 80%;
+}
+
+[data-theme="ice"] nav a.active,
+[data-theme="ice"] .nav-link.active {
+  color: var(--frost-lightest);
+  background: rgba(34, 211, 238, 0.15);
+}
+
+[data-theme="ice"] nav a.active::after,
+[data-theme="ice"] .nav-link.active::after {
+  width: 60%;
+}
+
+
+/* ==================== SIDEBAR ==================== */
+[data-theme="ice"] .sidebar,
+[data-theme="ice"] aside {
+  background: rgba(12, 25, 41, 0.95);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border-right: 1px solid var(--border-subtle);
+  box-shadow: 4px 0 30px rgba(12, 25, 41, 0.6);
+  position: relative;
+}
+
+/* Vertical ice edge */
+[data-theme="ice"] .sidebar::before,
+[data-theme="ice"] aside::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    var(--ice-light) 20%,
+    var(--ice-lightest) 50%,
+    var(--ice-light) 80%,
+    transparent 100%
+  );
+  opacity: 0.5;
+}
+
+[data-theme="ice"] .sidebar-link,
+[data-theme="ice"] .sidebar a {
+  color: var(--text-secondary);
+  padding: 10px 16px;
+  border-radius: var(--radius-ice-sm);
+  border-left: 2px solid transparent;
+  transition: all var(--transition-freeze);
+}
+
+[data-theme="ice"] .sidebar-link:hover,
+[data-theme="ice"] .sidebar a:hover {
+  color: var(--ice-lightest);
+  background: rgba(34, 211, 238, 0.1);
+  border-left-color: var(--ice-primary);
+}
+
+[data-theme="ice"] .sidebar-link.active,
+[data-theme="ice"] .sidebar a.active {
+  color: var(--frost-lightest);
+  background: rgba(34, 211, 238, 0.15);
+  border-left-color: var(--ice-lightest);
+}
+
+
+/* ==================== INPUTS & FORMS ==================== */
+[data-theme="ice"] input,
+[data-theme="ice"] textarea,
+[data-theme="ice"] select {
+  background: rgba(12, 25, 41, 0.85);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-ice-sm);
+  color: var(--frost-lightest);
+  padding: 12px 16px;
+  transition: all var(--transition-freeze);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+[data-theme="ice"] input::placeholder,
+[data-theme="ice"] textarea::placeholder {
+  color: var(--text-muted);
+}
+
+[data-theme="ice"] input:hover,
+[data-theme="ice"] textarea:hover,
+[data-theme="ice"] select:hover {
+  border-color: var(--ice-primary);
+  background: rgba(15, 39, 68, 0.85);
+}
+
+[data-theme="ice"] input:focus,
+[data-theme="ice"] textarea:focus,
+[data-theme="ice"] select:focus {
+  outline: none;
+  border-color: var(--ice-lightest);
+  background: rgba(26, 58, 92, 0.8);
+  box-shadow:
+    0 0 0 3px rgba(34, 211, 238, 0.2),
+    0 0 25px var(--ice-glow-primary);
+}
+
+/* Frozen Search Input */
+.ice-search {
+  position: relative;
+}
+
+.ice-search input {
+  padding-left: 48px;
+  background: rgba(12, 25, 41, 0.9);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-ice-xl);
+}
+
+.ice-search::before {
+  content: '';
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  background: var(--ice-lightest);
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'/%3E%3C/svg%3E");
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'/%3E%3C/svg%3E");
+  opacity: 0.5;
+  transition: opacity var(--transition-freeze);
+}
+
+.ice-search:focus-within::before {
+  opacity: 1;
+}
+
+.ice-search:focus-within input {
+  border-color: var(--ice-lightest);
+  box-shadow:
+    0 0 0 3px rgba(34, 211, 238, 0.15),
+    0 0 35px var(--ice-glow-primary);
+}
+
+
+/* ==================== LINKS ==================== */
+[data-theme="ice"] a {
+  color: var(--ice-lightest);
+  text-decoration: none;
+  transition: all var(--transition-freeze);
+}
+
+[data-theme="ice"] a:hover {
+  color: var(--frost-lightest);
+  text-shadow: 0 0 15px var(--ice-glow-light);
+}
+
+
+/* ==================== CODE BLOCKS ==================== */
+[data-theme="ice"] code,
+[data-theme="ice"] pre {
+  background: rgba(12, 25, 41, 0.95);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-ice-sm);
+  color: var(--ice-lightest);
+  font-family: var(--font-mono);
+}
+
+[data-theme="ice"] pre {
+  padding: 20px;
+  overflow-x: auto;
+  position: relative;
+}
+
+/* Crystal top bar */
+[data-theme="ice"] pre::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--ice-deep) 0%,
+    var(--ice-primary) 30%,
+    var(--ice-light) 50%,
+    var(--ice-primary) 70%,
+    var(--ice-deep) 100%
+  );
+  border-radius: var(--radius-ice-sm) var(--radius-ice-sm) 0 0;
+}
+
+[data-theme="ice"] code {
+  padding: 2px 8px;
+}
+
+
+/* ==================== TABLES ==================== */
+[data-theme="ice"] table {
+  width: 100%;
+  background: rgba(15, 39, 68, 0.6);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-ice-md);
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+[data-theme="ice"] th {
+  background: rgba(34, 211, 238, 0.15);
+  color: var(--frost-lightest);
+  padding: 14px 16px;
+  text-align: left;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  border-bottom: 2px solid var(--ice-primary);
+}
+
+[data-theme="ice"] td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  transition: all var(--transition-freeze);
+}
+
+[data-theme="ice"] tr:last-child td {
+  border-bottom: none;
+}
+
+[data-theme="ice"] tr:hover td {
+  background: rgba(34, 211, 238, 0.08);
+  color: var(--frost-lightest);
+}
+
+
+/* ==================== BADGES & TAGS ==================== */
+.ice-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  background: rgba(34, 211, 238, 0.15);
+  border: 1px solid var(--ice-primary);
+  border-radius: var(--radius-full);
+  color: var(--ice-lightest);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  transition: all var(--transition-freeze);
+}
+
+.ice-badge:hover {
+  background: rgba(34, 211, 238, 0.25);
+  box-shadow: 0 0 20px var(--ice-glow-primary);
+}
+
+.ice-badge-frost {
+  background: rgba(224, 242, 254, 0.12);
+  border-color: var(--frost-medium);
+  color: var(--frost-lightest);
+}
+
+.ice-badge-crystal {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.4);
+  color: var(--frost-lightest);
+  box-shadow: 0 0 15px var(--ice-glow-crystal);
+}
+
+.ice-badge-aurora {
+  background: rgba(110, 231, 183, 0.1);
+  border-color: var(--ice-aurora-green);
+  color: var(--ice-aurora-green);
+  box-shadow: 0 0 12px var(--ice-glow-aurora);
+}
+
+.ice-tag {
+  display: inline-block;
+  padding: 6px 14px;
+  background: linear-gradient(
+    135deg,
+    rgba(14, 116, 144, 0.25) 0%,
+    rgba(34, 211, 238, 0.15) 100%
+  );
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-ice-sm);
+  color: var(--ice-lightest);
+  font-size: var(--text-sm);
+  transition: all var(--transition-freeze);
+}
+
+.ice-tag:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(34, 211, 238, 0.3) 0%,
+    rgba(103, 232, 249, 0.2) 100%
+  );
+  border-color: var(--ice-primary);
+  transform: translateY(-2px);
+}
+
+
+/* ==================== SCROLLBAR ==================== */
+[data-theme="ice"] ::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+[data-theme="ice"] ::-webkit-scrollbar-track {
+  background: var(--cold-darkest);
+  border-left: 1px solid var(--border-subtle);
+}
+
+[data-theme="ice"] ::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    var(--ice-deep) 0%,
+    var(--ice-primary) 50%,
+    var(--ice-light) 100%
+  );
+  border-radius: 5px;
+  border: 2px solid var(--cold-darkest);
+}
+
+[data-theme="ice"] ::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    180deg,
+    var(--ice-primary) 0%,
+    var(--ice-light) 50%,
+    var(--ice-lightest) 100%
+  );
+}
+
+[data-theme="ice"] * {
+  scrollbar-width: thin;
+  scrollbar-color: var(--ice-primary) var(--cold-darkest);
+}
+
+
+/* ==================== MODAL / DIALOG ==================== */
+[data-theme="ice"] .modal,
+[data-theme="ice"] .dialog,
+.ice-modal {
+  background: rgba(15, 39, 68, 0.95);
+  backdrop-filter: blur(35px) saturate(150%);
+  -webkit-backdrop-filter: blur(35px) saturate(150%);
+  border: 1px solid var(--ice-primary);
+  border-radius: var(--radius-ice-lg);
+  box-shadow:
+    var(--shadow-ice-frozen),
+    0 0 100px var(--ice-glow-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+.ice-modal::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--ice-deep) 0%,
+    var(--ice-primary) 20%,
+    var(--ice-light) 35%,
+    var(--ice-lightest) 50%,
+    var(--ice-light) 65%,
+    var(--ice-primary) 80%,
+    var(--ice-deep) 100%
+  );
+}
+
+.ice-modal-overlay {
+  background: rgba(12, 25, 41, 0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+
+/* ==================== TOOLTIPS ==================== */
+.ice-tooltip {
+  position: relative;
+}
+
+.ice-tooltip::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) translateY(5px);
+  padding: 8px 14px;
+  background: rgba(15, 39, 68, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--ice-primary);
+  border-radius: var(--radius-ice-sm);
+  color: var(--frost-lightest);
+  font-size: var(--text-xs);
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--transition-freeze);
+  box-shadow: var(--shadow-ice-md);
+  z-index: 100;
+}
+
+.ice-tooltip:hover::after {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+
+/* ==================== DIVIDERS ==================== */
+.ice-divider {
+  border: none;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--ice-light) 20%,
+    var(--ice-lightest) 50%,
+    var(--ice-light) 80%,
+    transparent 100%
+  );
+  margin: var(--space-6) 0;
+  opacity: 0.5;
+}
+
+.ice-divider-glow {
+  height: 2px;
+  box-shadow:
+    0 0 15px var(--ice-glow-primary),
+    0 0 30px var(--ice-glow-light);
+  opacity: 0.8;
+}
+
+.ice-divider-crystal {
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--ice-deep) 10%,
+    var(--ice-primary) 25%,
+    var(--ice-light) 40%,
+    var(--frost-lightest) 50%,
+    var(--ice-light) 60%,
+    var(--ice-primary) 75%,
+    var(--ice-deep) 90%,
+    transparent 100%
+  );
+  animation: iceCrystalPulse 3s ease-in-out infinite;
+}
+
+@keyframes iceCrystalPulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+
+/* ==================== LOADING / SPINNER ==================== */
+.ice-spinner {
+  width: 50px;
+  height: 50px;
+  border: 3px solid rgba(34, 211, 238, 0.2);
+  border-top-color: var(--ice-lightest);
+  border-radius: 50%;
+  animation: iceSpin 1s linear infinite;
+  position: relative;
+}
+
+.ice-spinner::before {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border: 3px solid transparent;
+  border-top-color: var(--ice-light);
+  border-radius: 50%;
+  animation: iceSpin 1.5s linear infinite reverse;
+}
+
+.ice-spinner::after {
+  content: '';
+  position: absolute;
+  inset: 12px;
+  border: 3px solid transparent;
+  border-top-color: var(--ice-primary);
+  border-radius: 50%;
+  animation: iceSpin 2s linear infinite;
+}
+
+@keyframes iceSpin {
+  to { transform: rotate(360deg); }
+}
+
+/* Crystal Loading Bar */
+.ice-loading-bar {
+  width: 100%;
+  height: 4px;
+  background: rgba(14, 116, 144, 0.2);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+
+.ice-loading-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -40%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--ice-light) 30%,
+    var(--ice-lightest) 50%,
+    var(--ice-light) 70%,
+    transparent 100%
+  );
+  animation: iceLoadSweep 1.5s ease-in-out infinite;
+}
+
+@keyframes iceLoadSweep {
+  0% { left: -40%; }
+  100% { left: 100%; }
+}
+
+
+/* ==================== PROGRESS BAR ==================== */
+.ice-progress {
+  height: 8px;
+  background: rgba(14, 116, 144, 0.2);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  position: relative;
+}
+
+.ice-progress-bar {
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    var(--ice-deep) 0%,
+    var(--ice-primary) 30%,
+    var(--ice-light) 60%,
+    var(--ice-lightest) 100%
+  );
+  border-radius: var(--radius-full);
+  position: relative;
+  transition: width var(--transition-shimmer);
+}
+
+.ice-progress-bar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.4) 50%,
+    transparent 100%
+  );
+  animation: iceProgressShimmer 2s infinite;
+}
+
+@keyframes iceProgressShimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+
+/* ==================== AVATARS ==================== */
+.ice-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(
+    135deg,
+    var(--ice-deep) 0%,
+    var(--ice-primary) 100%
+  );
+  border: 2px solid var(--ice-lightest);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: var(--frost-lightest);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 25px var(--ice-glow-primary);
+}
+
+.ice-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ice-avatar-ring {
+  padding: 3px;
+  background: linear-gradient(
+    135deg,
+    var(--ice-deep) 0%,
+    var(--ice-primary) 30%,
+    var(--ice-light) 60%,
+    var(--ice-lightest) 100%
+  );
+  border-radius: 50%;
+  box-shadow: 0 0 25px var(--ice-glow-primary);
+}
+
+.ice-avatar-ring .ice-avatar {
+  border: 2px solid var(--cold-darkest);
+  box-shadow: none;
+}
+
+
+/* ==================== DROPDOWN ==================== */
+.ice-dropdown-menu {
+  background: rgba(15, 39, 68, 0.95);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-ice-md);
+  box-shadow: var(--shadow-ice-lg);
+  overflow: hidden;
+  min-width: 200px;
+}
+
+.ice-dropdown-item {
+  padding: 12px 16px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-freeze);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ice-dropdown-item:hover {
+  background: rgba(34, 211, 238, 0.15);
+  color: var(--frost-lightest);
+}
+
+.ice-dropdown-divider {
+  height: 1px;
+  background: var(--border-subtle);
+  margin: 4px 0;
+}
+
+
+/* ==================== SELECTION ==================== */
+[data-theme="ice"] ::selection {
+  background: var(--ice-primary);
+  color: var(--cold-darkest);
+}
+
+[data-theme="ice"] ::-moz-selection {
+  background: var(--ice-primary);
+  color: var(--cold-darkest);
+}
+
+
+/* ==================== FOCUS STATES ==================== */
+[data-theme="ice"] *:focus {
+  outline: 2px solid var(--ice-lightest);
+  outline-offset: 2px;
+}
+
+[data-theme="ice"] *:focus:not(:focus-visible) {
+  outline: none;
+}
+
+[data-theme="ice"] *:focus-visible {
+  outline: 2px solid var(--ice-lightest);
+  outline-offset: 2px;
+  box-shadow: 0 0 25px var(--ice-glow-primary);
+}
+
+
+/* ==================== UTILITY CLASSES ==================== */
+/* Backgrounds */
+.bg-ice-primary { background-color: var(--ice-primary); }
+.bg-ice-light { background-color: var(--ice-light); }
+.bg-ice-lightest { background-color: var(--ice-lightest); }
+.bg-ice-deep { background-color: var(--ice-deep); }
+.bg-frost-light { background-color: var(--frost-light); }
+.bg-frost-lightest { background-color: var(--frost-lightest); }
+.bg-cold-dark { background-color: var(--cold-dark); }
+.bg-cold-darkest { background-color: var(--cold-darkest); }
+
+/* Text Colors */
+.text-ice-primary { color: var(--ice-primary); }
+.text-ice-light { color: var(--ice-light); }
+.text-ice-lightest { color: var(--ice-lightest); }
+.text-frost { color: var(--frost-lightest); }
+.text-aurora { color: var(--ice-aurora-green); }
+
+/* Border Colors */
+.border-ice-primary { border-color: var(--ice-primary); }
+.border-ice-light { border-color: var(--ice-light); }
+.border-ice-lightest { border-color: var(--ice-lightest); }
+.border-frost { border-color: var(--frost-medium); }
+
+/* Glows */
+.glow-ice { box-shadow: var(--shadow-ice-crystal); }
+.glow-ice-primary { box-shadow: 0 0 30px var(--ice-glow-primary); }
+.glow-ice-light { box-shadow: 0 0 30px var(--ice-glow-light); }
+.glow-ice-frost { box-shadow: 0 0 30px var(--ice-glow-frost); }
+.glow-ice-aurora { box-shadow: 0 0 30px var(--ice-glow-aurora); }
+
+
+/* ==================== ANIMATIONS ==================== */
+/* Crystal Shatter Effect */
+@keyframes iceCrystalShatter {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+/* Frost Spread Effect */
+@keyframes iceFrostSpread {
+  0% {
+    clip-path: circle(0% at center);
+    opacity: 0;
+  }
+  100% {
+    clip-path: circle(100% at center);
+    opacity: 1;
+  }
+}
+
+.ice-frost-in {
+  animation: iceFrostSpread 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+/* Frozen Pulse */
+@keyframes iceFrozenPulse {
+  0%, 100% {
+    box-shadow: 0 0 20px var(--ice-glow-primary);
+    border-color: var(--ice-primary);
+  }
+  50% {
+    box-shadow:
+      0 0 40px var(--ice-glow-primary),
+      0 0 60px var(--ice-glow-light);
+    border-color: var(--ice-lightest);
+  }
+}
+
+.ice-animate-pulse {
+  animation: iceFrozenPulse 3s ease-in-out infinite;
+}
+
+/* Crystal Hover Float */
+@keyframes iceCrystalFloat {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+    box-shadow: var(--shadow-ice-md);
+  }
+  25% {
+    transform: translateY(-5px) rotate(0.3deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(0deg);
+    box-shadow: var(--shadow-ice-crystal);
+  }
+  75% {
+    transform: translateY(-5px) rotate(-0.3deg);
+  }
+}
+
+.ice-animate-float {
+  animation: iceCrystalFloat 6s ease-in-out infinite;
+}
+
+/* Snowfall Background */
+.ice-snowfall {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.ice-snowflake {
+  position: absolute;
+  top: -20px;
+  width: 10px;
+  height: 10px;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(165, 243, 252, 0.6) 50%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  animation: iceSnowfall linear infinite;
+}
+
+@keyframes iceSnowfall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0.3;
+  }
+}
+
+.ice-snowflake:nth-child(1) { left: 5%; animation-duration: 8s; animation-delay: 0s; width: 6px; height: 6px; }
+.ice-snowflake:nth-child(2) { left: 15%; animation-duration: 12s; animation-delay: 1s; width: 8px; height: 8px; }
+.ice-snowflake:nth-child(3) { left: 25%; animation-duration: 10s; animation-delay: 2s; width: 5px; height: 5px; }
+.ice-snowflake:nth-child(4) { left: 35%; animation-duration: 9s; animation-delay: 0.5s; width: 7px; height: 7px; }
+.ice-snowflake:nth-child(5) { left: 45%; animation-duration: 11s; animation-delay: 3s; width: 6px; height: 6px; }
+.ice-snowflake:nth-child(6) { left: 55%; animation-duration: 13s; animation-delay: 1.5s; width: 9px; height: 9px; }
+.ice-snowflake:nth-child(7) { left: 65%; animation-duration: 8s; animation-delay: 2.5s; width: 5px; height: 5px; }
+.ice-snowflake:nth-child(8) { left: 75%; animation-duration: 10s; animation-delay: 0s; width: 8px; height: 8px; }
+.ice-snowflake:nth-child(9) { left: 85%; animation-duration: 12s; animation-delay: 4s; width: 6px; height: 6px; }
+.ice-snowflake:nth-child(10) { left: 95%; animation-duration: 9s; animation-delay: 1s; width: 7px; height: 7px; }
+
+/* Fade In Freeze */
+@keyframes iceFadeInFreeze {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+    filter: blur(5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+.ice-animate-in {
+  animation: iceFadeInFreeze 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+/* Staggered Children */
+.ice-stagger > * {
+  opacity: 0;
+  animation: iceFadeInFreeze 0.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+.ice-stagger > *:nth-child(1) { animation-delay: 0s; }
+.ice-stagger > *:nth-child(2) { animation-delay: 0.08s; }
+.ice-stagger > *:nth-child(3) { animation-delay: 0.16s; }
+.ice-stagger > *:nth-child(4) { animation-delay: 0.24s; }
+.ice-stagger > *:nth-child(5) { animation-delay: 0.32s; }
+.ice-stagger > *:nth-child(6) { animation-delay: 0.4s; }
+
+
+/* ==================== RESPONSIVE ADJUSTMENTS ==================== */
+@media (max-width: 768px) {
+  [data-theme="ice"] body::before,
+  [data-theme="ice"] body::after {
+    animation: none;
+  }
+
+  .ice-card:hover,
+  [data-theme="ice"] .card:hover {
+    transform: translateY(-2px);
+  }
+
+  .ice-snowfall {
+    display: none;
+  }
+}
+
+
+/* ==================== REDUCED MOTION ==================== */
+@media (prefers-reduced-motion: reduce) {
+  [data-theme="ice"] body::before,
+  [data-theme="ice"] body::after,
+  .ice-card-float,
+  .ice-spinner,
+  .ice-spinner::before,
+  .ice-spinner::after,
+  .ice-loading-bar::after,
+  .ice-progress-bar::after,
+  .ice-divider-crystal,
+  .ice-snowflake,
+  .ice-animate-in,
+  .ice-animate-float,
+  .ice-animate-pulse,
+  .ice-frost-in,
+  .ice-stagger > * {
+    animation: none;
+  }
+
+  .ice-text-shimmer {
+    animation: none;
+    background-position: 0% center;
+  }
+}
+
+
+/* ==================== PRINT STYLES ==================== */
+@media print {
+  [data-theme="ice"] {
+    --bg-page: white;
+    --text-primary: black;
+    --text-secondary: #333;
+  }
+
+  [data-theme="ice"] body::before,
+  [data-theme="ice"] body::after,
+  .ice-snowfall {
+    display: none;
+  }
+
+  * {
+    text-shadow: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+  }
+}
+
+
+/* ==================== BACKDROP FILTER FALLBACK ==================== */
+@supports not (backdrop-filter: blur(10px)) {
+  [data-theme="ice"] .card,
+  [data-theme="ice"] .wiki-card,
+  [data-theme="ice"] .content-card,
+  .ice-card,
+  .ice-modal,
+  [data-theme="ice"] header,
+  [data-theme="ice"] .sidebar {
+    background-color: rgba(15, 39, 68, 0.98);
+  }
+}

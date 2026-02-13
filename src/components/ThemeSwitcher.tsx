@@ -13,6 +13,16 @@ const themes = [
   { id: 'matrix', name: 'Matrix', icon: '💚' },
   { id: 'sunset', name: 'Sunset', icon: '🌅' },
   { id: 'ocean', name: 'Ocean', icon: '🌊' },
+  { id: 'cyberpunk', name: 'Cyberpunk', icon: '🤖' },
+  { id: 'forest', name: 'Forest', icon: '🌲' },
+  { id: 'midnight', name: 'Midnight', icon: '🌙' },
+  { id: 'cherry', name: 'Cherry', icon: '🌸' },
+  { id: 'steampunk', name: 'Steampunk', icon: '⚙️' },
+  { id: 'ice', name: 'Ice', icon: '❄️' },
+  { id: 'volcanic', name: 'Volcanic', icon: '🌋' },
+  { id: 'noir', name: 'Noir', icon: '🎬' },
+  { id: 'candy', name: 'Candy', icon: '🍬' },
+  { id: 'hacker', name: 'Hacker', icon: '💻' },
 ];
 
 export default function ThemeSwitcher() {

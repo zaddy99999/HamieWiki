@@ -1,0 +1,1295 @@
+/*
+ * ============================================================================
+ * HAMIEVERSE WIKI - HACKER / TERMINAL THEME
+ * ============================================================================
+ * OLD-SCHOOL AMBER CRT MONITOR AESTHETIC
+ * Inspired by IBM 3270, VT100, and classic amber phosphor terminals
+ *
+ * Design Philosophy:
+ * - Amber/Orange phosphor glow (#FFB000, #FFA500)
+ * - Pure black void background (#000000)
+ * - Heavy scanlines and CRT curvature effects
+ * - Monospace typography EVERYWHERE
+ * - Blinking cursor and terminal prompt aesthetics
+ * - Flicker and burn-in effects
+ * - Sharp, utilitarian design - pure function
+ * - Retro computing nostalgia (1970s-1980s terminals)
+ * ============================================================================
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=VT323&family=Source+Code+Pro:wght@400;500;600;700&family=Courier+Prime:wght@400;700&display=swap');
+
+/* ==================== HACKER CUSTOM PROPERTIES ==================== */
+[data-theme="hacker"],
+.theme-hacker {
+  /* Core Amber Phosphor Colors - The Classic Terminal */
+  --hacker-black: #000000;
+  --hacker-void: #000000;
+  --hacker-dark: #0a0600;
+  --hacker-darker: #050300;
+  --hacker-surface: #0d0800;
+  --hacker-elevated: #120a00;
+
+  /* The Amber - Classic CRT Phosphor Shades */
+  --hacker-amber: #FFB000;
+  --hacker-amber-bright: #FFCC00;
+  --hacker-amber-hot: #FFD700;
+  --hacker-amber-dim: #CC8800;
+  --hacker-amber-dark: #996600;
+  --hacker-amber-pale: #FFE066;
+  --hacker-amber-glow: rgba(255, 176, 0, 0.7);
+  --hacker-amber-subtle: rgba(255, 176, 0, 0.15);
+
+  /* Orange Accent - For highlights */
+  --hacker-orange: #FFA500;
+  --hacker-orange-bright: #FFB733;
+  --hacker-orange-dark: #CC8400;
+  --hacker-orange-glow: rgba(255, 165, 0, 0.6);
+
+  /* Warning/Error Colors - Period Accurate */
+  --hacker-red: #FF3300;
+  --hacker-red-dim: #CC2900;
+  --hacker-red-glow: rgba(255, 51, 0, 0.5);
+
+  /* Override Brand Colors */
+  --brand-primary: var(--hacker-amber);
+  --brand-secondary: var(--hacker-orange);
+  --brand-accent: var(--hacker-amber-bright);
+  --brand-danger: var(--hacker-red);
+
+  /* Override Semantic Colors */
+  --bg-page: var(--hacker-black);
+  --bg-card: var(--hacker-dark);
+  --bg-card-hover: var(--hacker-surface);
+  --bg-elevated: var(--hacker-elevated);
+  --bg-input: var(--hacker-black);
+
+  /* Borders - Amber Terminal Style */
+  --border-subtle: rgba(255, 176, 0, 0.15);
+  --border-default: rgba(255, 176, 0, 0.35);
+  --border-strong: var(--hacker-amber);
+  --border-glow: 0 0 5px var(--hacker-amber), 0 0 10px var(--hacker-amber-glow);
+
+  /* Text - Amber Phosphor All The Way */
+  --text-primary: var(--hacker-amber);
+  --text-secondary: var(--hacker-amber-dim);
+  --text-muted: var(--hacker-amber-dark);
+  --text-glow: 0 0 3px var(--hacker-amber), 0 0 8px var(--hacker-amber-glow), 0 0 15px var(--hacker-amber-glow);
+
+  /* Phosphor Shadows & Glows */
+  --shadow-hacker-sm: 0 0 5px var(--hacker-amber), 0 0 10px var(--hacker-amber-glow);
+  --shadow-hacker-md: 0 0 8px var(--hacker-amber), 0 0 15px var(--hacker-amber-glow), 0 0 25px var(--hacker-amber-glow);
+  --shadow-hacker-lg: 0 0 12px var(--hacker-amber), 0 0 25px var(--hacker-amber-glow), 0 0 40px var(--hacker-amber-glow);
+  --shadow-hacker-intense: 0 0 15px var(--hacker-amber), 0 0 35px var(--hacker-amber), 0 0 55px var(--hacker-amber-glow), 0 0 75px var(--hacker-amber-glow);
+
+  /* Override standard shadows */
+  --shadow-sm: var(--shadow-hacker-sm);
+  --shadow-md: var(--shadow-hacker-md);
+  --shadow-lg: var(--shadow-hacker-lg);
+  --shadow-glow: var(--shadow-hacker-md);
+  --shadow-glow-accent: var(--shadow-hacker-lg);
+
+  /* Terminal Fonts - IBM/Old School */
+  --font-hacker: 'IBM Plex Mono', 'Source Code Pro', 'Consolas', monospace;
+  --font-hacker-display: 'VT323', 'Courier Prime', monospace;
+  --font-hacker-code: 'Source Code Pro', 'IBM Plex Mono', 'Courier New', monospace;
+
+  /* Override base fonts - MONOSPACE EVERYWHERE */
+  --font-sans: var(--font-hacker);
+  --font-mono: var(--font-hacker-code);
+
+  /* Sharp corners - Terminal boxes are SQUARE */
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
+  --radius-xl: 0;
+  --radius-2xl: 0;
+  --radius-full: 0;
+
+  /* Animation Timings */
+  --blink-speed: 1s;
+  --scan-speed: 6s;
+  --flicker-speed: 0.05s;
+  --phosphor-fade: 0.3s;
+}
+
+/* ==================== CRT MONITOR BACKGROUND & EFFECTS ==================== */
+[data-theme="hacker"] body {
+  background: var(--hacker-black);
+  color: var(--hacker-amber);
+  font-family: var(--font-hacker);
+  position: relative;
+  font-size: 14px;
+  line-height: 1.6;
+  letter-spacing: 0.02em;
+}
+
+/* Scanlines Effect - Horizontal CRT Lines */
+[data-theme="hacker"] body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9998;
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent 0px,
+    transparent 1px,
+    rgba(0, 0, 0, 0.3) 1px,
+    rgba(0, 0, 0, 0.3) 2px
+  );
+  animation: hacker-scanline-scroll var(--scan-speed) linear infinite;
+}
+
+@keyframes hacker-scanline-scroll {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 50px; }
+}
+
+/* CRT Vignette & Curvature Effect */
+[data-theme="hacker"] body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9997;
+  background: radial-gradient(
+    ellipse 80% 80% at center,
+    transparent 0%,
+    transparent 50%,
+    rgba(0, 0, 0, 0.4) 80%,
+    rgba(0, 0, 0, 0.8) 100%
+  );
+  box-shadow: inset 0 0 150px rgba(0, 0, 0, 0.6);
+}
+
+/* Ambient phosphor glow at edges */
+[data-theme="hacker"]::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: -1;
+  box-shadow: inset 0 0 100px rgba(255, 176, 0, 0.03);
+}
+
+/* ==================== ALL ELEMENTS SHARP CORNERS ==================== */
+[data-theme="hacker"] * {
+  border-radius: 0 !important;
+}
+
+/* ==================== GLOBAL TEXT STYLES ==================== */
+[data-theme="hacker"] h1,
+[data-theme="hacker"] h2,
+[data-theme="hacker"] h3,
+[data-theme="hacker"] h4,
+[data-theme="hacker"] h5,
+[data-theme="hacker"] h6 {
+  font-family: var(--font-hacker-display);
+  color: var(--hacker-amber-bright);
+  text-shadow: var(--text-glow);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-weight: 400;
+}
+
+[data-theme="hacker"] h1 {
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  border-bottom: 2px double var(--hacker-amber);
+  padding-bottom: 0.75rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+/* Blinking cursor after h1 */
+[data-theme="hacker"] h1::after {
+  content: '_';
+  animation: hacker-cursor-blink var(--blink-speed) step-end infinite;
+  margin-left: 0.25em;
+}
+
+@keyframes hacker-cursor-blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+[data-theme="hacker"] h2 {
+  font-size: clamp(1.4rem, 3.5vw, 2rem);
+  border-left: 4px solid var(--hacker-amber);
+  padding-left: 1rem;
+  position: relative;
+}
+
+[data-theme="hacker"] h2::before {
+  content: '>> ';
+  color: var(--hacker-amber-dim);
+}
+
+[data-theme="hacker"] h3 {
+  font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+}
+
+[data-theme="hacker"] h3::before {
+  content: '> ';
+  color: var(--hacker-amber-dark);
+}
+
+[data-theme="hacker"] h4::before,
+[data-theme="hacker"] h5::before,
+[data-theme="hacker"] h6::before {
+  content: '- ';
+  color: var(--hacker-amber-dark);
+}
+
+[data-theme="hacker"] p,
+[data-theme="hacker"] span,
+[data-theme="hacker"] li,
+[data-theme="hacker"] td,
+[data-theme="hacker"] th,
+[data-theme="hacker"] label,
+[data-theme="hacker"] div {
+  color: var(--hacker-amber);
+  font-family: var(--font-hacker);
+}
+
+/* ==================== LINKS - TERMINAL STYLE ==================== */
+[data-theme="hacker"] a {
+  color: var(--hacker-amber-bright);
+  text-decoration: none;
+  border-bottom: 1px dashed var(--hacker-amber-dim);
+  transition: all var(--phosphor-fade) ease;
+  text-shadow: 0 0 5px var(--hacker-amber-glow);
+}
+
+[data-theme="hacker"] a:hover {
+  color: var(--hacker-amber-hot);
+  border-bottom-color: var(--hacker-amber);
+  border-bottom-style: solid;
+  text-shadow: var(--text-glow);
+  background: rgba(255, 176, 0, 0.1);
+}
+
+[data-theme="hacker"] a:visited {
+  color: var(--hacker-amber-dim);
+}
+
+[data-theme="hacker"] a::before {
+  content: '[';
+  color: var(--hacker-amber-dark);
+}
+
+[data-theme="hacker"] a::after {
+  content: ']';
+  color: var(--hacker-amber-dark);
+}
+
+/* ==================== TERMINAL CARDS ==================== */
+[data-theme="hacker"] .card,
+[data-theme="hacker"] .wiki-card,
+[data-theme="hacker"] .content-card,
+.hacker-card {
+  background: var(--hacker-black);
+  border: 1px solid var(--hacker-amber);
+  box-shadow: var(--shadow-hacker-sm);
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  transition: all var(--phosphor-fade) ease;
+}
+
+/* Terminal header bar on cards */
+[data-theme="hacker"] .card::before,
+[data-theme="hacker"] .wiki-card::before,
+.hacker-card::before {
+  content: '[TERMINAL] -- -- -- -- -- -- -- -- -- -- -- --';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: var(--hacker-amber);
+  color: var(--hacker-black);
+  font-family: var(--font-hacker);
+  font-size: 0.7rem;
+  padding: 2px 8px;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+[data-theme="hacker"] .card,
+[data-theme="hacker"] .wiki-card,
+.hacker-card {
+  padding-top: 2rem;
+}
+
+[data-theme="hacker"] .card:hover,
+[data-theme="hacker"] .wiki-card:hover,
+.hacker-card:hover {
+  border-color: var(--hacker-amber-bright);
+  box-shadow: var(--shadow-hacker-lg);
+  transform: translateY(-1px);
+}
+
+/* Flicker effect on card hover */
+[data-theme="hacker"] .card:hover::after,
+[data-theme="hacker"] .wiki-card:hover::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 176, 0, 0.02);
+  animation: hacker-flicker 0.15s infinite;
+  pointer-events: none;
+}
+
+@keyframes hacker-flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.95; }
+  75% { opacity: 0.98; }
+}
+
+/* ==================== TERMINAL BUTTONS ==================== */
+[data-theme="hacker"] button,
+[data-theme="hacker"] .btn,
+[data-theme="hacker"] .button,
+.hacker-btn {
+  font-family: var(--font-hacker);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 0.6rem 1.2rem;
+  background: var(--hacker-black);
+  color: var(--hacker-amber);
+  border: 2px solid var(--hacker-amber);
+  box-shadow: var(--shadow-hacker-sm);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all var(--phosphor-fade) ease;
+}
+
+[data-theme="hacker"] button::before,
+[data-theme="hacker"] .btn::before,
+.hacker-btn::before {
+  content: '[ ';
+}
+
+[data-theme="hacker"] button::after,
+[data-theme="hacker"] .btn::after,
+.hacker-btn::after {
+  content: ' ]';
+}
+
+[data-theme="hacker"] button:hover,
+[data-theme="hacker"] .btn:hover,
+.hacker-btn:hover {
+  background: var(--hacker-amber);
+  color: var(--hacker-black);
+  box-shadow: var(--shadow-hacker-lg);
+  text-shadow: none;
+}
+
+[data-theme="hacker"] button:active,
+[data-theme="hacker"] .btn:active,
+.hacker-btn:active {
+  transform: scale(0.98);
+  box-shadow: var(--shadow-hacker-sm);
+}
+
+/* Button Variants */
+.hacker-btn-filled,
+[data-theme="hacker"] .btn-primary {
+  background: var(--hacker-amber);
+  color: var(--hacker-black);
+  font-weight: 600;
+}
+
+.hacker-btn-filled:hover,
+[data-theme="hacker"] .btn-primary:hover {
+  background: var(--hacker-amber-bright);
+  box-shadow: var(--shadow-hacker-intense);
+}
+
+.hacker-btn-danger,
+[data-theme="hacker"] .btn-danger {
+  border-color: var(--hacker-red);
+  color: var(--hacker-red);
+  box-shadow: 0 0 5px var(--hacker-red-glow);
+}
+
+.hacker-btn-danger:hover,
+[data-theme="hacker"] .btn-danger:hover {
+  background: var(--hacker-red);
+  color: var(--hacker-black);
+  box-shadow: 0 0 20px var(--hacker-red-glow);
+}
+
+/* ==================== HEADER / NAVIGATION ==================== */
+[data-theme="hacker"] header,
+[data-theme="hacker"] .header,
+[data-theme="hacker"] .wiki-header {
+  background: var(--hacker-black);
+  border-bottom: 2px solid var(--hacker-amber);
+  box-shadow: 0 2px 15px var(--hacker-amber-glow);
+  position: relative;
+}
+
+[data-theme="hacker"] header::before {
+  content: '=== HAMIEVERSE TERMINAL v2.0 === [CONNECTED] ===';
+  display: block;
+  text-align: center;
+  font-family: var(--font-hacker);
+  font-size: 0.7rem;
+  color: var(--hacker-amber);
+  padding: 4px 0;
+  background: var(--hacker-dark);
+  border-bottom: 1px solid var(--hacker-amber-dark);
+  letter-spacing: 0.2em;
+}
+
+[data-theme="hacker"] nav,
+[data-theme="hacker"] .nav,
+[data-theme="hacker"] .navbar {
+  background: transparent;
+}
+
+[data-theme="hacker"] nav a,
+[data-theme="hacker"] .nav-link {
+  color: var(--hacker-amber);
+  font-family: var(--font-hacker);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid transparent;
+  position: relative;
+  transition: all var(--phosphor-fade) ease;
+  font-size: 0.85rem;
+}
+
+[data-theme="hacker"] nav a::before,
+[data-theme="hacker"] .nav-link::before {
+  content: '>';
+  margin-right: 0.5em;
+  opacity: 0;
+  transition: opacity var(--phosphor-fade) ease;
+}
+
+[data-theme="hacker"] nav a:hover,
+[data-theme="hacker"] .nav-link:hover {
+  color: var(--hacker-amber-bright);
+  border-color: var(--hacker-amber);
+  background: rgba(255, 176, 0, 0.1);
+  text-shadow: var(--text-glow);
+  box-shadow: var(--shadow-hacker-sm);
+}
+
+[data-theme="hacker"] nav a:hover::before,
+[data-theme="hacker"] .nav-link:hover::before {
+  opacity: 1;
+}
+
+[data-theme="hacker"] nav a.active,
+[data-theme="hacker"] .nav-link.active {
+  color: var(--hacker-black);
+  background: var(--hacker-amber);
+  border-color: var(--hacker-amber);
+  text-shadow: none;
+}
+
+[data-theme="hacker"] nav a.active::before,
+[data-theme="hacker"] .nav-link.active::before {
+  content: '*';
+  opacity: 1;
+}
+
+/* ==================== SIDEBAR ==================== */
+[data-theme="hacker"] .sidebar,
+[data-theme="hacker"] aside {
+  background: var(--hacker-black);
+  border-right: 2px solid var(--hacker-amber);
+  box-shadow: 2px 0 15px var(--hacker-amber-glow);
+}
+
+[data-theme="hacker"] .sidebar::before,
+[data-theme="hacker"] aside::before {
+  content: '[MENU]';
+  display: block;
+  padding: 0.5rem 1rem;
+  font-family: var(--font-hacker);
+  font-size: 0.75rem;
+  color: var(--hacker-amber);
+  border-bottom: 1px solid var(--hacker-amber-dark);
+  letter-spacing: 0.15em;
+  text-shadow: var(--text-glow);
+}
+
+[data-theme="hacker"] .sidebar-link,
+[data-theme="hacker"] .sidebar a {
+  color: var(--hacker-amber-dim);
+  font-family: var(--font-hacker);
+  border-left: 2px solid transparent;
+  padding: 0.4rem 1rem;
+  transition: all var(--phosphor-fade) ease;
+  font-size: 0.9rem;
+}
+
+[data-theme="hacker"] .sidebar-link::before,
+[data-theme="hacker"] .sidebar a::before {
+  content: '- ';
+  color: var(--hacker-amber-dark);
+}
+
+[data-theme="hacker"] .sidebar-link:hover,
+[data-theme="hacker"] .sidebar a:hover {
+  color: var(--hacker-amber-bright);
+  border-left-color: var(--hacker-amber);
+  background: rgba(255, 176, 0, 0.05);
+  text-shadow: 0 0 5px var(--hacker-amber-glow);
+}
+
+[data-theme="hacker"] .sidebar-link:hover::before,
+[data-theme="hacker"] .sidebar a:hover::before {
+  content: '> ';
+  color: var(--hacker-amber);
+}
+
+[data-theme="hacker"] .sidebar-link.active,
+[data-theme="hacker"] .sidebar a.active {
+  color: var(--hacker-amber);
+  border-left-color: var(--hacker-amber);
+  background: rgba(255, 176, 0, 0.1);
+  text-shadow: var(--text-glow);
+}
+
+/* ==================== INPUTS & FORMS ==================== */
+[data-theme="hacker"] input,
+[data-theme="hacker"] textarea,
+[data-theme="hacker"] select,
+.hacker-input {
+  font-family: var(--font-hacker);
+  background: var(--hacker-black);
+  color: var(--hacker-amber);
+  border: 1px solid var(--hacker-amber-dark);
+  padding: 0.6rem 0.8rem;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+  transition: all var(--phosphor-fade) ease;
+  font-size: 0.9rem;
+}
+
+[data-theme="hacker"] input::placeholder,
+[data-theme="hacker"] textarea::placeholder,
+.hacker-input::placeholder {
+  color: var(--hacker-amber-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-style: italic;
+}
+
+[data-theme="hacker"] input:focus,
+[data-theme="hacker"] textarea:focus,
+[data-theme="hacker"] select:focus,
+.hacker-input:focus {
+  outline: none;
+  border-color: var(--hacker-amber);
+  box-shadow:
+    var(--shadow-hacker-sm),
+    inset 0 0 15px rgba(255, 176, 0, 0.05);
+}
+
+/* Blinking cursor in focused input */
+[data-theme="hacker"] input:focus,
+[data-theme="hacker"] textarea:focus {
+  caret-color: var(--hacker-amber);
+  animation: hacker-input-glow 2s ease-in-out infinite;
+}
+
+@keyframes hacker-input-glow {
+  0%, 100% { box-shadow: var(--shadow-hacker-sm), inset 0 0 15px rgba(255, 176, 0, 0.05); }
+  50% { box-shadow: var(--shadow-hacker-md), inset 0 0 20px rgba(255, 176, 0, 0.08); }
+}
+
+/* Search Bar */
+[data-theme="hacker"] .search-bar,
+[data-theme="hacker"] .search-input {
+  background: var(--hacker-black);
+  border: 2px solid var(--hacker-amber);
+  box-shadow: var(--shadow-hacker-sm);
+}
+
+[data-theme="hacker"] .search-bar::before,
+[data-theme="hacker"] .search-input::before {
+  content: 'SEARCH>';
+  color: var(--hacker-amber-dim);
+  font-family: var(--font-hacker);
+  padding-right: 0.5rem;
+}
+
+[data-theme="hacker"] .search-bar:focus-within {
+  box-shadow: var(--shadow-hacker-lg);
+}
+
+/* ==================== CODE BLOCKS - TERMINAL OUTPUT ==================== */
+[data-theme="hacker"] code,
+[data-theme="hacker"] pre {
+  font-family: var(--font-hacker-code);
+  background: var(--hacker-black);
+  color: var(--hacker-amber-bright);
+  border: 1px solid var(--hacker-amber-dark);
+  text-shadow: 0 0 2px var(--hacker-amber-glow);
+}
+
+[data-theme="hacker"] pre {
+  padding: 1.5rem;
+  padding-top: 2.5rem;
+  position: relative;
+  box-shadow: var(--shadow-hacker-sm);
+  overflow-x: auto;
+}
+
+[data-theme="hacker"] pre::before {
+  content: 'root@hamieverse:~$ ';
+  position: absolute;
+  top: 0.5rem;
+  left: 1rem;
+  font-size: 0.75rem;
+  color: var(--hacker-amber);
+  text-shadow: var(--text-glow);
+}
+
+[data-theme="hacker"] pre::after {
+  content: '_';
+  animation: hacker-cursor-blink var(--blink-speed) step-end infinite;
+  color: var(--hacker-amber);
+}
+
+[data-theme="hacker"] code {
+  padding: 0.15em 0.35em;
+  font-size: 0.9em;
+}
+
+/* ==================== TABLES - DATA TERMINAL ==================== */
+[data-theme="hacker"] table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 2px solid var(--hacker-amber);
+  box-shadow: var(--shadow-hacker-sm);
+}
+
+[data-theme="hacker"] th {
+  background: var(--hacker-amber);
+  color: var(--hacker-black);
+  font-family: var(--font-hacker);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.75rem;
+  border: 1px solid var(--hacker-amber);
+}
+
+[data-theme="hacker"] td {
+  background: var(--hacker-black);
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--hacker-amber-dark);
+  font-family: var(--font-hacker);
+}
+
+[data-theme="hacker"] tr:hover td {
+  background: rgba(255, 176, 0, 0.05);
+  text-shadow: 0 0 3px var(--hacker-amber-glow);
+}
+
+/* Alternating row effect */
+[data-theme="hacker"] tr:nth-child(even) td {
+  background: var(--hacker-dark);
+}
+
+/* ==================== BADGES & TAGS ==================== */
+.hacker-badge,
+[data-theme="hacker"] .badge,
+[data-theme="hacker"] .tag {
+  font-family: var(--font-hacker);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.2rem 0.6rem;
+  background: transparent;
+  color: var(--hacker-amber);
+  border: 1px solid var(--hacker-amber);
+  display: inline-block;
+  box-shadow: var(--shadow-hacker-sm);
+}
+
+.hacker-badge::before,
+[data-theme="hacker"] .badge::before,
+[data-theme="hacker"] .tag::before {
+  content: '<';
+}
+
+.hacker-badge::after,
+[data-theme="hacker"] .badge::after,
+[data-theme="hacker"] .tag::after {
+  content: '>';
+}
+
+.hacker-badge-filled {
+  background: var(--hacker-amber);
+  color: var(--hacker-black);
+}
+
+.hacker-badge-danger {
+  border-color: var(--hacker-red);
+  color: var(--hacker-red);
+  box-shadow: 0 0 5px var(--hacker-red-glow);
+}
+
+/* ==================== MODALS & DIALOGS ==================== */
+[data-theme="hacker"] .modal,
+[data-theme="hacker"] .dialog,
+.hacker-modal {
+  background: var(--hacker-black);
+  border: 2px solid var(--hacker-amber);
+  box-shadow: var(--shadow-hacker-intense);
+}
+
+[data-theme="hacker"] .modal::before,
+[data-theme="hacker"] .dialog::before,
+.hacker-modal::before {
+  content: '[ SYSTEM DIALOG ] ========================================';
+  display: block;
+  background: var(--hacker-amber);
+  color: var(--hacker-black);
+  font-family: var(--font-hacker);
+  font-size: 0.7rem;
+  padding: 4px 8px;
+  letter-spacing: 0.1em;
+}
+
+.hacker-modal-overlay {
+  background: rgba(0, 0, 0, 0.95);
+}
+
+/* ==================== SCROLLBAR - TERMINAL STYLE ==================== */
+[data-theme="hacker"] ::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+[data-theme="hacker"] ::-webkit-scrollbar-track {
+  background: var(--hacker-black);
+  border-left: 1px solid var(--hacker-amber-dark);
+}
+
+[data-theme="hacker"] ::-webkit-scrollbar-thumb {
+  background: var(--hacker-amber-dark);
+  border: 1px solid var(--hacker-amber);
+  box-shadow: 0 0 5px var(--hacker-amber-glow);
+}
+
+[data-theme="hacker"] ::-webkit-scrollbar-thumb:hover {
+  background: var(--hacker-amber);
+  box-shadow: var(--shadow-hacker-sm);
+}
+
+[data-theme="hacker"] ::-webkit-scrollbar-corner {
+  background: var(--hacker-black);
+}
+
+/* Firefox Scrollbar */
+[data-theme="hacker"] * {
+  scrollbar-width: auto;
+  scrollbar-color: var(--hacker-amber-dark) var(--hacker-black);
+}
+
+/* ==================== TEXT SELECTION ==================== */
+[data-theme="hacker"] ::selection {
+  background: var(--hacker-amber);
+  color: var(--hacker-black);
+  text-shadow: none;
+}
+
+[data-theme="hacker"] ::-moz-selection {
+  background: var(--hacker-amber);
+  color: var(--hacker-black);
+  text-shadow: none;
+}
+
+/* ==================== FOCUS STATES ==================== */
+[data-theme="hacker"] *:focus {
+  outline: 2px solid var(--hacker-amber);
+  outline-offset: 2px;
+  box-shadow: var(--shadow-hacker-sm);
+}
+
+[data-theme="hacker"] *:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
+}
+
+[data-theme="hacker"] *:focus-visible {
+  outline: 2px solid var(--hacker-amber);
+  outline-offset: 2px;
+  box-shadow: var(--shadow-hacker-md);
+}
+
+/* ==================== DIVIDERS ==================== */
+[data-theme="hacker"] hr,
+.hacker-divider {
+  border: none;
+  height: 1px;
+  background: var(--hacker-amber);
+  box-shadow: 0 0 8px var(--hacker-amber-glow);
+  margin: 2rem 0;
+  position: relative;
+}
+
+/* ASCII-style divider */
+.hacker-divider-ascii {
+  background: transparent;
+  height: auto;
+  text-align: center;
+  box-shadow: none;
+}
+
+.hacker-divider-ascii::before {
+  content: '- - - - - - - - - - - - - - - - - - - - - - - -';
+  color: var(--hacker-amber-dark);
+  font-family: var(--font-hacker);
+  letter-spacing: 0.2em;
+}
+
+/* ==================== LOADING / SPINNER ==================== */
+.hacker-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--hacker-amber-dark);
+  border-top-color: var(--hacker-amber);
+  animation: hacker-spin 1s linear infinite;
+  box-shadow: var(--shadow-hacker-sm);
+}
+
+@keyframes hacker-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Terminal-style loading text */
+.hacker-loading-text {
+  font-family: var(--font-hacker);
+  color: var(--hacker-amber);
+  text-shadow: var(--text-glow);
+}
+
+.hacker-loading-text::after {
+  content: '...';
+  animation: hacker-loading-dots 1.5s infinite;
+}
+
+@keyframes hacker-loading-dots {
+  0% { content: '.'; }
+  33% { content: '..'; }
+  66% { content: '...'; }
+  100% { content: '.'; }
+}
+
+.hacker-loading-bar {
+  width: 100%;
+  height: 4px;
+  background: var(--hacker-black);
+  border: 1px solid var(--hacker-amber-dark);
+  position: relative;
+  overflow: hidden;
+}
+
+.hacker-loading-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -30%;
+  width: 30%;
+  height: 100%;
+  background: var(--hacker-amber);
+  box-shadow: 0 0 15px var(--hacker-amber);
+  animation: hacker-loading-slide 1.2s ease-in-out infinite;
+}
+
+@keyframes hacker-loading-slide {
+  0% { left: -30%; }
+  100% { left: 100%; }
+}
+
+/* ==================== TERMINAL TEXT EFFECTS ==================== */
+.hacker-text-glow {
+  color: var(--hacker-amber);
+  text-shadow: var(--text-glow);
+}
+
+.hacker-text-bright {
+  color: var(--hacker-amber-bright);
+  text-shadow: var(--shadow-hacker-md);
+}
+
+/* Phosphor fade in effect */
+.hacker-text-fade-in {
+  animation: hacker-phosphor-fade 0.5s ease-out forwards;
+}
+
+@keyframes hacker-phosphor-fade {
+  0% {
+    opacity: 0;
+    text-shadow: none;
+  }
+  50% {
+    opacity: 0.5;
+    text-shadow: 0 0 20px var(--hacker-amber);
+  }
+  100% {
+    opacity: 1;
+    text-shadow: var(--text-glow);
+  }
+}
+
+/* CRT flicker effect */
+.hacker-text-flicker {
+  animation: hacker-crt-flicker 4s infinite;
+}
+
+@keyframes hacker-crt-flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    text-shadow: var(--text-glow);
+    opacity: 1;
+  }
+  20%, 24%, 55% {
+    text-shadow: none;
+    opacity: 0.85;
+  }
+}
+
+/* Typewriter effect */
+.hacker-text-typing {
+  overflow: hidden;
+  border-right: 2px solid var(--hacker-amber);
+  white-space: nowrap;
+  animation:
+    hacker-typing 3s steps(40, end),
+    hacker-cursor-blink 1s step-end infinite;
+}
+
+@keyframes hacker-typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+/* ==================== TERMINAL DECORATIVE ELEMENTS ==================== */
+/* Command prompt */
+.hacker-prompt::before {
+  content: 'C:\\> ';
+  color: var(--hacker-amber);
+  text-shadow: var(--text-glow);
+  font-family: var(--font-hacker);
+}
+
+/* System message */
+.hacker-system-msg {
+  border-left: 3px solid var(--hacker-amber);
+  padding-left: 1rem;
+  margin: 1rem 0;
+  font-family: var(--font-hacker);
+}
+
+.hacker-system-msg::before {
+  content: '[SYS] ';
+  color: var(--hacker-amber-bright);
+  font-weight: 600;
+}
+
+/* Error message */
+.hacker-error-msg {
+  border-left: 3px solid var(--hacker-red);
+  color: var(--hacker-red);
+  padding-left: 1rem;
+  margin: 1rem 0;
+  font-family: var(--font-hacker);
+}
+
+.hacker-error-msg::before {
+  content: '[ERR] ';
+  color: var(--hacker-red);
+  font-weight: 600;
+}
+
+/* Status indicator */
+.hacker-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-hacker);
+}
+
+.hacker-status::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background: var(--hacker-amber);
+  box-shadow: 0 0 10px var(--hacker-amber);
+  animation: hacker-status-blink 1s infinite;
+}
+
+@keyframes hacker-status-blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0.3; }
+}
+
+.hacker-status-error::before {
+  background: var(--hacker-red);
+  box-shadow: 0 0 10px var(--hacker-red);
+}
+
+/* ==================== SCREEN BURN-IN EFFECT ==================== */
+.hacker-burnin {
+  position: relative;
+}
+
+.hacker-burnin::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 176, 0, 0.02);
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+/* ==================== GRID/NOISE BACKGROUND PATTERN ==================== */
+.hacker-grid-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  background-image:
+    linear-gradient(rgba(255, 176, 0, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 176, 0, 0.02) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Static noise effect */
+.hacker-noise {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9996;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' fill='%23FFB000'/%3E%3C/svg%3E");
+}
+
+/* ==================== UTILITY CLASSES ==================== */
+.glow-amber { box-shadow: var(--shadow-hacker-md); }
+.glow-amber-intense { box-shadow: var(--shadow-hacker-intense); }
+
+.border-hacker { border-color: var(--hacker-amber); }
+.border-hacker-bright { border-color: var(--hacker-amber-bright); }
+
+.text-hacker { color: var(--hacker-amber); }
+.text-hacker-bright { color: var(--hacker-amber-bright); }
+.text-hacker-dim { color: var(--hacker-amber-dim); }
+.text-hacker-dark { color: var(--hacker-amber-dark); }
+
+.bg-hacker-black { background: var(--hacker-black); }
+.bg-hacker-dark { background: var(--hacker-dark); }
+.bg-hacker-surface { background: var(--hacker-surface); }
+
+/* ==================== WIKI-SPECIFIC OVERRIDES ==================== */
+[data-theme="hacker"] .wiki-container {
+  background: var(--hacker-black);
+}
+
+[data-theme="hacker"] .character-card {
+  border: 2px solid var(--hacker-amber);
+  box-shadow: var(--shadow-hacker-md);
+}
+
+[data-theme="hacker"] .character-card:hover {
+  box-shadow: var(--shadow-hacker-lg);
+}
+
+[data-theme="hacker"] .wiki-sidebar {
+  border-right: 2px solid var(--hacker-amber);
+  box-shadow: 2px 0 20px var(--hacker-amber-glow);
+}
+
+[data-theme="hacker"] .wiki-content {
+  background: var(--hacker-black);
+}
+
+[data-theme="hacker"] .wiki-footer {
+  border-top: 2px solid var(--hacker-amber);
+  box-shadow: 0 -2px 15px var(--hacker-amber-glow);
+}
+
+[data-theme="hacker"] .wiki-footer::before {
+  content: '=== END OF TRANSMISSION ===';
+  display: block;
+  text-align: center;
+  font-family: var(--font-hacker);
+  font-size: 0.7rem;
+  color: var(--hacker-amber-dim);
+  padding: 4px 0;
+  letter-spacing: 0.2em;
+}
+
+[data-theme="hacker"] .category-card {
+  border: 1px solid var(--hacker-amber-dark);
+  box-shadow: var(--shadow-hacker-sm);
+}
+
+[data-theme="hacker"] .category-card:hover {
+  border-color: var(--hacker-amber);
+  box-shadow: var(--shadow-hacker-md);
+}
+
+/* ==================== LISTS ==================== */
+[data-theme="hacker"] ul,
+[data-theme="hacker"] ol {
+  padding-left: 1.5rem;
+}
+
+[data-theme="hacker"] li {
+  margin: 0.3rem 0;
+}
+
+[data-theme="hacker"] ul li::marker {
+  content: '> ';
+  color: var(--hacker-amber);
+}
+
+[data-theme="hacker"] ol li::marker {
+  color: var(--hacker-amber);
+}
+
+/* ==================== BLOCKQUOTES ==================== */
+[data-theme="hacker"] blockquote {
+  border-left: 3px solid var(--hacker-amber);
+  padding: 0.75rem 1rem;
+  margin: 1rem 0;
+  background: var(--hacker-dark);
+  color: var(--hacker-amber-dim);
+  font-style: italic;
+  position: relative;
+}
+
+[data-theme="hacker"] blockquote::before {
+  content: '"';
+  font-size: 2rem;
+  position: absolute;
+  top: 0;
+  left: 0.5rem;
+  color: var(--hacker-amber-dark);
+  line-height: 1;
+}
+
+/* ==================== IMAGES ==================== */
+[data-theme="hacker"] img {
+  border: 2px solid var(--hacker-amber-dark);
+  box-shadow: var(--shadow-hacker-sm);
+  filter: sepia(20%) saturate(150%) hue-rotate(-10deg);
+}
+
+[data-theme="hacker"] img:hover {
+  border-color: var(--hacker-amber);
+  box-shadow: var(--shadow-hacker-md);
+  filter: sepia(30%) saturate(200%) hue-rotate(-10deg);
+}
+
+/* ==================== RESPONSIVE ADJUSTMENTS ==================== */
+@media (max-width: 768px) {
+  [data-theme="hacker"] body::before {
+    /* Reduce scanline intensity on mobile */
+    background-image: repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      transparent 2px,
+      rgba(0, 0, 0, 0.2) 2px,
+      rgba(0, 0, 0, 0.2) 4px
+    );
+  }
+
+  [data-theme="hacker"] h1 {
+    font-size: clamp(1.3rem, 5vw, 2rem);
+  }
+
+  [data-theme="hacker"] header::before {
+    font-size: 0.6rem;
+    content: '=== HAMIEVERSE TERMINAL ===';
+  }
+
+  .hacker-btn,
+  [data-theme="hacker"] button {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.75rem;
+  }
+}
+
+/* ==================== REDUCED MOTION ==================== */
+@media (prefers-reduced-motion: reduce) {
+  [data-theme="hacker"] body::before,
+  .hacker-text-flicker,
+  .hacker-spinner,
+  .hacker-loading-bar::after,
+  .hacker-status::before,
+  .hacker-text-fade-in {
+    animation: none;
+  }
+
+  [data-theme="hacker"] h1::after,
+  [data-theme="hacker"] pre::after,
+  .hacker-text-typing {
+    animation: none;
+    border-right-color: transparent;
+  }
+
+  [data-theme="hacker"] input:focus,
+  [data-theme="hacker"] textarea:focus {
+    animation: none;
+  }
+}
+
+/* ==================== PRINT STYLES ==================== */
+@media print {
+  [data-theme="hacker"] {
+    --bg-page: white;
+    --text-primary: black;
+    --hacker-amber: black;
+  }
+
+  [data-theme="hacker"] body::before,
+  [data-theme="hacker"] body::after,
+  .hacker-grid-bg,
+  .hacker-noise {
+    display: none;
+  }
+
+  [data-theme="hacker"] * {
+    text-shadow: none !important;
+    box-shadow: none !important;
+    animation: none !important;
+    color: black !important;
+    background: white !important;
+  }
+}
