@@ -2082,6 +2082,7 @@ button {
   padding: var(--space-6);
   transition: all var(--transition-base);
   overflow: hidden;
+  text-align: center;
 }
 
 .wiki-faction-card:hover {
@@ -2093,7 +2094,8 @@ button {
 .wiki-faction-header {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: center;
   gap: var(--space-2);
   margin-bottom: var(--space-4);
 }
@@ -2127,6 +2129,7 @@ button {
 .wiki-faction-goals {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: var(--space-2);
 }
 
@@ -2156,6 +2159,7 @@ button {
   border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
   padding: var(--space-5);
   padding-left: calc(var(--space-5) + 4px);
+  text-align: center;
   transition: all var(--transition-fast);
   overflow: visible;
 }
@@ -2252,6 +2256,7 @@ button {
   font-weight: 600;
   color: var(--text-primary);
   text-transform: capitalize;
+  text-align: center;
   transition: all var(--transition-base);
   overflow: hidden;
 }
