@@ -9,7 +9,6 @@ import TriviaCard from '@/components/TriviaCard';
 import LoreLinks from '@/components/LoreLinks';
 import RelationshipsMap from '@/components/RelationshipsMap';
 import RelationshipWeb from '@/components/RelationshipWeb';
-import FavoriteButton from '@/components/FavoriteButton';
 import CharacterOfTheDay from '@/components/CharacterOfTheDay';
 import MiniQuiz from '@/components/MiniQuiz';
 import { useKeyboardNav } from '@/hooks/useKeyboardNav';
@@ -270,9 +269,6 @@ export default function WikiHome() {
                 className="wiki-character-card"
                 style={{ '--char-color': char.color } as React.CSSProperties}
               >
-                <div className="wiki-character-favorite">
-                  <FavoriteButton characterId={char.id} size="sm" />
-                </div>
                 <div className="wiki-character-avatar">
                   {char.gifFile ? (
                     <Image
