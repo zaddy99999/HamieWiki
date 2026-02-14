@@ -303,7 +303,7 @@ export default function WikiHome() {
                   <div className="wiki-character-meta">
                     {char.species && <span className="wiki-character-species">{char.species}</span>}
                     <span className="wiki-character-role">
-                      {char.roles.slice(0, 2).join(' · ')}
+                      {char.roles.slice(0, 2).map(r => r.replace(/_/g, ' ')).join(' · ')}
                     </span>
                   </div>
                 </div>
@@ -370,7 +370,7 @@ export default function WikiHome() {
                   <h3 className="wiki-faction-name">
                     {key.charAt(0).toUpperCase() + key.slice(1).replace(/_/g, ' ')}
                   </h3>
-                  <span className="wiki-faction-type">{faction.type}</span>
+                  <span className="wiki-faction-type">{faction.type?.replace(/_/g, ' ')}</span>
                 </div>
                 {faction.notes && <p className="wiki-faction-desc">{faction.notes}</p>}
                 {faction.goals && (
