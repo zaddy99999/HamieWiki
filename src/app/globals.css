@@ -14478,3 +14478,17 @@ html {
   }
 }
 
+/* ==================== GLOBAL BORDER CLEANUP ==================== */
+/* Remove decorative pseudo-element borders from all cards */
+.wiki-faction-card::before,
+.wiki-faction-card::after,
+.wiki-character-card::after,
+.wiki-supporting-card::before {
+  display: none !important;
+}
+
+.wiki-section-header::after,
+.wiki-section-title::before {
+  display: none !important;
+}
+

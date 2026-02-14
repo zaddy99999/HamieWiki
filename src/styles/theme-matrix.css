@@ -1015,6 +1015,28 @@
   }
 }
 
+/* ==================== CLEAN UP BORDERS ==================== */
+[data-theme="matrix"] .wiki-faction-card,
+[data-theme="matrix"] .wiki-character-card,
+[data-theme="matrix"] .wiki-supporting-card {
+  border: none !important;
+}
+
+[data-theme="matrix"] .wiki-faction-card::before,
+[data-theme="matrix"] .wiki-faction-card::after,
+[data-theme="matrix"] .wiki-character-card::before,
+[data-theme="matrix"] .wiki-character-card::after {
+  display: none !important;
+}
+
+[data-theme="matrix"] .wiki-section-header::after {
+  display: none !important;
+}
+
+[data-theme="matrix"] .wiki-section-title::before {
+  display: none !important;
+}
+
 /* ==================== REDUCED MOTION ==================== */
 @media (prefers-reduced-motion: reduce) {
   [data-theme="matrix"] body::before,
