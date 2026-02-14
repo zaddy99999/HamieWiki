@@ -11,7 +11,7 @@ import RelationshipsMap from '@/components/RelationshipsMap';
 import RelationshipWeb from '@/components/RelationshipWeb';
 import FavoriteButton from '@/components/FavoriteButton';
 import CharacterOfTheDay from '@/components/CharacterOfTheDay';
-import QuizTeaser from '@/components/QuizTeaser';
+import MiniQuiz from '@/components/MiniQuiz';
 import { useKeyboardNav } from '@/hooks/useKeyboardNav';
 
 interface SearchResult {
@@ -148,7 +148,6 @@ export default function WikiHome() {
             <Link href="/factions" className="wiki-topbar-link">Factions</Link>
             <Link href="/timeline" className="wiki-topbar-link">Timeline</Link>
             <Link href="/chapters" className="wiki-topbar-link">Chapters</Link>
-            <Link href="/quiz" className="wiki-topbar-link">Quiz</Link>
           </div>
 
           <div className="wiki-search-box" ref={searchRef}>
@@ -212,7 +211,6 @@ export default function WikiHome() {
           <a href="#factions" className="wiki-mobile-link" onClick={() => setMobileMenuOpen(false)}>Factions</a>
           <Link href="/timeline" className="wiki-mobile-link" onClick={() => setMobileMenuOpen(false)}>Timeline</Link>
           <Link href="/chapters" className="wiki-mobile-link" onClick={() => setMobileMenuOpen(false)}>Chapters</Link>
-          <Link href="/quiz" className="wiki-mobile-link" onClick={() => setMobileMenuOpen(false)}>Quiz</Link>
           <button className="wiki-mobile-random" onClick={() => { goToRandomCharacter(); setMobileMenuOpen(false); }}>
             Random Character
           </button>
@@ -253,7 +251,7 @@ export default function WikiHome() {
           <div className="wiki-intro-grid-4">
             <CharacterOfTheDay />
             <TriviaCard />
-            <QuizTeaser />
+            <MiniQuiz />
             <LoreLinks />
           </div>
         </section>

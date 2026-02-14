@@ -156,7 +156,6 @@ export default function WikiNavbar({ currentPage }: WikiNavbarProps) {
     { href: '/factions', label: 'Factions', id: 'factions' },
     { href: '/timeline', label: 'Timeline', id: 'timeline' },
     { href: '/chapters', label: 'Chapters', id: 'chapters' },
-    { href: '/quiz', label: 'Quiz', id: 'quiz' },
   ];
 
   return (
