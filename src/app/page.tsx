@@ -147,7 +147,6 @@ export default function WikiHome() {
             <a href="#characters" className="wiki-topbar-link active">Characters</a>
             <Link href="/factions" className="wiki-topbar-link">Factions</Link>
             <Link href="/timeline" className="wiki-topbar-link">Timeline</Link>
-            <Link href="/chapters" className="wiki-topbar-link">Chapters</Link>
           </div>
 
           <div className="wiki-search-box" ref={searchRef}>
@@ -210,7 +209,6 @@ export default function WikiHome() {
           <a href="#characters" className="wiki-mobile-link" onClick={() => setMobileMenuOpen(false)}>Characters</a>
           <a href="#factions" className="wiki-mobile-link" onClick={() => setMobileMenuOpen(false)}>Factions</a>
           <Link href="/timeline" className="wiki-mobile-link" onClick={() => setMobileMenuOpen(false)}>Timeline</Link>
-          <Link href="/chapters" className="wiki-mobile-link" onClick={() => setMobileMenuOpen(false)}>Chapters</Link>
           <button className="wiki-mobile-random" onClick={() => { goToRandomCharacter(); setMobileMenuOpen(false); }}>
             Random Character
           </button>
