@@ -395,20 +395,10 @@ const eventTypes = {
 export default function TimelinePage() {
   const allCharacters = getAllCharacters();
   const [expandedEvent, setExpandedEvent] = useState<string | null>(null);
-  const [selectedEra, setSelectedEra] = useState<string | null>(null);
-  const [selectedType, setSelectedType] = useState<string | null>(null);
-  const [showConnections, setShowConnections] = useState(true);
   const eventRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
-  // Filter events based on selection
-  const filteredEvents = timelineEvents.filter(event => {
-    if (selectedEra && event.era !== selectedEra) return false;
-    if (selectedType && event.type !== selectedType) return false;
-    return true;
-  });
-
-  // Group filtered events by era
-  const groupedEvents = filteredEvents.reduce((acc, event) => {
+  // Group events by era
+  const groupedEvents = timelineEvents.reduce((acc, event) => {
     if (!acc[event.era]) acc[event.era] = [];
     acc[event.era].push(event);
     return acc;
@@ -449,64 +439,6 @@ export default function TimelinePage() {
             Explore the complete history of the Hamieverse - from the fall of House Veynar
             to Hamie's rise as Simba in the Undercode
           </p>
-
-          {/* Filters */}
-          <div className="lore-timeline-filters">
-            <div className="lore-filter-group">
-              <label>Filter by Era:</label>
-              <div className="lore-filter-buttons">
-                <button
-                  className={`lore-filter-btn ${selectedEra === null ? 'active' : ''}`}
-                  onClick={() => setSelectedEra(null)}
-                >
-                  All Eras
-                </button>
-                {Object.entries(eras).map(([key, era]) => (
-                  <button
-                    key={key}
-                    className={`lore-filter-btn ${selectedEra === key ? 'active' : ''}`}
-                    onClick={() => setSelectedEra(selectedEra === key ? null : key)}
-                    style={{ '--filter-color': era.color } as React.CSSProperties}
-                  >
-                    <span>{era.icon}</span> {era.name}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div className="lore-filter-group">
-              <label>Filter by Type:</label>
-              <div className="lore-filter-buttons">
-                <button
-                  className={`lore-filter-btn ${selectedType === null ? 'active' : ''}`}
-                  onClick={() => setSelectedType(null)}
-                >
-                  All Types
-                </button>
-                {Object.entries(eventTypes).map(([key, type]) => (
-                  <button
-                    key={key}
-                    className={`lore-filter-btn ${selectedType === key ? 'active' : ''}`}
-                    onClick={() => setSelectedType(selectedType === key ? null : key)}
-                    style={{ '--filter-color': type.color } as React.CSSProperties}
-                  >
-                    <span>{type.icon}</span> {type.name}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div className="lore-filter-toggle">
-              <label>
-                <input
-                  type="checkbox"
-                  checked={showConnections}
-                  onChange={(e) => setShowConnections(e.target.checked)}
-                />
-                <span>Show Event Connections</span>
-              </label>
-            </div>
-          </div>
         </div>
       </header>
 
@@ -595,7 +527,7 @@ export default function TimelinePage() {
                             </div>
 
                             {/* Event connections */}
-                            {showConnections && (event.triggeredBy || event.leadsTo) && (
+                            {(event.triggeredBy || event.leadsTo) && (
                               <div className="lore-event-connections">
                                 {event.triggeredBy && event.triggeredBy.length > 0 && (
                                   <div className="lore-connection-group">
@@ -667,37 +599,6 @@ export default function TimelinePage() {
           </div>
         </section>
       </main>
-
-      {/* Legend */}
-      <aside className="lore-timeline-legend">
-        <h3>Timeline Legend</h3>
-        <div className="lore-legend-grid">
-          <div className="lore-legend-section">
-            <h4>Event Types</h4>
-            {Object.entries(eventTypes).map(([key, type]) => (
-              <div key={key} className="lore-legend-item">
-                <span
-                  className="lore-legend-dot"
-                  style={{ background: type.color }}
-                />
-                <span>{type.icon} {type.name}</span>
-              </div>
-            ))}
-          </div>
-          <div className="lore-legend-section">
-            <h4>Eras</h4>
-            {Object.entries(eras).map(([key, era]) => (
-              <div key={key} className="lore-legend-item">
-                <span
-                  className="lore-legend-dot"
-                  style={{ background: era.color }}
-                />
-                <span>{era.icon} {era.name}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </aside>
 
       {/* Footer */}
       <footer className="wiki-footer">
