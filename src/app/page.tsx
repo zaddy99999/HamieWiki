@@ -146,12 +146,9 @@ export default function WikiHome() {
           <div className="wiki-topbar-nav">
             <a href="#characters" className="wiki-topbar-link active">Characters</a>
             <Link href="/factions" className="wiki-topbar-link">Factions</Link>
-            <Link href="/locations" className="wiki-topbar-link">Locations</Link>
             <Link href="/timeline" className="wiki-topbar-link">Timeline</Link>
             <Link href="/chapters" className="wiki-topbar-link">Chapters</Link>
-            <Link href="/quotes" className="wiki-topbar-link">Quotes</Link>
             <Link href="/quiz" className="wiki-topbar-link">Quiz</Link>
-            <Link href="/gallery" className="wiki-topbar-link">Gallery</Link>
           </div>
 
           <div className="wiki-search-box" ref={searchRef}>
@@ -213,12 +210,9 @@ export default function WikiHome() {
         <div className="wiki-mobile-menu-content">
           <a href="#characters" className="wiki-mobile-link" onClick={() => setMobileMenuOpen(false)}>Characters</a>
           <a href="#factions" className="wiki-mobile-link" onClick={() => setMobileMenuOpen(false)}>Factions</a>
-          <Link href="/locations" className="wiki-mobile-link" onClick={() => setMobileMenuOpen(false)}>Locations</Link>
           <Link href="/timeline" className="wiki-mobile-link" onClick={() => setMobileMenuOpen(false)}>Timeline</Link>
           <Link href="/chapters" className="wiki-mobile-link" onClick={() => setMobileMenuOpen(false)}>Chapters</Link>
-          <Link href="/quotes" className="wiki-mobile-link" onClick={() => setMobileMenuOpen(false)}>Quotes</Link>
           <Link href="/quiz" className="wiki-mobile-link" onClick={() => setMobileMenuOpen(false)}>Quiz</Link>
-          <Link href="/gallery" className="wiki-mobile-link" onClick={() => setMobileMenuOpen(false)}>Gallery</Link>
           <button className="wiki-mobile-random" onClick={() => { goToRandomCharacter(); setMobileMenuOpen(false); }}>
             Random Character
           </button>

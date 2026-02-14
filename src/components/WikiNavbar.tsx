@@ -154,16 +154,9 @@ export default function WikiNavbar({ currentPage }: WikiNavbarProps) {
   const navLinks = [
     { href: '/', label: 'Home', id: 'home' },
     { href: '/factions', label: 'Factions', id: 'factions' },
-    { href: '/locations', label: 'Locations', id: 'locations' },
     { href: '/timeline', label: 'Timeline', id: 'timeline' },
     { href: '/chapters', label: 'Chapters', id: 'chapters' },
-    { href: '/quotes', label: 'Quotes', id: 'quotes' },
     { href: '/quiz', label: 'Quiz', id: 'quiz' },
-    { href: '/badges', label: 'Badges', id: 'badges' },
-    { href: '/gallery', label: 'Gallery', id: 'gallery' },
-    { href: '/fanart', label: 'Fan Art', id: 'fanart' },
-    { href: '/theories', label: 'Theories', id: 'theories' },
-    { href: '/forum', label: 'Forum', id: 'forum' },
   ];
 
   return (
