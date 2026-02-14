@@ -3,19 +3,15 @@
 import { useState, useEffect } from 'react';
 
 const themes = [
-  { id: 'neon', name: 'Neon', icon: '💜' },
+  { id: 'cyberpunk', name: 'Cyberpunk', icon: '🤖' },
+  { id: 'matrix', name: 'Matrix', icon: '💚' },
   { id: 'brutalist', name: 'Brutal', icon: '🔲' },
   { id: 'arcade', name: 'Arcade', icon: '👾' },
-  { id: 'retro', name: 'Retro', icon: '🌴' },
-  { id: 'matrix', name: 'Matrix', icon: '💚' },
-  { id: 'cyberpunk', name: 'Cyberpunk', icon: '🤖' },
   { id: 'volcanic', name: 'Volcanic', icon: '🌋' },
-  { id: 'candy', name: 'Candy', icon: '🍬' },
-  { id: 'hacker', name: 'Hacker', icon: '💻' },
 ];
 
 export default function ThemeSwitcher() {
-  const [currentTheme, setCurrentTheme] = useState('neon');
+  const [currentTheme, setCurrentTheme] = useState('cyberpunk');
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
