@@ -2081,7 +2081,7 @@ button {
   border-radius: var(--radius-xl);
   padding: var(--space-6);
   transition: all var(--transition-base);
-  overflow: visible;
+  overflow: hidden;
 }
 
 .wiki-faction-card:hover {
@@ -2092,8 +2092,9 @@ button {
 
 .wiki-faction-header {
   display: flex;
+  flex-wrap: wrap;
   align-items: flex-start;
-  justify-content: space-between;
+  gap: var(--space-2);
   margin-bottom: var(--space-4);
 }
 
@@ -2112,6 +2113,8 @@ button {
   padding: var(--space-1) var(--space-2);
   background: rgba(239, 68, 68, 0.1);
   border-radius: var(--radius-sm);
+  max-width: 100%;
+  word-break: break-word;
 }
 
 .wiki-faction-desc {
