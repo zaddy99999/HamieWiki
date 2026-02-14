@@ -145,12 +145,6 @@ export default function RootLayout({
           <div className="wiki-particle" />
         </div>
 
-        {/* Cyber Corner Accents */}
-        <div className="wiki-cyber-corner wiki-cyber-corner-tl" />
-        <div className="wiki-cyber-corner wiki-cyber-corner-tr" />
-        <div className="wiki-cyber-corner wiki-cyber-corner-bl" />
-        <div className="wiki-cyber-corner wiki-cyber-corner-br" />
-
         {/* Scan Lines Overlay */}
         <div className="wiki-scanlines" />
 

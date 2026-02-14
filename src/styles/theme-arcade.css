@@ -422,14 +422,14 @@
    THEME SWITCHER OVERRIDES
    ======================================== */
 
-[data-theme="arcade"] .theme-switcher {
+[data-theme="arcade"] .theme-switcher-toggle {
   background: #12121f !important;
-  border: 3px solid #39ff14 !important;
+  border: none !important;
 }
 
 [data-theme="arcade"] .theme-switcher-dropdown {
   background: #12121f !important;
-  border: 3px solid #bf00ff !important;
+  border: 1px solid rgba(191, 0, 255, 0.3) !important;
 }
 
 [data-theme="arcade"] .theme-option {

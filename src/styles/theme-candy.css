@@ -760,9 +760,9 @@
 }
 
 /* ==================== THEME SWITCHER OVERRIDES ==================== */
-[data-theme="candy"] .theme-switcher {
+[data-theme="candy"] .theme-switcher-toggle {
   background: var(--candy-surface) !important;
-  border: 2px solid rgba(255, 192, 203, 0.3) !important;
+  border: none !important;
   border-radius: var(--candy-radius-lg) !important;
 }
 
