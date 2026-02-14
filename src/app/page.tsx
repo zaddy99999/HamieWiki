@@ -11,7 +11,6 @@ import RelationshipsMap from '@/components/RelationshipsMap';
 import RelationshipWeb from '@/components/RelationshipWeb';
 import CharacterOfTheDay from '@/components/CharacterOfTheDay';
 import MiniQuiz from '@/components/MiniQuiz';
-import { useKeyboardNav } from '@/hooks/useKeyboardNav';
 
 interface SearchResult {
   type: 'character' | 'faction' | 'glossary';
@@ -29,15 +28,6 @@ export default function WikiHome() {
   const [showSearchResults, setShowSearchResults] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
-
-  // Keyboard navigation
-  useKeyboardNav({
-    searchInputRef,
-    onEscape: () => {
-      setShowSearchResults(false);
-      setMobileMenuOpen(false);
-    }
-  });
 
   const characters = getAllCharacters();
   const factions = getFactions();

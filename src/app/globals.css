@@ -2319,6 +2319,8 @@ button {
 .wiki-footer-links {
   display: flex;
   gap: var(--space-6);
+  position: relative;
+  z-index: 200;
 }
 
 .wiki-footer-link {

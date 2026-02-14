@@ -25,7 +25,6 @@ import '@/styles/premium-polish.css';
 import HelpChat from '@/components/HelpChat';
 import ThemeSwitcher from '@/components/ThemeSwitcher';
 import BackToTop from '@/components/BackToTop';
-import KeyboardShortcutsHelp from '@/components/KeyboardShortcutsHelp';
 import EasterEggs from '@/components/EasterEggs';
 
 export const metadata: Metadata = {
@@ -159,9 +158,6 @@ export default function RootLayout({
 
         {/* Back to Top Button */}
         <BackToTop />
-
-        {/* Keyboard Shortcuts Help */}
-        <KeyboardShortcutsHelp />
 
         {/* Easter Eggs */}
         <EasterEggs />
