@@ -10,8 +10,8 @@ export default function ComparePage() {
   const [charA, setCharA] = useState<string>('');
   const [charB, setCharB] = useState<string>('');
 
-  const characterA = characters.find(c => c.id === charA);
-  const characterB = characters.find(c => c.id === charB);
+  const characterA = characters.find(c => c.id.toLowerCase() === charA.toLowerCase());
+  const characterB = characters.find(c => c.id.toLowerCase() === charB.toLowerCase());
 
   const renderCharacterColumn = (char: typeof characterA, side: 'left' | 'right') => {
     if (!char) {

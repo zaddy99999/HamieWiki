@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRecentlyViewed, RecentItem } from '@/hooks/useRecentlyViewed';
 
 interface RecentlyViewedProps {
@@ -55,10 +56,13 @@ export default function RecentlyViewed({
             className="recently-viewed-item"
           >
             {item.image ? (
-              <img
+              <Image
                 src={item.image}
                 alt={item.name}
+                width={32}
+                height={32}
                 className="recently-viewed-avatar"
+                unoptimized={item.image.endsWith('.gif')}
               />
             ) : (
               <div className="recently-viewed-placeholder">

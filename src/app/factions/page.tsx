@@ -5,22 +5,7 @@ import Link from 'next/link';
 import WikiNavbar from '@/components/WikiNavbar';
 import Breadcrumb from '@/components/Breadcrumb';
 import { getAllCharacters, getFactions } from '@/lib/hamieverse/characters';
-
-const factionColors: Record<string, string> = {
-  aetherion: '#EF4444',
-  ironpaws: '#1F2937',
-  section_9: '#DC2626',
-  undercode: '#00D9A5',
-  respeculators: '#9333EA',
-};
-
-const factionIcons: Record<string, string> = {
-  aetherion: '🏛️',
-  ironpaws: '🛡️',
-  section_9: '🔴',
-  undercode: '💻',
-  respeculators: '🎭',
-};
+import { getFactionColor, getFactionIcon } from '@/lib/hamieverse/colors';
 
 export default function FactionsPage() {
   const [expandedFaction, setExpandedFaction] = useState<string | null>(null);
@@ -64,8 +49,8 @@ export default function FactionsPage() {
           {Object.entries(factions).map(([key, faction]) => {
             const members = charactersByFaction[key] || [];
             const isExpanded = expandedFaction === key;
-            const color = factionColors[key] || '#888888';
-            const icon = factionIcons[key] || '⚔️';
+            const color = getFactionColor(key);
+            const icon = getFactionIcon(key);
 
             return (
               <div

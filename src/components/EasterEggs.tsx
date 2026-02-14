@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import Image from 'next/image';
 
 // Konami Code: up, up, down, down, left, right, left, right, b, a
 const KONAMI_CODE = [
@@ -142,7 +143,7 @@ export default function EasterEggs() {
           </div>
           <div className="easter-egg-content">
             <div className="easter-egg-icon bounce">
-              <img src="/images/hamiepfp.png" alt="Hamie" className="hamie-egg-avatar" />
+              <Image src="/images/hamiepfp.png" alt="Hamie" width={120} height={120} className="hamie-egg-avatar" />
             </div>
             <h2>HAMIE MODE ACTIVATED!</h2>
             <p>You found the secret Hamie code!</p>

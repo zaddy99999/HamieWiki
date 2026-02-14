@@ -63,7 +63,7 @@ export default function TriviaCard() {
   if (!currentTrivia) return null;
 
   const character = currentTrivia.character
-    ? characters.find(c => c.id === currentTrivia.character)
+    ? characters.find(c => c.id.toLowerCase() === currentTrivia.character!.toLowerCase())
     : null;
 
   return (

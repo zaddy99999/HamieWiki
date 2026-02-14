@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { getAllCharacters } from '@/lib/hamieverse/characters';
 
 export default function CharacterOfTheDay() {
@@ -39,10 +40,12 @@ export default function CharacterOfTheDay() {
 
         <div className="cotd-avatar">
           {character.gifFile ? (
-            <img
+            <Image
               src={`/images/${character.gifFile}`}
               alt={character.displayName}
+              fill
               className="cotd-img"
+              unoptimized={character.gifFile.endsWith('.gif')}
             />
           ) : (
             <div className="cotd-placeholder" style={{ background: character.color }}>

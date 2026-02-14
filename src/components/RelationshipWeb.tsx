@@ -3,6 +3,7 @@
 import { useState, useMemo, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { getAllCharacters, getRelationships } from '@/lib/hamieverse/characters';
+import { relationshipColors, getRelationshipColor } from '@/lib/hamieverse/colors';
 
 interface Relationship {
   a: string;
@@ -16,17 +17,8 @@ interface Position {
   y: number;
 }
 
-const relationshipColors: Record<string, string> = {
-  family: '#F472B6',
-  workplace: '#60A5FA',
-  alliance: '#34D399',
-  target: '#FBBF24',
-  oppression: '#EF4444',
-  enforcement: '#F87171',
-  neighbor: '#A78BFA',
-  mentor: '#00D9A5',
-  rival: '#FF6B6B',
-};
+// Main character IDs for the relationship web - defined outside component to avoid recreation on each render
+const MAIN_CHAR_IDS = ['hamie', 'sam', 'lira', 'silas', 'ace', 'hikari', 'kael', 'orrien'];
 
 export default function RelationshipWeb() {
   const [selectedChar, setSelectedChar] = useState<string | null>(null);
@@ -37,9 +29,10 @@ export default function RelationshipWeb() {
   const characters = getAllCharacters();
   const relationships = getRelationships() as Relationship[];
 
-  // Get main characters for the web
-  const mainCharIds = ['hamie', 'sam', 'lira', 'silas', 'ace', 'hikari', 'kael', 'orrien'];
-  const displayChars = characters.filter(c => mainCharIds.includes(c.id.toLowerCase()));
+  // Memoize the filtered display characters to avoid recalculating on each render
+  const displayChars = useMemo(() => {
+    return characters.filter(c => MAIN_CHAR_IDS.includes(c.id.toLowerCase()));
+  }, [characters]);
 
   // Calculate positions in a circle
   const positions = useMemo(() => {
@@ -65,7 +58,7 @@ export default function RelationshipWeb() {
     return relationships.filter(rel => {
       const aLower = rel.a.toLowerCase();
       const bLower = rel.b.toLowerCase();
-      return mainCharIds.includes(aLower) && mainCharIds.includes(bLower);
+      return MAIN_CHAR_IDS.includes(aLower) && MAIN_CHAR_IDS.includes(bLower);
     });
   }, [relationships]);
 
@@ -134,7 +127,7 @@ export default function RelationshipWeb() {
             if (!posA || !posB) return null;
 
             const highlighted = isLineHighlighted(rel);
-            const color = relationshipColors[rel.type] || '#666';
+            const color = getRelationshipColor(rel.type);
 
             return (
               <line
@@ -272,7 +265,7 @@ export default function RelationshipWeb() {
                         key={i}
                         href={`/character/${other.id}`}
                         className="web-connection-link"
-                        style={{ '--rel-color': relationshipColors[rel.type] || '#888' } as React.CSSProperties}
+                        style={{ '--rel-color': getRelationshipColor(rel.type) } as React.CSSProperties}
                       >
                         <span className="connection-type">{rel.type}</span>
                         <span className="connection-name">{other.displayName}</span>

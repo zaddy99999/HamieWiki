@@ -2,7 +2,9 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { getAllCharacters, getRelationships } from '@/lib/hamieverse/characters';
+import { relationshipColors, getRelationshipColor } from '@/lib/hamieverse/colors';
 
 interface Relationship {
   a: string;
@@ -10,16 +12,6 @@ interface Relationship {
   type: string;
   valence: string;
 }
-
-const relationshipColors: Record<string, string> = {
-  family: '#F472B6',
-  workplace: '#60A5FA',
-  alliance: '#34D399',
-  target: '#FBBF24',
-  oppression: '#EF4444',
-  enforcement: '#F87171',
-  neighbor: '#A78BFA',
-};
 
 export default function RelationshipsMap() {
   const [selectedChar, setSelectedChar] = useState<string | null>(null);
@@ -74,7 +66,13 @@ export default function RelationshipsMap() {
             >
               <div className="relationships-node-avatar">
                 {char.gifFile ? (
-                  <img src={`/images/${char.gifFile}`} alt={char.displayName} />
+                  <Image
+                    src={`/images/${char.gifFile}`}
+                    alt={char.displayName}
+                    width={48}
+                    height={48}
+                    unoptimized={char.gifFile.endsWith('.gif')}
+                  />
                 ) : (
                   <span>{char.displayName[0]}</span>
                 )}
@@ -91,7 +89,7 @@ export default function RelationshipsMap() {
       {selectedChar && (
         <div className="relationships-detail">
           <h4>
-            {characters.find(c => c.id === selectedChar)?.displayName}'s Relationships
+            {characters.find(c => c.id.toLowerCase() === selectedChar.toLowerCase())?.displayName}'s Relationships
           </h4>
           <div className="relationships-list">
             {getCharRelationships(selectedChar).map((rel, i) => {
@@ -103,11 +101,17 @@ export default function RelationshipsMap() {
                   key={i}
                   href={`/character/${other.id}`}
                   className="relationship-item"
-                  style={{ '--rel-color': relationshipColors[rel.type] || '#888' } as React.CSSProperties}
+                  style={{ '--rel-color': getRelationshipColor(rel.type) } as React.CSSProperties}
                 >
                   <div className="relationship-avatar">
                     {other.gifFile ? (
-                      <img src={`/images/${other.gifFile}`} alt={other.displayName} />
+                      <Image
+                        src={`/images/${other.gifFile}`}
+                        alt={other.displayName}
+                        width={36}
+                        height={36}
+                        unoptimized={other.gifFile.endsWith('.gif')}
+                      />
                     ) : (
                       <span>{other.displayName[0]}</span>
                     )}

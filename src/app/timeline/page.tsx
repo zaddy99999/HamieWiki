@@ -423,7 +423,8 @@ export default function TimelinePage() {
   };
 
   const getCharacterName = (charId: string) => {
-    const char = allCharacters.find(c => c.id === charId);
+    const normalizedId = charId.toLowerCase();
+    const char = allCharacters.find(c => c.id.toLowerCase() === normalizedId);
     return char?.displayName || charId;
   };
 

@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { getAllCharacters, getFactions, getGlossary } from '@/lib/hamieverse/characters';
 
@@ -28,30 +29,19 @@ export default function WikiNavbar({ currentPage }: WikiNavbarProps) {
   const searchInputRef = useRef<HTMLInputElement>(null);
   const resultRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
-  // Character GIF mappings
-  const characterGifs: Record<string, string> = {
-    hamie: 'HamieCharacter.gif',
-    sam: 'SamCharacter.gif',
-    lira: 'LiraCharacter.gif',
-    silas: 'SilasCharacter.gif',
-    ace: 'AceCharacter.gif',
-    hikari: 'HikariCharacter.gif',
-    kael: 'KaelCharacter.gif',
-    orrien: 'OrrienCharacter.gif',
-  };
+  // Load character data once using useMemo (data from centralized characters.ts)
+  const characters = useMemo(() => getAllCharacters(), []);
+  const factions = useMemo(() => getFactions(), []);
+  const glossary = useMemo(() => getGlossary(), []);
 
-  const characters = getAllCharacters();
-  const factions = getFactions();
-  const glossary = getGlossary();
-
-  // Build search index with images
-  const allSearchItems: SearchResult[] = [
+  // Build search index with images (using gifFile from character data)
+  const allSearchItems: SearchResult[] = useMemo(() => [
     ...characters.map(c => ({
       type: 'character' as const,
       id: c.id,
       name: c.displayName,
       subtitle: c.roles[0]?.replace(/_/g, ' ') || c.species || '',
-      image: characterGifs[c.id.toLowerCase()] ? `/images/${characterGifs[c.id.toLowerCase()]}` : undefined,
+      image: c.gifFile ? `/images/${c.gifFile}` : undefined,
     })),
     ...Object.keys(factions).map(key => ({
       type: 'faction' as const,
@@ -65,7 +55,7 @@ export default function WikiNavbar({ currentPage }: WikiNavbarProps) {
       name: term,
       subtitle: glossary[term].slice(0, 50) + (glossary[term].length > 50 ? '...' : ''),
     })),
-  ];
+  ], [characters, factions, glossary]);
 
   // Close search results when clicking outside
   useEffect(() => {
@@ -181,7 +171,7 @@ export default function WikiNavbar({ currentPage }: WikiNavbarProps) {
       <nav className="wiki-topbar">
         <div className="wiki-topbar-inner">
           <Link href="/" className="wiki-topbar-brand">
-            <img src="/images/hamiepfp.png" alt="Hamie" className="wiki-topbar-logo" />
+            <Image src="/images/hamiepfp.png" alt="Hamie" width={32} height={32} className="wiki-topbar-logo" />
             <span className="wiki-topbar-title">Hamieverse</span>
           </Link>
 
@@ -226,11 +216,14 @@ export default function WikiNavbar({ currentPage }: WikiNavbarProps) {
                     aria-selected={selectedResultIndex === i}
                   >
                     {result.type === 'character' && result.image ? (
-                      <img
+                      <Image
                         src={result.image}
                         alt=""
+                        width={32}
+                        height={32}
                         className="wiki-search-result-img"
                         aria-hidden="true"
+                        unoptimized={result.image.endsWith('.gif')}
                       />
                     ) : (
                       <span className={`wiki-search-type wiki-search-type-${result.type}`} aria-hidden="true">

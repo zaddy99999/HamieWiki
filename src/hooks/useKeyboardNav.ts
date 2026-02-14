@@ -74,7 +74,9 @@ export function useKeyboardNav({ searchInputRef, onEscape }: UseKeyboardNavOptio
     // "?" - Show keyboard shortcuts (could trigger a modal)
     if (e.key === '?') {
       // Could emit an event or set state for shortcuts modal
-      console.log('Keyboard shortcuts: / or s = search, g+h = home, g+t = timeline, g+q = quiz, g+c = compare, g+g = gallery');
+      if (process.env.NODE_ENV === 'development') {
+        console.log('Keyboard shortcuts: / or s = search, g+h = home, g+t = timeline, g+q = quiz, g+c = compare, g+g = gallery');
+      }
     }
   }, [router, searchInputRef, onEscape]);
 

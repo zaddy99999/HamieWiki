@@ -139,7 +139,7 @@ export default function WikiHome() {
       <nav className="wiki-topbar">
         <div className="wiki-topbar-inner">
           <Link href="/" className="wiki-topbar-brand">
-            <img src="/images/hamiepfp.png" alt="Hamie" className="wiki-topbar-logo" />
+            <Image src="/images/hamiepfp.png" alt="Hamie" width={32} height={32} className="wiki-topbar-logo" />
             <span className="wiki-topbar-title">Hamieverse</span>
           </Link>
 
@@ -285,10 +285,12 @@ export default function WikiHome() {
                 </div>
                 <div className="wiki-character-avatar">
                   {char.gifFile ? (
-                    <img
+                    <Image
                       src={`/images/${char.gifFile}`}
                       alt={char.displayName}
+                      fill
                       className="wiki-character-gif"
+                      unoptimized={char.gifFile.endsWith('.gif')}
                     />
                   ) : (
                     <div className="wiki-character-placeholder">
@@ -329,10 +331,12 @@ export default function WikiHome() {
               >
                 <div className="wiki-supporting-avatar">
                   {char.gifFile ? (
-                    <img
+                    <Image
                       src={`/images/${char.gifFile}`}
                       alt={char.displayName}
+                      fill
                       className="wiki-supporting-img"
+                      unoptimized={char.gifFile.endsWith('.gif')}
                     />
                   ) : (
                     <div className="wiki-supporting-placeholder">

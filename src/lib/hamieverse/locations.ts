@@ -1,4 +1,5 @@
 import loreData from './lore.json';
+import { locationColors, getLocationColor } from './colors';
 
 export interface Location {
   id: string;
@@ -195,7 +196,8 @@ export function getAllLocations(): Location[] {
 }
 
 export function getLocation(id: string): Location | undefined {
-  return locations.find(loc => loc.id === id);
+  const normalizedId = id.toLowerCase();
+  return locations.find(loc => loc.id.toLowerCase() === normalizedId);
 }
 
 export function getLocationConnections(id: string): Location[] {

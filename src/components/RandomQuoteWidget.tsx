@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { getAllCharacters } from '@/lib/hamieverse/characters';
 
 interface Quote {
@@ -83,7 +84,13 @@ export default function RandomQuoteWidget() {
       <div className="quote-widget-content">
         {quote.image && (
           <Link href={`/character/${quote.characterId}`} className="quote-widget-avatar">
-            <img src={quote.image} alt={quote.character} />
+            <Image
+              src={quote.image}
+              alt={quote.character}
+              width={60}
+              height={60}
+              unoptimized={quote.image.endsWith('.gif')}
+            />
           </Link>
         )}
         <div className="quote-widget-text-wrap">

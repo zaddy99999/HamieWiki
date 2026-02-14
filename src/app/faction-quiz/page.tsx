@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import WikiNavbar from '@/components/WikiNavbar';
 import { getAllCharacters, getFactions } from '@/lib/hamieverse/characters';
+import { factionColors, factionIcons, getFactionColor, getFactionIcon } from '@/lib/hamieverse/colors';
 
 type FactionKey = 'respeculators' | 'ironpaws' | 'undercode' | 'aetherion' | 'the_beyond' | 'independent';
 
@@ -31,48 +32,48 @@ const factionResults: Record<FactionKey, FactionResult> = {
     name: 'Respeculators',
     description: 'You are a master of influence and strategy. You understand that true power lies not in brute force, but in controlling narratives and steering outcomes from the shadows. You play the long game, accumulating power while maintaining a carefully crafted public image.',
     traits: ['Strategic thinker', 'Influential', 'Pragmatic', 'Charismatic', 'Morally flexible'],
-    color: '#9333EA',
-    icon: '🎭',
+    color: getFactionColor('respeculators'),
+    icon: getFactionIcon('respeculators'),
   },
   ironpaws: {
     key: 'ironpaws',
     name: 'IronPaw',
     description: 'You are a guardian of order and structure. Discipline, precision, and protocol define your approach to life. You believe that systems exist for good reason, and that maintaining stability requires unwavering dedication to duty.',
     traits: ['Disciplined', 'Loyal', 'Methodical', 'Authoritative', 'Duty-bound'],
-    color: '#1F2937',
-    icon: '🛡️',
+    color: getFactionColor('ironpaws'),
+    icon: getFactionIcon('ironpaws'),
   },
   undercode: {
     key: 'undercode',
     name: 'Undercode',
     description: 'You thrive in the shadows of the digital realm. Creativity, subversion, and the power of attention are your weapons. You understand that in a world of surveillance, the greatest power is the ability to redirect focus and manipulate flows.',
     traits: ['Creative', 'Rebellious', 'Tech-savvy', 'Adaptable', 'Unconventional'],
-    color: '#00D9A5',
-    icon: '💻',
+    color: getFactionColor('undercode'),
+    icon: getFactionIcon('undercode'),
   },
   aetherion: {
     key: 'aetherion',
     name: 'Aetherion Elite',
     description: 'You value efficiency, progress, and the greater good of society. You believe that strong leadership and clear hierarchies are necessary to prevent chaos. Order is not oppression—it is the foundation upon which civilizations are built.',
     traits: ['Ambitious', 'Organized', 'Results-driven', 'Traditional', 'Pragmatic'],
-    color: '#EF4444',
-    icon: '🏛️',
+    color: getFactionColor('aetherion'),
+    icon: getFactionIcon('aetherion'),
   },
   the_beyond: {
     key: 'the_beyond',
     name: 'The Beyond',
     description: 'You carry the wisdom of the old ways. Connection to nature, community bonds, and ancestral knowledge guide your path. You see what the City has lost, and you hold onto the memories and traditions that define what it truly means to be alive.',
     traits: ['Wise', 'Nurturing', 'Connected to nature', 'Traditional', 'Community-focused'],
-    color: '#F472B6',
-    icon: '🌿',
+    color: getFactionColor('the_beyond'),
+    icon: getFactionIcon('the_beyond'),
   },
   independent: {
     key: 'independent',
     name: 'Independent',
     description: 'You walk your own path, beholden to no faction or ideology. Information flows through you like water, and you trade in secrets and connections. Your loyalty is your own, and your survival depends on playing all sides without being caught.',
     traits: ['Self-reliant', 'Neutral', 'Resourceful', 'Secretive', 'Opportunistic'],
-    color: '#F59E0B',
-    icon: '🔮',
+    color: getFactionColor('independent'),
+    icon: getFactionIcon('independent'),
   },
 };
 

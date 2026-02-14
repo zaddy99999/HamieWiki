@@ -1,5 +1,17 @@
 import type { Metadata } from 'next';
 import './globals.css';
+/**
+ * All theme CSS files are imported upfront to enable instant theme switching.
+ * Each theme contains unique visual effects (scanlines, animations, overlays)
+ * beyond just CSS variable overrides, making lazy loading impractical.
+ * Total: ~254KB uncompressed (~30-40KB gzipped). This is acceptable for the UX benefit
+ * of instant switching without layout shifts or loading delays.
+ *
+ * If bundle size becomes critical, consider:
+ * 1. Extracting shared animation/effect code to a common file
+ * 2. Using CSS-in-JS with dynamic imports (but loses SSR benefits)
+ * 3. Keeping only 2-3 most popular themes pre-loaded
+ */
 import '@/styles/theme-neon.css';
 import '@/styles/theme-brutalist.css';
 import '@/styles/theme-arcade.css';
@@ -12,8 +24,6 @@ import '@/styles/theme-hacker.css';
 import '@/styles/premium-polish.css';
 import HelpChat from '@/components/HelpChat';
 import ThemeSwitcher from '@/components/ThemeSwitcher';
-import MusicPlayer from '@/components/MusicPlayer';
-import ScrollProgress from '@/components/ScrollProgress';
 import BackToTop from '@/components/BackToTop';
 import KeyboardShortcutsHelp from '@/components/KeyboardShortcutsHelp';
 import EasterEggs from '@/components/EasterEggs';
@@ -144,16 +154,11 @@ export default function RootLayout({
         {/* Scan Lines Overlay */}
         <div className="wiki-scanlines" />
 
-        {/* Scroll Progress Indicator */}
-        <ScrollProgress />
 
         {children}
 
         {/* Help Chat */}
         <HelpChat />
-
-        {/* Music Player */}
-        <MusicPlayer />
 
         {/* Theme Switcher */}
         <ThemeSwitcher />

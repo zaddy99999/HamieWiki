@@ -1,6 +1,7 @@
 import loreData from './lore.json';
 import comicsData from './comics.json';
 import { HamieCharacter, HamieRelationship, HamieFaction } from './types';
+import { characterColors, getCharacterColor } from './colors';
 
 // Character GIF mappings
 const characterGifs: Record<string, string> = {
@@ -12,20 +13,6 @@ const characterGifs: Record<string, string> = {
   hikari: 'HikariCharacter.gif',
   kael: 'KaelCharacter.gif',
   orrien: 'OrrienCharacter.gif',
-};
-
-// Character colors
-const characterColors: Record<string, string> = {
-  hamie: '#F7931A',
-  sam: '#627EEA',
-  lira: '#9945FF',
-  silas: '#DC2626',
-  grandma: '#F472B6',
-  mitch: '#10B981',
-  luna: '#06B6D4',
-  '257a': '#6B7280',
-  '479c': '#EC4899',
-  ironpaws: '#1F2937',
 };
 
 // Character quotes
@@ -119,7 +106,7 @@ function transformCharacter(key: string, data: any): HamieCharacter {
     meaning: data.meaning,
     summary: data.summary,
     gifFile: characterGifs[key.toLowerCase()] || undefined,
-    color: characterColors[key.toLowerCase()] || '#888888',
+    color: getCharacterColor(key),
     quotes: characterQuotes[key.toLowerCase()] || undefined,
     faction: characterFactions[key.toLowerCase()] || undefined,
   };
@@ -143,7 +130,8 @@ export function getAllCharacters(): HamieCharacter[] {
   // From comics file - merge additional character data
   if ((comicsData as any).entities?.characters) {
     for (const [key, data] of Object.entries((comicsData as any).entities.characters)) {
-      const existing = characters.find(c => c.id === key);
+      const normalizedKey = key.toLowerCase();
+      const existing = characters.find(c => c.id.toLowerCase() === normalizedKey);
       if (existing) {
         // Merge additional data
         const comicChar = data as any;
@@ -160,8 +148,8 @@ export function getAllCharacters(): HamieCharacter[] {
   return characters.sort((a, b) => {
     // Sort main characters first
     const mainChars = ['hamie', 'sam', 'lira', 'silas', 'grandma'];
-    const aIndex = mainChars.indexOf(a.id);
-    const bIndex = mainChars.indexOf(b.id);
+    const aIndex = mainChars.indexOf(a.id.toLowerCase());
+    const bIndex = mainChars.indexOf(b.id.toLowerCase());
     if (aIndex !== -1 && bIndex !== -1) return aIndex - bIndex;
     if (aIndex !== -1) return -1;
     if (bIndex !== -1) return 1;
@@ -171,7 +159,8 @@ export function getAllCharacters(): HamieCharacter[] {
 
 export function getCharacter(id: string): HamieCharacter | null {
   const characters = getAllCharacters();
-  return characters.find(c => c.id === id || c.id === id.toLowerCase()) || null;
+  const normalizedId = id.toLowerCase();
+  return characters.find(c => c.id.toLowerCase() === normalizedId) || null;
 }
 
 export function getRelationships(): HamieRelationship[] {

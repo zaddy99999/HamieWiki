@@ -92,8 +92,9 @@ export default function CharacterPage() {
   ) || [];
 
   const relatedCharacters = relationships.map(r => {
-    const otherId = r.a === characterId || r.a.toLowerCase() === characterId.toLowerCase() ? r.b : r.a;
-    return allCharacters.find(c => c.id === otherId || c.id.toLowerCase() === otherId.toLowerCase());
+    const charIdLower = characterId.toLowerCase();
+    const otherId = r.a.toLowerCase() === charIdLower ? r.b : r.a;
+    return allCharacters.find(c => c.id.toLowerCase() === otherId.toLowerCase());
   }).filter(Boolean);
 
   const relatedTerms = Object.entries(glossary).filter(([term]) =>
@@ -257,8 +258,9 @@ export default function CharacterPage() {
                 <h2>Relationships</h2>
                 <div className="wiki-relationship-grid">
                   {relationships.map((rel, i) => {
-                    const otherId = rel.a === characterId || rel.a.toLowerCase() === characterId.toLowerCase() ? rel.b : rel.a;
-                    const otherChar = allCharacters.find(c => c.id === otherId || c.id.toLowerCase() === otherId.toLowerCase());
+                    const charIdLower = characterId.toLowerCase();
+                    const otherId = rel.a.toLowerCase() === charIdLower ? rel.b : rel.a;
+                    const otherChar = allCharacters.find(c => c.id.toLowerCase() === otherId.toLowerCase());
                     return (
                       <Link
                         key={i}
