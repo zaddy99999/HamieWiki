@@ -1428,21 +1428,6 @@ button {
   50% { opacity: 1; filter: drop-shadow(0 0 10px var(--char-color, var(--brand-primary))); }
 }
 
-/* Corner accents - LARGER & BRIGHTER */
-.wiki-character-card::after {
-  content: '';
-  position: absolute;
-  top: 6px;
-  right: 6px;
-  width: 28px;
-  height: 28px;
-  border-top: 3px solid var(--char-color, var(--brand-primary));
-  border-right: 3px solid var(--char-color, var(--brand-primary));
-  opacity: 0.9;
-  transition: all var(--transition-base);
-  filter: drop-shadow(0 0 4px var(--char-color, var(--brand-primary)));
-}
-
 .wiki-character-card:hover {
   background: linear-gradient(135deg, var(--bg-card-hover) 0%, var(--neutral-800) 100%);
   transform: translateY(-4px) scale(1.02);
@@ -1464,13 +1449,6 @@ button {
   );
   filter: drop-shadow(0 0 15px var(--char-color, var(--brand-primary)));
   animation: borderGlowIntense 1s linear infinite;
-}
-
-.wiki-character-card:hover::after {
-  opacity: 1;
-  width: 35px;
-  height: 35px;
-  filter: drop-shadow(0 0 12px var(--char-color, var(--brand-primary)));
 }
 
 @keyframes borderGlowIntense {
