@@ -3,30 +3,19 @@
 import { useState, useEffect } from 'react';
 
 const themes = [
-  { id: 'default', name: 'Default', icon: '🎮' },
   { id: 'neon', name: 'Neon', icon: '💜' },
-  { id: 'glass', name: 'Glass', icon: '✨' },
   { id: 'brutalist', name: 'Brutal', icon: '🔲' },
   { id: 'arcade', name: 'Arcade', icon: '👾' },
-  { id: 'minimal', name: 'Minimal', icon: '◽' },
   { id: 'retro', name: 'Retro', icon: '🌴' },
   { id: 'matrix', name: 'Matrix', icon: '💚' },
-  { id: 'sunset', name: 'Sunset', icon: '🌅' },
-  { id: 'ocean', name: 'Ocean', icon: '🌊' },
   { id: 'cyberpunk', name: 'Cyberpunk', icon: '🤖' },
-  { id: 'forest', name: 'Forest', icon: '🌲' },
-  { id: 'midnight', name: 'Midnight', icon: '🌙' },
-  { id: 'cherry', name: 'Cherry', icon: '🌸' },
-  { id: 'steampunk', name: 'Steampunk', icon: '⚙️' },
-  { id: 'ice', name: 'Ice', icon: '❄️' },
   { id: 'volcanic', name: 'Volcanic', icon: '🌋' },
-  { id: 'noir', name: 'Noir', icon: '🎬' },
   { id: 'candy', name: 'Candy', icon: '🍬' },
   { id: 'hacker', name: 'Hacker', icon: '💻' },
 ];
 
 export default function ThemeSwitcher() {
-  const [currentTheme, setCurrentTheme] = useState('default');
+  const [currentTheme, setCurrentTheme] = useState('neon');
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
