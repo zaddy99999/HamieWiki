@@ -16,6 +16,7 @@ import Breadcrumb from '@/components/Breadcrumb';
 import FavoriteButton from '@/components/FavoriteButton';
 import RecentlyViewed from '@/components/RecentlyViewed';
 import { useRecentlyViewed } from '@/hooks/useRecentlyViewed';
+import { CheckIcon, CopyIcon, ArrowUpIcon } from '@/components/Icons';
 
 export default function CharacterPage() {
   const params = useParams();
@@ -228,7 +229,7 @@ export default function CharacterPage() {
                           onClick={() => copyQuote(quote)}
                           title="Copy quote"
                         >
-                          {copiedQuote === quote ? '✓ Copied!' : '📋 Copy'}
+                          {copiedQuote === quote ? <><CheckIcon size={14} /> Copied!</> : <><CopyIcon size={14} /> Copy</>}
                         </button>
                       </div>
                     </div>
@@ -243,7 +244,7 @@ export default function CharacterPage() {
                           onClick={() => copyQuote(character.notableLineSummary!)}
                           title="Copy quote"
                         >
-                          {copiedQuote === character.notableLineSummary ? '✓ Copied!' : '📋 Copy'}
+                          {copiedQuote === character.notableLineSummary ? <><CheckIcon size={14} /> Copied!</> : <><CopyIcon size={14} /> Copy</>}
                         </button>
                       </div>
                     </div>
@@ -504,7 +505,7 @@ export default function CharacterPage() {
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         aria-label="Back to top"
       >
-        <span>↑</span>
+        <ArrowUpIcon size={20} />
       </button>
 
       {/* Share Modal */}

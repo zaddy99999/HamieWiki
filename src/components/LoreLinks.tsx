@@ -1,5 +1,7 @@
 'use client';
 
+import { OpenBookIcon, ComicIcon, LinkIcon, ArrowRightIcon } from './Icons';
+
 const loreLinks = [
   {
     type: 'novel',
@@ -22,9 +24,9 @@ const loreLinks = [
 export default function LoreLinks() {
   const getTypeIcon = (type: string) => {
     switch (type) {
-      case 'novel': return '📖';
-      case 'comic': return '📚';
-      default: return '🔗';
+      case 'novel': return <OpenBookIcon size={20} />;
+      case 'comic': return <ComicIcon size={20} />;
+      default: return <LinkIcon size={20} />;
     }
   };
 
@@ -48,7 +50,7 @@ export default function LoreLinks() {
                 <span className="lore-link-desc">{link.description}</span>
               )}
             </div>
-            <span className="lore-link-arrow">→</span>
+            <span className="lore-link-arrow"><ArrowRightIcon size={16} /></span>
           </a>
         ))}
       </div>

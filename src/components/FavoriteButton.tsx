@@ -1,6 +1,7 @@
 'use client';
 
 import { useFavorites } from '@/hooks/useFavorites';
+import { HeartIcon, HeartFilledIcon } from './Icons';
 
 interface FavoriteButtonProps {
   characterId: string;
@@ -18,10 +19,12 @@ export default function FavoriteButton({ characterId, size = 'md', showLabel = f
     toggleFavorite(characterId);
   };
 
+  const iconSize = size === 'sm' ? 14 : size === 'lg' ? 20 : 16;
+
   if (!isLoaded) {
     return (
       <button className={`favorite-btn favorite-btn-${size} favorite-loading`} disabled>
-        <span className="favorite-icon">♡</span>
+        <span className="favorite-icon"><HeartIcon size={iconSize} /></span>
       </button>
     );
   }
@@ -33,7 +36,7 @@ export default function FavoriteButton({ characterId, size = 'md', showLabel = f
       aria-label={favorited ? 'Remove from favorites' : 'Add to favorites'}
       title={favorited ? 'Remove from favorites' : 'Add to favorites'}
     >
-      <span className="favorite-icon">{favorited ? '♥' : '♡'}</span>
+      <span className="favorite-icon">{favorited ? <HeartFilledIcon size={iconSize} /> : <HeartIcon size={iconSize} />}</span>
       {showLabel && (
         <span className="favorite-label">
           {favorited ? 'Favorited' : 'Favorite'}

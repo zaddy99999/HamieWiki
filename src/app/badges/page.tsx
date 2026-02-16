@@ -6,6 +6,20 @@ import WikiNavbar from '@/components/WikiNavbar';
 import Breadcrumb from '@/components/Breadcrumb';
 import BadgeNotification from '@/components/BadgeNotification';
 import { useBadges, BADGE_DEFINITIONS } from '@/hooks/useBadges';
+import { LockIcon, BookIcon, TargetIcon, CompassIcon, CopyIcon, StarIcon, BrainIcon, SwordIcon, ChatIcon, RocketIcon } from '@/components/Icons';
+
+const getBadgeIcon = (iconName: string) => {
+  switch (iconName) {
+    case 'star': return <StarIcon size={24} />;
+    case 'book': return <BookIcon size={24} />;
+    case 'brain': return <BrainIcon size={24} />;
+    case 'compass': return <CompassIcon size={24} />;
+    case 'sword': return <SwordIcon size={24} />;
+    case 'chat': return <ChatIcon size={24} />;
+    case 'rocket': return <RocketIcon size={24} />;
+    default: return <StarIcon size={24} />;
+  }
+};
 
 export default function BadgesPage() {
   const {
@@ -153,7 +167,7 @@ export default function BadgesPage() {
                 >
                   <div className="badge-card-icon-wrapper">
                     <div className="badge-card-icon">
-                      {badge.unlocked ? badge.icon : '🔒'}
+                      {badge.unlocked ? getBadgeIcon(badge.icon) : <LockIcon size={24} />}
                     </div>
                     {badge.unlocked && <div className="badge-card-glow" />}
                   </div>
@@ -199,22 +213,22 @@ export default function BadgesPage() {
           <h2>How to Unlock Badges</h2>
           <div className="badges-tips-grid">
             <div className="badges-tip-card">
-              <span className="badges-tip-icon">📖</span>
+              <span className="badges-tip-icon"><BookIcon size={24} /></span>
               <h4>Read Character Pages</h4>
               <p>Visit 5 different character profile pages to earn the Lore Scholar badge.</p>
             </div>
             <div className="badges-tip-card">
-              <span className="badges-tip-icon">🎯</span>
+              <span className="badges-tip-icon"><TargetIcon size={24} /></span>
               <h4>Take Quizzes</h4>
               <p>Answer 5 questions correctly in the trivia quiz for Quiz Master.</p>
             </div>
             <div className="badges-tip-card">
-              <span className="badges-tip-icon">🧭</span>
+              <span className="badges-tip-icon"><CompassIcon size={24} /></span>
               <h4>Explore Everything</h4>
               <p>Visit all main sections of the wiki to become an Explorer.</p>
             </div>
             <div className="badges-tip-card">
-              <span className="badges-tip-icon">📋</span>
+              <span className="badges-tip-icon"><CopyIcon size={24} /></span>
               <h4>Collect Quotes</h4>
               <p>Copy 3 character quotes to earn Quote Collector.</p>
             </div>

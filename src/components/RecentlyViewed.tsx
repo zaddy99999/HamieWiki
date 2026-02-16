@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRecentlyViewed, RecentItem } from '@/hooks/useRecentlyViewed';
+import { PersonIcon, LocationIcon, DocumentIcon } from './Icons';
 
 interface RecentlyViewedProps {
   currentType?: string;
@@ -66,7 +67,7 @@ export default function RecentlyViewed({
               />
             ) : (
               <div className="recently-viewed-placeholder">
-                {item.type === 'character' ? '👤' : item.type === 'location' ? '📍' : '📄'}
+                {item.type === 'character' ? <PersonIcon size={16} /> : item.type === 'location' ? <LocationIcon size={16} /> : <DocumentIcon size={16} />}
               </div>
             )}
             <div className="recently-viewed-info">

@@ -5,9 +5,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { getAllCharacters, getFactions, getGlossary, getLogline, getThemes } from '@/lib/hamieverse/characters';
+import { SearchIcon, DiceIcon, PersonIcon, SwordIcon, BookIcon, ArrowUpIcon } from '@/components/Icons';
 import TriviaCard from '@/components/TriviaCard';
 import LoreLinks from '@/components/LoreLinks';
-import RelationshipsMap from '@/components/RelationshipsMap';
 import RelationshipWeb from '@/components/RelationshipWeb';
 import CharacterOfTheDay from '@/components/CharacterOfTheDay';
 import MiniQuiz from '@/components/MiniQuiz';
@@ -139,7 +139,7 @@ export default function WikiHome() {
           </div>
 
           <div className="wiki-search-box" ref={searchRef}>
-            <span className="wiki-search-icon">🔍</span>
+            <span className="wiki-search-icon"><SearchIcon size={16} /></span>
             <input
               ref={searchInputRef}
               type="text"
@@ -158,7 +158,7 @@ export default function WikiHome() {
                     onClick={() => handleSearchSelect(result)}
                   >
                     <span className={`wiki-search-type wiki-search-type-${result.type}`}>
-                      {result.type === 'character' ? '👤' : result.type === 'faction' ? '⚔️' : '📖'}
+                      {result.type === 'character' ? <PersonIcon size={14} /> : result.type === 'faction' ? <SwordIcon size={14} /> : <BookIcon size={14} />}
                     </span>
                     <div className="wiki-search-result-text">
                       <span className="wiki-search-result-name">{result.name}</span>
@@ -173,7 +173,7 @@ export default function WikiHome() {
           </div>
 
           <button className="wiki-random-btn" onClick={goToRandomCharacter}>
-            <span>🎲</span>
+            <span><DiceIcon size={16} /></span>
             <span>Random</span>
           </button>
 
@@ -379,11 +379,6 @@ export default function WikiHome() {
           </div>
         </section>
 
-        {/* Relationships Map */}
-        <section id="relationships" className="wiki-section">
-          <RelationshipsMap />
-        </section>
-
         {/* Interactive Relationship Web */}
         <section id="relationship-web" className="wiki-section">
           <RelationshipWeb />
@@ -424,7 +419,7 @@ export default function WikiHome() {
         onClick={scrollToTop}
         aria-label="Back to top"
       >
-        <span>↑</span>
+        <ArrowUpIcon size={20} />
       </button>
 
     </div>

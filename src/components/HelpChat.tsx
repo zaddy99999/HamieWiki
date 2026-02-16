@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import { ArrowRightIcon } from './Icons';
 
 interface Message {
   role: 'user' | 'bot';
@@ -140,7 +141,7 @@ export default function HelpChat() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
             />
-            <button type="submit" className="help-chat-send">→</button>
+            <button type="submit" className="help-chat-send"><ArrowRightIcon size={16} /></button>
           </form>
         </div>
       )}

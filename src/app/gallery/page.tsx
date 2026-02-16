@@ -5,6 +5,7 @@ import Link from 'next/link';
 import WikiNavbar from '@/components/WikiNavbar';
 import Breadcrumb from '@/components/Breadcrumb';
 import { Skeleton } from '@/components/SkeletonLoader';
+import { CheckIcon } from '@/components/Icons';
 
 interface FanArt {
   id: string;
@@ -195,7 +196,7 @@ export default function GalleryPage() {
 
               {submitSuccess ? (
                 <div className="gallery-submit-success">
-                  <div className="gallery-success-icon">✓</div>
+                  <div className="gallery-success-icon"><CheckIcon size={32} /></div>
                   <h3>Submission Received!</h3>
                   <p>Your art will appear after review.</p>
                 </div>

@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import WikiNavbar from '@/components/WikiNavbar';
+import { ChatIcon, CrystalIcon, PersonIcon, BookIcon, PaletteIcon, ArrowRightIcon } from '@/components/Icons';
 
 interface Reply {
   id: string;
@@ -22,11 +23,11 @@ interface Topic {
 }
 
 const CATEGORIES = [
-  { id: 'general', name: 'General Discussion', icon: '💬' },
-  { id: 'theories', name: 'Theories & Speculation', icon: '🔮' },
-  { id: 'characters', name: 'Character Discussion', icon: '👤' },
-  { id: 'lore', name: 'Lore & World', icon: '📖' },
-  { id: 'fanwork', name: 'Fan Work', icon: '🎨' },
+  { id: 'general', name: 'General Discussion', icon: 'chat' },
+  { id: 'theories', name: 'Theories & Speculation', icon: 'crystal' },
+  { id: 'characters', name: 'Character Discussion', icon: 'person' },
+  { id: 'lore', name: 'Lore & World', icon: 'book' },
+  { id: 'fanwork', name: 'Fan Work', icon: 'palette' },
 ];
 
 export default function ForumPage() {
@@ -162,8 +163,20 @@ export default function ForumPage() {
       new Date(getLastActivity(a)).getTime()
   );
 
+  const getIconComponent = (iconName: string) => {
+    switch (iconName) {
+      case 'chat': return <ChatIcon size={16} />;
+      case 'crystal': return <CrystalIcon size={16} />;
+      case 'person': return <PersonIcon size={16} />;
+      case 'book': return <BookIcon size={16} />;
+      case 'palette': return <PaletteIcon size={16} />;
+      default: return <ChatIcon size={16} />;
+    }
+  };
+
   const getCategoryInfo = (categoryId: string) => {
-    return CATEGORIES.find((c) => c.id === categoryId) || CATEGORIES[0];
+    const category = CATEGORIES.find((c) => c.id === categoryId) || CATEGORIES[0];
+    return { ...category, icon: getIconComponent(category.icon) };
   };
 
   return (
@@ -224,7 +237,7 @@ export default function ForumPage() {
                 <h2>{selectedTopic.title}</h2>
                 <div className="forum-topic-meta">
                   <span className="forum-author">
-                    👤 {selectedTopic.authorName}
+                    <PersonIcon size={14} /> {selectedTopic.authorName}
                   </span>
                   <span className="forum-date">
                     {formatDate(selectedTopic.createdAt)}
@@ -257,7 +270,7 @@ export default function ForumPage() {
                     <div key={reply.id} className="forum-reply">
                       <div className="forum-reply-header">
                         <span className="forum-author">
-                          👤 {reply.authorName}
+                          <PersonIcon size={14} /> {reply.authorName}
                         </span>
                         <span className="forum-date">
                           {formatDate(reply.createdAt)}
@@ -424,7 +437,7 @@ export default function ForumPage() {
                       <h3 className="forum-topic-title">{topic.title}</h3>
                       <div className="forum-topic-meta">
                         <span className="forum-author">
-                          👤 {topic.authorName}
+                          <PersonIcon size={14} /> {topic.authorName}
                         </span>
                         <span className="forum-category-tag">
                           {getCategoryInfo(topic.category).name}
@@ -444,7 +457,7 @@ export default function ForumPage() {
                         </span>
                       </div>
                     </div>
-                    <span className="forum-topic-arrow">→</span>
+                    <span className="forum-topic-arrow"><ArrowRightIcon size={16} /></span>
                   </button>
                 ))
               )}

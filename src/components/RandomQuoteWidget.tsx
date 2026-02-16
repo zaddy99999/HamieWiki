@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { getAllCharacters } from '@/lib/hamieverse/characters';
+import { DiceIcon, CheckIcon, CopyIcon } from './Icons';
 
 interface Quote {
   text: string;
@@ -77,7 +78,7 @@ export default function RandomQuoteWidget() {
           onClick={refreshQuote}
           title="Get another quote"
         >
-          🎲
+          <DiceIcon size={16} />
         </button>
       </div>
 
@@ -107,7 +108,7 @@ export default function RandomQuoteWidget() {
           onClick={copyQuote}
           title={copied ? 'Copied!' : 'Copy quote'}
         >
-          {copied ? '✓ Copied' : '📋 Copy'}
+          {copied ? <><CheckIcon size={14} /> Copied</> : <><CopyIcon size={14} /> Copy</>}
         </button>
         <Link href="/quotes" className="quote-widget-more">
           View All Quotes

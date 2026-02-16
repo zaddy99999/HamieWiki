@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { getAllCharacters } from '@/lib/hamieverse/characters';
+import { ArrowRightIcon } from './Icons';
 
 export default function CharacterOfTheDay() {
   const [character, setCharacter] = useState<ReturnType<typeof getAllCharacters>[0] | null>(null);
@@ -64,7 +65,7 @@ export default function CharacterOfTheDay() {
           )}
         </div>
 
-        <span className="cotd-cta">View Profile →</span>
+        <span className="cotd-cta">View Profile <ArrowRightIcon size={14} /></span>
       </Link>
     </div>
   );

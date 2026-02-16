@@ -58,18 +58,18 @@ export const locationColors: Record<string, string> = {
   'neon-spire': '#9333EA',
 };
 
-// Faction icons
+// Faction icons (string identifiers for use with Icon components)
 export const factionIcons: Record<string, string> = {
-  aetherion: '🏛️',
-  aetherion_elite: '🏛️',
-  ironpaws: '🛡️',
-  ironpaw: '🛡️',
-  section_9: '🔴',
-  undercode: '💻',
-  respeculators: '🎭',
-  the_beyond: '🌿',
-  the_city: '🏙️',
-  independent: '🔮',
+  aetherion: 'building',
+  aetherion_elite: 'building',
+  ironpaws: 'sword',
+  ironpaw: 'sword',
+  section_9: 'target',
+  undercode: 'terminal',
+  respeculators: 'mask',
+  the_beyond: 'leaf',
+  the_city: 'factory',
+  independent: 'crystal',
 };
 
 // Helper function to get faction color with fallback
@@ -96,5 +96,5 @@ export function getLocationColor(locationId: string): string {
 // Helper function to get faction icon with fallback
 export function getFactionIcon(faction: string): string {
   const key = faction.toLowerCase().replace(/ /g, '_');
-  return factionIcons[key] || '⚔️';
+  return factionIcons[key] || 'sword';
 }

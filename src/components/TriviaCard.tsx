@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { getAllCharacters } from '@/lib/hamieverse/characters';
+import { LightbulbIcon } from './Icons';
 
 interface Trivia {
   fact: string;
@@ -69,7 +70,7 @@ export default function TriviaCard() {
   return (
     <div className={`trivia-card ${isFlipping ? 'flipping' : ''}`} onClick={getNextTrivia}>
       <div className="trivia-header">
-        <span className="trivia-icon">💡</span>
+        <span className="trivia-icon"><LightbulbIcon size={18} /></span>
         <span className="trivia-label">Did You Know?</span>
         <span className="trivia-category">{currentTrivia.category}</span>
       </div>

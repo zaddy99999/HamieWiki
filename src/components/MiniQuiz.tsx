@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { QuizIcon } from './Icons';
 
 interface QuizQuestion {
   question: string;
@@ -65,7 +66,7 @@ export default function MiniQuiz() {
     return (
       <div className="mini-quiz">
         <div className="mini-quiz-header">
-          <span className="mini-quiz-icon">🧠</span>
+          <span className="mini-quiz-icon"><QuizIcon size={20} /></span>
           <h3>Quiz Complete!</h3>
         </div>
         <div className="mini-quiz-result">
@@ -80,7 +81,7 @@ export default function MiniQuiz() {
   return (
     <div className="mini-quiz">
       <div className="mini-quiz-header">
-        <span className="mini-quiz-icon">🧠</span>
+        <span className="mini-quiz-icon"><QuizIcon size={20} /></span>
         <h3>Quick Quiz</h3>
         <span className="mini-quiz-progress">{answered + 1}/5</span>
       </div>

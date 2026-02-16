@@ -37,7 +37,7 @@ export const locations: Location[] = [
     aestheticTags: ['neon', 'industrial', 'tower blocks', 'sky bridges', 'retro-futurist tech', 'propaganda signage'],
     symbolism: ['obedience as infrastructure', 'identity suppression', 'motion as control'],
     color: '#EF4444',
-    icon: '🏙️',
+    icon: 'factory',
     mapPosition: { x: 50, y: 50 },
     connections: ['the-wheel', 'aetherion-hq', 'neon-spire', 'the-undercode']
   },
@@ -59,7 +59,7 @@ export const locations: Location[] = [
     aestheticTags: ['ghostlike interfaces', 'pulsing timers', 'viral headlines', 'shimmering code', 'market-chaos as weather'],
     symbolism: ['attention as power', 'information as weapon', 'digital liberation', 'revolution as spectacle'],
     color: '#00D9A5',
-    icon: '💻',
+    icon: 'terminal',
     mapPosition: { x: 50, y: 70 },
     connections: ['the-city', 'neon-spire', 'respeculators-penthouse']
   },
@@ -81,7 +81,7 @@ export const locations: Location[] = [
     aestheticTags: ['fresh grass', 'woodsmoke', 'firelight amber', 'roasted crickets', 'earthy concoctions'],
     symbolism: ['memory persistence', 'music as encryption', 'freedom before the machine'],
     color: '#22C55E',
-    icon: '🌿',
+    icon: 'leaf',
     mapPosition: { x: 85, y: 25 },
     connections: ['the-city']
   },
@@ -102,7 +102,7 @@ export const locations: Location[] = [
     significance: 'Aetherion HQ represents the apex of control - the source of all suppression. It is the target that the Respeculators and Undercode operatives work against, though some fear there may be an even deeper threat beyond Silas.',
     symbolism: ['regime power', 'corporate authority', 'ideological control'],
     color: '#DC2626',
-    icon: '🏛️',
+    icon: 'building',
     mapPosition: { x: 30, y: 30 },
     connections: ['the-city', 'the-wheel']
   },
@@ -123,7 +123,7 @@ export const locations: Location[] = [
     significance: 'The Wheel is the physical manifestation of the system\'s exploitation - citizens mirror the orbs, running endlessly to uphold an impossible machine. It later becomes a target during the Concert-Factory Convergence operation.',
     symbolism: ['exploitation', 'endless obedience', 'the system as machine god', 'perpetual motion as control'],
     color: '#F7931A',
-    icon: '⚙️',
+    icon: 'gear',
     mapPosition: { x: 50, y: 25 },
     connections: ['aetherion-hq', 'the-city']
   },
@@ -145,7 +145,7 @@ export const locations: Location[] = [
     aestheticTags: ['neon-lit', 'exclusive', 'mysterious', 'high-tier'],
     symbolism: ['elite access', 'invitation as test', 'threshold between worlds'],
     color: '#9333EA',
-    icon: '🗼',
+    icon: 'tower',
     mapPosition: { x: 70, y: 45 },
     connections: ['the-city', 'the-undercode', 'respeculators-penthouse']
   }

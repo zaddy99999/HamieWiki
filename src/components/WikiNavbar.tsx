@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { getAllCharacters, getFactions, getGlossary } from '@/lib/hamieverse/characters';
+import { DiceIcon } from './Icons';
 
 interface SearchResult {
   type: 'character' | 'faction' | 'glossary';
@@ -155,6 +156,7 @@ export default function WikiNavbar({ currentPage }: WikiNavbarProps) {
     { href: '/', label: 'Home', id: 'home' },
     { href: '/factions', label: 'Factions', id: 'factions' },
     { href: '/timeline', label: 'Timeline', id: 'timeline' },
+    { href: '/xp-card', label: 'XP Card', id: 'xp-card' },
   ];
 
   return (
@@ -244,7 +246,7 @@ export default function WikiNavbar({ currentPage }: WikiNavbarProps) {
           </div>
 
           <button className="wiki-random-btn" onClick={goToRandomCharacter}>
-            <span>🎲</span>
+            <span><DiceIcon size={16} /></span>
             <span>Random</span>
           </button>
 
@@ -277,7 +279,7 @@ export default function WikiNavbar({ currentPage }: WikiNavbarProps) {
             </Link>
           ))}
           <button className="wiki-mobile-random" onClick={() => { goToRandomCharacter(); setMobileMenuOpen(false); }}>
-            🎲 Random Character
+            <DiceIcon size={16} /> Random Character
           </button>
         </div>
       </div>

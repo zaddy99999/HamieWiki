@@ -1,13 +1,28 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ReactNode } from 'react';
+import {
+  CyberpunkIcon,
+  MatrixIcon,
+  BrutalistIcon,
+  ArcadeIcon,
+  VolcanicIcon,
+  CheckIcon,
+  ThemeIcon
+} from './Icons';
 
-const themes = [
-  { id: 'cyberpunk', name: 'Cyberpunk', icon: '🤖' },
-  { id: 'matrix', name: 'Matrix', icon: '💚' },
-  { id: 'brutalist', name: 'Brutal', icon: '🔲' },
-  { id: 'arcade', name: 'Arcade', icon: '👾' },
-  { id: 'volcanic', name: 'Volcanic', icon: '🌋' },
+interface Theme {
+  id: string;
+  name: string;
+  icon: ReactNode;
+}
+
+const themes: Theme[] = [
+  { id: 'cyberpunk', name: 'Cyberpunk', icon: <CyberpunkIcon size={18} /> },
+  { id: 'matrix', name: 'Matrix', icon: <MatrixIcon size={18} /> },
+  { id: 'brutalist', name: 'Brutal', icon: <BrutalistIcon size={18} /> },
+  { id: 'arcade', name: 'Arcade', icon: <ArcadeIcon size={18} /> },
+  { id: 'volcanic', name: 'Volcanic', icon: <VolcanicIcon size={18} /> },
 ];
 
 export default function ThemeSwitcher() {
@@ -53,7 +68,7 @@ export default function ThemeSwitcher() {
               <span className="theme-option-num">{i + 1}</span>
               <span className="theme-option-icon">{theme.icon}</span>
               <span className="theme-option-name">{theme.name}</span>
-              {currentTheme === theme.id && <span className="theme-check">✓</span>}
+              {currentTheme === theme.id && <span className="theme-check"><CheckIcon size={14} /></span>}
             </button>
           ))}
         </div>

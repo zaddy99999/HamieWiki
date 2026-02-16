@@ -5,6 +5,11 @@ import Link from 'next/link';
 import WikiNavbar from '@/components/WikiNavbar';
 import Breadcrumb from '@/components/Breadcrumb';
 import { getAllCharacters } from '@/lib/hamieverse/characters';
+import {
+  ButterflyIcon, LeafIcon, FactoryIcon, LightbulbIcon, TerminalIcon, MaskIcon,
+  SeedlingIcon, SearchIcon, SwordIcon, SparkleIcon, QuestionIcon, RefreshIcon,
+  ArrowRightIcon
+} from '@/components/Icons';
 
 interface TimelineEvent {
   id: string;
@@ -375,21 +380,21 @@ Simba prepared for the meeting, knowing that nothing would be the same afterward
 ];
 
 const eras = {
-  veynar_prologue: { name: 'Veynar Prologue', color: 'var(--neutral-400)', icon: '🦋' },
-  before_city: { name: 'Before the City', color: 'var(--brand-secondary)', icon: '🌿' },
-  city_life: { name: 'City Life', color: 'var(--neutral-500)', icon: '🏭' },
-  awakening: { name: 'The Awakening', color: 'var(--brand-primary)', icon: '💡' },
-  undercode: { name: 'The Undercode', color: 'var(--brand-accent)', icon: '💻' },
-  conspiracy: { name: 'The Conspiracy', color: 'var(--brand-purple)', icon: '🎭' },
+  veynar_prologue: { name: 'Veynar Prologue', color: 'var(--neutral-400)', icon: <ButterflyIcon size={16} /> },
+  before_city: { name: 'Before the City', color: 'var(--brand-secondary)', icon: <LeafIcon size={16} /> },
+  city_life: { name: 'City Life', color: 'var(--neutral-500)', icon: <FactoryIcon size={16} /> },
+  awakening: { name: 'The Awakening', color: 'var(--brand-primary)', icon: <LightbulbIcon size={16} /> },
+  undercode: { name: 'The Undercode', color: 'var(--brand-accent)', icon: <TerminalIcon size={16} /> },
+  conspiracy: { name: 'The Conspiracy', color: 'var(--brand-purple)', icon: <MaskIcon size={16} /> },
 };
 
 const eventTypes = {
-  origin: { name: 'Origin', color: 'var(--brand-secondary)', icon: '🌱' },
-  discovery: { name: 'Discovery', color: 'var(--brand-primary)', icon: '🔍' },
-  conflict: { name: 'Conflict', color: 'var(--brand-danger)', icon: '⚔️' },
-  transformation: { name: 'Transformation', color: 'var(--brand-purple)', icon: '✨' },
-  mystery: { name: 'Mystery', color: 'var(--brand-accent)', icon: '❓' },
-  turning_point: { name: 'Turning Point', color: '#FFD700', icon: '🔄' },
+  origin: { name: 'Origin', color: 'var(--brand-secondary)', icon: <SeedlingIcon size={16} /> },
+  discovery: { name: 'Discovery', color: 'var(--brand-primary)', icon: <SearchIcon size={16} /> },
+  conflict: { name: 'Conflict', color: 'var(--brand-danger)', icon: <SwordIcon size={16} /> },
+  transformation: { name: 'Transformation', color: 'var(--brand-purple)', icon: <SparkleIcon size={16} /> },
+  mystery: { name: 'Mystery', color: 'var(--brand-accent)', icon: <QuestionIcon size={16} /> },
+  turning_point: { name: 'Turning Point', color: '#FFD700', icon: <RefreshIcon size={16} /> },
 };
 
 export default function TimelinePage() {
@@ -566,7 +571,7 @@ export default function TimelinePage() {
                                               scrollToEvent(eventId);
                                             }}
                                           >
-                                            {linkedEvent.title} →
+                                            {linkedEvent.title} <ArrowRightIcon size={12} />
                                           </button>
                                         ) : null;
                                       })}

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { getAllCharacters } from '@/lib/hamieverse/characters';
 import FavoriteButton from '@/components/FavoriteButton';
+import { ArrowRightIcon } from '@/components/Icons';
 
 export default function ComparePage() {
   const characters = getAllCharacters();
@@ -93,7 +94,7 @@ export default function ComparePage() {
         )}
 
         <Link href={`/character/${char.id}`} className="compare-link">
-          View Full Profile →
+          View Full Profile <ArrowRightIcon size={14} />
         </Link>
       </div>
     );

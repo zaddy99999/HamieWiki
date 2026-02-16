@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { CheckIcon, LinkIcon } from './Icons';
 
 interface SocialShareProps {
   title: string;
@@ -74,7 +75,7 @@ export default function SocialShare({
               <span>R</span>
             </button>
             <button onClick={copyToClipboard}>
-              <span>{copied ? '✓' : '🔗'}</span>
+              <span>{copied ? <CheckIcon size={14} /> : <LinkIcon size={14} />}</span>
             </button>
           </div>
         )}
