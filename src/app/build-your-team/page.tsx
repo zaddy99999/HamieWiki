@@ -10,6 +10,7 @@ interface Character {
   gifFile?: string;
   color?: string;
   roles: string[];
+  faction?: string;
 }
 
 interface Tier {
@@ -52,11 +53,8 @@ interface Template {
 
 const TEMPLATES: Template[] = [
   { id: 'all', name: 'All Characters', title: 'Build Your Team', description: 'Everyone' },
-  { id: 'undercode', name: 'Undercode', title: 'Undercode Crew', description: 'Hackers & rebels', filter: (c) => c.roles?.some(r => r.toLowerCase().includes('hacker') || r.toLowerCase().includes('rebel') || r.toLowerCase().includes('undercode')) },
-  { id: 'elite', name: 'Aetherion Elite', title: 'Elite Forces', description: 'Power players', filter: (c) => c.roles?.some(r => r.toLowerCase().includes('elite') || r.toLowerCase().includes('leader') || r.toLowerCase().includes('power')) },
-  { id: 'city', name: 'The City', title: 'City Dwellers', description: 'Urban survivors', filter: (c) => c.roles?.some(r => r.toLowerCase().includes('worker') || r.toLowerCase().includes('citizen') || r.toLowerCase().includes('drone')) },
-  { id: 'villains', name: 'Antagonists', title: 'Villain Team', description: 'The bad guys', filter: (c) => c.roles?.some(r => r.toLowerCase().includes('villain') || r.toLowerCase().includes('antagonist') || r.toLowerCase().includes('manipulator')) },
-  { id: 'heroes', name: 'Protagonists', title: 'Hero Squad', description: 'The good guys', filter: (c) => c.roles?.some(r => r.toLowerCase().includes('protagonist') || r.toLowerCase().includes('hero') || r.toLowerCase().includes('ally')) },
+  { id: 'aetherion', name: 'Aetherion', title: 'Aetherion Team', description: 'The elite', filter: (c) => c.faction?.toLowerCase().includes('aetherion') ?? false },
+  { id: 'undercode', name: 'Liberators', title: 'Liberators Team', description: 'The rebels', filter: (c) => c.faction?.toLowerCase() === 'undercode' },
 ];
 
 export default function BuildYourTeam() {

@@ -69,7 +69,7 @@ const characterFactions: Record<string, string> = {
   ace: 'Undercode',
   hikari: 'Undercode',
   kael: 'Undercode',
-  orrien: 'Independent',
+  orrien: 'Aetherion Elite',
   luna: 'Undercode',
   alistair_veynar: 'Aetherion Elite',
   veynar_mother: 'Aetherion Elite',

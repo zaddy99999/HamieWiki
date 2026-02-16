@@ -24,7 +24,7 @@ export default function RelationshipWeb() {
   const [selectedChar, setSelectedChar] = useState<string | null>(null);
   const [hoveredChar, setHoveredChar] = useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [dimensions, setDimensions] = useState({ width: 600, height: 500 });
+  const [dimensions, setDimensions] = useState({ width: 280, height: 280 });
 
   const characters = getAllCharacters();
   const relationships = getRelationships() as Relationship[];

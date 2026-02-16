@@ -2,28 +2,28 @@
 
 import { useEffect } from 'react';
 
-const CLEAN_LIGHT = {
-  primary: '#E53935',
-  secondary: '#1E88E5',
-  accent: '#FFC107',
-  text: '#212121',
-  textMuted: '#616161',
-  bg: '#FAFAFA',
-  card: '#FFFFFF',
-  border: '#212121'
+const DARK_THEME = {
+  primary: '#8B5CF6',
+  secondary: '#3B82F6',
+  accent: '#A855F7',
+  text: '#FFFFFF',
+  textMuted: '#a0a0a0',
+  bg: '#000000',
+  card: '#0f0f1a',
+  border: '#3B82F6'
 };
 
 export default function PaletteSelector() {
   useEffect(() => {
     const root = document.documentElement;
-    root.style.setProperty('--palette-primary', CLEAN_LIGHT.primary);
-    root.style.setProperty('--palette-secondary', CLEAN_LIGHT.secondary);
-    root.style.setProperty('--palette-accent', CLEAN_LIGHT.accent);
-    root.style.setProperty('--palette-text', CLEAN_LIGHT.text);
-    root.style.setProperty('--palette-text-muted', CLEAN_LIGHT.textMuted);
-    root.style.setProperty('--palette-bg', CLEAN_LIGHT.bg);
-    root.style.setProperty('--palette-card', CLEAN_LIGHT.card);
-    root.style.setProperty('--palette-border', CLEAN_LIGHT.border);
+    root.style.setProperty('--palette-primary', DARK_THEME.primary);
+    root.style.setProperty('--palette-secondary', DARK_THEME.secondary);
+    root.style.setProperty('--palette-accent', DARK_THEME.accent);
+    root.style.setProperty('--palette-text', DARK_THEME.text);
+    root.style.setProperty('--palette-text-muted', DARK_THEME.textMuted);
+    root.style.setProperty('--palette-bg', DARK_THEME.bg);
+    root.style.setProperty('--palette-card', DARK_THEME.card);
+    root.style.setProperty('--palette-border', DARK_THEME.border);
   }, []);
 
   return null;

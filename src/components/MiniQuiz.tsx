@@ -82,7 +82,7 @@ export default function MiniQuiz() {
     <div className="mini-quiz">
       <div className="mini-quiz-header">
         <span className="mini-quiz-icon"><QuizIcon size={20} /></span>
-        <h3>Quick Quiz</h3>
+        <h3>Quiz</h3>
         <span className="mini-quiz-progress">{answered + 1}/5</span>
       </div>
       <p className="mini-quiz-question">{q.question}</p>

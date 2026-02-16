@@ -1,11 +1,29 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* Mokoto Font */
+@font-face {
+  font-family: 'Mokoto';
+  src: url('/fonts/Mokoto.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Azonix Font - Main Headings */
+@font-face {
+  font-family: 'Azonix';
+  src: url('/fonts/Azonix.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 
 /* ==================== DESIGN SYSTEM ==================== */
 :root {
-  /* Brand Colors */
-  --brand-primary: #F7931A;
-  --brand-secondary: #00D9A5;
-  --brand-accent: #627EEA;
+  /* Brand Colors - Purple & Blue Gradient Theme */
+  --brand-primary: #8B5CF6;
+  --brand-secondary: #3B82F6;
+  --brand-accent: #A855F7;
   --brand-purple: #9333EA;
   --brand-danger: #EF4444;
 
@@ -23,7 +41,7 @@
   --neutral-100: #f4f4f5;
 
   /* Semantic Colors */
-  --bg-page: var(--neutral-950);
+  --bg-page: #000000;
   --bg-card: var(--neutral-900);
   --bg-card-hover: var(--neutral-850);
   --bg-elevated: var(--neutral-800);
@@ -53,7 +71,8 @@
   --space-20: 80px;
 
   /* Typography */
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-sans: 'Poppins', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-heading: 'Azonix', 'Poppins', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
   --text-xs: 0.75rem;
@@ -160,10 +179,19 @@ body {
   font-size: var(--text-base);
   line-height: 1.6;
   color: var(--text-primary);
-  background: var(--bg-page);
+  background: #000000;
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
+}
+
+/* ==================== HEADINGS - Azonix with Purple/Blue Gradient ==================== */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 /* ==================== CUSTOM SCROLLBAR ==================== */
@@ -14520,9 +14548,9 @@ html {
 
 .id-generator-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 2fr 1fr;
   gap: 1.5rem;
-  max-width: 1100px;
+  max-width: 1600px;
   margin: 0 auto;
 }
 
@@ -14815,15 +14843,15 @@ html {
 /* XP Preset Cards */
 .xp-preset-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.75rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
 }
 
 .xp-preset-card {
-  aspect-ratio: 16 / 9;
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
+  aspect-ratio: 4 / 3;
+  background: rgba(240, 240, 240, 0.9);
+  border: 2px solid #ddd;
+  border-radius: 12px;
   cursor: pointer;
   transition: all 0.2s ease;
   overflow: hidden;
@@ -14833,22 +14861,23 @@ html {
 }
 
 .xp-preset-card:hover {
-  border-color: rgba(46, 219, 132, 0.3);
+  border-color: #999;
+  transform: translateY(-2px);
 }
 
 .xp-preset-card.active {
-  border-color: #2edb84;
-  box-shadow: 0 0 10px rgba(46, 219, 132, 0.3);
+  border-color: #8B5CF6;
+  box-shadow: 0 4px 12px rgba(229, 57, 53, 0.25);
 }
 
 .xp-preset-card img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .xp-preset-placeholder {
-  color: rgba(255, 255, 255, 0.3);
+  color: #999;
   font-size: 1.5rem;
 }
 
@@ -14949,7 +14978,6 @@ html {
   align-items: center;
   margin-bottom: 1rem;
   padding-bottom: 0.75rem;
-  border-bottom: 1px solid rgba(46, 219, 132, 0.3);
 }
 
 .abstract-xp-title {
@@ -14975,7 +15003,6 @@ html {
 .abstract-xp-avatar {
   width: 80px;
   height: 80px;
-  border-radius: 50%;
   overflow: hidden;
   border: 2px solid rgba(46, 219, 132, 0.4);
   flex-shrink: 0;

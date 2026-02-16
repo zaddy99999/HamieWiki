@@ -1,0 +1,543 @@
+/* MOBILE FIX - Clean restart */
+/* This file MUST be imported LAST */
+
+@media (max-width: 768px) {
+  /* ROOT - prevent any horizontal scroll */
+  html, body {
+    overflow-x: hidden !important;
+    width: 100% !important;
+  }
+
+  /* HIDE ALL DECORATIVE BACKGROUNDS */
+  .wiki-bg-effects,
+  .wiki-orb, .wiki-orb-1, .wiki-orb-2, .wiki-orb-3,
+  .wiki-aurora, .wiki-neon-grid, .wiki-holo-shimmer,
+  .wiki-lightning, .wiki-bolt, .wiki-bolt-1, .wiki-bolt-2, .wiki-bolt-3,
+  .wiki-energy-stream, .wiki-stream-1, .wiki-stream-2, .wiki-stream-3,
+  .wiki-particles, .wiki-particle, .wiki-scanlines,
+  .comic-background-container, .comic-bg-container,
+  .comic-decoration, .comic-home-1, .comic-home-2, .comic-home-3 {
+    display: none !important;
+  }
+
+  /* HIDE DESKTOP SIDEBAR ON MOBILE */
+  .brutal-sidebar {
+    display: none !important;
+  }
+
+  /* ===== HAMBURGER BUTTON ===== */
+  .mobile-hamburger {
+    position: fixed !important;
+    top: 12px !important;
+    left: 12px !important;
+    z-index: 10000 !important;
+    width: 44px !important;
+    height: 44px !important;
+    background: #1a1a2e !important;
+    border: 2px solid #8B5CF6 !important;
+    border-radius: 8px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 5px !important;
+    cursor: pointer !important;
+    padding: 10px !important;
+  }
+
+  .hamburger-line {
+    width: 24px !important;
+    height: 3px !important;
+    background: #8B5CF6 !important;
+    border-radius: 2px !important;
+    transition: transform 0.2s, opacity 0.2s !important;
+  }
+
+  .hamburger-line.open:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px) !important;
+  }
+
+  .hamburger-line.open:nth-child(2) {
+    opacity: 0 !important;
+  }
+
+  .hamburger-line.open:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px) !important;
+  }
+
+  /* ===== MOBILE NAV OVERLAY ===== */
+  .mobile-nav-overlay {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: rgba(0, 0, 0, 0.7) !important;
+    z-index: 9998 !important;
+  }
+
+  /* ===== MOBILE NAV MENU ===== */
+  .mobile-nav-menu {
+    position: fixed !important;
+    top: 0 !important;
+    left: -280px !important;
+    width: 260px !important;
+    height: 100vh !important;
+    background: #0f0f1a !important;
+    border-right: 3px solid #8B5CF6 !important;
+    z-index: 9999 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    transition: left 0.3s ease !important;
+    padding: 20px !important;
+    box-sizing: border-box !important;
+  }
+
+  .mobile-nav-menu.open {
+    left: 0 !important;
+  }
+
+  .mobile-nav-header {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    padding: 16px 0 !important;
+    border-bottom: 2px solid #3B82F6 !important;
+    margin-bottom: 20px !important;
+    cursor: pointer !important;
+  }
+
+  .mobile-nav-logo {
+    width: 48px !important;
+    height: 48px !important;
+    border: 2px solid #8B5CF6 !important;
+    border-radius: 8px !important;
+  }
+
+  .mobile-nav-title {
+    font-family: var(--font-brutal-display), Arial, sans-serif !important;
+    font-size: 18px !important;
+    font-weight: bold !important;
+    color: #8B5CF6 !important;
+  }
+
+  .mobile-nav-links {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    flex: 1 !important;
+  }
+
+  .mobile-nav-link {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    padding: 14px 16px !important;
+    background: #1a1a2e !important;
+    border: 2px solid #3B82F6 !important;
+    border-radius: 8px !important;
+    color: #fff !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: all 0.2s !important;
+  }
+
+  .mobile-nav-link:active {
+    transform: scale(0.98) !important;
+    background: #8B5CF6 !important;
+  }
+
+  .mobile-nav-link.active {
+    background: #8B5CF6 !important;
+    border-color: #8B5CF6 !important;
+  }
+
+  .mobile-nav-icon {
+    font-size: 20px !important;
+    width: 28px !important;
+    text-align: center !important;
+  }
+
+  .mobile-nav-footer {
+    display: flex !important;
+    gap: 16px !important;
+    justify-content: center !important;
+    padding-top: 20px !important;
+    border-top: 2px solid #3B82F6 !important;
+  }
+
+  .mobile-nav-footer a {
+    color: #8B5CF6 !important;
+    font-weight: bold !important;
+    text-decoration: none !important;
+    font-size: 14px !important;
+  }
+
+  /* ===== MAIN CONTAINERS - FULL WIDTH (no sidebar) ===== */
+  .wiki-container,
+  .wiki-main,
+  main,
+  .container,
+  .xp-card-main,
+  .brutal-tier-maker,
+  .build-team-main,
+  .build-team-page {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 70px 12px 12px 12px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+  }
+
+  /* ALL ELEMENTS - fit within parent */
+  .wiki-container *,
+  .wiki-main *,
+  main *,
+  .xp-card-main *,
+  .brutal-tier-maker *,
+  .build-team-main * {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* GRIDS - single column */
+  .wiki-intro-grid-4,
+  .wiki-character-grid,
+  .wiki-glossary-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+
+  .wiki-supporting-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+  }
+
+  /* CORE THEMES - 2-3 per row */
+  .wiki-themes-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+  }
+
+  .wiki-theme-card {
+    width: 100% !important;
+    padding: 8px !important;
+    font-size: 0.85rem !important;
+  }
+
+  /* CARDS - full width, no overflow */
+  .wiki-card,
+  .brutal-card,
+  .wiki-character-card,
+  .wiki-supporting-card,
+  .cotd-container,
+  .cotd-card,
+  .trivia-card,
+  .mini-quiz,
+  .lore-links,
+  .wiki-section,
+  .wiki-hero {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+  }
+
+  /* CHARACTER NAMES - NO negative margins */
+  .wiki-character-name,
+  .wiki-supporting-name {
+    margin: 0 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* IMAGES */
+  img {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  /* REMOVE BOX SHADOWS that can cause visual overflow */
+  .wiki-card,
+  .wiki-character-card,
+  .wiki-supporting-card,
+  .cotd-card,
+  .trivia-card {
+    box-shadow: none !important;
+  }
+
+  /* RELATIONSHIP WEB */
+  .relationship-web,
+  .relationship-web-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+  }
+
+  .relationship-web svg {
+    max-width: 100% !important;
+  }
+
+  /* ===== XP CARD PAGE ===== */
+  .xp-card-main {
+    margin-left: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 70px 10px 10px 10px !important;
+  }
+
+  .id-generator-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+    width: 100% !important;
+  }
+
+  .id-config-card,
+  .id-preview-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .id-row {
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+
+  .id-upload-box,
+  .id-upload-small {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .xp-preset-grid {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 6px !important;
+  }
+
+  .xp-preset-card {
+    width: 100% !important;
+    aspect-ratio: 1 !important;
+  }
+
+  .id-preview-container {
+    width: 100% !important;
+    overflow-x: auto !important;
+    padding: 10px !important;
+  }
+
+  .abstract-id-card,
+  .abstract-xp-card {
+    transform: scale(0.85) !important;
+    transform-origin: top left !important;
+  }
+
+  .card-type-toggle {
+    display: flex !important;
+    width: 100% !important;
+  }
+
+  .card-type-btn {
+    flex: 1 !important;
+  }
+
+  .id-btn-group {
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+
+  .id-download-btn {
+    width: 100% !important;
+  }
+
+  /* ===== BUILD TEAM PAGE ===== */
+  .build-team-page,
+  main.build-team-page {
+    margin-left: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 70px 10px 10px 10px !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+  }
+
+  .build-team-layout {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .build-team-main {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    order: 1 !important;
+  }
+
+  .build-team-templates {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    order: 2 !important;
+  }
+
+  .build-team-templates-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 6px !important;
+  }
+
+  .build-team-template-btn {
+    width: 100% !important;
+    padding: 8px 4px !important;
+    font-size: 11px !important;
+  }
+
+  .build-team-top-bar {
+    flex-direction: column !important;
+    gap: 8px !important;
+    align-items: stretch !important;
+    width: 100% !important;
+  }
+
+  .build-team-mode-toggle {
+    display: flex !important;
+    width: 100% !important;
+  }
+
+  .build-team-mode-btn {
+    flex: 1 !important;
+  }
+
+  .build-team-actions {
+    display: flex !important;
+    width: 100% !important;
+    justify-content: space-between !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+  }
+
+  .build-team-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 6px !important;
+    box-shadow: 3px 3px 0 var(--palette-border) !important;
+  }
+
+  .build-team-tiers {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .build-team-tier-row {
+    display: flex !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    gap: 4px !important;
+    margin-bottom: 4px !important;
+  }
+
+  .build-team-slots {
+    display: flex !important;
+    flex: 1 !important;
+    gap: 3px !important;
+    overflow: hidden !important;
+  }
+
+  .build-team-slot {
+    flex: 1 !important;
+    min-width: 0 !important;
+    width: auto !important;
+    height: 50px !important;
+    padding: 2px !important;
+  }
+
+  .build-team-avatar {
+    width: 32px !important;
+    height: 32px !important;
+  }
+
+  .build-team-name {
+    font-size: 7px !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+  }
+
+  .build-team-price-label {
+    min-width: 28px !important;
+    width: 28px !important;
+    font-size: 11px !important;
+    padding: 2px !important;
+  }
+
+  .build-team-pool {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .build-team-pool-grid {
+    display: grid !important;
+    grid-template-columns: repeat(5, 1fr) !important;
+    gap: 4px !important;
+  }
+
+  .build-team-pool-item {
+    width: 100% !important;
+    padding: 4px !important;
+  }
+
+  .build-team-pool-item img {
+    width: 30px !important;
+    height: 30px !important;
+  }
+
+  .build-team-pool-item span {
+    font-size: 8px !important;
+  }
+
+  .build-team-header {
+    flex-direction: column !important;
+    gap: 4px !important;
+    text-align: center !important;
+    padding-bottom: 6px !important;
+    margin-bottom: 6px !important;
+  }
+
+  .build-team-title-input {
+    width: 100% !important;
+    font-size: 14px !important;
+    text-align: center !important;
+  }
+
+  .build-team-budget-input {
+    width: 40px !important;
+  }
+
+  .build-team-footer {
+    padding: 4px !important;
+    font-size: 10px !important;
+  }
+
+  .build-team-action-btn {
+    padding: 6px 10px !important;
+    font-size: 11px !important;
+  }
+
+  .build-team-spent {
+    font-size: 12px !important;
+    padding: 4px 8px !important;
+  }
+}

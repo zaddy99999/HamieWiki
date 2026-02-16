@@ -206,44 +206,26 @@ export default function CharacterPage() {
               </section>
             )}
 
-            {/* Quotes */}
+            {/* Quotes - Retro Chat Bubble */}
             {(character.quotes && character.quotes.length > 0) || character.notableLineSummary ? (
               <section className="wiki-article-section">
                 <div className="wiki-section-header-with-link">
                   <h2>Quotes</h2>
                   <Link href="/quotes" className="wiki-section-link">View All Quotes</Link>
                 </div>
-                <div className="wiki-quotes-list">
-                  {character.quotes?.map((quote, i) => (
-                    <div key={i} className="wiki-quote-card wiki-quote-card-shareable">
-                      <p className="wiki-quote-text">"{quote}"</p>
-                      <div className="wiki-quote-footer">
-                        <p className="wiki-quote-attr">— {character.displayName}</p>
-                        <button
-                          className="wiki-quote-copy-btn"
-                          onClick={() => copyQuote(quote)}
-                          title="Copy quote"
-                        >
-                          {copiedQuote === quote ? <><CheckIcon size={14} /> Copied!</> : <><CopyIcon size={14} /> Copy</>}
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-                  {character.notableLineSummary && !character.quotes?.includes(character.notableLineSummary) && (
-                    <div className="wiki-quote-card wiki-quote-card-shareable">
-                      <p className="wiki-quote-text">"{character.notableLineSummary}"</p>
-                      <div className="wiki-quote-footer">
-                        <p className="wiki-quote-attr">— {character.displayName}</p>
-                        <button
-                          className="wiki-quote-copy-btn"
-                          onClick={() => copyQuote(character.notableLineSummary!)}
-                          title="Copy quote"
-                        >
-                          {copiedQuote === character.notableLineSummary ? <><CheckIcon size={14} /> Copied!</> : <><CopyIcon size={14} /> Copy</>}
-                        </button>
-                      </div>
-                    </div>
-                  )}
+                <div className="retro-chat-bubble">
+                  <div className="retro-bubble-content">
+                    {character.quotes?.map((quote, i) => (
+                      <p key={i} className="retro-quote-line">"{quote}"</p>
+                    ))}
+                    {character.notableLineSummary && !character.quotes?.includes(character.notableLineSummary) && (
+                      <p className="retro-quote-line">"{character.notableLineSummary}"</p>
+                    )}
+                  </div>
+                  <div className="retro-bubble-footer">
+                    <span className="retro-bubble-attr">— {character.displayName}</span>
+                  </div>
+                  <div className="retro-bubble-tail"></div>
                 </div>
               </section>
             ) : null}

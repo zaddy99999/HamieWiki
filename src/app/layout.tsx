@@ -15,11 +15,11 @@ import './globals.css';
 import '@/styles/theme-brutalist.css';
 import '@/styles/theme-arcade.css';
 import '@/styles/premium-polish.css';
+import '@/styles/mobile-fix.css';
 import BackToTop from '@/components/BackToTop';
 import EasterEggs from '@/components/EasterEggs';
 import Sidebar from '@/components/Sidebar';
 import PaletteSelector from '@/components/PaletteSelector';
-import ComicBackground from '@/components/ComicBackground';
 
 export const metadata: Metadata = {
   title: 'Hamieverse Wiki',
@@ -38,6 +38,7 @@ export default function RootLayout({
   return (
     <html lang="en" data-theme="brutalist">
       <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -95,54 +96,6 @@ export default function RootLayout({
         <a href="#main-content" className="skip-to-content">
           Skip to main content
         </a>
-
-        {/* Cyberpunk Background System */}
-        <div className="wiki-bg-effects">
-          {/* Glowing Orbs */}
-          <div className="wiki-orb wiki-orb-1" />
-          <div className="wiki-orb wiki-orb-2" />
-          <div className="wiki-orb wiki-orb-3" />
-
-          {/* Aurora Effect */}
-          <div className="wiki-aurora" />
-
-          {/* Neon Grid Floor */}
-          <div className="wiki-neon-grid" />
-
-          {/* Holographic Shimmer */}
-          <div className="wiki-holo-shimmer" />
-        </div>
-
-        {/* Lightning Effects */}
-        <div className="wiki-lightning">
-          <div className="wiki-bolt wiki-bolt-1" />
-          <div className="wiki-bolt wiki-bolt-2" />
-          <div className="wiki-bolt wiki-bolt-3" />
-        </div>
-
-        {/* Energy Streams */}
-        <div className="wiki-energy-stream wiki-stream-1" />
-        <div className="wiki-energy-stream wiki-stream-2" />
-        <div className="wiki-energy-stream wiki-stream-3" />
-
-        {/* Rising Particles with Trails */}
-        <div className="wiki-particles">
-          <div className="wiki-particle" />
-          <div className="wiki-particle" />
-          <div className="wiki-particle" />
-          <div className="wiki-particle" />
-          <div className="wiki-particle" />
-          <div className="wiki-particle" />
-          <div className="wiki-particle" />
-          <div className="wiki-particle" />
-          <div className="wiki-particle" />
-        </div>
-
-        {/* Scan Lines Overlay */}
-        <div className="wiki-scanlines" />
-
-        {/* Comic Book Background */}
-        <ComicBackground />
 
         {/* Sidebar Navigation */}
         <Sidebar />

@@ -63,11 +63,14 @@ export default function XPCardPage() {
   const TEXT_COLORS = [
     { name: 'White', value: '#FFFFFF' },
     { name: 'Black', value: '#000000' },
-    { name: 'Red', value: '#E53935' },
+    { name: 'Purple', value: '#8B5CF6' },
     { name: 'Gold', value: '#FFD700' },
     { name: 'Cyan', value: '#00FFFF' },
-    { name: 'Lime', value: '#00FF00' },
+    { name: 'Blue', value: '#3B82F6' },
   ];
+
+  // PFP shape state
+  const [pfpShape, setPfpShape] = useState<'circle' | 'square'>('circle');
 
   const applyPreset = (presetName: string) => {
     const preset = XP_PRESETS.find(p => p.name === presetName);
@@ -472,9 +475,11 @@ export default function XPCardPage() {
         <div className="comic-decoration comic-deco-3" aria-hidden="true">★</div>
 
         {/* Page Header */}
-        <div className="xp-card-header">
-          <h1 className="xp-card-title">XP CARD GENERATOR</h1>
-          <p className="xp-card-subtitle">Create your custom Abstract ID or XP card</p>
+        <div className="xp-card-header-wrapper">
+          <div className="xp-card-header">
+            <h1 className="xp-card-title">XP CARD GENERATOR</h1>
+            <p className="xp-card-subtitle">Create your custom Abstract ID or XP card</p>
+          </div>
         </div>
 
       {/* Main Layout */}
@@ -647,6 +652,25 @@ export default function XPCardPage() {
                 </div>
               </div>
 
+              {/* PFP Shape selector */}
+              <div className="id-section">
+                <label className="id-label">PFP Shape</label>
+                <div className="pfp-shape-picker">
+                  <button
+                    className={`pfp-shape-btn ${pfpShape === 'circle' ? 'active' : ''}`}
+                    onClick={() => setPfpShape('circle')}
+                  >
+                    Circle
+                  </button>
+                  <button
+                    className={`pfp-shape-btn ${pfpShape === 'square' ? 'active' : ''}`}
+                    onClick={() => setPfpShape('square')}
+                  >
+                    Square
+                  </button>
+                </div>
+              </div>
+
               {/* XP Card Presets - below fields */}
               <div className="id-section">
                 <label className="id-label">Background Presets</label>
@@ -685,16 +709,16 @@ export default function XPCardPage() {
         <div className="id-preview-card">
           <h3 className="id-card-header">Live Preview</h3>
 
-          <div className="id-preview-container" style={{ position: 'relative', zIndex: 101, backgroundColor: '#E0E0E0', padding: '1.5rem', borderRadius: '8px' }}>
+          <div className="id-preview-container" style={{ position: 'relative', zIndex: 101, backgroundColor: '#0f0f1a', padding: '1.5rem', borderRadius: '8px' }}>
             {cardType === 'id' ? (
               /* ID Card Preview */
               <div ref={cardRef} className="abstract-id-card" style={{ isolation: 'isolate', position: 'relative', zIndex: 10 }}>
                 <img src="/hamieversecardblank.png" alt="Hamieverse ID" className="abstract-id-bg" />
-                <div className="abstract-id-avatar" style={{ marginLeft: '-75px', marginTop: '17px', transform: 'scale(1.2)' }}>
+                <div className="abstract-id-avatar" style={{ marginLeft: '-75px', marginTop: '17px', transform: 'scale(1.2)', borderRadius: pfpShape === 'circle' ? '50%' : '4px' }}>
                   {idProfileImage ? (
-                    <img src={idProfileImage} alt="Profile" />
+                    <img src={idProfileImage} alt="Profile" style={{ borderRadius: pfpShape === 'circle' ? '50%' : '4px' }} />
                   ) : (
-                    <div className="abstract-id-avatar-placeholder" />
+                    <div className="abstract-id-avatar-placeholder" style={{ borderRadius: pfpShape === 'circle' ? '50%' : '4px' }} />
                   )}
                 </div>
                 <span className="abstract-id-name" style={{ marginLeft: '65px', marginTop: '-5px', fontFamily: 'Mokoto, sans-serif', color: textColor }}>{idDisplayName || 'Your Name'}</span>
@@ -724,16 +748,17 @@ export default function XPCardPage() {
                     src={xpBackgroundVideo}
                   />
                 )}
-                <div className="abstract-xp-header" style={{ position: 'relative', zIndex: 1 }}>
-                  <span className="abstract-xp-title" style={{ color: textColor }}>ABSTRACT XP CARD</span>
-                  <img src="/abspfp.png" alt="Abstract" className="abstract-xp-logo" />
+                <div className="abstract-xp-header" style={{ position: 'relative', zIndex: 1, justifyContent: 'flex-start', gap: '2px', paddingLeft: '16px', transform: 'translateX(-5%)' }}>
+                  <span className="abstract-xp-title" style={{ color: textColor }}>ABSTRACT</span>
+                  <img src="/AbsLogoWhite.png" alt="Abstract" style={{ height: '28px', width: 'auto', marginLeft: '-2px' }} />
                 </div>
-                <div className="abstract-xp-content" style={{ position: 'relative', zIndex: 1 }}>
-                  <div className="abstract-xp-avatar">
+                <img src="/images/hamiepfp.png" alt="Hamie" style={{ position: 'absolute', top: '12px', right: '12px', width: '37px', height: '37px', borderRadius: '50%', zIndex: 2 }} />
+                <div className="abstract-xp-content" style={{ position: 'relative', zIndex: 1, transform: 'scale(0.6) translateX(-35%) translateY(30%)', transformOrigin: 'center center' }}>
+                  <div className="abstract-xp-avatar" style={{ borderRadius: pfpShape === 'circle' ? '50%' : '8px' }}>
                     {xpProfileImage ? (
-                      <img src={xpProfileImage} alt="Profile" />
+                      <img src={xpProfileImage} alt="Profile" style={{ borderRadius: pfpShape === 'circle' ? '50%' : '8px' }} />
                     ) : (
-                      <div className="abstract-xp-avatar-placeholder" />
+                      <div className="abstract-xp-avatar-placeholder" style={{ borderRadius: pfpShape === 'circle' ? '50%' : '8px' }} />
                     )}
                   </div>
                   <div className="abstract-xp-info">

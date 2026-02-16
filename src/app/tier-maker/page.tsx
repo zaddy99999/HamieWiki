@@ -7,6 +7,7 @@ interface TierItem {
   id: string;
   name: string;
   image: string;
+  faction?: string;
 }
 
 interface Tier {
@@ -17,12 +18,12 @@ interface Tier {
 }
 
 const DEFAULT_TIERS: Tier[] = [
-  { id: 's', label: 'S', color: '#FF0000', items: [] },
-  { id: 'a', label: 'A', color: '#FF6600', items: [] },
-  { id: 'b', label: 'B', color: '#FFFF00', items: [] },
-  { id: 'c', label: 'C', color: '#00FF00', items: [] },
-  { id: 'd', label: 'D', color: '#0000FF', items: [] },
-  { id: 'f', label: 'F', color: '#FF00FF', items: [] },
+  { id: 's', label: 'S', color: '#8B5CF6', items: [] },
+  { id: 'a', label: 'A', color: '#A855F7', items: [] },
+  { id: 'b', label: 'B', color: '#3B82F6', items: [] },
+  { id: 'c', label: 'C', color: '#60A5FA', items: [] },
+  { id: 'd', label: 'D', color: '#1E40AF', items: [] },
+  { id: 'f', label: 'F', color: '#7C3AED', items: [] },
 ];
 
 export default function TierMaker() {
@@ -54,6 +55,7 @@ export default function TierMaker() {
       id: char.id,
       name: char.displayName,
       image: char.gifFile ? `/images/${char.gifFile}` : '/images/hamiepfp.png',
+      faction: char.faction,
     }));
     setUnrankedItems(items);
   }, []);
@@ -194,6 +196,7 @@ export default function TierMaker() {
       id: char.id,
       name: char.displayName,
       image: char.gifFile ? `/images/${char.gifFile}` : '/images/hamiepfp.png',
+      faction: char.faction,
     }));
     setUnrankedItems(items);
     showToast('RESET!');
@@ -207,9 +210,11 @@ export default function TierMaker() {
         </div>
       )}
 
-      <div className="brutal-tier-header">
-        <h1>TIER MAKER</h1>
-        <p>RANK THE HAMIEVERSE CHARACTERS</p>
+      <div className="brutal-tier-header-wrapper">
+        <div className="brutal-tier-header">
+          <h1>TIER MAKER</h1>
+          <p>RANK THE HAMIEVERSE CHARACTERS</p>
+        </div>
       </div>
 
       <div className="brutal-tier-container" ref={tierListRef}>
@@ -275,18 +280,45 @@ export default function TierMaker() {
         </div>
 
         <div className="brutal-unranked-items">
-          {unrankedItems.map((item) => (
-            <div
-              key={item.id}
-              className={`brutal-tier-item ${selectedItem?.id === item.id ? 'selected' : ''}`}
-              draggable={!isMobile}
-              onDragStart={() => handleDragStart(item, 'unranked')}
-              onClick={() => handleItemClick(item, 'unranked')}
-            >
-              <img src={item.image} alt={item.name} />
-              <span>{item.name}</span>
-            </div>
-          ))}
+          {(() => {
+            const factionGroups = ['Liberators', 'Aetherion', 'Respeculators', 'Other'];
+            const grouped: Record<string, TierItem[]> = {
+              'Liberators': [],
+              'Aetherion': [],
+              'Respeculators': [],
+              'Other': [],
+            };
+
+            unrankedItems.forEach(item => {
+              const faction = item.faction || '';
+              if (faction === 'Undercode') {
+                grouped['Liberators'].push(item);
+              } else if (faction === 'Aetherion Elite') {
+                grouped['Aetherion'].push(item);
+              } else if (faction === 'Respeculators') {
+                grouped['Respeculators'].push(item);
+              } else {
+                grouped['Other'].push(item);
+              }
+            });
+
+            return factionGroups.filter(g => grouped[g].length > 0).flatMap(group => [
+              ...(group === 'Other' ? [<div key="break" className="brutal-faction-break" />] : []),
+              <div key={`label-${group}`} className="brutal-faction-label">{group.toUpperCase()}</div>,
+              ...grouped[group].map((item) => (
+                <div
+                  key={item.id}
+                  className={`brutal-tier-item ${selectedItem?.id === item.id ? 'selected' : ''}`}
+                  draggable={!isMobile}
+                  onDragStart={() => handleDragStart(item, 'unranked')}
+                  onClick={() => handleItemClick(item, 'unranked')}
+                >
+                  <img src={item.image} alt={item.name} />
+                  <span>{item.name}</span>
+                </div>
+              ))
+            ]);
+          })()}
         </div>
       </div>
     </div>
