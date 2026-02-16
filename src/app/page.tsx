@@ -50,6 +50,11 @@ export default function WikiHome() {
 
   return (
     <div className="wiki-container">
+      {/* Comic Book Decorations */}
+      <div className="comic-decoration comic-home-1" aria-hidden="true">SAGA</div>
+      <div className="comic-decoration comic-home-2" aria-hidden="true">★</div>
+      <div className="comic-decoration comic-home-3" aria-hidden="true">ZAP!</div>
+
       {/* Hero Section */}
       <section className="wiki-hero">
         <div className="wiki-hero-bg" />

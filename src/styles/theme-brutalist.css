@@ -1240,6 +1240,68 @@
 .theme-brutalist .wiki-container,
 [data-theme="brutalist"] .wiki-container {
   background: var(--brutal-black);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Homepage comic decorations */
+[data-theme="brutalist"] .comic-home-1 {
+  position: absolute;
+  top: 400px;
+  left: 40px;
+  font-family: var(--font-brutal-display);
+  font-size: 100px;
+  color: rgba(255, 255, 255, 0.03);
+  transform: rotate(-12deg);
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+  letter-spacing: 0.15em;
+}
+
+[data-theme="brutalist"] .comic-home-2 {
+  position: absolute;
+  top: 250px;
+  right: 60px;
+  font-family: var(--font-brutal-display);
+  font-size: 200px;
+  color: rgba(237, 28, 36, 0.04);
+  transform: rotate(15deg);
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}
+
+[data-theme="brutalist"] .comic-home-3 {
+  position: absolute;
+  bottom: 300px;
+  right: 100px;
+  font-family: var(--font-brutal-display);
+  font-size: 64px;
+  color: rgba(255, 242, 0, 0.06);
+  transform: rotate(-8deg);
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}
+
+/* Speed lines on homepage hero */
+[data-theme="brutalist"] .wiki-hero::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    -60deg,
+    transparent,
+    transparent 20px,
+    rgba(255, 255, 255, 0.02) 20px,
+    rgba(255, 255, 255, 0.02) 22px
+  );
+  pointer-events: none;
+  z-index: 1;
 }
 
 .theme-brutalist .wiki-card,
@@ -1498,10 +1560,149 @@
   color: var(--brutal-black);
 }
 
+/* ==================== COMIC BOOK DECORATIVE ELEMENTS ==================== */
+/* Halftone dot pattern - reusable */
+[data-theme="brutalist"] .comic-dots {
+  background-image: radial-gradient(circle, #212121 1px, transparent 1px);
+  background-size: 8px 8px;
+}
+
+/* Action lines burst effect */
+[data-theme="brutalist"] .comic-burst::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200%;
+  height: 200%;
+  background: repeating-conic-gradient(
+    from 0deg,
+    transparent 0deg 10deg,
+    rgba(229, 57, 53, 0.1) 10deg 20deg
+  );
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
 /* ==================== BRUTALIST XP CARD PAGE ==================== */
 [data-theme="brutalist"] .xp-card-main {
   padding-top: 100px;
   background: #FAFAFA !important;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Comic halftone pattern overlay */
+[data-theme="brutalist"] .xp-card-main::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: radial-gradient(circle, rgba(229, 57, 53, 0.08) 1.5px, transparent 1.5px);
+  background-size: 12px 12px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Action lines in corners */
+[data-theme="brutalist"] .xp-card-main::after {
+  content: 'XP';
+  position: absolute;
+  top: 120px;
+  right: 40px;
+  font-family: var(--font-brutal-display);
+  font-size: 180px;
+  color: rgba(229, 57, 53, 0.06);
+  letter-spacing: -0.05em;
+  pointer-events: none;
+  z-index: 0;
+  transform: rotate(12deg);
+}
+
+/* Ensure content is above decorations */
+[data-theme="brutalist"] .xp-card-main > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Comic decoration elements */
+[data-theme="brutalist"] .comic-decoration {
+  position: absolute;
+  font-family: var(--font-brutal-display);
+  font-weight: 700;
+  pointer-events: none;
+  z-index: 0;
+  user-select: none;
+}
+
+[data-theme="brutalist"] .comic-deco-1 {
+  top: 150px;
+  left: 60px;
+  font-size: 48px;
+  color: rgba(229, 57, 53, 0.12);
+  transform: rotate(-15deg);
+  text-shadow: 3px 3px 0 rgba(33, 33, 33, 0.05);
+}
+
+[data-theme="brutalist"] .comic-deco-2 {
+  bottom: 100px;
+  right: 80px;
+  font-size: 72px;
+  color: rgba(33, 33, 33, 0.06);
+  transform: rotate(8deg);
+  letter-spacing: 0.1em;
+}
+
+[data-theme="brutalist"] .comic-deco-3 {
+  top: 300px;
+  right: 150px;
+  font-size: 120px;
+  color: rgba(229, 57, 53, 0.08);
+  transform: rotate(20deg);
+}
+
+/* Speed lines decoration - top right corner */
+[data-theme="brutalist"] .xp-card-main .xp-card-header::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  right: -100px;
+  width: 300px;
+  height: 200px;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 8px,
+    rgba(229, 57, 53, 0.04) 8px,
+    rgba(229, 57, 53, 0.04) 10px
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Burst effect behind header */
+[data-theme="brutalist"] .xp-card-header {
+  position: relative;
+}
+
+[data-theme="brutalist"] .xp-card-header::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(
+    circle,
+    rgba(229, 57, 53, 0.03) 0%,
+    transparent 70%
+  );
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: -1;
 }
 
 [data-theme="brutalist"] .xp-card-header {

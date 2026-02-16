@@ -466,6 +466,11 @@ export default function XPCardPage() {
         }
       `}</style>
       <main className="container xp-card-main">
+        {/* Comic Book Decorations */}
+        <div className="comic-decoration comic-deco-1" aria-hidden="true">POW!</div>
+        <div className="comic-decoration comic-deco-2" aria-hidden="true">HAMIE</div>
+        <div className="comic-decoration comic-deco-3" aria-hidden="true">★</div>
+
         {/* Page Header */}
         <div className="xp-card-header">
           <h1 className="xp-card-title">XP CARD GENERATOR</h1>
