@@ -3393,73 +3393,7 @@ body.sidebar-collapsed main.xp-card-main {
   }
 }
 
-/* Mobile adjustments */
-@media (max-width: 768px) {
-  /* Show collapsed sidebar on mobile - icons only, always visible */
-  .brutal-sidebar.mobile {
-    width: 56px;
-    transform: translateX(0);
-    background: #0a0a12 !important;
-    z-index: 99999 !important;
-  }
-
-  .brutal-sidebar.mobile .brutal-sidebar-brand {
-    padding: 8px;
-    min-height: 56px;
-    background: #0a0a12 !important;
-  }
-
-  .brutal-sidebar.mobile .brutal-sidebar-logo {
-    width: 36px;
-    height: 36px;
-  }
-
-  .brutal-sidebar.mobile .brutal-sidebar-link {
-    padding: 14px 8px;
-    background: #0a0a12 !important;
-  }
-
-  .brutal-sidebar.mobile .brutal-sidebar-icon {
-    width: 28px;
-    height: 28px;
-    font-size: 18px;
-  }
-
-  .brutal-sidebar.mobile .brutal-sidebar-nav {
-    background: #0a0a12 !important;
-  }
-
-  .brutal-sidebar.mobile .brutal-sidebar-random {
-    margin: 8px;
-    padding: 10px;
-    background: #0a0a12 !important;
-  }
-
-  .brutal-sidebar.mobile .brutal-sidebar-footer {
-    padding: 8px 4px;
-    gap: 4px;
-    background: #0a0a12 !important;
-  }
-
-  .brutal-sidebar.mobile .brutal-sidebar-footer a {
-    font-size: 9px;
-    padding: 4px 2px;
-  }
-
-  /* Content area adjusted for collapsed mobile sidebar */
-  [data-theme="brutalist"] .wiki-container,
-  [data-theme="brutalist"] .container {
-    margin-left: 56px;
-    padding-top: 16px;
-  }
-
-  [data-theme="brutalist"] main.xp-card-main,
-  [data-theme="brutalist"] .brutal-tier-maker,
-  [data-theme="brutalist"] .build-team-main {
-    margin-left: 56px;
-    padding-top: 16px;
-  }
-}
+/* Mobile - no sidebar margin (using hamburger menu now) */
 
 /* ==================== RESPONSIVE ADJUSTMENTS ==================== */
 @media (max-width: 768px) {
