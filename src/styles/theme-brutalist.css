@@ -124,8 +124,8 @@
   color: var(--brutal-white);
   font-weight: 700;
   letter-spacing: 0.01em;
-  /* Comic board background */
-  background-image: url('/HamieComicBoard.png');
+  /* Desktop background */
+  background-image: url('/DesktopBG.png?v=3');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -136,7 +136,7 @@
 @media (max-width: 768px) {
   .theme-brutalist body,
   [data-theme="brutalist"] body {
-    background-image: url('/NewBackground.png?v=2') !important;
+    background-image: url('/MobileBG.png?v=3') !important;
     background-size: cover !important;
     background-position: center top !important;
     background-attachment: scroll !important;
