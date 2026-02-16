@@ -12,11 +12,8 @@ import './globals.css';
  * 2. Using CSS-in-JS with dynamic imports (but loses SSR benefits)
  * 3. Keeping only 2-3 most popular themes pre-loaded
  */
-import '@/styles/theme-cyberpunk.css';
-import '@/styles/theme-matrix.css';
 import '@/styles/theme-brutalist.css';
 import '@/styles/theme-arcade.css';
-import '@/styles/theme-volcanic.css';
 import '@/styles/premium-polish.css';
 import HelpChat from '@/components/HelpChat';
 import ThemeSwitcher from '@/components/ThemeSwitcher';
