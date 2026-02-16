@@ -132,6 +132,17 @@
   background-repeat: no-repeat;
 }
 
+/* Mobile background */
+@media (max-width: 768px) {
+  .theme-brutalist body,
+  [data-theme="brutalist"] body {
+    background-image: url('/mobilehamiebackground.png');
+    background-size: cover;
+    background-position: center top;
+    background-attachment: scroll;
+  }
+}
+
 /* Hide non-brutalist effects */
 [data-theme="brutalist"] .wiki-scanlines,
 [data-theme="brutalist"] .wiki-orb,
