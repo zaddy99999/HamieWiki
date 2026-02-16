@@ -136,10 +136,10 @@
 @media (max-width: 768px) {
   .theme-brutalist body,
   [data-theme="brutalist"] body {
-    background-image: url('/mobilehamiebackground.png');
-    background-size: cover;
-    background-position: center top;
-    background-attachment: scroll;
+    background-image: url('/mobilehamiebackground.png') !important;
+    background-size: cover !important;
+    background-position: center top !important;
+    background-attachment: scroll !important;
   }
 }
 
