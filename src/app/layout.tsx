@@ -19,6 +19,7 @@ import BackToTop from '@/components/BackToTop';
 import EasterEggs from '@/components/EasterEggs';
 import Sidebar from '@/components/Sidebar';
 import PaletteSelector from '@/components/PaletteSelector';
+import ComicBackground from '@/components/ComicBackground';
 
 export const metadata: Metadata = {
   title: 'Hamieverse Wiki',
@@ -140,6 +141,8 @@ export default function RootLayout({
         {/* Scan Lines Overlay */}
         <div className="wiki-scanlines" />
 
+        {/* Comic Book Background */}
+        <ComicBackground />
 
         {/* Sidebar Navigation */}
         <Sidebar />

@@ -1560,6 +1560,15 @@
   color: var(--brutal-black);
 }
 
+/* ==================== COMIC BACKGROUND SCATTERED PAGES ==================== */
+[data-theme="brutalist"] .comic-background-container {
+  opacity: 1;
+}
+
+[data-theme="brutalist"] .comic-background-container img {
+  filter: contrast(1.1) saturate(0.85);
+}
+
 /* ==================== COMIC BOOK DECORATIVE ELEMENTS ==================== */
 /* Halftone dot pattern - reusable */
 [data-theme="brutalist"] .comic-dots {
