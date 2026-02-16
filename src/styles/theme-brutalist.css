@@ -136,7 +136,7 @@
 @media (max-width: 768px) {
   .theme-brutalist body,
   [data-theme="brutalist"] body {
-    background-image: url('/mobilehamiebackground.png') !important;
+    background-image: url('/NewBackground.png?v=2') !important;
     background-size: cover !important;
     background-position: center top !important;
     background-attachment: scroll !important;
