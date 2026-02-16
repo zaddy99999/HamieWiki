@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import WikiNavbar from '@/components/WikiNavbar';
 import {
   getCharacter,
   getCharacterRelationships,
@@ -75,7 +74,6 @@ export default function CharacterPage() {
   if (!character) {
     return (
       <div className="wiki-container">
-        <WikiNavbar currentPage="home" />
         <div className="wiki-not-found">
           <h1>Character Not Found</h1>
           <p>The character "{characterId}" doesn't exist in the Hamieverse.</p>
@@ -111,8 +109,6 @@ export default function CharacterPage() {
 
   return (
     <div className="wiki-container">
-      <WikiNavbar currentPage="home" />
-
       {/* Article Content */}
       <article className="wiki-article" id="main-content" role="main">
         {/* Breadcrumb */}
@@ -120,7 +116,6 @@ export default function CharacterPage() {
           <Breadcrumb items={breadcrumbItems} />
           <div className="wiki-article-title-row">
             <h1 className="wiki-article-title">{character.displayName}</h1>
-            <FavoriteButton characterId={characterId} size="lg" showLabel />
           </div>
           {character.symbolicRole && (
             <p className="wiki-article-subtitle">{character.symbolicRole}</p>
@@ -386,8 +381,8 @@ export default function CharacterPage() {
                 <Link href="/compare" className="wiki-see-also-link">
                   Compare Characters
                 </Link>
-                <Link href="/timeline" className="wiki-see-also-link">
-                  Story Timeline
+                <Link href="/quotes" className="wiki-see-also-link">
+                  Quotes
                 </Link>
                 <Link href="/" className="wiki-see-also-link">
                   Main Page
@@ -398,12 +393,19 @@ export default function CharacterPage() {
 
           {/* Infobox Sidebar */}
           <aside className="wiki-infobox" style={{ '--char-color': character.color } as React.CSSProperties}>
-            <div className="wiki-infobox-header">{character.displayName}</div>
-
-            <button className="share-card-btn" onClick={() => setShowShareModal(true)}>
-              <span>📤</span>
-              <span>Share Character</span>
-            </button>
+            <div className="wiki-infobox-header">
+              <span className="wiki-infobox-name">{character.displayName}</span>
+              <div className="wiki-infobox-actions">
+                <FavoriteButton characterId={characterId} size="sm" />
+                <button
+                  className="wiki-infobox-share-btn"
+                  onClick={() => setShowShareModal(true)}
+                  title="Share character"
+                >
+                  📤
+                </button>
+              </div>
+            </div>
 
             {character.gifFile && (
               <div className="wiki-infobox-image">
@@ -498,15 +500,6 @@ export default function CharacterPage() {
           </div>
         </div>
       </footer>
-
-      {/* Back to Top Button */}
-      <button
-        className={`wiki-back-to-top ${showBackToTop ? 'visible' : ''}`}
-        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        aria-label="Back to top"
-      >
-        <ArrowUpIcon size={20} />
-      </button>
 
       {/* Share Modal */}
       {showShareModal && (

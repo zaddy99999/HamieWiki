@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
-import WikiNavbar from '@/components/WikiNavbar';
 
 interface FanArtItem {
   id: string;
@@ -242,8 +241,6 @@ export default function FanArtVotingPage() {
 
   return (
     <div className="wiki-container">
-      <WikiNavbar currentPage="fanart" />
-
       <main className="fanart-main">
         <header className="fanart-header">
           <h1>Fan Art Voting</h1>

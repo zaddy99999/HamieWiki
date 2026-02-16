@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import WikiNavbar from '@/components/WikiNavbar';
 import { ChatIcon, CrystalIcon, PersonIcon, BookIcon, PaletteIcon, ArrowRightIcon } from '@/components/Icons';
 
 interface Reply {
@@ -181,8 +180,6 @@ export default function ForumPage() {
 
   return (
     <div className="wiki-container">
-      <WikiNavbar currentPage="forum" />
-
       {/* Name Prompt Modal */}
       {showNamePrompt && (
         <div className="forum-modal-overlay" onClick={() => setShowNamePrompt(false)}>

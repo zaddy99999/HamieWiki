@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import WikiNavbar from '@/components/WikiNavbar';
 import Breadcrumb from '@/components/Breadcrumb';
 
 interface Theory {
@@ -215,7 +214,6 @@ export default function TheoriesPage() {
   if (isLoading) {
     return (
       <div className="wiki-container">
-        <WikiNavbar currentPage="theories" />
         <div className="theories-loading" role="alert" aria-busy="true">
           <div className="quiz-spinner" aria-hidden="true"></div>
           <p>Loading theories...</p>
@@ -226,8 +224,6 @@ export default function TheoriesPage() {
 
   return (
     <div className="wiki-container">
-      <WikiNavbar currentPage="theories" />
-
       <header className="theories-header">
         <Breadcrumb items={breadcrumbItems} />
         <h1>Fan Theories</h1>

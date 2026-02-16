@@ -141,7 +141,7 @@ export default function WikiNavbar({ currentPage }: WikiNavbarProps) {
     if (result.type === 'character') {
       router.push(`/character/${result.id}`);
     } else if (result.type === 'faction') {
-      router.push('/factions');
+      router.push('/');
     } else if (result.type === 'glossary') {
       router.push('/#glossary');
     }
@@ -154,8 +154,6 @@ export default function WikiNavbar({ currentPage }: WikiNavbarProps) {
 
   const navLinks = [
     { href: '/', label: 'Home', id: 'home' },
-    { href: '/factions', label: 'Factions', id: 'factions' },
-    { href: '/timeline', label: 'Timeline', id: 'timeline' },
     { href: '/xp-card', label: 'XP Card', id: 'xp-card' },
   ];
 

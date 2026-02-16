@@ -8,6 +8,7 @@ import { ArrowRightIcon } from './Icons';
 
 export default function CharacterOfTheDay() {
   const [character, setCharacter] = useState<ReturnType<typeof getAllCharacters>[0] | null>(null);
+  const [dateString, setDateString] = useState<string>('');
   const allCharacters = getAllCharacters();
   // Only use characters that have a GIF/image
   const characters = allCharacters.filter(c => c.gifFile);
@@ -21,6 +22,11 @@ export default function CharacterOfTheDay() {
     );
     const index = dayOfYear % characters.length;
     setCharacter(characters[index]);
+    setDateString(today.toLocaleDateString('en-US', {
+      weekday: 'long',
+      month: 'short',
+      day: 'numeric'
+    }));
   }, []);
 
   if (!character) return null;
@@ -29,11 +35,7 @@ export default function CharacterOfTheDay() {
     <div className="cotd-container">
       <div className="cotd-header">
         <span className="cotd-badge">Character of the Day</span>
-        <span className="cotd-date">{new Date().toLocaleDateString('en-US', {
-          weekday: 'long',
-          month: 'short',
-          day: 'numeric'
-        })}</span>
+        <span className="cotd-date">{dateString}</span>
       </div>
 
       <Link href={`/character/${character.id}`} className="cotd-card">

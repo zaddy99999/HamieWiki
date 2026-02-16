@@ -15,10 +15,10 @@ import './globals.css';
 import '@/styles/theme-brutalist.css';
 import '@/styles/theme-arcade.css';
 import '@/styles/premium-polish.css';
-import HelpChat from '@/components/HelpChat';
-import ThemeSwitcher from '@/components/ThemeSwitcher';
 import BackToTop from '@/components/BackToTop';
 import EasterEggs from '@/components/EasterEggs';
+import Sidebar from '@/components/Sidebar';
+import PaletteSelector from '@/components/PaletteSelector';
 
 export const metadata: Metadata = {
   title: 'Hamieverse Wiki',
@@ -35,7 +35,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" data-theme="brutalist">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -141,16 +141,16 @@ export default function RootLayout({
         <div className="wiki-scanlines" />
 
 
+        {/* Sidebar Navigation */}
+        <Sidebar />
+
         {children}
-
-        {/* Help Chat */}
-        <HelpChat />
-
-        {/* Theme Switcher */}
-        <ThemeSwitcher />
 
         {/* Back to Top Button */}
         <BackToTop />
+
+        {/* Color Palette Selector */}
+        <PaletteSelector />
 
         {/* Easter Eggs */}
         <EasterEggs />

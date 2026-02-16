@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
-import WikiNavbar from '@/components/WikiNavbar';
 import Breadcrumb from '@/components/Breadcrumb';
 import { Skeleton } from '@/components/SkeletonLoader';
 import { CheckIcon } from '@/components/Icons';
@@ -110,8 +109,6 @@ export default function GalleryPage() {
 
   return (
     <div className="wiki-container">
-      <WikiNavbar currentPage="gallery" />
-
       <main className="gallery-main" id="main-content" role="main">
         <header className="gallery-header">
           <Breadcrumb items={breadcrumbItems} />

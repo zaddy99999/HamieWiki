@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import WikiNavbar from '@/components/WikiNavbar';
 import Breadcrumb from '@/components/Breadcrumb';
 import { getAllLocations } from '@/lib/hamieverse/locations';
 
@@ -25,8 +24,6 @@ export default function LocationsPage() {
 
   return (
     <div className="wiki-container">
-      <WikiNavbar currentPage="locations" />
-
       {/* Header */}
       <header className="locations-header">
         <div className="locations-header-content">

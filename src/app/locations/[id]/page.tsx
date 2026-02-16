@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter, useParams } from 'next/navigation';
-import WikiNavbar from '@/components/WikiNavbar';
 import { getLocation, getAllLocations, getLocationConnections } from '@/lib/hamieverse/locations';
 import { getAllCharacters } from '@/lib/hamieverse/characters';
 
@@ -36,7 +35,6 @@ export default function LocationPage() {
   if (!location) {
     return (
       <div className="wiki-container">
-        <WikiNavbar currentPage="locations" />
         <main className="location-detail-error">
           <h1>Location Not Found</h1>
           <p>The location you are looking for does not exist in the Hamieverse.</p>
@@ -48,8 +46,6 @@ export default function LocationPage() {
 
   return (
     <div className="wiki-container">
-      <WikiNavbar currentPage="locations" />
-
       {/* Breadcrumb */}
       <div className="location-breadcrumb">
         <Link href="/">Home</Link>

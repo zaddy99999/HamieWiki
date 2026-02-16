@@ -1,61 +1,25 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { getAllCharacters, getFactions, getGlossary, getLogline, getThemes } from '@/lib/hamieverse/characters';
-import { SearchIcon, DiceIcon, PersonIcon, SwordIcon, BookIcon, ArrowUpIcon } from '@/components/Icons';
+import { getAllCharacters, getGlossary, getLogline, getThemes } from '@/lib/hamieverse/characters';
+import { ArrowUpIcon } from '@/components/Icons';
 import TriviaCard from '@/components/TriviaCard';
 import LoreLinks from '@/components/LoreLinks';
 import RelationshipWeb from '@/components/RelationshipWeb';
 import CharacterOfTheDay from '@/components/CharacterOfTheDay';
 import MiniQuiz from '@/components/MiniQuiz';
 
-interface SearchResult {
-  type: 'character' | 'faction' | 'glossary';
-  id: string;
-  name: string;
-  subtitle?: string;
-}
-
 export default function WikiHome() {
   const router = useRouter();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
-  const [showSearchResults, setShowSearchResults] = useState(false);
-  const searchRef = useRef<HTMLDivElement>(null);
-  const searchInputRef = useRef<HTMLInputElement>(null);
 
   const characters = getAllCharacters();
-  const factions = getFactions();
   const glossary = getGlossary();
   const logline = getLogline();
   const themes = getThemes();
-
-  // Build search index
-  const allSearchItems: SearchResult[] = [
-    ...characters.map(c => ({
-      type: 'character' as const,
-      id: c.id,
-      name: c.displayName,
-      subtitle: c.roles[0]?.replace(/_/g, ' ') || c.species || '',
-    })),
-    ...Object.keys(factions).map(key => ({
-      type: 'faction' as const,
-      id: key,
-      name: key.charAt(0).toUpperCase() + key.slice(1).replace(/_/g, ' '),
-      subtitle: factions[key].type || 'Faction',
-    })),
-    ...Object.keys(glossary).map(term => ({
-      type: 'glossary' as const,
-      id: term,
-      name: term,
-      subtitle: glossary[term].slice(0, 50) + (glossary[term].length > 50 ? '...' : ''),
-    })),
-  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -64,43 +28,6 @@ export default function WikiHome() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  // Close search results when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
-        setShowSearchResults(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
-
-  // Filter search results
-  useEffect(() => {
-    if (searchQuery.trim().length < 2) {
-      setSearchResults([]);
-      return;
-    }
-    const query = searchQuery.toLowerCase();
-    const filtered = allSearchItems.filter(item =>
-      item.name.toLowerCase().includes(query) ||
-      item.subtitle?.toLowerCase().includes(query)
-    ).slice(0, 8);
-    setSearchResults(filtered);
-  }, [searchQuery]);
-
-  const handleSearchSelect = (result: SearchResult) => {
-    setSearchQuery('');
-    setShowSearchResults(false);
-    if (result.type === 'character') {
-      router.push(`/character/${result.id}`);
-    } else if (result.type === 'faction') {
-      document.getElementById('factions')?.scrollIntoView({ behavior: 'smooth' });
-    } else if (result.type === 'glossary') {
-      document.getElementById('glossary')?.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -119,91 +46,10 @@ export default function WikiHome() {
     !['hamie', 'sam', 'lira', 'silas', 'ace', 'hikari', 'kael', 'orrien', 'simba_digital_identity', 'homeless_man_under_overpass', 'dog_simba', '479c', 'veynar_mother'].includes(c.id.toLowerCase())
   );
 
-  const factionCount = Object.keys(factions).length;
   const glossaryCount = Object.keys(glossary).length;
 
   return (
     <div className="wiki-container">
-      {/* Top Navigation Bar */}
-      <nav className="wiki-topbar">
-        <div className="wiki-topbar-inner">
-          <Link href="/" className="wiki-topbar-brand">
-            <Image src="/images/hamiepfp.png" alt="Hamie" width={32} height={32} className="wiki-topbar-logo" />
-            <span className="wiki-topbar-title">Hamieverse</span>
-          </Link>
-
-          <div className="wiki-topbar-nav">
-            <a href="#characters" className="wiki-topbar-link active">Characters</a>
-            <Link href="/factions" className="wiki-topbar-link">Factions</Link>
-            <Link href="/timeline" className="wiki-topbar-link">Timeline</Link>
-          </div>
-
-          <div className="wiki-search-box" ref={searchRef}>
-            <span className="wiki-search-icon"><SearchIcon size={16} /></span>
-            <input
-              ref={searchInputRef}
-              type="text"
-              className="wiki-search-input"
-              placeholder="Search... (press /)"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              onFocus={() => setShowSearchResults(true)}
-            />
-            {showSearchResults && searchResults.length > 0 && (
-              <div className="wiki-search-dropdown">
-                {searchResults.map((result, i) => (
-                  <button
-                    key={`${result.type}-${result.id}-${i}`}
-                    className="wiki-search-result"
-                    onClick={() => handleSearchSelect(result)}
-                  >
-                    <span className={`wiki-search-type wiki-search-type-${result.type}`}>
-                      {result.type === 'character' ? <PersonIcon size={14} /> : result.type === 'faction' ? <SwordIcon size={14} /> : <BookIcon size={14} />}
-                    </span>
-                    <div className="wiki-search-result-text">
-                      <span className="wiki-search-result-name">{result.name}</span>
-                      {result.subtitle && (
-                        <span className="wiki-search-result-subtitle">{result.subtitle}</span>
-                      )}
-                    </div>
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-
-          <button className="wiki-random-btn" onClick={goToRandomCharacter}>
-            <span><DiceIcon size={16} /></span>
-            <span>Random</span>
-          </button>
-
-          {/* Mobile Menu Button */}
-          <button
-            className="wiki-mobile-menu-btn"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            <span className={`wiki-hamburger ${mobileMenuOpen ? 'open' : ''}`}>
-              <span></span>
-              <span></span>
-              <span></span>
-            </span>
-          </button>
-        </div>
-      </nav>
-
-      {/* Mobile Menu Overlay */}
-      <div className={`wiki-mobile-menu ${mobileMenuOpen ? 'open' : ''}`}>
-        <div className="wiki-mobile-menu-content">
-          <a href="#characters" className="wiki-mobile-link" onClick={() => setMobileMenuOpen(false)}>Characters</a>
-          <a href="#factions" className="wiki-mobile-link" onClick={() => setMobileMenuOpen(false)}>Factions</a>
-          <Link href="/timeline" className="wiki-mobile-link" onClick={() => setMobileMenuOpen(false)}>Timeline</Link>
-          <button className="wiki-mobile-random" onClick={() => { goToRandomCharacter(); setMobileMenuOpen(false); }}>
-            Random Character
-          </button>
-        </div>
-      </div>
-
       {/* Hero Section */}
       <section className="wiki-hero">
         <div className="wiki-hero-bg" />
@@ -216,10 +62,6 @@ export default function WikiHome() {
               <div className="wiki-stat">
                 <div className="wiki-stat-value">{characters.length}</div>
                 <div className="wiki-stat-label">Characters</div>
-              </div>
-              <div className="wiki-stat">
-                <div className="wiki-stat-value">{factionCount}</div>
-                <div className="wiki-stat-label">Factions</div>
               </div>
               <div className="wiki-stat">
                 <div className="wiki-stat-value">{glossaryCount}</div>
@@ -331,36 +173,6 @@ export default function WikiHome() {
           </div>
         </section>
 
-        {/* Factions */}
-        <section id="factions" className="wiki-section">
-          <div className="wiki-section-header">
-            <h2 className="wiki-section-title">
-              Factions & Organizations
-              <span className="wiki-section-count">({factionCount})</span>
-            </h2>
-          </div>
-          <div className="wiki-faction-grid">
-            {Object.entries(factions).map(([key, faction]) => (
-              <div key={key} className="wiki-faction-card">
-                <div className="wiki-faction-header">
-                  <h3 className="wiki-faction-name">
-                    {key.charAt(0).toUpperCase() + key.slice(1).replace(/_/g, ' ')}
-                  </h3>
-                  <span className="wiki-faction-type">{faction.type?.replace(/_/g, ' ')}</span>
-                </div>
-                {faction.notes && <p className="wiki-faction-desc">{faction.notes}</p>}
-                {faction.goals && (
-                  <div className="wiki-faction-goals">
-                    {faction.goals.slice(0, 3).map((goal, i) => (
-                      <span key={i} className="wiki-goal-chip">{goal.replace(/_/g, ' ')}</span>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </section>
-
         {/* Glossary */}
         <section id="glossary" className="wiki-section">
           <div className="wiki-section-header">
@@ -412,15 +224,6 @@ export default function WikiHome() {
           </div>
         </div>
       </footer>
-
-      {/* Back to Top Button */}
-      <button
-        className={`wiki-back-to-top ${showBackToTop ? 'visible' : ''}`}
-        onClick={scrollToTop}
-        aria-label="Back to top"
-      >
-        <ArrowUpIcon size={20} />
-      </button>
 
     </div>
   );

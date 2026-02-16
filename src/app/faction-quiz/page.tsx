@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import WikiNavbar from '@/components/WikiNavbar';
 import { getAllCharacters, getFactions } from '@/lib/hamieverse/characters';
 import { factionColors, factionIcons, getFactionColor, getFactionIcon } from '@/lib/hamieverse/colors';
 
@@ -327,8 +326,6 @@ export default function FactionQuizPage() {
   if (showPreviousResult && previousResult && !quizComplete) {
     return (
       <div className="wiki-container">
-        <WikiNavbar currentPage="quiz" />
-
         <main className="faction-quiz-main">
           <div className="faction-quiz-previous">
             <div className="faction-quiz-previous-icon" style={{ color: previousResult.color }}>
@@ -342,8 +339,8 @@ export default function FactionQuizPage() {
               <button onClick={restartQuiz} className="quiz-btn primary">
                 Retake Quiz
               </button>
-              <Link href="/quiz" className="quiz-btn">
-                Try Trivia Quiz
+              <Link href="/" className="quiz-btn">
+                Back to Home
               </Link>
             </div>
           </div>
@@ -356,8 +353,6 @@ export default function FactionQuizPage() {
   if (quizComplete && result) {
     return (
       <div className="wiki-container">
-        <WikiNavbar currentPage="quiz" />
-
         <main className="faction-quiz-main">
           <div className="faction-quiz-result">
             <div className="faction-quiz-result-header">
@@ -429,11 +424,11 @@ export default function FactionQuizPage() {
               <button onClick={restartQuiz} className="quiz-btn primary">
                 Take Again
               </button>
-              <Link href="/factions" className="quiz-btn">
-                Explore Factions
+              <Link href="/" className="quiz-btn">
+                Back to Home
               </Link>
-              <Link href="/quiz" className="quiz-btn">
-                Try Trivia Quiz
+              <Link href="/" className="quiz-btn">
+                Back to Home
               </Link>
             </div>
           </div>
@@ -445,8 +440,6 @@ export default function FactionQuizPage() {
   // Quiz in progress
   return (
     <div className="wiki-container">
-      <WikiNavbar currentPage="quiz" />
-
       <main className="faction-quiz-main">
         <div className="quiz-progress-bar">
           <div

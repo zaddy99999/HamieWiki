@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import WikiNavbar from '@/components/WikiNavbar';
 import Breadcrumb from '@/components/Breadcrumb';
 import BadgeNotification from '@/components/BadgeNotification';
 import { useBadges, BADGE_DEFINITIONS } from '@/hooks/useBadges';
@@ -71,7 +70,6 @@ export default function BadgesPage() {
   if (!isLoaded) {
     return (
       <div className="wiki-container">
-        <WikiNavbar currentPage="badges" />
         <div className="badges-loading">
           <div className="badges-spinner"></div>
           <p>Loading badges...</p>
@@ -87,7 +85,6 @@ export default function BadgesPage() {
 
   return (
     <div className="wiki-container">
-      <WikiNavbar currentPage="badges" />
       <BadgeNotification badge={newBadge} onClose={clearNewBadge} />
 
       <main className="badges-main" id="main-content" role="main">
@@ -237,9 +234,6 @@ export default function BadgesPage() {
 
         {/* Navigation Links */}
         <div className="badges-nav-links">
-          <Link href="/quiz" className="badges-nav-link">
-            Take the Quiz
-          </Link>
           <Link href="/faction-quiz" className="badges-nav-link">
             Faction Quiz
           </Link>
@@ -279,14 +273,6 @@ export default function BadgesPage() {
         </div>
       </footer>
 
-      {/* Back to Top Button */}
-      <button
-        className={`wiki-back-to-top ${showBackToTop ? 'visible' : ''}`}
-        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        aria-label="Back to top"
-      >
-        <span>^</span>
-      </button>
     </div>
   );
 }

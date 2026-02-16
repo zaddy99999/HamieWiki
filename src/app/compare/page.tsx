@@ -102,20 +102,6 @@ export default function ComparePage() {
 
   return (
     <div className="wiki-container">
-      <nav className="wiki-topbar">
-        <div className="wiki-topbar-inner">
-          <Link href="/" className="wiki-topbar-brand">
-            <img src="/images/hamiepfp.png" alt="Hamie" className="wiki-topbar-logo" />
-            <span className="wiki-topbar-title">Hamieverse</span>
-          </Link>
-          <div className="wiki-topbar-nav">
-            <Link href="/" className="wiki-topbar-link">Home</Link>
-            <Link href="/timeline" className="wiki-topbar-link">Timeline</Link>
-            <Link href="/compare" className="wiki-topbar-link active">Compare</Link>
-          </div>
-        </div>
-      </nav>
-
       <main className="compare-main">
         <header className="compare-page-header">
           <h1>Compare Characters</h1>

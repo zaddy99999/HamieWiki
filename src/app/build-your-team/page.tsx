@@ -1,0 +1,470 @@
+'use client';
+
+import { useState, useEffect, useRef, useMemo } from 'react';
+import html2canvas from 'html2canvas';
+import { getAllCharacters } from '@/lib/hamieverse/characters';
+
+interface Character {
+  id: string;
+  displayName: string;
+  gifFile?: string;
+  color?: string;
+  roles: string[];
+}
+
+interface Tier {
+  id: string;
+  price: number;
+  slots: (Character | null)[];
+}
+
+const getAvatar = (character: Character) =>
+  character.gifFile ? `/images/${character.gifFile}` : null;
+
+const handleAvatarError = (e: React.SyntheticEvent<HTMLImageElement>, name: string) => {
+  const target = e.target as HTMLImageElement;
+  const letter = (name || '?')[0].toUpperCase();
+  const canvas = document.createElement('canvas');
+  canvas.width = 100;
+  canvas.height = 100;
+  const ctx = canvas.getContext('2d');
+  if (ctx) {
+    ctx.fillStyle = '#E53935';
+    ctx.fillRect(0, 0, 100, 100);
+    ctx.fillStyle = '#fff';
+    ctx.font = 'bold 40px Arial';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(letter, 50, 50);
+    target.src = canvas.toDataURL('image/png');
+  }
+};
+
+type Mode = 'pick' | 'create';
+
+interface Template {
+  id: string;
+  name: string;
+  title: string;
+  description: string;
+  filter?: (c: Character) => boolean;
+}
+
+const TEMPLATES: Template[] = [
+  { id: 'all', name: 'All Characters', title: 'Build Your Team', description: 'Everyone' },
+  { id: 'undercode', name: 'Undercode', title: 'Undercode Crew', description: 'Hackers & rebels', filter: (c) => c.roles?.some(r => r.toLowerCase().includes('hacker') || r.toLowerCase().includes('rebel') || r.toLowerCase().includes('undercode')) },
+  { id: 'elite', name: 'Aetherion Elite', title: 'Elite Forces', description: 'Power players', filter: (c) => c.roles?.some(r => r.toLowerCase().includes('elite') || r.toLowerCase().includes('leader') || r.toLowerCase().includes('power')) },
+  { id: 'city', name: 'The City', title: 'City Dwellers', description: 'Urban survivors', filter: (c) => c.roles?.some(r => r.toLowerCase().includes('worker') || r.toLowerCase().includes('citizen') || r.toLowerCase().includes('drone')) },
+  { id: 'villains', name: 'Antagonists', title: 'Villain Team', description: 'The bad guys', filter: (c) => c.roles?.some(r => r.toLowerCase().includes('villain') || r.toLowerCase().includes('antagonist') || r.toLowerCase().includes('manipulator')) },
+  { id: 'heroes', name: 'Protagonists', title: 'Hero Squad', description: 'The good guys', filter: (c) => c.roles?.some(r => r.toLowerCase().includes('protagonist') || r.toLowerCase().includes('hero') || r.toLowerCase().includes('ally')) },
+];
+
+export default function BuildYourTeam() {
+  const [mode, setMode] = useState<Mode>('pick');
+  const [allCharacters, setAllCharacters] = useState<Character[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [title, setTitle] = useState('Build Your Hamieverse Team');
+  const [budget, setBudget] = useState(15);
+  const [activeTemplate, setActiveTemplate] = useState('classic');
+  const [tiers, setTiers] = useState<Tier[]>([
+    { id: '5', price: 5, slots: [null, null, null, null, null] },
+    { id: '4', price: 4, slots: [null, null, null, null, null] },
+    { id: '3', price: 3, slots: [null, null, null, null, null] },
+    { id: '2', price: 2, slots: [null, null, null, null, null] },
+    { id: '1', price: 1, slots: [null, null, null, null, null] },
+  ]);
+  const [selectedPicks, setSelectedPicks] = useState<Record<string, Character | null>>({});
+  const [copyStatus, setCopyStatus] = useState<'idle' | 'copying' | 'copied' | 'error'>('idle');
+  const [isSpinning, setIsSpinning] = useState(false);
+  const [draggedCharacter, setDraggedCharacter] = useState<{ character: Character; fromTierId?: string; fromSlotIndex?: number } | null>(null);
+  const [dragOverSlot, setDragOverSlot] = useState<{ tierId: string; slotIndex: number } | null>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const characters = getAllCharacters().filter(c => c.gifFile);
+    setAllCharacters(characters);
+    distributePeople(characters);
+    setLoading(false);
+  }, []);
+
+  const distributePeople = (characters: Character[]) => {
+    const shuffled = [...characters].sort(() => Math.random() - 0.5);
+
+    const makeSlots = (arr: Character[]): (Character | null)[] => {
+      const slots: (Character | null)[] = [null, null, null, null, null];
+      arr.slice(0, 5).forEach((c, i) => { slots[i] = c; });
+      return slots;
+    };
+
+    setTiers([
+      { id: '5', price: 5, slots: makeSlots(shuffled.slice(0, 5)) },
+      { id: '4', price: 4, slots: makeSlots(shuffled.slice(5, 10)) },
+      { id: '3', price: 3, slots: makeSlots(shuffled.slice(10, 15)) },
+      { id: '2', price: 2, slots: makeSlots(shuffled.slice(15, 20)) },
+      { id: '1', price: 1, slots: makeSlots(shuffled.slice(20, 25)) },
+    ]);
+    setSelectedPicks({});
+  };
+
+  const charactersInTiers = useMemo(() => {
+    const ids = new Set<string>();
+    tiers.forEach(tier => tier.slots.forEach(c => { if (c) ids.add(c.id); }));
+    return ids;
+  }, [tiers]);
+
+  const poolCharacters = useMemo(() => {
+    return allCharacters.filter(c => !charactersInTiers.has(c.id));
+  }, [allCharacters, charactersInTiers]);
+
+  const totalSpent = Object.entries(selectedPicks)
+    .filter(([, character]) => character !== null)
+    .reduce((sum, [tierId]) => {
+      const tier = tiers.find(t => t.id === tierId);
+      return sum + (tier?.price || 0);
+    }, 0);
+
+  const handleSelect = (tierId: string, character: Character) => {
+    setSelectedPicks(prev => ({
+      ...prev,
+      [tierId]: prev[tierId]?.id === character.id ? null : character,
+    }));
+  };
+
+  const handleRandomize = () => {
+    setIsSpinning(true);
+    setTimeout(() => {
+      distributePeople(allCharacters);
+      setIsSpinning(false);
+    }, 500);
+  };
+
+  const applyTemplate = (template: Template) => {
+    setActiveTemplate(template.id);
+    setTitle(template.title);
+
+    // Filter characters based on template
+    const filtered = template.filter
+      ? allCharacters.filter(template.filter)
+      : allCharacters;
+
+    // Shuffle the filtered characters
+    const shuffled = [...filtered].sort(() => Math.random() - 0.5);
+
+    // Create 5 tiers with the filtered characters
+    const tierPrices = [5, 4, 3, 2, 1];
+    const slotsPerTier = 5;
+
+    const newTiers: Tier[] = tierPrices.map((price, tierIndex) => {
+      const slots: (Character | null)[] = Array(slotsPerTier).fill(null);
+      for (let j = 0; j < slotsPerTier; j++) {
+        const charIndex = tierIndex * slotsPerTier + j;
+        if (charIndex < shuffled.length) {
+          slots[j] = shuffled[charIndex];
+        }
+      }
+      return { id: `${price}`, price, slots };
+    });
+
+    setTiers(newTiers);
+    setSelectedPicks({});
+  };
+
+  const handleAddTier = () => {
+    const newPrice = Math.max(...tiers.map(t => t.price), 0) + 1;
+    const newId = `tier-${Date.now()}`;
+    setTiers(prev => [{ id: newId, price: newPrice, slots: [null, null, null, null, null] }, ...prev]);
+  };
+
+  const handleDeleteTier = (tierId: string) => {
+    if (tiers.length <= 1) return;
+    setTiers(prev => prev.filter(t => t.id !== tierId));
+    setSelectedPicks(prev => {
+      const next = { ...prev };
+      delete next[tierId];
+      return next;
+    });
+  };
+
+  const handleChangeTierPrice = (tierId: string, newPrice: number) => {
+    setTiers(prev => prev.map(t => t.id === tierId ? { ...t, price: Math.max(1, newPrice) } : t));
+  };
+
+  const handleRemoveFromSlot = (tierId: string, slotIndex: number) => {
+    setTiers(prev => prev.map(t => {
+      if (t.id !== tierId) return t;
+      const newSlots = [...t.slots];
+      const character = newSlots[slotIndex];
+      newSlots[slotIndex] = null;
+      if (character && selectedPicks[tierId]?.id === character.id) {
+        setSelectedPicks(p => ({ ...p, [tierId]: null }));
+      }
+      return { ...t, slots: newSlots };
+    }));
+  };
+
+  const handleDragStart = (character: Character, fromTierId?: string, fromSlotIndex?: number) => {
+    setDraggedCharacter({ character, fromTierId, fromSlotIndex });
+  };
+
+  const handleDragEnd = () => {
+    setDraggedCharacter(null);
+    setDragOverSlot(null);
+  };
+
+  const handleSlotDragOver = (e: React.DragEvent, tierId: string, slotIndex: number) => {
+    e.preventDefault();
+    setDragOverSlot({ tierId, slotIndex });
+  };
+
+  const handleSlotDragLeave = () => {
+    setDragOverSlot(null);
+  };
+
+  const handleSlotDrop = (e: React.DragEvent, targetTierId: string, targetSlotIndex: number) => {
+    e.preventDefault();
+    if (!draggedCharacter) return;
+
+    const { character: draggedChar, fromTierId, fromSlotIndex } = draggedCharacter;
+
+    setTiers(prev => {
+      const targetTier = prev.find(t => t.id === targetTierId);
+      const charInTargetSlot = targetTier?.slots[targetSlotIndex] || null;
+
+      return prev.map(tier => {
+        const newSlots = [...tier.slots];
+
+        if (fromTierId && tier.id === fromTierId && fromSlotIndex !== undefined) {
+          if (fromTierId === targetTierId && fromSlotIndex === targetSlotIndex) {
+            return tier;
+          }
+          newSlots[fromSlotIndex] = charInTargetSlot;
+        }
+
+        if (tier.id === targetTierId) {
+          newSlots[targetSlotIndex] = draggedChar;
+        }
+
+        return { ...tier, slots: newSlots };
+      });
+    });
+
+    setDraggedCharacter(null);
+    setDragOverSlot(null);
+  };
+
+  const handleCopyTeam = async () => {
+    if (!gridRef.current || copyStatus === 'copying') return;
+    setCopyStatus('copying');
+
+    try {
+      const canvas = await html2canvas(gridRef.current, {
+        backgroundColor: '#FFFFFF',
+        scale: 2,
+      });
+
+      const blob = await new Promise<Blob>((resolve, reject) => {
+        canvas.toBlob((b) => b ? resolve(b) : reject(new Error('No blob')), 'image/png');
+      });
+
+      await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+      setCopyStatus('copied');
+      setTimeout(() => setCopyStatus('idle'), 2000);
+    } catch (err) {
+      console.error('Failed to generate image:', err);
+      setCopyStatus('error');
+      setTimeout(() => setCopyStatus('idle'), 2000);
+    }
+  };
+
+  return (
+    <main className="build-team-page">
+      <div className="build-team-layout">
+        <div className="build-team-main">
+          <div className="build-team-top-bar">
+            <div className="build-team-mode-toggle">
+              <button
+                className={`build-team-mode-btn ${mode === 'pick' ? 'active' : ''}`}
+                onClick={() => setMode('pick')}
+              >
+                Pick
+              </button>
+              <button
+                className={`build-team-mode-btn ${mode === 'create' ? 'active' : ''}`}
+                onClick={() => setMode('create')}
+              >
+                Create
+              </button>
+            </div>
+            <div className="build-team-actions">
+              <button
+                className={`build-team-action-btn ${isSpinning ? 'spinning' : ''}`}
+                onClick={handleRandomize}
+              >
+                Shuffle
+              </button>
+              <button
+                className={`build-team-action-btn build-team-copy-btn ${copyStatus}`}
+                onClick={handleCopyTeam}
+                disabled={copyStatus === 'copying'}
+              >
+                {copyStatus === 'copied' ? 'Copied!' : copyStatus === 'error' ? 'Failed' : 'Copy'}
+              </button>
+              <div className={`build-team-spent ${totalSpent > budget ? 'over' : totalSpent === budget ? 'exact' : ''}`}>
+                ${totalSpent}/${budget}
+              </div>
+            </div>
+          </div>
+
+          <div className="build-team-container" ref={gridRef}>
+            <div className="build-team-header">
+              <input
+                type="text"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                className="build-team-title-input"
+                placeholder="Enter title..."
+              />
+              <span className="build-team-subtitle">
+                Budget: $<input
+                  type="number"
+                  value={budget}
+                  onChange={(e) => setBudget(Math.max(1, parseInt(e.target.value) || 1))}
+                  className="build-team-budget-input"
+                  min="1"
+                />
+              </span>
+            </div>
+
+        {loading ? (
+          <div className="build-team-loading">Loading characters...</div>
+        ) : (
+          <div className="build-team-tiers">
+            {tiers.map(tier => (
+              <div key={tier.id} className="build-team-tier-row">
+                {mode === 'create' && (
+                  <button
+                    className="build-team-delete-tier"
+                    onClick={() => handleDeleteTier(tier.id)}
+                  >
+                    X
+                  </button>
+                )}
+                <div className="build-team-price-label">
+                  {mode === 'create' ? (
+                    <>
+                      $<input
+                        type="number"
+                        value={tier.price}
+                        onChange={(e) => handleChangeTierPrice(tier.id, parseInt(e.target.value) || 1)}
+                        className="build-team-price-input"
+                        min="1"
+                      />
+                    </>
+                  ) : (
+                    <span>${tier.price}</span>
+                  )}
+                </div>
+                <div className="build-team-slots">
+                  {tier.slots.map((character, slotIndex) => {
+                    const isSelected = character && selectedPicks[tier.id]?.id === character.id;
+                    const isDragOver = dragOverSlot?.tierId === tier.id && dragOverSlot?.slotIndex === slotIndex;
+                    return (
+                      <div
+                        key={slotIndex}
+                        className={`build-team-slot ${character ? 'filled' : 'empty'} ${isDragOver && mode === 'create' ? 'drag-over' : ''} ${isSelected ? 'selected' : ''}`}
+                        onDragOver={mode === 'create' ? (e) => handleSlotDragOver(e, tier.id, slotIndex) : undefined}
+                        onDragLeave={mode === 'create' ? handleSlotDragLeave : undefined}
+                        onDrop={mode === 'create' ? (e) => handleSlotDrop(e, tier.id, slotIndex) : undefined}
+                        onClick={() => character && handleSelect(tier.id, character)}
+                      >
+                        {character ? (
+                          <>
+                            {getAvatar(character) && (
+                              <img
+                                src={getAvatar(character)!}
+                                alt={character.displayName}
+                                className="build-team-avatar"
+                                draggable={mode === 'create'}
+                                onDragStart={mode === 'create' ? () => handleDragStart(character, tier.id, slotIndex) : undefined}
+                                onDragEnd={mode === 'create' ? handleDragEnd : undefined}
+                                onError={(e) => handleAvatarError(e, character.displayName)}
+                              />
+                            )}
+                            <span className="build-team-name">{character.displayName}</span>
+                            {isSelected && <div className="build-team-check">✓</div>}
+                            {mode === 'create' && (
+                              <button
+                                className="build-team-remove-btn"
+                                onClick={(e) => { e.stopPropagation(); handleRemoveFromSlot(tier.id, slotIndex); }}
+                              >
+                                ×
+                              </button>
+                            )}
+                          </>
+                        ) : null}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+
+            {mode === 'create' && (
+              <button className="build-team-add-tier" onClick={handleAddTier}>
+                + Add Tier
+              </button>
+            )}
+          </div>
+        )}
+
+            <div className="build-team-footer">
+              <span>Hamieverse Wiki</span>
+            </div>
+          </div>
+
+          {mode === 'create' && poolCharacters.length > 0 && (
+            <div className="build-team-pool">
+              <h3>Character Pool ({poolCharacters.length})</h3>
+              <div className="build-team-pool-grid">
+                {poolCharacters.map(character => (
+                  <div
+                    key={character.id}
+                    className="build-team-pool-item"
+                    draggable
+                    onDragStart={() => handleDragStart(character)}
+                    onDragEnd={handleDragEnd}
+                  >
+                    {getAvatar(character) && (
+                      <img
+                        src={getAvatar(character)!}
+                        alt={character.displayName}
+                        onError={(e) => handleAvatarError(e, character.displayName)}
+                      />
+                    )}
+                    <span>{character.displayName}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
+        <div className="build-team-templates">
+          <h3>Templates</h3>
+          <div className="build-team-templates-grid">
+            {TEMPLATES.map(template => (
+              <button
+                key={template.id}
+                className={`build-team-template-btn ${activeTemplate === template.id ? 'active' : ''}`}
+                onClick={() => applyTemplate(template)}
+              >
+                <span className="template-name">{template.name}</span>
+                <span className="template-info">{template.description}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    </main>
+  );
+}
