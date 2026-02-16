@@ -2396,6 +2396,20 @@ body.sidebar-collapsed main.xp-card-main {
   transition: margin-left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* Mobile - no sidebar, no margin */
+@media (max-width: 768px) {
+  [data-theme="brutalist"] .wiki-container,
+  [data-theme="brutalist"] .container,
+  [data-theme="brutalist"] .brutal-tier-maker,
+  [data-theme="brutalist"] main.xp-card-main,
+  [data-theme="brutalist"] .build-team-page,
+  [data-theme="brutalist"] .wiki-main {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
 /* Remove excessive padding and max-width from content areas */
 [data-theme="brutalist"] .wiki-hero-content,
 [data-theme="brutalist"] .wiki-main {
