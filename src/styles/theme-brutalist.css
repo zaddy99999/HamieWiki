@@ -4337,16 +4337,11 @@ body.sidebar-collapsed main.xp-card-main {
 [data-theme="brutalist"] h5,
 [data-theme="brutalist"] h6,
 [data-theme="brutalist"] .wiki-title,
-[data-theme="brutalist"] .wiki-section-title,
 [data-theme="brutalist"] .wiki-hero-text h1,
 [data-theme="brutalist"] .wiki-hero-text h1 span,
 [data-theme="brutalist"] .xp-card-title,
 [data-theme="brutalist"] .brutal-tier-header h1,
 [data-theme="brutalist"] .build-team-title,
-[data-theme="brutalist"] .mini-quiz-header h3,
-[data-theme="brutalist"] .relationship-web-header h3,
-[data-theme="brutalist"] .lore-links-title,
-[data-theme="brutalist"] .wiki-section-header h3,
 [data-theme="brutalist"] .wiki-character-name,
 [data-theme="brutalist"] .id-card-header {
   color: #FFFFFF !important;
@@ -4354,6 +4349,22 @@ body.sidebar-collapsed main.xp-card-main {
   background: none !important;
   background-clip: unset !important;
   -webkit-background-clip: unset !important;
+}
+
+/* Section titles - solid purple background (0% transparent) */
+[data-theme="brutalist"] .wiki-section-title,
+[data-theme="brutalist"] .wiki-section-header h3,
+[data-theme="brutalist"] .mini-quiz-header h3,
+[data-theme="brutalist"] .relationship-web-header h3,
+[data-theme="brutalist"] .lore-links-title {
+  color: #FFFFFF !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+  background: #8B5CF6 !important;
+  background-color: #8B5CF6 !important;
+  padding: 10px 20px !important;
+  border: 3px solid #3B82F6 !important;
+  box-shadow: 4px 4px 0 #3B82F6 !important;
+  display: inline-block !important;
 }
 
 /* ==================== CRITICAL OVERRIDES - MUST BE LAST ==================== */
