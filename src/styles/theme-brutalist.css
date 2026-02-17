@@ -2528,6 +2528,7 @@ body.sidebar-collapsed main.xp-card-main {
 /* Compact intro grid cards - reduce dead space */
 [data-theme="brutalist"] .wiki-intro-grid-4 {
   gap: 8px !important;
+  align-items: start !important;
 }
 
 [data-theme="brutalist"] .cotd-container,
