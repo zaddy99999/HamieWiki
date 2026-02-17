@@ -6,7 +6,6 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { getAllCharacters, getGlossary, getLogline, getThemes } from '@/lib/hamieverse/characters';
 import { ArrowUpIcon } from '@/components/Icons';
-import TriviaCard from '@/components/TriviaCard';
 import LoreLinks from '@/components/LoreLinks';
 import RelationshipWeb from '@/components/RelationshipWeb';
 import CharacterOfTheDay from '@/components/CharacterOfTheDay';
@@ -15,7 +14,6 @@ import MiniQuiz from '@/components/MiniQuiz';
 export default function WikiHome() {
   const router = useRouter();
   const [showBackToTop, setShowBackToTop] = useState(false);
-
   const characters = getAllCharacters();
   const glossary = getGlossary();
   const logline = getLogline();
@@ -61,18 +59,7 @@ export default function WikiHome() {
         <div className="wiki-hero-content">
           <div className="wiki-hero-text">
             <h1>The <span>Hamieverse</span> Wiki</h1>
-            <p className="wiki-hero-subtitle">{logline}</p>
-
-            <div className="wiki-hero-stats">
-              <div className="wiki-stat">
-                <div className="wiki-stat-value">{characters.length}</div>
-                <div className="wiki-stat-label">Characters</div>
-              </div>
-              <div className="wiki-stat">
-                <div className="wiki-stat-value">{glossaryCount}</div>
-                <div className="wiki-stat-label">Terms</div>
-              </div>
-            </div>
+            <p className="wiki-hero-subtitle" style={{ color: '#a1a1aa' }}>{logline}</p>
           </div>
 
         </div>
@@ -80,11 +67,10 @@ export default function WikiHome() {
 
       {/* Main Content */}
       <main className="wiki-main" id="main-content" role="main">
-        {/* Character of the Day & Trivia */}
+        {/* Character of the Day, Quiz & Lore */}
         <section className="wiki-section wiki-intro-section">
-          <div className="wiki-intro-grid-4">
+          <div className="wiki-intro-grid-3">
             <CharacterOfTheDay />
-            <TriviaCard />
             <MiniQuiz />
             <LoreLinks />
           </div>
@@ -107,19 +93,13 @@ export default function WikiHome() {
                 style={{ '--char-color': char.color } as React.CSSProperties}
               >
                 <div className="wiki-character-avatar">
-                  {char.gifFile ? (
-                    <Image
-                      src={`/images/${char.gifFile}`}
-                      alt={char.displayName}
-                      fill
-                      className="wiki-character-gif"
-                      unoptimized={char.gifFile.endsWith('.gif')}
-                    />
-                  ) : (
-                    <div className="wiki-character-placeholder">
-                      {char.displayName[0]}
-                    </div>
-                  )}
+                  <Image
+                    src={char.gifFile ? `/images/${char.gifFile}` : '/images/hamiepfp.png'}
+                    alt={char.displayName}
+                    fill
+                    className="wiki-character-gif"
+                    unoptimized={char.gifFile?.endsWith('.gif')}
+                  />
                 </div>
                 <div className="wiki-character-info">
                   <h3 className="wiki-character-name">{char.displayName}</h3>
@@ -153,19 +133,13 @@ export default function WikiHome() {
                 style={{ '--char-color': char.color } as React.CSSProperties}
               >
                 <div className="wiki-supporting-avatar">
-                  {char.gifFile ? (
-                    <Image
-                      src={`/images/${char.gifFile}`}
-                      alt={char.displayName}
-                      fill
-                      className="wiki-supporting-img"
-                      unoptimized={char.gifFile.endsWith('.gif')}
-                    />
-                  ) : (
-                    <div className="wiki-supporting-placeholder">
-                      {char.displayName[0]}
-                    </div>
-                  )}
+                  <Image
+                    src={char.gifFile ? `/images/${char.gifFile}` : '/images/hamiepfp.png'}
+                    alt={char.displayName}
+                    fill
+                    className="wiki-supporting-img"
+                    unoptimized={char.gifFile?.endsWith('.gif')}
+                  />
                 </div>
                 <div className="wiki-supporting-info">
                   <span className="wiki-supporting-name">{char.displayName}</span>

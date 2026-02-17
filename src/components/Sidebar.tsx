@@ -26,12 +26,11 @@ export default function Sidebar() {
   };
 
   const goRandom = () => {
-    // Only characters with Shown=TRUE in the Google Sheet
+    // Valid character IDs from lore.json and comics.json
     const characters = [
       'hamie', 'sam', 'lira', 'silas', 'ace', 'hikari', 'kael', 'orrien',
-      'grandma', 'luna', 'kira', 'mitch', 'alistair_veynar', 'simba',
-      'halo_chryseos', 'veylor_quann', 'ironpaw_commander', 'caligo',
-      'lost_sentinel', 'malvoria_chryseos', 'kai_vox', 'echo_whisperer', 'elyndor'
+      'grandma', 'luna', 'kira', 'mitch', 'alistair_veynar', 'halo',
+      'veylor', 'iris'
     ];
     const random = characters[Math.floor(Math.random() * characters.length)];
     setIsOpen(false);
@@ -75,7 +74,7 @@ export default function Sidebar() {
               className={`mobile-nav-link ${pathname === '/' ? 'active' : ''}`}
               onClick={() => navigate('/')}
             >
-              <span className="mobile-nav-icon">⌂</span>
+              <img src="/home_icon.png" alt="Home" className="mobile-nav-icon" style={{ width: '20px', height: '20px' }} />
               <span>HOME</span>
             </div>
 
@@ -83,7 +82,9 @@ export default function Sidebar() {
               className={`mobile-nav-link ${pathname === '/xp-card' ? 'active' : ''}`}
               onClick={() => navigate('/xp-card')}
             >
-              <span className="mobile-nav-icon">ID</span>
+              <svg className="mobile-nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/>
+              </svg>
               <span>XP CARD</span>
             </div>
 
@@ -101,6 +102,16 @@ export default function Sidebar() {
             >
               <span className="mobile-nav-icon">★</span>
               <span>BUILD TEAM</span>
+            </div>
+
+            <div
+              className={`mobile-nav-link ${pathname === '/gallery' ? 'active' : ''}`}
+              onClick={() => navigate('/gallery')}
+            >
+              <svg className="mobile-nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M22 16V4c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2zm-11-4l2.03 2.71L16 11l4 5H8l3-4zM2 6v14c0 1.1.9 2 2 2h14v-2H4V6H2z"/>
+              </svg>
+              <span>GALLERY</span>
             </div>
 
             <div className="mobile-nav-link" onClick={goRandom}>
@@ -125,7 +136,7 @@ export default function Sidebar() {
       {/* Logo */}
       <div className="brutal-sidebar-brand" onClick={() => navigate('/')}>
         <img src="/images/hamiepfp.png" alt="Hamie" className="brutal-sidebar-logo" />
-        <span className="brutal-sidebar-title" style={{ color: '#8B5CF6', textShadow: 'none' }}>
+        <span className="brutal-sidebar-title" style={{ color: '#0446F1', textShadow: 'none' }}>
           HAMIEVERSE
         </span>
       </div>
@@ -136,7 +147,7 @@ export default function Sidebar() {
           className={`brutal-sidebar-link ${pathname === '/' ? 'active' : ''}`}
           onClick={() => navigate('/')}
         >
-          <span className="brutal-sidebar-icon">⌂</span>
+          <img src="/home_icon.png" alt="Home" className="brutal-sidebar-icon" style={{ width: '20px', height: '20px' }} />
           <span className="brutal-sidebar-label">HOME</span>
         </div>
 
@@ -144,7 +155,9 @@ export default function Sidebar() {
           className={`brutal-sidebar-link ${pathname === '/xp-card' ? 'active' : ''}`}
           onClick={() => navigate('/xp-card')}
         >
-          <span className="brutal-sidebar-icon">ID</span>
+          <svg className="brutal-sidebar-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/>
+          </svg>
           <span className="brutal-sidebar-label">XP CARD</span>
         </div>
 
@@ -162,6 +175,16 @@ export default function Sidebar() {
         >
           <span className="brutal-sidebar-icon">★</span>
           <span className="brutal-sidebar-label">BUILD TEAM</span>
+        </div>
+
+        <div
+          className={`brutal-sidebar-link ${pathname === '/gallery' ? 'active' : ''}`}
+          onClick={() => navigate('/gallery')}
+        >
+          <svg className="brutal-sidebar-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M22 16V4c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2zm-11-4l2.03 2.71L16 11l4 5H8l3-4zM2 6v14c0 1.1.9 2 2 2h14v-2H4V6H2z"/>
+          </svg>
+          <span className="brutal-sidebar-label">GALLERY</span>
         </div>
       </nav>
 

@@ -63,10 +63,10 @@ export default function XPCardPage() {
   const TEXT_COLORS = [
     { name: 'White', value: '#FFFFFF' },
     { name: 'Black', value: '#000000' },
-    { name: 'Purple', value: '#8B5CF6' },
+    { name: 'Blue', value: '#0446F1' },
+    { name: 'Purple', value: '#AE4DAF' },
     { name: 'Gold', value: '#FFD700' },
     { name: 'Cyan', value: '#00FFFF' },
-    { name: 'Blue', value: '#3B82F6' },
   ];
 
   // PFP shape state
@@ -636,38 +636,38 @@ export default function XPCardPage() {
                 </div>
               </div>
 
-              {/* Color picker on its own row */}
-              <div className="id-section">
-                <label className="id-label">Text Color</label>
-                <div className="text-color-picker">
-                  {TEXT_COLORS.map((color) => (
-                    <button
-                      key={color.value}
-                      className={`text-color-btn ${textColor === color.value ? 'active' : ''}`}
-                      style={{ backgroundColor: color.value }}
-                      onClick={() => setTextColor(color.value)}
-                      title={color.name}
-                    />
-                  ))}
+              {/* Color picker and PFP Shape on same row */}
+              <div className="id-row">
+                <div className="id-section">
+                  <label className="id-label">Text Color</label>
+                  <div className="text-color-picker">
+                    {TEXT_COLORS.map((color) => (
+                      <button
+                        key={color.value}
+                        className={`text-color-btn ${textColor === color.value ? 'active' : ''}`}
+                        style={{ backgroundColor: color.value }}
+                        onClick={() => setTextColor(color.value)}
+                        title={color.name}
+                      />
+                    ))}
+                  </div>
                 </div>
-              </div>
-
-              {/* PFP Shape selector */}
-              <div className="id-section">
-                <label className="id-label">PFP Shape</label>
-                <div className="pfp-shape-picker">
-                  <button
-                    className={`pfp-shape-btn ${pfpShape === 'circle' ? 'active' : ''}`}
-                    onClick={() => setPfpShape('circle')}
-                  >
-                    Circle
-                  </button>
-                  <button
-                    className={`pfp-shape-btn ${pfpShape === 'square' ? 'active' : ''}`}
-                    onClick={() => setPfpShape('square')}
-                  >
-                    Square
-                  </button>
+                <div className="id-section">
+                  <label className="id-label">PFP Shape</label>
+                  <div className="pfp-shape-picker">
+                    <button
+                      className={`pfp-shape-btn ${pfpShape === 'circle' ? 'active' : ''}`}
+                      onClick={() => setPfpShape('circle')}
+                    >
+                      Circle
+                    </button>
+                    <button
+                      className={`pfp-shape-btn ${pfpShape === 'square' ? 'active' : ''}`}
+                      onClick={() => setPfpShape('square')}
+                    >
+                      Square
+                    </button>
+                  </div>
                 </div>
               </div>
 
@@ -692,7 +692,6 @@ export default function XPCardPage() {
                           loop
                           autoPlay
                           playsInline
-                          style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '8px' }}
                         />
                       ) : (
                         <span className="xp-preset-placeholder">+</span>
@@ -714,11 +713,11 @@ export default function XPCardPage() {
               /* ID Card Preview */
               <div ref={cardRef} className="abstract-id-card" style={{ isolation: 'isolate', position: 'relative', zIndex: 10 }}>
                 <img src="/hamieversecardblank.png" alt="Hamieverse ID" className="abstract-id-bg" />
-                <div className="abstract-id-avatar" style={{ marginLeft: '-75px', marginTop: '17px', transform: 'scale(1.2)', borderRadius: pfpShape === 'circle' ? '50%' : '4px' }}>
+                <div className={`abstract-id-avatar ${pfpShape === 'circle' ? 'pfp-circle' : 'pfp-square'}`} style={{ marginLeft: '-75px', marginTop: '17px', transform: 'scale(1.2)' }}>
                   {idProfileImage ? (
-                    <img src={idProfileImage} alt="Profile" style={{ borderRadius: pfpShape === 'circle' ? '50%' : '4px' }} />
+                    <img src={idProfileImage} alt="Profile" />
                   ) : (
-                    <div className="abstract-id-avatar-placeholder" style={{ borderRadius: pfpShape === 'circle' ? '50%' : '4px' }} />
+                    <div className="abstract-id-avatar-placeholder" />
                   )}
                 </div>
                 <span className="abstract-id-name" style={{ marginLeft: '65px', marginTop: '-5px', fontFamily: 'Mokoto, sans-serif', color: textColor }}>{idDisplayName || 'Your Name'}</span>
@@ -754,11 +753,11 @@ export default function XPCardPage() {
                 </div>
                 <img src="/images/hamiepfp.png" alt="Hamie" style={{ position: 'absolute', top: '12px', right: '12px', width: '37px', height: '37px', borderRadius: '50%', zIndex: 2 }} />
                 <div className="abstract-xp-content" style={{ position: 'relative', zIndex: 1, transform: 'scale(0.6) translateX(-35%) translateY(30%)', transformOrigin: 'center center' }}>
-                  <div className="abstract-xp-avatar" style={{ borderRadius: pfpShape === 'circle' ? '50%' : '8px' }}>
+                  <div className={`abstract-xp-avatar ${pfpShape === 'circle' ? 'pfp-circle' : 'pfp-square'}`}>
                     {xpProfileImage ? (
-                      <img src={xpProfileImage} alt="Profile" style={{ borderRadius: pfpShape === 'circle' ? '50%' : '8px' }} />
+                      <img src={xpProfileImage} alt="Profile" />
                     ) : (
-                      <div className="abstract-xp-avatar-placeholder" style={{ borderRadius: pfpShape === 'circle' ? '50%' : '8px' }} />
+                      <div className="abstract-xp-avatar-placeholder" />
                     )}
                   </div>
                   <div className="abstract-xp-info">

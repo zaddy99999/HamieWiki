@@ -27,20 +27,20 @@
   --brutal-gray-mid: #2d2d44;
   --brutal-gray-light: #666680;
 
-  /* Purple & Blue Theme Colors */
-  --brutal-red: #8B5CF6;
-  --brutal-yellow: #A855F7;
-  --brutal-blue: #3B82F6;
+  /* Brand Theme Colors */
+  --brutal-primary: #0446F1;
+  --brutal-accent: #AE4DAF;
+  --brutal-blue: #0446F1;
   --brutal-green: #00A651;
-  --brutal-magenta: #9333EA;
-  --brutal-cyan: #60A5FA;
-  --brutal-orange: #7C3AED;
+  --brutal-purple: #AE4DAF;
+  --brutal-cyan: #0446F1;
+  --brutal-magenta: #AE4DAF;
 
   /* Comic specific */
   --comic-panel-bg: #0a0a0f;
   --comic-caption-bg: #1a1a2e;
   --comic-speech-bg: #111118;
-  --comic-burst-bg: #8B5CF6;
+  --comic-burst-bg: #0446F1;
 
   /* Override Base Theme */
   --bg-page: #000000;
@@ -49,18 +49,18 @@
   --bg-elevated: #0f0f18;
   --bg-input: #000000;
 
-  --border-subtle: rgba(139, 92, 246, 0.3);
-  --border-default: rgba(139, 92, 246, 0.5);
-  --border-strong: rgba(139, 92, 246, 0.8);
+  --border-subtle: rgba(174, 77, 175, 0.3);
+  --border-default: rgba(174, 77, 175, 0.5);
+  --border-strong: rgba(174, 77, 175, 0.8);
 
   --text-primary: #ffffff;
   --text-secondary: #e0e0e0;
   --text-muted: #a0a0a0;
 
   /* Brand Overrides - Purple & Blue */
-  --brand-primary: #8B5CF6;
-  --brand-secondary: #3B82F6;
-  --brand-accent: #A855F7;
+  --brand-primary: #0446F1;
+  --brand-secondary: #AE4DAF;
+  --brand-accent: #AE4DAF;
 
   /* Typography - Azonix Headings, Poppins Body */
   --font-brutal-display: 'Azonix', 'Poppins', sans-serif;
@@ -74,25 +74,25 @@
   --font-mono: var(--font-brutal-mono);
 
   /* Brutalist Borders - Purple themed */
-  --border-brutal-thin: 2px solid var(--brutal-red);
-  --border-brutal-medium: 4px solid var(--brutal-red);
-  --border-brutal-thick: 6px solid var(--brutal-red);
-  --border-brutal-chunky: 8px solid var(--brutal-red);
+  --border-brutal-thin: 2px solid var(--brutal-primary);
+  --border-brutal-medium: 4px solid var(--brutal-primary);
+  --border-brutal-thick: 6px solid var(--brutal-primary);
+  --border-brutal-chunky: 8px solid var(--brutal-primary);
 
   /* Hard Shadows - Purple/Blue glow */
-  --shadow-brutal-sm: 4px 4px 0 var(--brutal-red);
-  --shadow-brutal-md: 6px 6px 0 var(--brutal-red);
-  --shadow-brutal-lg: 8px 8px 0 var(--brutal-red);
-  --shadow-brutal-xl: 12px 12px 0 var(--brutal-red);
+  --shadow-brutal-sm: 4px 4px 0 var(--brutal-primary);
+  --shadow-brutal-md: 6px 6px 0 var(--brutal-primary);
+  --shadow-brutal-lg: 8px 8px 0 var(--brutal-primary);
+  --shadow-brutal-xl: 12px 12px 0 var(--brutal-primary);
 
   /* Inverted Shadows */
   --shadow-brutal-invert-sm: 4px 4px 0 var(--brutal-blue);
   --shadow-brutal-invert-md: 6px 6px 0 var(--brutal-blue);
   --shadow-brutal-invert-lg: 8px 8px 0 var(--brutal-blue);
 
-  /* Accent Shadows - Purple/Blue */
-  --shadow-brutal-red: 6px 6px 0 var(--brutal-red);
-  --shadow-brutal-yellow: 6px 6px 0 var(--brutal-yellow);
+  /* Accent Shadows - Blue/Purple */
+  --shadow-brutal-primary: 6px 6px 0 var(--brutal-primary);
+  --shadow-brutal-accent: 6px 6px 0 var(--brutal-accent);
   --shadow-brutal-blue: 6px 6px 0 var(--brutal-blue);
 
   /* Kill all rounded corners */
@@ -122,7 +122,7 @@
   font-family: var(--font-brutal-body);
   background-color: #0a0a12;
   color: var(--brutal-white);
-  font-weight: 700;
+  font-weight: 400;
   letter-spacing: 0.01em;
   /* Desktop background */
   background-image: url('/DesktopBG.png?v=3');
@@ -130,6 +130,28 @@
   background-position: center;
   background-attachment: fixed;
   background-repeat: no-repeat;
+}
+
+/* All paragraphs - Poppins regular */
+[data-theme="brutalist"] p,
+[data-theme="brutalist"] span,
+[data-theme="brutalist"] div,
+[data-theme="brutalist"] li,
+[data-theme="brutalist"] td,
+[data-theme="brutalist"] label {
+  font-family: 'Poppins', sans-serif !important;
+  font-weight: 400;
+}
+
+/* All headings - Azonix */
+[data-theme="brutalist"] h1,
+[data-theme="brutalist"] h2,
+[data-theme="brutalist"] h3,
+[data-theme="brutalist"] h4,
+[data-theme="brutalist"] h5,
+[data-theme="brutalist"] h6 {
+  font-family: 'Azonix', 'Poppins', sans-serif !important;
+  font-weight: normal;
 }
 
 /* Mobile background */
@@ -192,8 +214,8 @@
 
 /* Character cards as comic panels */
 [data-theme="brutalist"] .wiki-character-card {
-  border: 4px solid #3B82F6 !important;
-  box-shadow: 6px 6px 0 #3B82F6;
+  border: 4px solid #AE4DAF !important;
+  box-shadow: 6px 6px 0 #AE4DAF;
   background: #0f0f1a !important;
   position: relative;
   overflow: hidden;
@@ -202,12 +224,12 @@
 
 [data-theme="brutalist"] .wiki-character-card:hover {
   transform: translate(-4px, -4px) rotate(-1deg);
-  box-shadow: 10px 10px 0 #8B5CF6;
+  box-shadow: 10px 10px 0 #0446F1;
 }
 
 /* Character card image */
 [data-theme="brutalist"] .wiki-character-card img {
-  border-bottom: 4px solid #3B82F6;
+  border-bottom: 4px solid #AE4DAF;
 }
 
 /* Character card name banner */
@@ -215,20 +237,20 @@
 [data-theme="brutalist"] .wiki-character-card h3,
 [data-theme="brutalist"] .wiki-character-card .character-name {
   font-family: var(--font-brutal-display) !important;
-  background: #8B5CF6 !important;
+  background: #0446F1 !important;
   color: #FFFFFF !important;
   padding: 8px 12px !important;
   text-transform: uppercase !important;
   letter-spacing: 0.05em !important;
-  text-shadow: 2px 2px 0 #3B82F6 !important;
-  border-top: 3px solid #3B82F6;
+  text-shadow: 2px 2px 0 #AE4DAF !important;
+  border-top: 3px solid #AE4DAF;
 }
 
 /* Character card role/subtitle */
 [data-theme="brutalist"] .wiki-character-card-role,
 [data-theme="brutalist"] .wiki-character-card p {
   font-family: var(--font-brutal-mono) !important;
-  background: #3B82F6 !important;
+  background: #AE4DAF !important;
   color: #FFFFFF !important;
   padding: 4px 8px !important;
   font-size: 0.75rem !important;
@@ -238,7 +260,7 @@
 /* Character name in card */
 [data-theme="brutalist"] .wiki-character-name {
   font-family: var(--font-brutal-display) !important;
-  background: #8B5CF6 !important;
+  background: #0446F1 !important;
   color: #FFFFFF !important;
   padding: 8px 12px !important;
   text-transform: uppercase !important;
@@ -249,7 +271,7 @@
 }
 
 [data-theme="brutalist"] .wiki-character-species {
-  color: #3B82F6 !important;
+  color: #AE4DAF !important;
 }
 
 [data-theme="brutalist"] .wiki-character-role {
@@ -259,8 +281,8 @@
 /* ==================== SUPPORTING CHARACTER CARDS ==================== */
 /* Red and white brutalist style */
 [data-theme="brutalist"] .wiki-supporting-card {
-  border: 4px solid #3B82F6 !important;
-  box-shadow: 6px 6px 0 #3B82F6 !important;
+  border: 4px solid #AE4DAF !important;
+  box-shadow: 6px 6px 0 #AE4DAF !important;
   background: #0f0f1a !important;
   border-radius: 0 !important;
   position: relative;
@@ -275,13 +297,13 @@
 
 [data-theme="brutalist"] .wiki-supporting-card:hover {
   transform: translate(-4px, -4px) rotate(-1deg) !important;
-  box-shadow: 10px 10px 0 #3B82F6 !important;
+  box-shadow: 10px 10px 0 #AE4DAF !important;
   background: #0f0f1a !important;
 }
 
 /* Supporting card avatar */
 [data-theme="brutalist"] .wiki-supporting-avatar {
-  border: 4px solid #3B82F6 !important;
+  border: 4px solid #AE4DAF !important;
   border-radius: 0 !important;
   background: #0f0f1a !important;
 }
@@ -291,7 +313,7 @@
 }
 
 [data-theme="brutalist"] .wiki-supporting-card:hover .wiki-supporting-avatar {
-  border-color: #8B5CF6 !important;
+  border-color: #0446F1 !important;
   transform: none !important;
   box-shadow: none !important;
 }
@@ -299,7 +321,7 @@
 /* Supporting card name - RED banner like main cards */
 [data-theme="brutalist"] .wiki-supporting-name {
   font-family: var(--font-brutal-display) !important;
-  background: #8B5CF6 !important;
+  background: #0446F1 !important;
   color: #FFFFFF !important;
   text-transform: uppercase !important;
   letter-spacing: 0.05em !important;
@@ -307,8 +329,8 @@
   margin: 8px 0 0 0 !important;
   width: 100% !important;
   box-sizing: border-box !important;
-  text-shadow: 1px 1px 0 #3B82F6 !important;
-  border-top: 3px solid #3B82F6 !important;
+  text-shadow: 1px 1px 0 #AE4DAF !important;
+  border-top: 3px solid #AE4DAF !important;
 }
 
 /* Supporting card role badge - hidden since name has red banner */
@@ -324,7 +346,7 @@
 /* Starburst / explosion effect for emphasis */
 .comic-burst {
   position: relative;
-  background: var(--brutal-yellow);
+  background: var(--brutal-accent);
   color: #FFFFFF;
   padding: 10px 20px;
   font-family: var(--font-brutal-display);
@@ -469,7 +491,7 @@
   text-transform: uppercase;
   letter-spacing: 0.05em;
   line-height: 1.1;
-  color: var(--palette-primary, #8B5CF6);
+  color: var(--palette-primary, #0446F1);
   text-shadow:
     3px 3px 0 var(--palette-card, #252542),
     -1px -1px 0 var(--palette-card, #252542),
@@ -483,15 +505,15 @@
   border-bottom: none;
   padding-bottom: 0.5rem;
   margin-bottom: 1.5rem;
-  color: var(--palette-primary, #8B5CF6);
+  color: var(--palette-primary, #0446F1);
 }
 
 .theme-brutalist h2,
 [data-theme="brutalist"] h2 {
   font-size: clamp(1.8rem, 5vw, 3rem);
-  border-left: 6px solid var(--palette-primary, #8B5CF6);
+  border-left: 6px solid var(--palette-primary, #0446F1);
   padding-left: 1rem;
-  background: linear-gradient(90deg, color-mix(in srgb, var(--palette-primary, #8B5CF6) 20%, transparent) 0%, transparent 100%);
+  background: linear-gradient(90deg, color-mix(in srgb, var(--palette-primary, #0446F1) 20%, transparent) 0%, transparent 100%);
   padding: 0.5rem 1rem;
   color: var(--palette-text, #FFFFFF);
   text-shadow:
@@ -502,7 +524,7 @@
 .theme-brutalist h3,
 [data-theme="brutalist"] h3 {
   font-size: clamp(1.5rem, 4vw, 2.5rem);
-  background: var(--palette-primary, #8B5CF6);
+  background: var(--palette-primary, #0446F1);
   color: var(--palette-text, #FFFFFF);
   padding: 0.3rem 0.8rem;
   display: inline-block;
@@ -514,31 +536,31 @@
 /* Comic caption box style */
 .comic-caption,
 [data-theme="brutalist"] .wiki-section-header h3 {
-  background: #8B5CF6 !important;
+  background: #0446F1 !important;
   color: #FFFFFF !important;
   padding: 10px 20px !important;
-  border: 4px solid #3B82F6 !important;
+  border: 4px solid #AE4DAF !important;
   font-family: var(--font-brutal-display) !important;
   font-style: normal !important;
   font-weight: 900 !important;
   text-transform: uppercase !important;
   letter-spacing: 0.05em !important;
-  box-shadow: 4px 4px 0 #3B82F6 !important;
-  text-shadow: 2px 2px 0 #3B82F6 !important;
+  box-shadow: 4px 4px 0 #AE4DAF !important;
+  text-shadow: 2px 2px 0 #AE4DAF !important;
 }
 
 /* Section title styling */
 [data-theme="brutalist"] .wiki-section-title {
-  background: #8B5CF6 !important;
+  background: #0446F1 !important;
   color: #FFFFFF !important;
   padding: 12px 24px !important;
-  border: 4px solid #3B82F6 !important;
+  border: 4px solid #AE4DAF !important;
   font-family: var(--font-brutal-display) !important;
   font-weight: 900 !important;
   text-transform: uppercase !important;
   letter-spacing: 0.05em !important;
-  box-shadow: 4px 4px 0 #3B82F6 !important;
-  text-shadow: 2px 2px 0 #3B82F6 !important;
+  box-shadow: 4px 4px 0 #AE4DAF !important;
+  text-shadow: 2px 2px 0 #AE4DAF !important;
   display: inline-flex !important;
 }
 
@@ -577,7 +599,7 @@
 }
 
 .brutal-text-highlight {
-  background: var(--brutal-yellow);
+  background: var(--brutal-accent);
   color: #FFFFFF;
   padding: 0.1em 0.3em;
 }
@@ -605,11 +627,11 @@
 .brutal-card-accent {
   background: var(--brutal-black);
   border: var(--border-brutal-medium);
-  box-shadow: var(--shadow-brutal-yellow);
+  box-shadow: var(--shadow-brutal-accent);
 }
 
 .brutal-card-accent:hover {
-  box-shadow: var(--shadow-brutal-red);
+  box-shadow: var(--shadow-brutal-primary);
 }
 
 .brutal-card-inverted {
@@ -634,7 +656,7 @@
   right: -8px;
   width: 30px;
   height: 30px;
-  background: var(--brutal-yellow);
+  background: var(--brutal-accent);
   border: 4px solid var(--brutal-black);
 }
 
@@ -702,12 +724,12 @@
 
 .brutal-btn-primary:hover {
   box-shadow: 8px 8px 0 var(--brutal-black);
-  background: var(--brutal-yellow);
+  background: var(--brutal-accent);
 }
 
 /* Danger Button */
 .brutal-btn-danger {
-  background: var(--brutal-red);
+  background: var(--brutal-primary);
   color: var(--brutal-white);
   border-color: var(--brutal-white);
   box-shadow: var(--shadow-brutal-md);
@@ -715,12 +737,12 @@
 
 .brutal-btn-danger:hover {
   background: var(--brutal-black);
-  color: var(--brutal-red);
+  color: var(--brutal-primary);
 }
 
 /* Accent Button */
 .brutal-btn-accent {
-  background: var(--brutal-yellow);
+  background: var(--brutal-accent);
   color: #FFFFFF;
   border-color: #FFFFFF;
   box-shadow: var(--shadow-brutal-invert-md);
@@ -775,8 +797,8 @@
 }
 
 .brutal-input:focus {
-  box-shadow: var(--shadow-brutal-yellow);
-  border-color: var(--brutal-yellow);
+  box-shadow: var(--shadow-brutal-accent);
+  border-color: var(--brutal-accent);
 }
 
 .brutal-input::placeholder {
@@ -860,7 +882,7 @@
 }
 
 .brutal-nav-link.active {
-  background: var(--brutal-yellow);
+  background: var(--brutal-accent);
   color: #FFFFFF;
 }
 
@@ -936,7 +958,7 @@
 }
 
 .brutal-divider-accent {
-  background: var(--brutal-yellow);
+  background: var(--brutal-accent);
 }
 
 /* ==================== BRUTALIST BADGES & TAGS ==================== */
@@ -959,13 +981,13 @@
 }
 
 .brutal-badge-danger {
-  background: var(--brutal-red);
+  background: var(--brutal-primary);
   color: var(--brutal-white);
   border-color: var(--brutal-white);
 }
 
 .brutal-badge-accent {
-  background: var(--brutal-yellow);
+  background: var(--brutal-accent);
   color: #FFFFFF;
   border-color: #FFFFFF;
 }
@@ -1016,7 +1038,7 @@
   left: 20px;
   font-family: var(--font-brutal-display);
   font-size: 2rem;
-  background: var(--brutal-yellow);
+  background: var(--brutal-accent);
   color: #FFFFFF;
   width: 30px;
   height: 30px;
@@ -1027,12 +1049,12 @@
 }
 
 .brutal-alert-error {
-  border-color: var(--brutal-red);
-  box-shadow: 6px 6px 0 var(--brutal-red);
+  border-color: var(--brutal-primary);
+  box-shadow: 6px 6px 0 var(--brutal-primary);
 }
 
 .brutal-alert-error::before {
-  background: var(--brutal-red);
+  background: var(--brutal-primary);
   color: var(--brutal-white);
   content: 'X';
 }
@@ -1088,7 +1110,7 @@
 
 .theme-brutalist ::-webkit-scrollbar-thumb:hover,
 [data-theme="brutalist"] ::-webkit-scrollbar-thumb:hover {
-  background: var(--brutal-yellow);
+  background: var(--brutal-accent);
 }
 
 /* ==================== BRUTALIST EFFECTS & UTILITIES ==================== */
@@ -1140,18 +1162,18 @@
   left: 0;
   width: 100%;
   height: 4px;
-  background: var(--brutal-red);
+  background: var(--brutal-primary);
   transform: rotate(-5deg);
 }
 
 /* Stamp effect */
 .brutal-stamp {
-  border: 4px solid var(--brutal-red);
+  border: 4px solid var(--brutal-primary);
   padding: 0.5rem 1rem;
   text-transform: uppercase;
   font-family: var(--font-brutal-display);
   transform: rotate(-5deg);
-  color: var(--brutal-red);
+  color: var(--brutal-primary);
   opacity: 0.8;
   display: inline-block;
 }
@@ -1172,8 +1194,8 @@
 .brutal-marker {
   background: linear-gradient(
     transparent 40%,
-    var(--brutal-yellow) 40%,
-    var(--brutal-yellow) 70%,
+    var(--brutal-accent) 40%,
+    var(--brutal-accent) 70%,
     transparent 70%
   );
   padding: 0 0.3em;
@@ -1246,7 +1268,7 @@
   content: attr(data-text);
   position: absolute;
   left: 2px;
-  text-shadow: -2px 0 var(--brutal-red);
+  text-shadow: -2px 0 var(--brutal-primary);
   top: 0;
   color: var(--brutal-white);
   background: var(--brutal-black);
@@ -1380,7 +1402,7 @@
   justify-content: space-between;
   gap: var(--space-2);
   padding: var(--space-3) var(--space-4);
-  background: var(--brutal-red) !important;
+  background: var(--brutal-primary) !important;
   border-bottom: 4px solid var(--brutal-black);
 }
 
@@ -1399,14 +1421,14 @@
 }
 
 [data-theme="brutalist"] .wiki-infobox-badges {
-  background: var(--brutal-yellow) !important;
+  background: var(--brutal-accent) !important;
   padding: 8px !important;
   border-bottom: 4px solid var(--brutal-black);
 }
 
 [data-theme="brutalist"] .wiki-infobox-badge {
   background: var(--brutal-black) !important;
-  color: var(--brutal-yellow) !important;
+  color: var(--brutal-accent) !important;
   font-family: var(--font-brutal-display) !important;
   border: 2px solid var(--brutal-black) !important;
   text-transform: uppercase;
@@ -1419,7 +1441,7 @@
 
 [data-theme="brutalist"] .wiki-infobox-table th {
   background: var(--brutal-gray-dark) !important;
-  color: var(--brutal-yellow) !important;
+  color: var(--brutal-accent) !important;
   font-family: var(--font-brutal-display) !important;
   text-transform: uppercase;
   border: 2px solid var(--brutal-black) !important;
@@ -1464,13 +1486,13 @@
 }
 
 [data-theme="brutalist"] .wiki-infobox-actions .favorite-btn:hover {
-  background: var(--brutal-red);
+  background: var(--brutal-primary);
   transform: none;
   box-shadow: none;
 }
 
 [data-theme="brutalist"] .wiki-infobox-actions .favorite-btn.favorited {
-  background: var(--brutal-red);
+  background: var(--brutal-primary);
 }
 
 [data-theme="brutalist"] .wiki-infobox-actions .favorite-btn .favorite-icon {
@@ -1479,6 +1501,115 @@
 
 [data-theme="brutalist"] .wiki-infobox-actions .favorite-btn.favorited .favorite-icon {
   color: var(--brutal-white);
+}
+
+/* Similar Characters Section */
+[data-theme="brutalist"] .wiki-infobox-section {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 2px solid #AE4DAF;
+}
+
+[data-theme="brutalist"] .wiki-infobox-heading {
+  font-family: 'Azonix', 'Poppins', sans-serif;
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: #0446F1;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+[data-theme="brutalist"] .wiki-similar-characters {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+[data-theme="brutalist"] .wiki-similar-character {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem;
+  background: rgba(174, 77, 175, 0.1);
+  border: 2px solid #AE4DAF;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+[data-theme="brutalist"] .wiki-similar-character:hover {
+  background: rgba(174, 77, 175, 0.2);
+  border-color: #0446F1;
+}
+
+[data-theme="brutalist"] .wiki-similar-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  object-fit: cover;
+  border: 2px solid #AE4DAF;
+}
+
+[data-theme="brutalist"] .wiki-similar-name {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+/* Recently Viewed - Compact Version */
+[data-theme="brutalist"] .recently-viewed-compact {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1rem;
+  background: rgba(15, 15, 26, 0.8);
+  border: 2px solid #AE4DAF;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+[data-theme="brutalist"] .recently-viewed-compact-label {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #0446F1;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+[data-theme="brutalist"] .recently-viewed-compact-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+[data-theme="brutalist"] .recently-viewed-compact-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  border: 2px solid #AE4DAF;
+  object-fit: cover;
+  transition: all 0.15s ease;
+}
+
+[data-theme="brutalist"] .recently-viewed-compact-item:hover .recently-viewed-compact-avatar {
+  border-color: #0446F1;
+  transform: scale(1.1);
+}
+
+[data-theme="brutalist"] .recently-viewed-compact-placeholder {
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  border: 2px solid #AE4DAF;
+  background: #1a1a2e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: bold;
+  color: #0446F1;
 }
 
 /* ==================== BRUTALIST QUOTES PAGE ==================== */
@@ -1644,14 +1775,14 @@
 }
 
 [data-theme="brutalist"] .wiki-section-title {
-  background: #8B5CF6 !important;
-  background-color: #8B5CF6 !important;
+  background: #0446F1 !important;
+  background-color: #0446F1 !important;
 }
 
 /* ==================== COMIC BOOK DECORATIVE ELEMENTS ==================== */
 /* Halftone dot pattern - reusable */
 [data-theme="brutalist"] .comic-dots {
-  background-image: radial-gradient(circle, #3B82F6 1px, transparent 1px);
+  background-image: radial-gradient(circle, #AE4DAF 1px, transparent 1px);
   background-size: 8px 8px;
 }
 
@@ -1791,8 +1922,8 @@
   text-align: center;
   background: #0f0f1a !important;
   padding: 20px 40px;
-  border: 4px solid #3B82F6;
-  box-shadow: 6px 6px 0 #3B82F6;
+  border: 4px solid #AE4DAF;
+  box-shadow: 6px 6px 0 #AE4DAF;
   display: inline-block;
   position: relative;
   z-index: 10;
@@ -1802,13 +1933,13 @@
 [data-theme="brutalist"] .xp-card-title {
   font-family: var(--font-brutal-display);
   font-size: var(--text-3xl);
-  color: #3B82F6 !important;
-  -webkit-text-fill-color: #3B82F6 !important;
+  color: #AE4DAF !important;
+  -webkit-text-fill-color: #AE4DAF !important;
   background: none !important;
   background-color: transparent !important;
   border: none !important;
   box-shadow: none !important;
-  border-bottom: 4px solid #3B82F6 !important;
+  border-bottom: 4px solid #AE4DAF !important;
   padding: 0 !important;
   padding-bottom: var(--space-4) !important;
   margin-bottom: var(--space-2);
@@ -1817,7 +1948,7 @@
 
 [data-theme="brutalist"] .xp-card-subtitle {
   font-family: var(--font-brutal-mono);
-  color: #3B82F6 !important;
+  color: #AE4DAF !important;
   font-size: var(--text-sm);
   text-transform: uppercase;
 }
@@ -1825,24 +1956,24 @@
 [data-theme="brutalist"] .id-config-card {
   background: #0f0f1a !important;
   background-color: #0f0f1a !important;
-  border: 4px solid #3B82F6 !important;
-  box-shadow: 6px 6px 0 #3B82F6 !important;
-  color: #3B82F6 !important;
+  border: 4px solid #AE4DAF !important;
+  box-shadow: 6px 6px 0 #AE4DAF !important;
+  color: #AE4DAF !important;
   opacity: 1 !important;
   position: relative;
   z-index: 10;
 }
 
 [data-theme="brutalist"] .id-config-card * {
-  color: #3B82F6 !important;
+  color: #AE4DAF !important;
 }
 
 [data-theme="brutalist"] .id-preview-card {
   background: #0f0f1a !important;
   background-color: #0f0f1a !important;
-  border: 4px solid #3B82F6 !important;
-  box-shadow: 6px 6px 0 #3B82F6 !important;
-  color: #3B82F6 !important;
+  border: 4px solid #AE4DAF !important;
+  box-shadow: 6px 6px 0 #AE4DAF !important;
+  color: #AE4DAF !important;
   opacity: 1 !important;
   position: relative;
   z-index: 10;
@@ -1850,8 +1981,8 @@
 
 [data-theme="brutalist"] .id-preview-card > h3,
 [data-theme="brutalist"] .id-card-header {
-  color: #3B82F6 !important;
-  -webkit-text-fill-color: #3B82F6 !important;
+  color: #AE4DAF !important;
+  -webkit-text-fill-color: #AE4DAF !important;
   background: none !important;
   background-color: transparent !important;
 }
@@ -1860,15 +1991,15 @@
 [data-theme="brutalist"] .id-config-card .card-type-btn {
   font-family: var(--font-brutal-mono);
   text-transform: uppercase;
-  border: 2px solid #3B82F6 !important;
+  border: 2px solid #AE4DAF !important;
   background: #0f0f1a !important;
-  color: #3B82F6 !important;
+  color: #AE4DAF !important;
 }
 
 [data-theme="brutalist"] .card-type-btn.active {
-  background: #8B5CF6 !important;
+  background: #0446F1 !important;
   color: #FFFFFF !important;
-  border-color: #3B82F6 !important;
+  border-color: #AE4DAF !important;
 }
 
 [data-theme="brutalist"] .id-label {
@@ -1881,12 +2012,12 @@
 [data-theme="brutalist"] .id-input {
   font-family: var(--font-brutal-mono);
   background: #0f0f1a !important;
-  border: 2px solid #3B82F6 !important;
-  color: #3B82F6 !important;
+  border: 2px solid #AE4DAF !important;
+  color: #AE4DAF !important;
 }
 
 [data-theme="brutalist"] .id-upload-box {
-  border: 2px dashed #3B82F6 !important;
+  border: 2px dashed #AE4DAF !important;
   background: #0f0f1a !important;
 }
 
@@ -1894,37 +2025,37 @@
 [data-theme="brutalist"] .id-upload-box *,
 [data-theme="brutalist"] .id-upload-placeholder,
 [data-theme="brutalist"] .id-upload-placeholder * {
-  color: #3B82F6 !important;
+  color: #AE4DAF !important;
 }
 
 [data-theme="brutalist"] .id-role-btn,
 [data-theme="brutalist"] .id-config-card .id-role-btn {
   font-family: var(--font-brutal-mono);
   text-transform: uppercase;
-  border: 2px solid #3B82F6 !important;
+  border: 2px solid #AE4DAF !important;
   background: #0f0f1a !important;
-  color: #3B82F6 !important;
+  color: #AE4DAF !important;
 }
 
 [data-theme="brutalist"] .id-role-btn.active {
-  background: #8B5CF6 !important;
+  background: #0446F1 !important;
   color: #FFFFFF !important;
-  border-color: #3B82F6 !important;
+  border-color: #AE4DAF !important;
 }
 
 [data-theme="brutalist"] .id-download-btn {
   font-family: var(--font-brutal-mono);
   text-transform: uppercase;
-  border: 4px solid #3B82F6 !important;
-  background: #8B5CF6 !important;
+  border: 4px solid #AE4DAF !important;
+  background: #0446F1 !important;
   color: #FFFFFF !important;
-  box-shadow: 4px 4px 0 #3B82F6 !important;
+  box-shadow: 4px 4px 0 #AE4DAF !important;
 }
 
 [data-theme="brutalist"] .id-download-btn:hover {
-  background: #8B5CF6 !important;
+  background: #0446F1 !important;
   transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0 #3B82F6 !important;
+  box-shadow: 6px 6px 0 #AE4DAF !important;
 }
 
 /* XP Card Preview - Keep rounded edges like credit card */
@@ -1966,47 +2097,81 @@
   font-size: 1.5rem;
 }
 
-/* XP Preset grid */
-[data-theme="brutalist"] .xp-preset-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  max-height: 500px;
-  overflow-y: auto;
-  padding: 10px;
-  background: rgba(0,0,0,0.03);
-  border: 2px solid #3B82F6;
-  border-radius: 8px;
+/* XP Preset grid - COMPLETE OVERRIDE */
+[data-theme="brutalist"] .xp-preset-grid,
+.theme-brutalist .xp-preset-grid,
+body[data-theme="brutalist"] .xp-preset-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 16px !important;
+  padding: 16px !important;
+  background: rgba(0, 0, 0, 0.4) !important;
+  border: 2px solid #AE4DAF !important;
+  border-radius: 8px !important;
+  margin-top: 8px !important;
 }
 
-[data-theme="brutalist"] .xp-preset-card {
-  aspect-ratio: 4/3;
-  width: 100%;
-  border: 2px solid #3B82F6 !important;
+[data-theme="brutalist"] .xp-preset-card,
+.theme-brutalist .xp-preset-card,
+body[data-theme="brutalist"] .xp-preset-card {
+  width: 100% !important;
+  height: auto !important;
+  min-height: unset !important;
+  max-height: unset !important;
+  aspect-ratio: 3/2 !important;
+  border: 3px solid #AE4DAF !important;
   background: #0f0f1a !important;
-  border-radius: 12px;
-  cursor: pointer;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  border-radius: 8px !important;
+  cursor: pointer !important;
+  overflow: hidden !important;
+  position: relative !important;
+  box-sizing: border-box !important;
+  display: block !important;
+  transition: border-color 0.15s ease !important;
+  transform: none !important;
+}
+
+[data-theme="brutalist"] .xp-preset-card:hover,
+.theme-brutalist .xp-preset-card:hover,
+body[data-theme="brutalist"] .xp-preset-card:hover {
+  transform: none !important;
+  border-color: #0446F1 !important;
 }
 
 [data-theme="brutalist"] .xp-preset-card img,
-[data-theme="brutalist"] .xp-preset-card video {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+[data-theme="brutalist"] .xp-preset-card video,
+.theme-brutalist .xp-preset-card img,
+.theme-brutalist .xp-preset-card video,
+body[data-theme="brutalist"] .xp-preset-card img,
+body[data-theme="brutalist"] .xp-preset-card video {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  display: block !important;
 }
 
-[data-theme="brutalist"] .xp-preset-card.active {
-  border-color: #8B5CF6 !important;
-  box-shadow: 0 0 0 2px #8B5CF6 !important;
+[data-theme="brutalist"] .xp-preset-card.active,
+.theme-brutalist .xp-preset-card.active,
+body[data-theme="brutalist"] .xp-preset-card.active {
+  border-color: #0446F1 !important;
+  box-shadow: 0 0 0 3px #0446F1 !important;
 }
 
-[data-theme="brutalist"] .xp-preset-placeholder {
+[data-theme="brutalist"] .xp-preset-placeholder,
+.theme-brutalist .xp-preset-placeholder,
+body[data-theme="brutalist"] .xp-preset-placeholder {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
   color: #FFFFFF !important;
-  font-size: 1.5rem;
+  font-size: 1.5rem !important;
 }
 
 /* Text color picker */
@@ -2026,35 +2191,50 @@
   font-family: var(--font-brutal-mono);
   font-size: 0.75rem;
   padding: 0.5rem 1rem;
-  border: 2px solid #3B82F6;
+  border: 2px solid #AE4DAF;
   background: #0f0f1a;
-  color: #3B82F6;
+  color: #AE4DAF;
   cursor: pointer;
   text-transform: uppercase;
   font-weight: 700;
 }
 
 [data-theme="brutalist"] .pfp-shape-btn.active {
-  background: #8B5CF6;
+  background: #0446F1;
   color: #FFFFFF;
+}
+
+/* PFP shape classes */
+.pfp-circle,
+.pfp-circle img,
+.pfp-circle .abstract-id-avatar-placeholder,
+.pfp-circle .abstract-xp-avatar-placeholder {
+  border-radius: 50% !important;
+}
+
+.pfp-square,
+.pfp-square img,
+.pfp-square .abstract-id-avatar-placeholder,
+.pfp-square .abstract-xp-avatar-placeholder {
+  border-radius: 8px !important;
 }
 
 [data-theme="brutalist"] .text-color-btn {
   width: 36px;
   height: 36px;
-  border: 3px solid #3B82F6 !important;
+  border: 3px solid #AE4DAF !important;
   cursor: pointer;
   transition: all 0.1s ease;
-  box-shadow: 2px 2px 0 #3B82F6;
+  box-shadow: 2px 2px 0 #AE4DAF;
 }
 
 [data-theme="brutalist"] .text-color-btn:hover {
   transform: translate(-2px, -2px);
-  box-shadow: 4px 4px 0 #3B82F6;
+  box-shadow: 4px 4px 0 #AE4DAF;
 }
 
 [data-theme="brutalist"] .text-color-btn.active {
-  box-shadow: 0 0 0 3px #8B5CF6, 3px 3px 0 #3B82F6 !important;
+  box-shadow: 0 0 0 3px #0446F1, 3px 3px 0 #AE4DAF !important;
   transform: scale(1.1);
 }
 
@@ -2067,7 +2247,7 @@
   width: 72px;
   background: #0a0a12 !important;
   background-color: #0a0a12 !important;
-  border-right: 4px solid #3B82F6;
+  border-right: 4px solid #AE4DAF;
   display: flex;
   flex-direction: column;
   z-index: 99999;
@@ -2085,7 +2265,7 @@
   justify-content: center;
   gap: 0;
   padding: 12px;
-  border-bottom: 4px solid #3B82F6;
+  border-bottom: 4px solid #AE4DAF;
   cursor: pointer;
   min-height: 64px;
 }
@@ -2098,7 +2278,7 @@
 .brutal-sidebar-logo {
   width: 40px;
   height: 40px;
-  border: 2px solid #3B82F6;
+  border: 2px solid #AE4DAF;
   flex-shrink: 0;
 }
 
@@ -2106,7 +2286,7 @@
   font-family: Arial, sans-serif;
   font-size: 14px;
   font-weight: bold;
-  color: #3B82F6;
+  color: #AE4DAF;
   text-shadow: none;
   background: none;
   opacity: 0;
@@ -2133,11 +2313,11 @@
   justify-content: center;
   gap: 12px;
   padding: 16px;
-  color: #3B82F6;
+  color: #FFFFFF !important;
   font-family: 'Poppins', Arial, sans-serif;
   font-size: 12px;
   font-weight: bold;
-  border-bottom: 2px solid rgba(59, 130, 246, 0.3);
+  border-bottom: 2px solid rgba(174, 77, 175, 0.3);
   cursor: pointer;
 }
 
@@ -2146,13 +2326,14 @@
 }
 
 .brutal-sidebar-link:hover {
-  background: rgba(139, 92, 246, 0.2);
-  color: #A855F7;
+  background: rgba(174, 77, 175, 0.2);
+  color: #FFFFFF !important;
 }
 
 .brutal-sidebar-link.active {
-  background: #8B5CF6;
-  color: #FFFFFF;
+  background: rgba(174, 77, 175, 0.15);
+  color: #FFFFFF !important;
+  border-left: 4px solid #AE4DAF;
 }
 
 .brutal-sidebar-icon {
@@ -2163,11 +2344,11 @@
   justify-content: center;
   font-size: 16px;
   flex-shrink: 0;
-  color: #3B82F6;
+  color: #FFFFFF !important;
 }
 
 .brutal-sidebar-icon svg {
-  fill: #3B82F6;
+  fill: #FFFFFF !important;
 }
 
 .brutal-sidebar-label {
@@ -2176,6 +2357,7 @@
   overflow: hidden;
   white-space: nowrap;
   transition: opacity 0.3s, width 0.3s;
+  color: #FFFFFF !important;
 }
 
 .brutal-sidebar:hover .brutal-sidebar-label {
@@ -2191,8 +2373,8 @@
   margin: 12px;
   padding: 12px;
   background: #0f0f1a;
-  color: #3B82F6;
-  border: 3px solid #3B82F6;
+  color: #FFFFFF !important;
+  border: 3px solid #AE4DAF;
   font-family: 'Poppins', Arial, sans-serif;
   font-size: 12px;
   font-weight: bold;
@@ -2217,7 +2399,7 @@
 
 .brutal-sidebar-footer {
   padding: 16px;
-  border-top: 4px solid #3B82F6;
+  border-top: 4px solid #AE4DAF;
   display: flex;
   gap: 16px;
   justify-content: center;
@@ -2230,7 +2412,7 @@
 }
 
 .brutal-sidebar-footer a {
-  color: #3B82F6;
+  color: #AE4DAF;
   font-family: Arial, sans-serif;
   font-size: 11px;
   text-decoration: none;
@@ -2238,57 +2420,57 @@
 }
 
 .brutal-sidebar-footer a:hover {
-  color: #8B5CF6;
+  color: #0446F1;
 }
 
 /* ==================== BRUTALIST RANDOM BUTTON ==================== */
 .brutal-sidebar-random {
   background: #0f0f1a !important;
-  color: #8B5CF6 !important;
-  border: 4px solid #3B82F6 !important;
-  box-shadow: 4px 4px 0 #3B82F6;
+  color: #0446F1 !important;
+  border: 4px solid #AE4DAF !important;
+  box-shadow: 4px 4px 0 #AE4DAF;
   transition: transform 0.15s, box-shadow 0.15s;
 }
 
 .brutal-sidebar-random:hover {
   transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0 #3B82F6;
-  background: #8B5CF6 !important;
+  box-shadow: 6px 6px 0 #AE4DAF;
+  background: #0446F1 !important;
   color: #FFFFFF !important;
 }
 
 .brutal-sidebar-random:active {
   transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0 #3B82F6;
+  box-shadow: 2px 2px 0 #AE4DAF;
 }
 
 /* ==================== BRUTALIST BACK TO TOP ==================== */
 [data-theme="brutalist"] .wiki-back-to-top {
   background: #0f0f1a !important;
-  color: #8B5CF6 !important;
-  border: 4px solid #3B82F6 !important;
+  color: #AE4DAF !important;
+  border: 4px solid #AE4DAF !important;
   border-radius: 0 !important;
-  box-shadow: 4px 4px 0 #3B82F6 !important;
+  box-shadow: 4px 4px 0 #AE4DAF !important;
   transition: transform 0.15s, box-shadow 0.15s !important;
 }
 
 [data-theme="brutalist"] .wiki-back-to-top:hover {
   transform: translate(-2px, -2px) !important;
-  box-shadow: 6px 6px 0 #3B82F6 !important;
-  background: #8B5CF6 !important;
+  box-shadow: 6px 6px 0 #AE4DAF !important;
+  background: #AE4DAF !important;
   color: #FFFFFF !important;
 }
 
 [data-theme="brutalist"] .wiki-back-to-top:active {
   transform: translate(2px, 2px) !important;
-  box-shadow: 2px 2px 0 #3B82F6 !important;
+  box-shadow: 2px 2px 0 #AE4DAF !important;
 }
 
 /* ==================== BRUTALIST SECTION COUNT ==================== */
 [data-theme="brutalist"] .wiki-section-count {
   background: #0f0f1a !important;
-  color: #3B82F6 !important;
-  border: 2px solid #3B82F6 !important;
+  color: #AE4DAF !important;
+  border: 2px solid #AE4DAF !important;
   padding: 4px 10px !important;
   font-family: var(--font-brutal-mono) !important;
   font-weight: bold !important;
@@ -2324,36 +2506,45 @@
 }
 
 [data-theme="brutalist"] .wiki-article-section h2 {
-  border-bottom: 3px solid #3B82F6 !important;
+  border-bottom: 3px solid #AE4DAF !important;
   padding-bottom: 8px !important;
   margin-bottom: 12px !important;
 }
 
+[data-theme="brutalist"] .wiki-article-section p,
+[data-theme="brutalist"] .wiki-article-section em,
+[data-theme="brutalist"] .wiki-article-section p em,
+[data-theme="brutalist"] .wiki-article-content p,
+[data-theme="brutalist"] .wiki-article-content em,
+[data-theme="brutalist"] .wiki-article-content p em {
+  color: #FFFFFF !important;
+}
+
 /* Brutalist infobox styling */
 [data-theme="brutalist"] .wiki-infobox {
-  border: 4px solid #3B82F6 !important;
+  border: 4px solid #AE4DAF !important;
   border-radius: 0 !important;
-  box-shadow: 6px 6px 0 #3B82F6 !important;
+  box-shadow: 6px 6px 0 #AE4DAF !important;
   background: #0f0f1a !important;
 }
 
 [data-theme="brutalist"] .wiki-infobox-header {
-  background: #8B5CF6 !important;
+  background: #0446F1 !important;
   color: #FFFFFF !important;
-  border-bottom: 3px solid #3B82F6 !important;
+  border-bottom: 3px solid #AE4DAF !important;
 }
 
 [data-theme="brutalist"] .wiki-infobox-image {
-  border-bottom: 3px solid #3B82F6 !important;
+  border-bottom: 3px solid #AE4DAF !important;
 }
 
 [data-theme="brutalist"] .wiki-infobox-table th {
   background: #1a1a2e !important;
-  border-bottom: 2px solid #3B82F6 !important;
+  border-bottom: 2px solid #AE4DAF !important;
 }
 
 [data-theme="brutalist"] .wiki-infobox-table td {
-  border-bottom: 1px solid rgba(59, 130, 246, 0.3) !important;
+  border-bottom: 1px solid rgba(174, 77, 175, 0.3) !important;
 }
 
 /* Main content adjustment for sidebar */
@@ -2429,9 +2620,9 @@ body.sidebar-collapsed main.xp-card-main {
 /* ==================== BRUTALIST CHARACTER OF THE DAY ==================== */
 [data-theme="brutalist"] .cotd-container {
   background: #0f0f1a !important;
-  border: 4px solid #3B82F6 !important;
+  border: 4px solid #AE4DAF !important;
   border-radius: 0 !important;
-  box-shadow: 6px 6px 0 #3B82F6 !important;
+  box-shadow: 6px 6px 0 #AE4DAF !important;
 }
 
 [data-theme="brutalist"] .cotd-header {
@@ -2441,28 +2632,28 @@ body.sidebar-collapsed main.xp-card-main {
 }
 
 [data-theme="brutalist"] .cotd-badge {
-  background: #8B5CF6 !important;
+  background: #0446F1 !important;
   color: #FFFFFF !important;
-  border: 2px solid #3B82F6 !important;
+  border: 2px solid #AE4DAF !important;
   border-radius: 0 !important;
   font-family: var(--font-brutal-mono) !important;
 }
 
 [data-theme="brutalist"] .cotd-date {
-  color: #3B82F6 !important;
+  color: #FFFFFF !important;
   font-family: var(--font-brutal-mono) !important;
   font-size: 11px !important;
 }
 
 [data-theme="brutalist"] .cotd-card {
   background: #0f0f1a !important;
-  border: 3px solid #3B82F6 !important;
+  border: 3px solid #AE4DAF !important;
   border-radius: 0 !important;
 }
 
 [data-theme="brutalist"] .cotd-card:hover {
   transform: translate(-4px, -4px) !important;
-  box-shadow: 8px 8px 0 #3B82F6 !important;
+  box-shadow: 8px 8px 0 #AE4DAF !important;
 }
 
 [data-theme="brutalist"] .cotd-glow {
@@ -2470,17 +2661,17 @@ body.sidebar-collapsed main.xp-card-main {
 }
 
 [data-theme="brutalist"] .cotd-avatar {
-  border: 4px solid #3B82F6 !important;
+  border: 4px solid #AE4DAF !important;
   border-radius: 0 !important;
   background: #0f0f1a !important;
 }
 
 [data-theme="brutalist"] .cotd-card:hover .cotd-avatar {
-  border-color: #8B5CF6 !important;
+  border-color: #0446F1 !important;
 }
 
 [data-theme="brutalist"] .cotd-name {
-  color: #3B82F6 !important;
+  color: #AE4DAF !important;
   background: none !important;
   border: none !important;
   box-shadow: none !important;
@@ -2492,17 +2683,90 @@ body.sidebar-collapsed main.xp-card-main {
 
 [data-theme="brutalist"] .cotd-role {
   background: #0f0f1a !important;
-  color: #8B5CF6 !important;
-  border: 2px solid #3B82F6 !important;
+  color: #FFFFFF !important;
+  border: 2px solid #AE4DAF !important;
   border-radius: 0 !important;
   font-family: var(--font-brutal-mono) !important;
   text-transform: uppercase !important;
 }
 
 [data-theme="brutalist"] .cotd-cta {
-  color: #8B5CF6 !important;
+  color: #FFFFFF !important;
   font-family: var(--font-brutal-mono) !important;
   text-transform: uppercase !important;
+}
+
+/* Recently Viewed in COTD */
+[data-theme="brutalist"] .cotd-recent {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  margin-top: 0.5rem;
+  background: rgba(0, 0, 0, 0.3);
+  border-top: 2px solid #AE4DAF;
+}
+
+[data-theme="brutalist"] .cotd-recent-label {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+[data-theme="brutalist"] .cotd-recent-items {
+  display: flex;
+  gap: 0.5rem;
+}
+
+[data-theme="brutalist"] .cotd-recent-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  text-decoration: none;
+}
+
+[data-theme="brutalist"] .cotd-recent-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 6px;
+  border: 2px solid #AE4DAF;
+  object-fit: cover;
+  transition: all 0.15s ease;
+}
+
+[data-theme="brutalist"] .cotd-recent-item:hover .cotd-recent-avatar {
+  border-color: #0446F1;
+  transform: scale(1.1);
+}
+
+[data-theme="brutalist"] .cotd-recent-placeholder {
+  width: 56px;
+  height: 56px;
+  border-radius: 6px;
+  border: 2px solid #AE4DAF;
+  background: #1a1a2e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #0446F1;
+}
+
+[data-theme="brutalist"] .cotd-recent-name {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: #FFFFFF;
+  text-align: center;
+  max-width: 60px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 /* ==================== BRUTALIST SPACING OVERRIDES ==================== */
@@ -2531,11 +2795,73 @@ body.sidebar-collapsed main.xp-card-main {
   align-items: start !important;
 }
 
+[data-theme="brutalist"] .wiki-intro-grid-3 {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 12px !important;
+  align-items: stretch !important;
+}
+
+[data-theme="brutalist"] .wiki-intro-grid-3 > * {
+  min-height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
 [data-theme="brutalist"] .cotd-container,
-[data-theme="brutalist"] .trivia-card,
 [data-theme="brutalist"] .mini-quiz,
-[data-theme="brutalist"] .lore-links {
+[data-theme="brutalist"] .lore-links,
+[data-theme="brutalist"] .lore-links-section {
   padding: 12px !important;
+  flex: 1 !important;
+  background: #0f0f1a !important;
+  border: 3px solid #AE4DAF !important;
+  border-radius: 8px !important;
+}
+
+[data-theme="brutalist"] .wiki-intro-grid-3 .lore-links-section {
+  margin: 0 !important;
+}
+
+/* Trivia in Quiz Card */
+[data-theme="brutalist"] .mini-quiz-trivia {
+  margin-top: auto;
+  padding-top: 0.75rem;
+  border-top: 2px solid #AE4DAF;
+  cursor: pointer;
+}
+
+[data-theme="brutalist"] .mini-quiz-trivia-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  color: #0446F1;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+[data-theme="brutalist"] .mini-quiz-trivia-category {
+  margin-left: auto;
+  background: rgba(174, 77, 175, 0.2);
+  padding: 0.15rem 0.4rem;
+  border-radius: 3px;
+  font-size: 0.6rem;
+}
+
+[data-theme="brutalist"] .mini-quiz-trivia-fact {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.8rem;
+  color: #FFFFFF;
+  line-height: 1.4;
+  margin: 0 0 0.5rem 0;
+}
+
+[data-theme="brutalist"] .mini-quiz-trivia-hint {
+  font-size: 0.65rem;
+  color: #666;
+  font-style: italic;
 }
 
 [data-theme="brutalist"] .cotd-card {
@@ -2543,8 +2869,8 @@ body.sidebar-collapsed main.xp-card-main {
 }
 
 [data-theme="brutalist"] .cotd-avatar {
-  width: 50px !important;
-  height: 50px !important;
+  width: 100px !important;
+  height: 100px !important;
 }
 
 [data-theme="brutalist"] .trivia-content {
@@ -2569,9 +2895,7 @@ body.sidebar-collapsed main.xp-card-main {
   padding: 10px !important;
 }
 
-[data-theme="brutalist"] .wiki-intro-grid-4 {
-  gap: var(--space-3);
-}
+/* Removed duplicate - using gap: 8px from earlier rule */
 
 [data-theme="brutalist"] .wiki-main {
   padding: 8px 8px !important;
@@ -2583,8 +2907,8 @@ body.sidebar-collapsed main.xp-card-main {
   margin-bottom: 1rem;
   padding: 16px 20px !important;
   background: #0f0f1a !important;
-  border: 3px solid #8B5CF6 !important;
-  box-shadow: 6px 6px 0 #3B82F6 !important;
+  border: 3px solid #0446F1 !important;
+  box-shadow: 6px 6px 0 #AE4DAF !important;
   width: fit-content !important;
   max-width: 100% !important;
   margin-left: auto !important;
@@ -2607,20 +2931,19 @@ body.sidebar-collapsed main.xp-card-main {
 
 /* Hero title - all text should be red and visible */
 [data-theme="brutalist"] .wiki-hero-text h1 {
-  color: #8B5CF6 !important;
-  -webkit-text-fill-color: #8B5CF6 !important;
+  color: #0446F1 !important;
+  -webkit-text-fill-color: #0446F1 !important;
   background: none !important;
-  text-shadow: 3px 3px 0 #3B82F6 !important;
+  text-shadow: 3px 3px 0 #AE4DAF !important;
 }
 
 [data-theme="brutalist"] .wiki-hero-text h1 span {
-  color: #8B5CF6 !important;
-  -webkit-text-fill-color: #8B5CF6 !important;
+  color: #0446F1 !important;
+  -webkit-text-fill-color: #0446F1 !important;
   background: none !important;
 }
 
 [data-theme="brutalist"] .wiki-hero-subtitle {
-  color: #3B82F6 !important;
   max-width: 100% !important;
   width: 100% !important;
   padding: 0 10px !important;
@@ -2629,18 +2952,18 @@ body.sidebar-collapsed main.xp-card-main {
 /* Hero stats - 25 Characters, 18 Terms counters */
 [data-theme="brutalist"] .wiki-stat {
   background: #0f0f1a !important;
-  border: 3px solid #3B82F6 !important;
+  border: 3px solid #AE4DAF !important;
   padding: 12px 16px !important;
-  box-shadow: 4px 4px 0 #3B82F6 !important;
+  box-shadow: 4px 4px 0 #AE4DAF !important;
 }
 
 [data-theme="brutalist"] .wiki-stat-value {
-  color: #8B5CF6 !important;
+  color: #0446F1 !important;
   font-family: var(--font-brutal-display) !important;
 }
 
 [data-theme="brutalist"] .wiki-stat-label {
-  color: #3B82F6 !important;
+  color: #AE4DAF !important;
   font-family: var(--font-brutal-mono) !important;
   text-transform: uppercase !important;
 }
@@ -2648,19 +2971,19 @@ body.sidebar-collapsed main.xp-card-main {
 /* ==================== BRUTALIST MINI QUIZ ==================== */
 [data-theme="brutalist"] .mini-quiz {
   background: #0f0f1a !important;
-  border: 4px solid #3B82F6 !important;
+  border: 4px solid #AE4DAF !important;
   border-radius: 0 !important;
-  box-shadow: 6px 6px 0 #3B82F6 !important;
+  box-shadow: 6px 6px 0 #AE4DAF !important;
 }
 
 [data-theme="brutalist"] .mini-quiz::before {
-  background: #8B5CF6 !important;
+  background: #0446F1 !important;
   height: 4px !important;
 }
 
 [data-theme="brutalist"] .mini-quiz-header h3 {
-  color: #3B82F6 !important;
-  -webkit-text-fill-color: #3B82F6 !important;
+  color: #AE4DAF !important;
+  -webkit-text-fill-color: #AE4DAF !important;
   background: none !important;
   background-color: transparent !important;
   border: none !important;
@@ -2675,11 +2998,11 @@ body.sidebar-collapsed main.xp-card-main {
 [data-theme="brutalist"] .retro-chat-bubble {
   position: relative;
   background: #1a1a2e !important;
-  border: 4px solid #8B5CF6 !important;
+  border: 4px solid #0446F1 !important;
   border-radius: 0 !important;
   padding: 20px 24px !important;
   margin: 16px 0 !important;
-  box-shadow: 8px 8px 0 #3B82F6 !important;
+  box-shadow: 8px 8px 0 #AE4DAF !important;
   max-width: 600px;
 }
 
@@ -2706,19 +3029,19 @@ body.sidebar-collapsed main.xp-card-main {
   line-height: 1.6 !important;
   margin: 0 !important;
   padding-left: 16px;
-  border-left: 3px solid #8B5CF6;
+  border-left: 3px solid #0446F1;
   text-shadow: 1px 1px 0 rgba(0,0,0,0.5);
 }
 
 [data-theme="brutalist"] .retro-bubble-footer {
   margin-top: 16px;
   padding-top: 12px;
-  border-top: 2px dashed #3B82F6;
+  border-top: 2px dashed #AE4DAF;
   text-align: right;
 }
 
 [data-theme="brutalist"] .retro-bubble-attr {
-  color: #8B5CF6 !important;
+  color: #0446F1 !important;
   font-family: var(--font-brutal-display), sans-serif !important;
   font-weight: bold;
   font-size: 14px;
@@ -2734,7 +3057,7 @@ body.sidebar-collapsed main.xp-card-main {
   height: 0;
   border-left: 20px solid transparent;
   border-right: 20px solid transparent;
-  border-top: 20px solid #8B5CF6;
+  border-top: 20px solid #0446F1;
 }
 
 [data-theme="brutalist"] .retro-bubble-tail::after {
@@ -2750,43 +3073,43 @@ body.sidebar-collapsed main.xp-card-main {
 }
 
 [data-theme="brutalist"] .mini-quiz-question {
-  color: #3B82F6 !important;
+  color: #FFFFFF !important;
 }
 
 [data-theme="brutalist"] .mini-quiz-option {
   background: #0f0f1a !important;
-  border: 2px solid #3B82F6 !important;
+  border: 2px solid #AE4DAF !important;
   border-radius: 0 !important;
-  color: #3B82F6 !important;
+  color: #FFFFFF !important;
 }
 
 [data-theme="brutalist"] .mini-quiz-option:hover:not(:disabled) {
-  background: #8B5CF6 !important;
+  background: #0446F1 !important;
   color: #FFFFFF !important;
-  border-color: #3B82F6 !important;
+  border-color: #AE4DAF !important;
 }
 
 [data-theme="brutalist"] .mini-quiz-option.correct {
   background: #4CAF50 !important;
-  border-color: #3B82F6 !important;
+  border-color: #AE4DAF !important;
   color: #FFFFFF !important;
 }
 
 [data-theme="brutalist"] .mini-quiz-option.wrong {
-  background: #8B5CF6 !important;
-  border-color: #3B82F6 !important;
+  background: #0446F1 !important;
+  border-color: #AE4DAF !important;
   color: #FFFFFF !important;
 }
 
 [data-theme="brutalist"] .mini-quiz-btn {
-  background: #8B5CF6 !important;
+  background: #0446F1 !important;
   color: #FFFFFF !important;
-  border: 2px solid #3B82F6 !important;
+  border: 2px solid #AE4DAF !important;
   border-radius: 0 !important;
 }
 
 [data-theme="brutalist"] .mini-quiz-btn:hover {
-  background: #3B82F6 !important;
+  background: #AE4DAF !important;
 }
 
 [data-theme="brutalist"] .mini-quiz-result {
@@ -2794,88 +3117,89 @@ body.sidebar-collapsed main.xp-card-main {
 }
 
 [data-theme="brutalist"] .mini-quiz-score {
-  color: #8B5CF6 !important;
+  color: #0446F1 !important;
 }
 
 [data-theme="brutalist"] .mini-quiz-progress,
 [data-theme="brutalist"] .mini-quiz-icon {
-  color: #3B82F6 !important;
+  color: #FFFFFF !important;
 }
 
 /* ==================== BRUTALIST TRIVIA / DID YOU KNOW ==================== */
 [data-theme="brutalist"] .trivia-card {
   background: #0f0f1a !important;
-  border: 4px solid #3B82F6 !important;
+  border: 4px solid #AE4DAF !important;
   border-radius: 0 !important;
-  box-shadow: 6px 6px 0 #3B82F6 !important;
+  box-shadow: 6px 6px 0 #AE4DAF !important;
 }
 
 [data-theme="brutalist"] .trivia-card::before {
-  background: #8B5CF6 !important;
+  background: #0446F1 !important;
   width: 6px !important;
 }
 
 [data-theme="brutalist"] .trivia-card:hover {
   transform: translate(-4px, -4px) !important;
-  box-shadow: 10px 10px 0 #3B82F6 !important;
+  box-shadow: 10px 10px 0 #AE4DAF !important;
 }
 
 [data-theme="brutalist"] .trivia-label {
-  color: #8B5CF6 !important;
+  color: #0446F1 !important;
   font-family: var(--font-brutal-display) !important;
   text-transform: uppercase !important;
 }
 
 [data-theme="brutalist"] .trivia-category {
   background: #0f0f1a !important;
-  border: 2px solid #3B82F6 !important;
+  border: 2px solid #AE4DAF !important;
   border-radius: 0 !important;
-  color: #3B82F6 !important;
+  color: #FFFFFF !important;
 }
 
 [data-theme="brutalist"] .trivia-fact {
-  color: #3B82F6 !important;
+  color: #FFFFFF !important;
 }
 
 [data-theme="brutalist"] .trivia-character {
-  color: #3B82F6 !important;
+  color: #FFFFFF !important;
 }
 
 [data-theme="brutalist"] .trivia-character span {
-  color: #8B5CF6 !important;
+  color: #FFFFFF !important;
 }
 
 /* ==================== BRUTALIST LORE LINKS / READ STORY ==================== */
 [data-theme="brutalist"] .lore-links-section {
   background: #0f0f1a !important;
-  border: 4px solid #3B82F6 !important;
-  border-radius: 0 !important;
-  box-shadow: 6px 6px 0 #3B82F6 !important;
-  padding: 20px !important;
+  border: 3px solid #AE4DAF !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  padding: 12px !important;
+  margin: 0 !important;
 }
 
 [data-theme="brutalist"] .lore-link-card {
   background: #0f0f1a !important;
-  border: 4px solid #3B82F6 !important;
+  border: 4px solid #AE4DAF !important;
   border-radius: 0 !important;
-  box-shadow: 4px 4px 0 #3B82F6 !important;
+  box-shadow: 4px 4px 0 #AE4DAF !important;
 }
 
 [data-theme="brutalist"] .lore-link-card:hover {
   transform: translate(-2px, -2px) !important;
-  box-shadow: 6px 6px 0 #3B82F6 !important;
-  border-color: #3B82F6 !important;
+  box-shadow: 6px 6px 0 #AE4DAF !important;
+  border-color: #AE4DAF !important;
 }
 
 [data-theme="brutalist"] .lore-link-icon {
-  background: #8B5CF6 !important;
+  background: #0446F1 !important;
   color: #FFFFFF !important;
-  border: 2px solid #3B82F6 !important;
+  border: 2px solid #AE4DAF !important;
   border-radius: 0 !important;
 }
 
 [data-theme="brutalist"] .lore-link-title {
-  color: #3B82F6 !important;
+  color: #AE4DAF !important;
   font-family: var(--font-brutal-display) !important;
   text-transform: uppercase !important;
 }
@@ -2885,15 +3209,17 @@ body.sidebar-collapsed main.xp-card-main {
 }
 
 [data-theme="brutalist"] .lore-links-title {
-  font-family: var(--font-heading) !important;
-  color: #3B82F6 !important;
-  -webkit-text-fill-color: #3B82F6 !important;
+  font-family: 'Azonix', 'Poppins', sans-serif !important;
+  font-size: 0.85rem !important;
+  color: #0446F1 !important;
+  -webkit-text-fill-color: #0446F1 !important;
   background: none !important;
   background-color: transparent !important;
   border: none !important;
   box-shadow: none !important;
   padding: 0 !important;
-  margin-bottom: 16px !important;
+  margin: 0 0 10px 0 !important;
+  text-transform: uppercase !important;
 }
 
 /* Tighter card spacing */
@@ -2912,9 +3238,9 @@ body.sidebar-collapsed main.xp-card-main {
 
 [data-theme="brutalist"] .wiki-glossary-item {
   background: #0f0f1a !important;
-  border: 4px solid #3B82F6 !important;
+  border: 4px solid #AE4DAF !important;
   border-radius: 0 !important;
-  box-shadow: 6px 6px 0 #3B82F6 !important;
+  box-shadow: 6px 6px 0 #AE4DAF !important;
   padding: 16px !important;
   transition: transform 0.2s ease, box-shadow 0.2s ease !important;
 }
@@ -2926,22 +3252,22 @@ body.sidebar-collapsed main.xp-card-main {
 
 [data-theme="brutalist"] .wiki-glossary-item:hover {
   transform: translate(-4px, -4px) !important;
-  box-shadow: 10px 10px 0 #3B82F6 !important;
+  box-shadow: 10px 10px 0 #AE4DAF !important;
   background: #0f0f1a !important;
 }
 
 [data-theme="brutalist"] .wiki-glossary-term {
   font-family: var(--font-brutal-display) !important;
-  color: #8B5CF6 !important;
+  color: #0446F1 !important;
   text-transform: uppercase !important;
   letter-spacing: 0.05em !important;
-  border-bottom: 3px solid #3B82F6 !important;
+  border-bottom: 3px solid #AE4DAF !important;
   padding-bottom: 8px !important;
   margin-bottom: 12px !important;
 }
 
 [data-theme="brutalist"] .wiki-glossary-def {
-  color: #3B82F6 !important;
+  color: #FFFFFF !important;
   font-family: var(--font-brutal-mono) !important;
   line-height: 1.6 !important;
 }
@@ -2953,11 +3279,11 @@ body.sidebar-collapsed main.xp-card-main {
 
 [data-theme="brutalist"] .wiki-theme-card {
   background: #0f0f1a !important;
-  border: 4px solid #3B82F6 !important;
+  border: 4px solid #AE4DAF !important;
   border-radius: 0 !important;
-  box-shadow: 4px 4px 0 #3B82F6 !important;
+  box-shadow: 4px 4px 0 #AE4DAF !important;
   padding: 12px 20px !important;
-  color: #3B82F6 !important;
+  color: #FFFFFF !important;
   font-family: var(--font-brutal-display) !important;
   text-transform: uppercase !important;
   letter-spacing: 0.05em !important;
@@ -2970,22 +3296,22 @@ body.sidebar-collapsed main.xp-card-main {
 
 [data-theme="brutalist"] .wiki-theme-card:hover {
   transform: translate(-2px, -2px) scale(1) !important;
-  box-shadow: 6px 6px 0 #3B82F6 !important;
-  background: #8B5CF6 !important;
+  box-shadow: 6px 6px 0 #AE4DAF !important;
+  background: #0446F1 !important;
   color: #FFFFFF !important;
 }
 
 [data-theme="brutalist"] .wiki-theme-card:active {
   transform: translate(2px, 2px) !important;
-  box-shadow: 2px 2px 0 #3B82F6 !important;
+  box-shadow: 2px 2px 0 #AE4DAF !important;
 }
 
 /* ==================== BRUTALIST RELATIONSHIP WEB ==================== */
 [data-theme="brutalist"] .relationship-web {
   background: #0f0f1a !important;
-  border: 4px solid #3B82F6 !important;
+  border: 4px solid #AE4DAF !important;
   border-radius: 0 !important;
-  box-shadow: 6px 6px 0 #3B82F6 !important;
+  box-shadow: 6px 6px 0 #AE4DAF !important;
   position: relative;
 }
 
@@ -2996,13 +3322,13 @@ body.sidebar-collapsed main.xp-card-main {
 [data-theme="brutalist"] .relationship-web-header h3 {
   font-family: var(--font-brutal-display) !important;
   text-transform: uppercase !important;
-  color: #3B82F6 !important;
-  -webkit-text-fill-color: #3B82F6 !important;
+  color: #AE4DAF !important;
+  -webkit-text-fill-color: #AE4DAF !important;
   background: none !important;
   background-color: transparent !important;
   border: none !important;
   box-shadow: none !important;
-  border-bottom: 3px solid #3B82F6 !important;
+  border-bottom: 3px solid #AE4DAF !important;
   padding: 0 !important;
   padding-bottom: 8px !important;
   display: inline-block;
@@ -3013,40 +3339,40 @@ body.sidebar-collapsed main.xp-card-main {
   font-family: var(--font-brutal-mono) !important;
   text-transform: uppercase !important;
   font-size: 11px !important;
-  color: #3B82F6 !important;
+  color: #FFFFFF !important;
 }
 
 [data-theme="brutalist"] .relationship-web-detail {
   background: #1a1a2e !important;
-  border: 3px solid #3B82F6 !important;
+  border: 3px solid #AE4DAF !important;
   border-radius: 0 !important;
 }
 
 [data-theme="brutalist"] .relationship-web-legend {
   background: #1a1a2e !important;
-  border: 3px solid #3B82F6 !important;
-  border-top: 3px solid #3B82F6 !important;
+  border: 3px solid #AE4DAF !important;
+  border-top: 3px solid #AE4DAF !important;
   border-radius: 0 !important;
 }
 
 [data-theme="brutalist"] .detail-name {
-  color: #3B82F6 !important;
+  color: #AE4DAF !important;
 }
 
 [data-theme="brutalist"] .detail-count {
-  color: #8B5CF6 !important;
+  color: #0446F1 !important;
 }
 
 [data-theme="brutalist"] .connection-type {
-  color: #8B5CF6 !important;
+  color: #0446F1 !important;
 }
 
 [data-theme="brutalist"] .connection-name {
-  color: #3B82F6 !important;
+  color: #AE4DAF !important;
 }
 
 [data-theme="brutalist"] .web-legend-item {
-  color: #3B82F6 !important;
+  color: #FFFFFF !important;
 }
 
 [data-theme="brutalist"] .relationship-web-connections {
@@ -3055,27 +3381,27 @@ body.sidebar-collapsed main.xp-card-main {
 
 [data-theme="brutalist"] .web-connection-link {
   background: #0f0f1a !important;
-  border: 2px solid #3B82F6 !important;
+  border: 2px solid #AE4DAF !important;
   border-radius: 0 !important;
-  color: #3B82F6 !important;
+  color: #AE4DAF !important;
 }
 
 [data-theme="brutalist"] .web-connection-link:hover {
-  background: #8B5CF6 !important;
+  background: #0446F1 !important;
   color: #FFFFFF !important;
 }
 
 [data-theme="brutalist"] .view-profile-link {
-  background: #8B5CF6 !important;
+  background: #0446F1 !important;
   color: #FFFFFF !important;
-  border: 3px solid #3B82F6 !important;
+  border: 3px solid #AE4DAF !important;
   border-radius: 0 !important;
-  box-shadow: 3px 3px 0 #3B82F6 !important;
+  box-shadow: 3px 3px 0 #AE4DAF !important;
 }
 
 [data-theme="brutalist"] .view-profile-link:hover {
   transform: translate(-2px, -2px) !important;
-  box-shadow: 5px 5px 0 #3B82F6 !important;
+  box-shadow: 5px 5px 0 #AE4DAF !important;
 }
 
 /* ==================== BRUTALIST RELATIONSHIP CARDS ==================== */
@@ -3085,9 +3411,9 @@ body.sidebar-collapsed main.xp-card-main {
 
 [data-theme="brutalist"] .wiki-relationship-card {
   background: #0f0f1a !important;
-  border: 3px solid #3B82F6 !important;
+  border: 3px solid #AE4DAF !important;
   border-radius: 0 !important;
-  box-shadow: 4px 4px 0 #3B82F6 !important;
+  box-shadow: 4px 4px 0 #AE4DAF !important;
   transition: transform 0.15s ease, box-shadow 0.15s ease !important;
 }
 
@@ -3098,12 +3424,12 @@ body.sidebar-collapsed main.xp-card-main {
 
 [data-theme="brutalist"] .wiki-relationship-card:hover {
   transform: translate(-2px, -2px) scale(1) !important;
-  box-shadow: 6px 6px 0 #3B82F6 !important;
+  box-shadow: 6px 6px 0 #AE4DAF !important;
   background: #1a1a2e !important;
 }
 
 [data-theme="brutalist"] .wiki-relationship-name {
-  color: #8B5CF6 !important;
+  color: #0446F1 !important;
   font-family: var(--font-brutal-display) !important;
   text-transform: uppercase !important;
 }
@@ -3111,7 +3437,7 @@ body.sidebar-collapsed main.xp-card-main {
 [data-theme="brutalist"] .wiki-relationship-type {
   background: #1E88E5 !important;
   color: #FFFFFF !important;
-  border: 2px solid #3B82F6 !important;
+  border: 2px solid #AE4DAF !important;
   border-radius: 0 !important;
   font-family: var(--font-brutal-mono) !important;
   text-transform: uppercase !important;
@@ -3122,7 +3448,7 @@ body.sidebar-collapsed main.xp-card-main {
 /* ==================== BRUTALIST TIER MAKER ==================== */
 .brutal-tier-maker {
   padding: 16px;
-  min-height: 100vh;
+  min-height: auto;
   background: var(--brutal-black);
 }
 
@@ -3142,7 +3468,7 @@ body.sidebar-collapsed main.xp-card-main {
 }
 
 .brutal-toast.error {
-  background: var(--brutal-red);
+  background: var(--brutal-primary);
   color: var(--brutal-white);
   border-color: var(--brutal-white);
 }
@@ -3157,8 +3483,8 @@ body.sidebar-collapsed main.xp-card-main {
   text-align: center;
   background: #0f0f1a !important;
   padding: 20px 40px;
-  border: 4px solid #3B82F6;
-  box-shadow: 6px 6px 0 #3B82F6;
+  border: 4px solid #AE4DAF;
+  box-shadow: 6px 6px 0 #AE4DAF;
   display: inline-block;
   position: relative;
   z-index: 10;
@@ -3168,16 +3494,17 @@ body.sidebar-collapsed main.xp-card-main {
 .brutal-tier-header h1 {
   font-family: var(--font-brutal-display);
   font-size: 2.5rem;
-  color: #8B5CF6 !important;
+  color: #0446F1 !important;
   margin: 0;
-  border-bottom: 4px solid #3B82F6;
+  border-bottom: 4px solid #AE4DAF;
   display: inline-block;
   padding-bottom: 8px;
 }
 
 .brutal-tier-header p {
-  font-family: var(--font-brutal-mono);
-  color: #3B82F6 !important;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  color: #AE4DAF !important;
   margin-top: 8px;
   font-size: 0.875rem;
 }
@@ -3208,12 +3535,12 @@ body.sidebar-collapsed main.xp-card-main {
 }
 
 .brutal-tier-actions .brutal-btn-danger {
-  border-color: var(--brutal-red);
-  color: var(--brutal-red);
+  border-color: var(--brutal-primary);
+  color: var(--brutal-primary);
 }
 
 .brutal-tier-actions .brutal-btn-danger:hover {
-  background: var(--brutal-red);
+  background: var(--brutal-primary);
   color: var(--brutal-white);
 }
 
@@ -3263,8 +3590,8 @@ body.sidebar-collapsed main.xp-card-main {
 
 .brutal-tier-row {
   display: flex;
-  min-height: 80px;
-  border: 2px solid #3B82F6;
+  min-height: 60px;
+  border: 2px solid #AE4DAF;
   border-bottom: none;
   background: #0f0f1a !important;
   opacity: 1 !important;
@@ -3273,7 +3600,7 @@ body.sidebar-collapsed main.xp-card-main {
 }
 
 .brutal-tier-row:last-child {
-  border-bottom: 2px solid #3B82F6;
+  border-bottom: 2px solid #AE4DAF;
 }
 
 .brutal-tier-row.tap-target {
@@ -3323,8 +3650,8 @@ body.sidebar-collapsed main.xp-card-main {
 }
 
 .brutal-tier-item.selected {
-  border-color: var(--brutal-yellow);
-  box-shadow: 0 0 0 2px var(--brutal-yellow);
+  border-color: var(--brutal-accent);
+  box-shadow: 0 0 0 2px var(--brutal-accent);
 }
 
 .brutal-tier-item img {
@@ -3361,7 +3688,7 @@ body.sidebar-collapsed main.xp-card-main {
   margin-top: 16px;
   background: #0f0f1a !important;
   background-color: #0f0f1a !important;
-  border: 4px solid #3B82F6;
+  border: 4px solid #AE4DAF;
   padding: 12px;
   opacity: 1 !important;
   position: relative;
@@ -3374,13 +3701,13 @@ body.sidebar-collapsed main.xp-card-main {
   align-items: center;
   margin-bottom: 12px;
   padding-bottom: 8px;
-  border-bottom: 2px solid #3B82F6;
+  border-bottom: 2px solid #AE4DAF;
 }
 
 .brutal-unranked-header span {
   font-family: var(--font-brutal-display);
   font-size: 1.25rem;
-  color: #3B82F6;
+  color: #AE4DAF;
 }
 
 .brutal-unranked-count {
@@ -3403,7 +3730,7 @@ body.sidebar-collapsed main.xp-card-main {
 .brutal-faction-label {
   font-family: var(--font-brutal-display);
   font-size: 0.65rem;
-  color: #3B82F6;
+  color: #AE4DAF;
   padding: 2px 6px;
   background: #0f0f1a;
   border-radius: 2px;
@@ -3503,14 +3830,14 @@ body.sidebar-collapsed main.xp-card-main {
 /* These use CSS custom properties that get set by the palette selector */
 
 :root {
-  --palette-primary: #8B5CF6;
-  --palette-secondary: #3B82F6;
-  --palette-accent: #A855F7;
+  --palette-primary: #0446F1;
+  --palette-secondary: #AE4DAF;
+  --palette-accent: #AE4DAF;
   --palette-text: #FFFFFF;
   --palette-text-muted: #a0a0a0;
   --palette-bg: #000000;
   --palette-card: #0f0f1a;
-  --palette-border: #3B82F6;
+  --palette-border: #AE4DAF;
 }
 
 /* ===== GLOBAL PAGE COLORS ===== */
@@ -3582,17 +3909,17 @@ body.sidebar-collapsed main.xp-card-main {
 
 [data-theme="brutalist"] .wiki-character-card {
   background: #0f0f1a !important;
-  border-color: #3B82F6 !important;
-  box-shadow: 6px 6px 0 #3B82F6 !important;
+  border-color: #AE4DAF !important;
+  box-shadow: 6px 6px 0 #AE4DAF !important;
 }
 
 [data-theme="brutalist"] .wiki-character-card:hover {
-  box-shadow: 10px 10px 0 #8B5CF6 !important;
+  box-shadow: 10px 10px 0 #0446F1 !important;
 }
 
 [data-theme="brutalist"] .wiki-character-card-name,
 [data-theme="brutalist"] .wiki-character-card h3 {
-  background: #8B5CF6 !important;
+  background: #0446F1 !important;
   color: #FFFFFF !important;
 }
 
@@ -3651,7 +3978,7 @@ body.sidebar-collapsed main.xp-card-main {
 [data-theme="brutalist"] .wiki-trait-badge {
   background: #1E88E5 !important;
   color: #FFFFFF !important;
-  border: 2px solid #3B82F6 !important;
+  border: 2px solid #AE4DAF !important;
   border-radius: 0 !important;
   font-family: var(--font-brutal-mono) !important;
   text-transform: uppercase !important;
@@ -3659,9 +3986,9 @@ body.sidebar-collapsed main.xp-card-main {
 }
 
 [data-theme="brutalist"] .wiki-conflict-badge {
-  background: #8B5CF6 !important;
+  background: #0446F1 !important;
   color: #FFFFFF !important;
-  border: 2px solid #3B82F6 !important;
+  border: 2px solid #AE4DAF !important;
   border-radius: 0 !important;
   font-family: var(--font-brutal-mono) !important;
   text-transform: uppercase !important;
@@ -3670,8 +3997,8 @@ body.sidebar-collapsed main.xp-card-main {
 
 [data-theme="brutalist"] .wiki-theme-chip {
   background: #0f0f1a !important;
-  color: #8B5CF6 !important;
-  border: 2px solid #3B82F6 !important;
+  color: #0446F1 !important;
+  border: 2px solid #AE4DAF !important;
   border-radius: 0 !important;
   font-family: var(--font-brutal-mono) !important;
   text-transform: uppercase !important;
@@ -3679,9 +4006,9 @@ body.sidebar-collapsed main.xp-card-main {
 }
 
 [data-theme="brutalist"] .wiki-infobox-badge {
-  background: #8B5CF6 !important;
+  background: #0446F1 !important;
   color: #FFFFFF !important;
-  border: 2px solid #3B82F6 !important;
+  border: 2px solid #AE4DAF !important;
   border-radius: 0 !important;
   font-family: var(--font-brutal-mono) !important;
   text-transform: uppercase !important;
@@ -3762,7 +4089,7 @@ body.sidebar-collapsed main.xp-card-main {
   background-color: #0f0f1a !important;
   background: #0f0f1a !important;
   opacity: 1 !important;
-  border-color: #3B82F6 !important;
+  border-color: #AE4DAF !important;
   position: relative;
   z-index: 10;
 }
@@ -3806,7 +4133,9 @@ body.sidebar-collapsed main.xp-card-main {
 [data-theme="brutalist"] .build-team-page {
   background: transparent !important;
   min-height: auto;
+  max-height: calc(100vh - 80px);
   padding: 0.5rem 1rem;
+  overflow: hidden;
 }
 
 [data-theme="brutalist"] .build-team-layout {
@@ -3820,13 +4149,15 @@ body.sidebar-collapsed main.xp-card-main {
 [data-theme="brutalist"] .build-team-main {
   flex: 1;
   min-width: 0;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
 }
 
 [data-theme="brutalist"] .build-team-top-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.5rem;
+  margin-bottom: 4px;
   gap: 0.5rem;
   flex-wrap: wrap;
 }
@@ -3870,15 +4201,15 @@ body.sidebar-collapsed main.xp-card-main {
   background: var(--palette-card) !important;
   border: 3px solid var(--palette-border) !important;
   box-shadow: 6px 6px 0 var(--palette-border) !important;
-  padding: 0.35rem;
+  padding: 4px;
 }
 
 [data-theme="brutalist"] .build-team-header {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 0.25rem;
-  padding-bottom: 0.25rem;
+  margin-bottom: 2px;
+  padding-bottom: 2px;
   border-bottom: 2px solid var(--palette-border) !important;
   gap: 0.5rem;
 }
@@ -4009,7 +4340,7 @@ body.sidebar-collapsed main.xp-card-main {
 }
 
 [data-theme="brutalist"] .build-team-delete-tier:hover {
-  background: #8B5CF6 !important;
+  background: #0446F1 !important;
 }
 
 [data-theme="brutalist"] .build-team-price-label {
@@ -4042,7 +4373,8 @@ body.sidebar-collapsed main.xp-card-main {
 
 [data-theme="brutalist"] .build-team-slot {
   flex: 1;
-  aspect-ratio: 1;
+  aspect-ratio: 1.2;
+  max-height: 90px;
   background: var(--palette-card) !important;
   border: 2px solid var(--palette-border) !important;
   display: flex;
@@ -4164,8 +4496,8 @@ body.sidebar-collapsed main.xp-card-main {
 }
 
 [data-theme="brutalist"] .build-team-footer {
-  margin-top: 0.35rem;
-  padding-top: 0.25rem;
+  margin-top: 4px;
+  padding-top: 2px;
   border-top: 2px solid var(--palette-border) !important;
   text-align: center;
   font-family: var(--font-brutal-mono);
@@ -4183,8 +4515,8 @@ body.sidebar-collapsed main.xp-card-main {
 
 /* Character Pool */
 [data-theme="brutalist"] .build-team-pool {
-  margin-top: 0.35rem;
-  padding: 0.35rem;
+  margin-top: 4px;
+  padding: 4px;
   background: var(--palette-card) !important;
   border: 2px solid var(--palette-border) !important;
   box-shadow: 3px 3px 0 var(--palette-border) !important;
@@ -4205,7 +4537,7 @@ body.sidebar-collapsed main.xp-card-main {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
   gap: 0.2rem;
-  max-height: 90px;
+  max-height: 80px;
   overflow-y: auto;
 }
 
@@ -4259,24 +4591,24 @@ body.sidebar-collapsed main.xp-card-main {
   font-family: var(--font-brutal-display);
   font-size: 0.875rem;
   margin: 0 0 0.5rem 0;
-  color: #3B82F6 !important;
+  color: #AE4DAF !important;
   text-align: center;
   background: #0f0f1a !important;
-  border: 2px solid #3B82F6 !important;
-  box-shadow: 3px 3px 0 #3B82F6 !important;
-  padding: 0.35rem 0.75rem !important;
+  border: 2px solid #AE4DAF !important;
+  box-shadow: 3px 3px 0 #AE4DAF !important;
+  padding: 4px 12px !important;
 }
 
 [data-theme="brutalist"] .build-team-templates-grid {
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  gap: 4px;
 }
 
 [data-theme="brutalist"] .build-team-template-btn {
   display: flex;
   flex-direction: column;
-  padding: 0.35rem;
+  padding: 4px;
   background: var(--palette-bg) !important;
   border: 2px solid var(--palette-border) !important;
   cursor: pointer;
@@ -4298,13 +4630,13 @@ body.sidebar-collapsed main.xp-card-main {
 [data-theme="brutalist"] .build-team-template-btn .template-name {
   font-family: var(--font-brutal-display);
   font-size: 0.875rem;
-  color: inherit;
+  color: #FFFFFF !important;
 }
 
 [data-theme="brutalist"] .build-team-template-btn .template-info {
   font-family: var(--font-brutal-mono);
   font-size: 0.6rem;
-  color: var(--palette-text-muted);
+  color: rgba(255,255,255,0.7) !important;
   margin-top: 0.15rem;
 }
 
@@ -4360,17 +4692,43 @@ body.sidebar-collapsed main.xp-card-main {
 /* Section titles - solid purple background (0% transparent) */
 [data-theme="brutalist"] .wiki-section-title,
 [data-theme="brutalist"] .wiki-section-header h3,
-[data-theme="brutalist"] .mini-quiz-header h3,
-[data-theme="brutalist"] .relationship-web-header h3,
-[data-theme="brutalist"] .lore-links-title {
+[data-theme="brutalist"] .relationship-web-header h3 {
   color: #FFFFFF !important;
   -webkit-text-fill-color: #FFFFFF !important;
-  background: #8B5CF6 !important;
-  background-color: #8B5CF6 !important;
+  background: #0446F1 !important;
+  background-color: #0446F1 !important;
   padding: 10px 20px !important;
-  border: 3px solid #3B82F6 !important;
-  box-shadow: 4px 4px 0 #3B82F6 !important;
+  border: 3px solid #AE4DAF !important;
+  box-shadow: 4px 4px 0 #AE4DAF !important;
   display: inline-block !important;
+}
+
+/* Intro grid card headers - simpler inline style */
+[data-theme="brutalist"] .wiki-intro-grid-3 .mini-quiz-header h3,
+[data-theme="brutalist"] .wiki-intro-grid-3 .lore-links-title,
+[data-theme="brutalist"] .wiki-intro-grid-3 .cotd-badge {
+  color: #0446F1 !important;
+  -webkit-text-fill-color: #0446F1 !important;
+  background: none !important;
+  background-color: transparent !important;
+  padding: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  display: block !important;
+  font-size: 0.85rem !important;
+  font-family: 'Azonix', 'Poppins', sans-serif !important;
+  text-transform: uppercase !important;
+  margin-bottom: 8px !important;
+}
+
+[data-theme="brutalist"] .wiki-intro-grid-3 .cotd-header {
+  margin-bottom: 0 !important;
+}
+
+[data-theme="brutalist"] .wiki-intro-grid-3 .cotd-date {
+  font-size: 0.7rem !important;
+  color: #666 !important;
+  margin-bottom: 8px !important;
 }
 
 /* ==================== CRITICAL OVERRIDES - MUST BE LAST ==================== */

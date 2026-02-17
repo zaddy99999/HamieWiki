@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   getCharacter,
   getCharacterRelationships,
@@ -13,7 +14,6 @@ import {
 import CharacterRating from '@/components/CharacterRating';
 import Breadcrumb from '@/components/Breadcrumb';
 import FavoriteButton from '@/components/FavoriteButton';
-import RecentlyViewed from '@/components/RecentlyViewed';
 import { useRecentlyViewed } from '@/hooks/useRecentlyViewed';
 import { CheckIcon, CopyIcon, ArrowUpIcon } from '@/components/Icons';
 
@@ -101,6 +101,32 @@ export default function CharacterPage() {
     term.toLowerCase().includes(character.displayName.toLowerCase())
   );
 
+  // Find similar characters by faction or roles
+  const similarCharacters = allCharacters
+    .filter(c => c.id !== characterId)
+    .map(c => {
+      let score = 0;
+      // Same faction = high relevance
+      if (character.faction && c.faction && character.faction === c.faction) {
+        score += 3;
+      }
+      // Overlapping roles
+      if (character.roles && c.roles) {
+        const overlap = character.roles.filter(r => c.roles.includes(r)).length;
+        score += overlap;
+      }
+      // Overlapping traits
+      if (character.traits && c.traits) {
+        const overlap = character.traits.filter(t => c.traits.includes(t)).length;
+        score += overlap * 0.5;
+      }
+      return { character: c, score };
+    })
+    .filter(item => item.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 4)
+    .map(item => item.character);
+
   const breadcrumbItems = [
     { label: 'Wiki', href: '/' },
     { label: 'Characters', href: '/#characters' },
@@ -141,7 +167,7 @@ export default function CharacterPage() {
               )}
               {!character.summary && character.notes && <p>{character.notes}</p>}
               {!character.summary && character.notableInfo && <p>{character.notableInfo}</p>}
-              {character.speciesNote && <p><em>Species note: {character.speciesNote}</em></p>}
+              {character.speciesNote && <p style={{ color: '#FFFFFF', WebkitTextFillColor: '#FFFFFF', background: 'none' }}>Species note: {character.speciesNote}</p>}
             </section>
 
             {/* Personality & Traits */}
@@ -331,17 +357,11 @@ export default function CharacterPage() {
                       className="related-character-card"
                       style={{ '--char-color': char.color || 'var(--brand-primary)' } as React.CSSProperties}
                     >
-                      {char.gifFile ? (
-                        <img
-                          src={`/images/${char.gifFile}`}
-                          alt={char.displayName}
-                          className="related-character-avatar"
-                        />
-                      ) : (
-                        <div className="related-character-placeholder">
-                          {char.displayName[0]}
-                        </div>
-                      )}
+                      <img
+                        src={char.gifFile ? `/images/${char.gifFile}` : '/images/hamiepfp.png'}
+                        alt={char.displayName}
+                        className="related-character-avatar"
+                      />
                       <div className="related-character-info">
                         <span className="related-character-name">{char.displayName}</span>
                         {char.roles[0] && (
@@ -389,11 +409,9 @@ export default function CharacterPage() {
               </div>
             </div>
 
-            {character.gifFile && (
-              <div className="wiki-infobox-image">
-                <img src={`/images/${character.gifFile}`} alt={character.displayName} />
-              </div>
-            )}
+            <div className="wiki-infobox-image">
+              <img src={character.gifFile ? `/images/${character.gifFile}` : '/images/hamiepfp.png'} alt={character.displayName} />
+            </div>
 
             {character.roles.length > 0 && (
               <div className="wiki-infobox-badges">
@@ -466,8 +484,37 @@ export default function CharacterPage() {
             {/* Character Rating */}
             <CharacterRating characterId={characterId} characterName={character.displayName} />
 
-            {/* Recently Viewed */}
-            <RecentlyViewed currentType="character" currentId={characterId} maxShow={4} />
+            {/* Similar Characters */}
+            {similarCharacters.length > 0 && (
+              <div className="wiki-infobox-section">
+                <h3 className="wiki-infobox-heading">Similar Characters</h3>
+                <div className="wiki-similar-characters">
+                  {similarCharacters.map(c => (
+                    <Link key={c.id} href={`/character/${c.id}`} className="wiki-similar-character">
+                      {c.gifFile ? (
+                        <Image
+                          src={`/images/${c.gifFile}`}
+                          alt={c.displayName}
+                          width={40}
+                          height={40}
+                          className="wiki-similar-avatar"
+                          unoptimized={c.gifFile?.endsWith('.gif')}
+                        />
+                      ) : (
+                        <Image
+                          src="/images/hamiepfp.png"
+                          alt={c.displayName}
+                          width={40}
+                          height={40}
+                          className="wiki-similar-avatar"
+                        />
+                      )}
+                      <span className="wiki-similar-name">{c.displayName}</span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
           </aside>
         </div>
       </article>
@@ -493,9 +540,7 @@ export default function CharacterPage() {
             </div>
 
             <div className="share-card-preview">
-              {character.gifFile && (
-                <img src={`/images/${character.gifFile}`} alt={character.displayName} />
-              )}
+              <img src={character.gifFile ? `/images/${character.gifFile}` : '/images/hamiepfp.png'} alt={character.displayName} />
               <h4>{character.displayName}</h4>
               <p>{character.roles[0]?.replace(/_/g, ' ') || character.symbolicRole || 'Character'}</p>
               {character.traits.length > 0 && (
