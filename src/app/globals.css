@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
 
 /* Mokoto Font - Logo + Major Headers */
 @font-face {
@@ -51,14 +51,6 @@
   font-display: swap;
 }
 
-/* Azonix Font - Legacy */
-@font-face {
-  font-family: 'Azonix';
-  src: url('/fonts/Azonix.otf') format('opentype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
 
 /* ==================== DESIGN SYSTEM ==================== */
 :root {

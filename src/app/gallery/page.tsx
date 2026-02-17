@@ -104,9 +104,6 @@ export default function GalleryPage() {
               <button className={tab === 'community' ? 'active' : ''} onClick={() => setTab('community')}>
                 Community
               </button>
-              <a href="https://read.hamieverse.com/songs-the-city-forgot" target="_blank" rel="noopener noreferrer">
-                Novel
-              </a>
               <button
                 className={`gallery-chaos-btn ${tab === 'chaos' ? 'active' : ''}`}
                 onClick={() => setTab('chaos')}
