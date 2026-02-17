@@ -26,9 +26,12 @@ export default function Sidebar() {
   };
 
   const goRandom = () => {
+    // Only characters with Shown=TRUE in the Google Sheet
     const characters = [
       'hamie', 'sam', 'lira', 'silas', 'ace', 'hikari', 'kael', 'orrien',
-      'grandma', 'mitch', '257a', 'luna'
+      'grandma', 'luna', 'kira', 'mitch', 'alistair_veynar', 'simba',
+      'halo_chryseos', 'veylor_quann', 'ironpaw_commander', 'caligo',
+      'lost_sentinel', 'malvoria_chryseos', 'kai_vox', 'echo_whisperer', 'elyndor'
     ];
     const random = characters[Math.floor(Math.random() * characters.length)];
     setIsOpen(false);
