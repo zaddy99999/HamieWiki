@@ -2525,6 +2525,49 @@ body.sidebar-collapsed main.xp-card-main {
   margin-top: 0;
 }
 
+/* Compact intro grid cards - reduce dead space */
+[data-theme="brutalist"] .wiki-intro-grid-4 {
+  gap: 8px !important;
+}
+
+[data-theme="brutalist"] .cotd-container,
+[data-theme="brutalist"] .trivia-card,
+[data-theme="brutalist"] .mini-quiz,
+[data-theme="brutalist"] .lore-links {
+  padding: 12px !important;
+}
+
+[data-theme="brutalist"] .cotd-card {
+  padding: 8px !important;
+}
+
+[data-theme="brutalist"] .cotd-avatar {
+  width: 50px !important;
+  height: 50px !important;
+}
+
+[data-theme="brutalist"] .trivia-content {
+  font-size: 0.9rem !important;
+  line-height: 1.4 !important;
+}
+
+[data-theme="brutalist"] .mini-quiz-options {
+  gap: 6px !important;
+}
+
+[data-theme="brutalist"] .mini-quiz-option {
+  padding: 8px 12px !important;
+  font-size: 0.85rem !important;
+}
+
+[data-theme="brutalist"] .lore-links-grid {
+  gap: 6px !important;
+}
+
+[data-theme="brutalist"] .lore-link-card {
+  padding: 10px !important;
+}
+
 [data-theme="brutalist"] .wiki-intro-grid-4 {
   gap: var(--space-3);
 }
