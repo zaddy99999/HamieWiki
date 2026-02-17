@@ -18,12 +18,12 @@ interface Tier {
 }
 
 const DEFAULT_TIERS: Tier[] = [
-  { id: 's', label: 'S', color: '#8B5CF6', items: [] },
-  { id: 'a', label: 'A', color: '#A855F7', items: [] },
-  { id: 'b', label: 'B', color: '#3B82F6', items: [] },
-  { id: 'c', label: 'C', color: '#60A5FA', items: [] },
-  { id: 'd', label: 'D', color: '#1E40AF', items: [] },
-  { id: 'f', label: 'F', color: '#7C3AED', items: [] },
+  { id: 's', label: 'S', color: '#0446F1', items: [] },
+  { id: 'a', label: 'A', color: '#AE4DAF', items: [] },
+  { id: 'b', label: 'B', color: '#6B7280', items: [] },
+  { id: 'c', label: 'C', color: '#4B5563', items: [] },
+  { id: 'd', label: 'D', color: '#374151', items: [] },
+  { id: 'f', label: 'F', color: '#EF4444', items: [] },
 ];
 
 export default function TierMaker() {
@@ -54,7 +54,7 @@ export default function TierMaker() {
     const items: TierItem[] = characters.map(char => ({
       id: char.id,
       name: char.displayName,
-      image: char.gifFile ? `/images/${char.gifFile}` : '/images/hamiepfp.png',
+      image: char.gifFile ? `/images/${char.gifFile}` : char.pngFile ? `/images/${char.pngFile}` : '/images/hamiepfp.png',
       faction: char.faction,
     }));
     setUnrankedItems(items);
@@ -195,7 +195,7 @@ export default function TierMaker() {
     const items: TierItem[] = characters.map(char => ({
       id: char.id,
       name: char.displayName,
-      image: char.gifFile ? `/images/${char.gifFile}` : '/images/hamiepfp.png',
+      image: char.gifFile ? `/images/${char.gifFile}` : char.pngFile ? `/images/${char.pngFile}` : '/images/hamiepfp.png',
       faction: char.faction,
     }));
     setUnrankedItems(items);
@@ -281,11 +281,12 @@ export default function TierMaker() {
 
         <div className="brutal-unranked-items">
           {(() => {
-            const factionGroups = ['Liberators', 'Aetherion', 'Respeculators', 'Other'];
+            const factionGroups = ['Liberators', 'Aetherion', 'Respeculators', 'Citizens', 'Other'];
             const grouped: Record<string, TierItem[]> = {
               'Liberators': [],
               'Aetherion': [],
               'Respeculators': [],
+              'Citizens': [],
               'Other': [],
             };
 
@@ -293,10 +294,12 @@ export default function TierMaker() {
               const faction = item.faction || '';
               if (faction === 'Undercode') {
                 grouped['Liberators'].push(item);
-              } else if (faction === 'Aetherion Elite') {
+              } else if (faction.includes('Aetherion')) {
                 grouped['Aetherion'].push(item);
               } else if (faction === 'Respeculators') {
                 grouped['Respeculators'].push(item);
+              } else if (faction === 'The City' || faction === 'The Beyond') {
+                grouped['Citizens'].push(item);
               } else {
                 grouped['Other'].push(item);
               }

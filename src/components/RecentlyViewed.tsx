@@ -10,12 +10,14 @@ interface RecentlyViewedProps {
   currentType?: string;
   currentId?: string;
   maxShow?: number;
+  compact?: boolean;
 }
 
 export default function RecentlyViewed({
   currentType,
   currentId,
-  maxShow = 5
+  maxShow = 5,
+  compact = false
 }: RecentlyViewedProps) {
   const { items, isLoaded, getItemsExcluding, clearAll } = useRecentlyViewed();
 
@@ -38,6 +40,36 @@ export default function RecentlyViewed({
     if (hours < 24) return `${hours}h ago`;
     return `${days}d ago`;
   };
+
+  // Compact horizontal version
+  if (compact) {
+    return (
+      <div className="recently-viewed-compact">
+        <span className="recently-viewed-compact-label">Recent:</span>
+        {displayItems.map((item, i) => (
+          <Link
+            key={`${item.type}-${item.id}-${i}`}
+            href={item.path}
+            className="recently-viewed-compact-item"
+            title={item.name}
+          >
+            {item.image ? (
+              <Image
+                src={item.image}
+                alt={item.name}
+                width={28}
+                height={28}
+                className="recently-viewed-compact-avatar"
+                unoptimized={item.image.endsWith('.gif')}
+              />
+            ) : (
+              <span className="recently-viewed-compact-placeholder">{item.name.charAt(0)}</span>
+            )}
+          </Link>
+        ))}
+      </div>
+    );
+  }
 
   return (
     <div className="recently-viewed">

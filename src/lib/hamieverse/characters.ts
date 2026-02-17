@@ -3,7 +3,7 @@ import comicsData from './comics.json';
 import { HamieCharacter, HamieRelationship, HamieFaction } from './types';
 import { characterColors, getCharacterColor } from './colors';
 
-// Character GIF mappings
+// Character GIF mappings (animated)
 const characterGifs: Record<string, string> = {
   hamie: 'HamieCharacter.gif',
   sam: 'SamCharacter.gif',
@@ -13,6 +13,33 @@ const characterGifs: Record<string, string> = {
   hikari: 'HikariCharacter.gif',
   kael: 'KaelCharacter.gif',
   orrien: 'OrrienCharacter.gif',
+};
+
+// Character PNG mappings (static)
+const characterPngs: Record<string, string> = {
+  hamie: 'HamieCharacternft.png',
+  sam: 'SamCharacter.png',
+  lira: 'LiraCharacter.png',
+  silas: 'SilasCharacter.png',
+  ace: 'AceCharacter.png',
+  ace_pudgy: 'AcePudgyCharacter.png',
+  hikari: 'HikariCharacter.png',
+  kael: 'KaelCharacter.png',
+  orrien: 'OrrienCharacter.png',
+  alistair_veynar: 'AlistairVeynarCharacter.png',
+  halo: 'HaloCharacter.png',
+  simba_digital_identity: 'SimbaCharacter.png',
+  simba: 'SimbaCharacter.png',
+  kira: 'KiraFluxCharacter.png',
+  veylor: 'VeylorQuann.png',
+  caligo: 'CaligoCharacter.png',
+  echo_whisperer: 'EchoWhispererCharacter.png',
+  elyndor: 'ElyndorCharacter.png',
+  iron_paw: 'IronPawCharacter.png',
+  kai_vox: 'KaiVoxCharacter.png',
+  lost_sentinel: 'LostSentinelCharacter.png',
+  malvoria: 'MalvoriaCharacter.png',
+  orrien_veynar: 'OrrienVeynar.png',
 };
 
 // Character quotes
@@ -73,6 +100,16 @@ const characterFactions: Record<string, string> = {
   luna: 'Undercode',
   alistair_veynar: 'Aetherion Elite',
   veynar_mother: 'Aetherion Elite',
+  // From comics.json
+  kira: 'The City',
+  iris: 'Respeculators',
+  halo: 'Aetherion Elite',
+  weylor: 'Respeculators',
+  veylor: 'Respeculators',
+  contractor_friend: 'The City',
+  pet_companion: 'Undercode',
+  homeless_man_under_overpass: 'The City',
+  dog_simba: 'Undercode',
 };
 
 // Transform raw character data into wiki-friendly format
@@ -106,6 +143,7 @@ function transformCharacter(key: string, data: any): HamieCharacter {
     meaning: data.meaning,
     summary: data.summary,
     gifFile: characterGifs[key.toLowerCase()] || undefined,
+    pngFile: characterPngs[key.toLowerCase()] || undefined,
     color: getCharacterColor(key),
     quotes: characterQuotes[key.toLowerCase()] || undefined,
     faction: characterFactions[key.toLowerCase()] || undefined,

@@ -3,14 +3,14 @@
 import { useEffect } from 'react';
 
 const DARK_THEME = {
-  primary: '#8B5CF6',
-  secondary: '#3B82F6',
-  accent: '#A855F7',
+  primary: '#0446F1',
+  secondary: '#AE4DAF',
+  accent: '#AE4DAF',
   text: '#FFFFFF',
   textMuted: '#a0a0a0',
   bg: '#000000',
   card: '#0f0f1a',
-  border: '#3B82F6'
+  border: '#AE4DAF'
 };
 
 export default function PaletteSelector() {

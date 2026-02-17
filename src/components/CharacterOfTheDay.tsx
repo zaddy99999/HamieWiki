@@ -5,13 +5,15 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { getAllCharacters } from '@/lib/hamieverse/characters';
 import { ArrowRightIcon } from './Icons';
+import { useRecentlyViewed } from '@/hooks/useRecentlyViewed';
 
 export default function CharacterOfTheDay() {
   const [character, setCharacter] = useState<ReturnType<typeof getAllCharacters>[0] | null>(null);
   const [dateString, setDateString] = useState<string>('');
+  const { items, isLoaded } = useRecentlyViewed();
   const allCharacters = getAllCharacters();
-  // Only use characters that have a GIF/image
-  const characters = allCharacters.filter(c => c.gifFile);
+  // Only use characters that have a GIF/PNG image
+  const characters = allCharacters.filter(c => c.gifFile || c.pngFile);
 
   useEffect(() => {
     if (characters.length === 0) return;
@@ -31,6 +33,8 @@ export default function CharacterOfTheDay() {
 
   if (!character) return null;
 
+  const recentItems = items.slice(0, 5);
+
   return (
     <div className="cotd-container">
       <div className="cotd-header">
@@ -42,13 +46,13 @@ export default function CharacterOfTheDay() {
         <div className="cotd-glow" style={{ '--char-color': character.color } as React.CSSProperties} />
 
         <div className="cotd-avatar">
-          {character.gifFile ? (
+          {(character.gifFile || character.pngFile) ? (
             <Image
-              src={`/images/${character.gifFile}`}
+              src={character.gifFile ? `/images/${character.gifFile}` : `/images/${character.pngFile}`}
               alt={character.displayName}
               fill
               className="cotd-img"
-              unoptimized={character.gifFile.endsWith('.gif')}
+              unoptimized={character.gifFile?.endsWith('.gif') || false}
             />
           ) : (
             <div className="cotd-placeholder" style={{ background: character.color }}>
@@ -69,6 +73,37 @@ export default function CharacterOfTheDay() {
 
         <span className="cotd-cta">View Profile <ArrowRightIcon size={14} /></span>
       </Link>
+
+      {/* Recently Viewed */}
+      {isLoaded && recentItems.length > 0 && (
+        <div className="cotd-recent">
+          <span className="cotd-recent-label">Recent:</span>
+          <div className="cotd-recent-items">
+            {recentItems.map((item, i) => (
+              <Link
+                key={`${item.type}-${item.id}-${i}`}
+                href={item.path}
+                className="cotd-recent-item"
+                title={item.name}
+              >
+                {item.image ? (
+                  <Image
+                    src={item.image}
+                    alt={item.name}
+                    width={56}
+                    height={56}
+                    className="cotd-recent-avatar"
+                    unoptimized={item.image.endsWith('.gif')}
+                  />
+                ) : (
+                  <span className="cotd-recent-placeholder">{item.name.charAt(0)}</span>
+                )}
+                <span className="cotd-recent-name">{item.name}</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

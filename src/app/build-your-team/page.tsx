@@ -19,26 +19,28 @@ interface Tier {
   slots: (Character | null)[];
 }
 
-const getAvatar = (character: Character) =>
-  character.gifFile ? `/images/${character.gifFile}` : null;
+interface TierListTier {
+  id: string;
+  label: string;
+  color: string;
+  items: Character[];
+}
 
-const handleAvatarError = (e: React.SyntheticEvent<HTMLImageElement>, name: string) => {
+const DEFAULT_TIER_LIST: TierListTier[] = [
+  { id: 's', label: 'S', color: '#0446F1', items: [] },
+  { id: 'a', label: 'A', color: '#AE4DAF', items: [] },
+  { id: 'b', label: 'B', color: '#6B7280', items: [] },
+  { id: 'c', label: 'C', color: '#4B5563', items: [] },
+  { id: 'd', label: 'D', color: '#374151', items: [] },
+  { id: 'f', label: 'F', color: '#EF4444', items: [] },
+];
+
+const getAvatar = (character: Character) =>
+  character.gifFile ? `/images/${character.gifFile}` : character.pngFile ? `/images/${character.pngFile}` : null;
+
+const handleAvatarError = (e: React.SyntheticEvent<HTMLImageElement>) => {
   const target = e.target as HTMLImageElement;
-  const letter = (name || '?')[0].toUpperCase();
-  const canvas = document.createElement('canvas');
-  canvas.width = 100;
-  canvas.height = 100;
-  const ctx = canvas.getContext('2d');
-  if (ctx) {
-    ctx.fillStyle = '#E53935';
-    ctx.fillRect(0, 0, 100, 100);
-    ctx.fillStyle = '#fff';
-    ctx.font = 'bold 40px Arial';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText(letter, 50, 50);
-    target.src = canvas.toDataURL('image/png');
-  }
+  target.src = '/images/hamiepfp.png';
 };
 
 type Mode = 'pick' | 'create';
@@ -77,11 +79,19 @@ export default function BuildYourTeam() {
   const [draggedCharacter, setDraggedCharacter] = useState<{ character: Character; fromTierId?: string; fromSlotIndex?: number } | null>(null);
   const [dragOverSlot, setDragOverSlot] = useState<{ tierId: string; slotIndex: number } | null>(null);
   const gridRef = useRef<HTMLDivElement>(null);
+  const tierListRef = useRef<HTMLDivElement>(null);
+
+  // Tier List state
+  const [tierList, setTierList] = useState<TierListTier[]>(DEFAULT_TIER_LIST);
+  const [tierListTitle, setTierListTitle] = useState('HAMIEVERSE TIER LIST');
+  const [tierUnranked, setTierUnranked] = useState<Character[]>([]);
+  const [tierDraggedItem, setTierDraggedItem] = useState<Character | null>(null);
+  const [tierDragSource, setTierDragSource] = useState<string | null>(null);
 
   useEffect(() => {
-    const characters = getAllCharacters().filter(c => c.gifFile);
+    const characters = getAllCharacters();
     setAllCharacters(characters);
-    distributePeople(characters);
+    distributePeople(characters.filter(c => c.gifFile || c.pngFile));
     setLoading(false);
   }, []);
 
@@ -250,6 +260,81 @@ export default function BuildYourTeam() {
     setDragOverSlot(null);
   };
 
+  // Tier List handlers
+  const handleTierDragStart = (item: Character, source: string) => {
+    setTierDraggedItem(item);
+    setTierDragSource(source);
+  };
+
+  const handleTierDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+  };
+
+  const handleTierDropOnTier = (targetTierId: string) => {
+    if (!tierDraggedItem) return;
+
+    if (tierDragSource === 'unranked') {
+      setTierUnranked(prev => prev.filter(i => i.id !== tierDraggedItem.id));
+    } else {
+      setTierList(prev => prev.map(tier => ({
+        ...tier,
+        items: tier.items.filter(i => i.id !== tierDraggedItem.id)
+      })));
+    }
+
+    setTierList(prev => prev.map(tier =>
+      tier.id === targetTierId
+        ? { ...tier, items: [...tier.items, tierDraggedItem] }
+        : tier
+    ));
+
+    setTierDraggedItem(null);
+    setTierDragSource(null);
+  };
+
+  const handleTierDropOnUnranked = () => {
+    if (!tierDraggedItem || tierDragSource === 'unranked') return;
+
+    setTierList(prev => prev.map(tier => ({
+      ...tier,
+      items: tier.items.filter(i => i.id !== tierDraggedItem.id)
+    })));
+
+    setTierUnranked(prev => [...prev, tierDraggedItem]);
+
+    setTierDraggedItem(null);
+    setTierDragSource(null);
+  };
+
+  const resetTierList = () => {
+    setTierList(DEFAULT_TIER_LIST);
+    setTierUnranked(allCharacters);
+  };
+
+  const handleCopyTierList = async () => {
+    if (!tierListRef.current || copyStatus === 'copying') return;
+    setCopyStatus('copying');
+
+    try {
+      const canvas = await html2canvas(tierListRef.current, {
+        backgroundColor: '#000000',
+        scale: 2,
+      });
+
+      const blob = await new Promise<Blob>((resolve, reject) => {
+        canvas.toBlob((b) => b ? resolve(b) : reject(new Error('No blob')), 'image/png');
+      });
+
+      await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+      setCopyStatus('copied');
+      setTimeout(() => setCopyStatus('idle'), 2000);
+    } catch (err) {
+      console.error('Failed:', err);
+      setCopyStatus('error');
+      setTimeout(() => setCopyStatus('idle'), 2000);
+    }
+  };
+
   const handleCopyTeam = async () => {
     if (!gridRef.current || copyStatus === 'copying') return;
     setCopyStatus('copying');
@@ -385,7 +470,7 @@ export default function BuildYourTeam() {
                                 draggable={mode === 'create'}
                                 onDragStart={mode === 'create' ? () => handleDragStart(character, tier.id, slotIndex) : undefined}
                                 onDragEnd={mode === 'create' ? handleDragEnd : undefined}
-                                onError={(e) => handleAvatarError(e, character.displayName)}
+                                onError={(e) => handleAvatarError(e)}
                               />
                             )}
                             <span className="build-team-name">{character.displayName}</span>
@@ -436,7 +521,7 @@ export default function BuildYourTeam() {
                       <img
                         src={getAvatar(character)!}
                         alt={character.displayName}
-                        onError={(e) => handleAvatarError(e, character.displayName)}
+                        onError={(e) => handleAvatarError(e)}
                       />
                     )}
                     <span>{character.displayName}</span>
@@ -445,6 +530,59 @@ export default function BuildYourTeam() {
               </div>
             </div>
           )}
+
+          {/* All Characters by Faction */}
+          <div className="tier-list-unranked">
+            <div className="tier-list-unranked-header">ALL CHARACTERS</div>
+            <div className="tier-list-unranked-items">
+              {(() => {
+                const factionGroups: Record<string, Character[]> = {
+                  'Liberators': [],
+                  'Aetherion': [],
+                  'Respeculators': [],
+                  'Citizens': [],
+                  'Other': [],
+                };
+
+                allCharacters.forEach(char => {
+                  const faction = char.faction || '';
+                  if (faction === 'Undercode') {
+                    factionGroups['Liberators'].push(char);
+                  } else if (faction.includes('Aetherion')) {
+                    factionGroups['Aetherion'].push(char);
+                  } else if (faction === 'Respeculators') {
+                    factionGroups['Respeculators'].push(char);
+                  } else if (faction === 'The City' || faction === 'The Beyond') {
+                    factionGroups['Citizens'].push(char);
+                  } else {
+                    factionGroups['Other'].push(char);
+                  }
+                });
+
+                return ['Liberators', 'Aetherion', 'Respeculators', 'Citizens', 'Other']
+                  .filter(g => factionGroups[g].length > 0)
+                  .flatMap(group => [
+                    <div key={`label-${group}`} className="faction-label-inline">{group}</div>,
+                    ...factionGroups[group].map((item) => (
+                      <div
+                        key={item.id}
+                        className="tier-list-item"
+                        draggable={mode === 'create'}
+                        onDragStart={mode === 'create' ? () => handleDragStart(item) : undefined}
+                        onDragEnd={mode === 'create' ? handleDragEnd : undefined}
+                      >
+                        <img
+                          src={getAvatar(item) || '/images/hamiepfp.png'}
+                          alt={item.displayName}
+                          onError={handleAvatarError}
+                        />
+                        <span>{item.displayName}</span>
+                      </div>
+                    ))
+                  ]);
+              })()}
+            </div>
+          </div>
         </div>
 
         <div className="build-team-templates">

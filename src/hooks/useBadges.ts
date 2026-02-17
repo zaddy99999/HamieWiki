@@ -35,7 +35,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
     name: 'Lore Scholar',
     description: 'A true student of Hamieverse history',
     icon: 'book',
-    color: '#9333EA',
+    color: '#AE4DAF',
     condition: 'Read 5 character pages',
   },
   {
@@ -51,7 +51,7 @@ export const BADGE_DEFINITIONS: BadgeDefinition[] = [
     name: 'Explorer',
     description: 'You have mapped the entire wiki',
     icon: 'compass',
-    color: '#627EEA',
+    color: '#0446F1',
     condition: 'Visit all main sections',
   },
   {

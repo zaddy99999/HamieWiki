@@ -94,7 +94,7 @@ export default function WikiHome() {
               >
                 <div className="wiki-character-avatar">
                   <Image
-                    src={char.gifFile ? `/images/${char.gifFile}` : '/images/hamiepfp.png'}
+                    src={char.gifFile ? `/images/${char.gifFile}` : char.pngFile ? `/images/${char.pngFile}` : '/images/hamiepfp.png'}
                     alt={char.displayName}
                     fill
                     className="wiki-character-gif"
@@ -134,7 +134,7 @@ export default function WikiHome() {
               >
                 <div className="wiki-supporting-avatar">
                   <Image
-                    src={char.gifFile ? `/images/${char.gifFile}` : '/images/hamiepfp.png'}
+                    src={char.gifFile ? `/images/${char.gifFile}` : char.pngFile ? `/images/${char.pngFile}` : '/images/hamiepfp.png'}
                     alt={char.displayName}
                     fill
                     className="wiki-supporting-img"

@@ -30,7 +30,7 @@ export default function RandomQuoteWidget() {
         character: c.displayName,
         characterId: c.id,
         color: c.color,
-        image: c.gifFile ? `/images/${c.gifFile}` : undefined,
+        image: c.gifFile ? `/images/${c.gifFile}` : c.pngFile ? `/images/${c.pngFile}` : undefined,
       }))
     );
 

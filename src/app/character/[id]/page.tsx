@@ -37,7 +37,7 @@ export default function CharacterPage() {
         id: characterId,
         name: character.displayName,
         path: `/character/${characterId}`,
-        image: character.gifFile ? `/images/${character.gifFile}` : undefined,
+        image: character.gifFile ? `/images/${character.gifFile}` : character.pngFile ? `/images/${character.pngFile}` : undefined,
       });
     }
   }, [characterId, character, addItem]);
@@ -358,7 +358,7 @@ export default function CharacterPage() {
                       style={{ '--char-color': char.color || 'var(--brand-primary)' } as React.CSSProperties}
                     >
                       <img
-                        src={char.gifFile ? `/images/${char.gifFile}` : '/images/hamiepfp.png'}
+                        src={char.gifFile ? `/images/${char.gifFile}` : char.pngFile ? `/images/${char.pngFile}` : '/images/hamiepfp.png'}
                         alt={char.displayName}
                         className="related-character-avatar"
                       />
@@ -410,7 +410,7 @@ export default function CharacterPage() {
             </div>
 
             <div className="wiki-infobox-image">
-              <img src={character.gifFile ? `/images/${character.gifFile}` : '/images/hamiepfp.png'} alt={character.displayName} />
+              <img src={character.gifFile ? `/images/${character.gifFile}` : character.pngFile ? `/images/${character.pngFile}` : '/images/hamiepfp.png'} alt={character.displayName} />
             </div>
 
             {character.roles.length > 0 && (
@@ -540,7 +540,7 @@ export default function CharacterPage() {
             </div>
 
             <div className="share-card-preview">
-              <img src={character.gifFile ? `/images/${character.gifFile}` : '/images/hamiepfp.png'} alt={character.displayName} />
+              <img src={character.gifFile ? `/images/${character.gifFile}` : character.pngFile ? `/images/${character.pngFile}` : '/images/hamiepfp.png'} alt={character.displayName} />
               <h4>{character.displayName}</h4>
               <p>{character.roles[0]?.replace(/_/g, ' ') || character.symbolicRole || 'Character'}</p>
               {character.traits.length > 0 && (

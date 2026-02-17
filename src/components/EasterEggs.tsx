@@ -136,7 +136,7 @@ export default function EasterEggs() {
                 style={{
                   left: `${Math.random() * 100}%`,
                   animationDelay: `${Math.random()}s`,
-                  backgroundColor: ['#F7931A', '#00D9A5', '#627EEA', '#9333EA'][Math.floor(Math.random() * 4)],
+                  backgroundColor: ['#0446F1', '#AE4DAF', '#FFFFFF', '#0446F1'][Math.floor(Math.random() * 4)],
                 }}
               />
             ))}

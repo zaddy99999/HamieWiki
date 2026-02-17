@@ -447,7 +447,7 @@ select:focus-visible {
   /* Consistent semantic colors */
   --success-color: #10B981;
   --warning-color: #F59E0B;
-  --info-color: #3B82F6;
+  --info-color: #AE4DAF;
   --error-color: var(--brand-danger);
 
   /* Surface colors for layering */

@@ -20,6 +20,7 @@ import BackToTop from '@/components/BackToTop';
 import EasterEggs from '@/components/EasterEggs';
 import Sidebar from '@/components/Sidebar';
 import PaletteSelector from '@/components/PaletteSelector';
+import Providers from './providers';
 
 export const metadata: Metadata = {
   title: 'Hamieverse Wiki',
@@ -92,24 +93,26 @@ export default function RootLayout({
         />
       </head>
       <body>
-        {/* Skip to main content for accessibility */}
-        <a href="#main-content" className="skip-to-content">
-          Skip to main content
-        </a>
+        <Providers>
+          {/* Skip to main content for accessibility */}
+          <a href="#main-content" className="skip-to-content">
+            Skip to main content
+          </a>
 
-        {/* Sidebar Navigation */}
-        <Sidebar />
+          {/* Sidebar Navigation */}
+          <Sidebar />
 
-        {children}
+          {children}
 
-        {/* Back to Top Button */}
-        <BackToTop />
+          {/* Back to Top Button */}
+          <BackToTop />
 
-        {/* Color Palette Selector */}
-        <PaletteSelector />
+          {/* Color Palette Selector */}
+          <PaletteSelector />
 
-        {/* Easter Eggs */}
-        <EasterEggs />
+          {/* Easter Eggs */}
+          <EasterEggs />
+        </Providers>
       </body>
     </html>
   );

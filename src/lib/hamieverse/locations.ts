@@ -144,7 +144,7 @@ export const locations: Location[] = [
     significance: 'The Neon Spire is where Hamie\'s transformation accelerates - receiving the invitation to midnight meetings that pull him deeper into the conspiracy. It bridges the gap between Undercode power and Inner Court politics.',
     aestheticTags: ['neon-lit', 'exclusive', 'mysterious', 'high-tier'],
     symbolism: ['elite access', 'invitation as test', 'threshold between worlds'],
-    color: '#9333EA',
+    color: '#AE4DAF',
     icon: 'tower',
     mapPosition: { x: 70, y: 45 },
     connections: ['the-city', 'the-undercode', 'respeculators-penthouse']

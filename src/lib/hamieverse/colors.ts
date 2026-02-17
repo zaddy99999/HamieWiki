@@ -11,7 +11,7 @@ export const factionColors: Record<string, string> = {
   ironpaw: '#1F2937',
   section_9: '#DC2626',
   undercode: '#00D9A5',
-  respeculators: '#9333EA',
+  respeculators: '#AE4DAF',
   the_beyond: '#F472B6',
   the_city: '#6B7280',
   independent: '#F59E0B',
@@ -55,7 +55,7 @@ export const locationColors: Record<string, string> = {
   'virella': '#22C55E',
   'aetherion-hq': '#DC2626',
   'the-wheel': '#F7931A',
-  'neon-spire': '#9333EA',
+  'neon-spire': '#AE4DAF',
 };
 
 // Faction icons (string identifiers for use with Icon components)

@@ -8,13 +8,17 @@
     "start": "next start -p 3001"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.90.21",
+    "@walletconnect/ethereum-provider": "^2.23.5",
     "gif.js": "^0.2.0",
     "gifuct-js": "^2.1.2",
     "html2canvas": "^1.4.1",
-    "next": "^14.2.0",
+    "next": "^16.1.6",
     "omggif": "^1.0.10",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "viem": "^2.46.1",
+    "wagmi": "^3.4.4"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",

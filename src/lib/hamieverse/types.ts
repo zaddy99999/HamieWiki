@@ -27,6 +27,7 @@ export interface HamieCharacter {
   meaning?: string;
   summary?: string;
   gifFile?: string;
+  pngFile?: string;
   color?: string;
   quotes?: string[];
   faction?: string;

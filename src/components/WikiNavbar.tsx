@@ -42,7 +42,7 @@ export default function WikiNavbar({ currentPage }: WikiNavbarProps) {
       id: c.id,
       name: c.displayName,
       subtitle: c.roles[0]?.replace(/_/g, ' ') || c.species || '',
-      image: c.gifFile ? `/images/${c.gifFile}` : undefined,
+      image: c.gifFile ? `/images/${c.gifFile}` : c.pngFile ? `/images/${c.pngFile}` : undefined,
     })),
     ...Object.keys(factions).map(key => ({
       type: 'faction' as const,
