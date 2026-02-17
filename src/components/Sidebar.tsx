@@ -27,8 +27,8 @@ export default function Sidebar() {
 
   const goRandom = () => {
     const characters = [
-      'hamie', 'kira', 'grandma', 'mitch', 'sam', 'aetherion',
-      'ironpaws', '257a', 'contractor_friend', 'homeless_man_under_overpass'
+      'hamie', 'sam', 'lira', 'silas', 'ace', 'hikari', 'kael', 'orrien',
+      'grandma', 'mitch', '257a', 'luna'
     ];
     const random = characters[Math.floor(Math.random() * characters.length)];
     setIsOpen(false);
