@@ -62,15 +62,17 @@
   --brand-secondary: #AE4DAF;
   --brand-accent: #AE4DAF;
 
-  /* Typography - Azonix Headings, Poppins Body */
-  --font-brutal-display: 'Azonix', 'Poppins', sans-serif;
+  /* Typography - Mokoto for major headers, Bicubik for subheaders, Satoshi for body */
+  --font-brutal-display: 'Mokoto', 'Satoshi', sans-serif;
+  --font-brutal-subheading: 'Bicubik', 'Satoshi', sans-serif;
   --font-brutal-mono: 'JetBrains Mono', monospace;
-  --font-brutal-body: 'Poppins', sans-serif;
-  --font-comic-marker: 'Azonix', 'Poppins', sans-serif;
-  --font-heading: 'Azonix', 'Poppins', sans-serif;
+  --font-brutal-body: 'Satoshi', sans-serif;
+  --font-comic-marker: 'Mokoto', 'Satoshi', sans-serif;
+  --font-heading: 'Mokoto', 'Satoshi', sans-serif;
+  --font-subheading: 'Bicubik', 'Satoshi', sans-serif;
 
   /* Override base fonts */
-  --font-sans: 'Poppins', sans-serif;
+  --font-sans: 'Satoshi', 'Satoshi', sans-serif;
   --font-mono: var(--font-brutal-mono);
 
   /* Brutalist Borders - Purple themed */
@@ -132,25 +134,30 @@
   background-repeat: no-repeat;
 }
 
-/* All paragraphs - Poppins regular */
+/* All paragraphs - Satoshi for body copy */
 [data-theme="brutalist"] p,
 [data-theme="brutalist"] span,
 [data-theme="brutalist"] div,
 [data-theme="brutalist"] li,
 [data-theme="brutalist"] td,
 [data-theme="brutalist"] label {
-  font-family: 'Poppins', sans-serif !important;
+  font-family: 'Satoshi', 'Satoshi', sans-serif !important;
   font-weight: 400;
 }
 
-/* All headings - Azonix */
+/* Major headings - Mokoto */
 [data-theme="brutalist"] h1,
-[data-theme="brutalist"] h2,
+[data-theme="brutalist"] h2 {
+  font-family: 'Mokoto', 'Satoshi', sans-serif !important;
+  font-weight: normal;
+}
+
+/* Subheadings - Bicubik */
 [data-theme="brutalist"] h3,
 [data-theme="brutalist"] h4,
 [data-theme="brutalist"] h5,
 [data-theme="brutalist"] h6 {
-  font-family: 'Azonix', 'Poppins', sans-serif !important;
+  font-family: 'Bicubik', 'Satoshi', sans-serif !important;
   font-weight: normal;
 }
 
@@ -1511,7 +1518,7 @@
 }
 
 [data-theme="brutalist"] .wiki-infobox-heading {
-  font-family: 'Azonix', 'Poppins', sans-serif;
+  font-family: 'Mokoto', 'Satoshi', sans-serif;
   font-size: 0.85rem;
   font-weight: bold;
   color: #0446F1;
@@ -1551,7 +1558,7 @@
 }
 
 [data-theme="brutalist"] .wiki-similar-name {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Satoshi', sans-serif;
   font-size: 0.9rem;
   font-weight: 600;
   color: #FFFFFF;
@@ -1570,7 +1577,7 @@
 }
 
 [data-theme="brutalist"] .recently-viewed-compact-label {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Satoshi', sans-serif;
   font-size: 0.75rem;
   font-weight: 600;
   color: #0446F1;
@@ -2283,7 +2290,7 @@ body[data-theme="brutalist"] .xp-preset-placeholder {
 }
 
 .brutal-sidebar-title {
-  font-family: Arial, sans-serif;
+  font-family: var(--font-brutal-display);
   font-size: 14px;
   font-weight: bold;
   color: #AE4DAF;
@@ -2314,7 +2321,7 @@ body[data-theme="brutalist"] .xp-preset-placeholder {
   gap: 12px;
   padding: 16px;
   color: #FFFFFF !important;
-  font-family: 'Poppins', Arial, sans-serif;
+  font-family: 'Satoshi', Arial, sans-serif;
   font-size: 12px;
   font-weight: bold;
   border-bottom: 2px solid rgba(174, 77, 175, 0.3);
@@ -2375,7 +2382,7 @@ body[data-theme="brutalist"] .xp-preset-placeholder {
   background: #0f0f1a;
   color: #FFFFFF !important;
   border: 3px solid #AE4DAF;
-  font-family: 'Poppins', Arial, sans-serif;
+  font-family: 'Satoshi', Arial, sans-serif;
   font-size: 12px;
   font-weight: bold;
   cursor: pointer;
@@ -2413,7 +2420,7 @@ body[data-theme="brutalist"] .xp-preset-placeholder {
 
 .brutal-sidebar-footer a {
   color: #AE4DAF;
-  font-family: Arial, sans-serif;
+  font-family: var(--font-brutal-body);
   font-size: 11px;
   text-decoration: none;
   font-weight: bold;
@@ -2626,9 +2633,41 @@ body.sidebar-collapsed main.xp-card-main {
 }
 
 [data-theme="brutalist"] .cotd-header {
-  flex-direction: column !important;
-  align-items: flex-start !important;
-  gap: 4px !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 8px !important;
+}
+
+[data-theme="brutalist"] .cotd-header-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+}
+
+[data-theme="brutalist"] .cotd-nav-btn {
+  background: transparent;
+  border: 2px solid #AE4DAF;
+  color: #FFFFFF;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+[data-theme="brutalist"] .cotd-nav-btn:hover:not(:disabled) {
+  background: #AE4DAF;
+  color: #0f0f1a;
+}
+
+[data-theme="brutalist"] .cotd-nav-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
 }
 
 [data-theme="brutalist"] .cotd-badge {
@@ -2708,7 +2747,7 @@ body.sidebar-collapsed main.xp-card-main {
 }
 
 [data-theme="brutalist"] .cotd-recent-label {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Satoshi', sans-serif;
   font-size: 0.75rem;
   font-weight: 600;
   color: #FFFFFF;
@@ -2758,7 +2797,7 @@ body.sidebar-collapsed main.xp-card-main {
 }
 
 [data-theme="brutalist"] .cotd-recent-name {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Satoshi', sans-serif;
   font-size: 0.65rem;
   font-weight: 600;
   color: #FFFFFF;
@@ -2851,7 +2890,7 @@ body.sidebar-collapsed main.xp-card-main {
 }
 
 [data-theme="brutalist"] .mini-quiz-trivia-fact {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Satoshi', sans-serif;
   font-size: 0.8rem;
   color: #FFFFFF;
   line-height: 1.4;
@@ -2931,6 +2970,7 @@ body.sidebar-collapsed main.xp-card-main {
 
 /* Hero title - all text should be red and visible */
 [data-theme="brutalist"] .wiki-hero-text h1 {
+  font-family: 'Mokoto', 'Satoshi', sans-serif !important;
   color: #0446F1 !important;
   -webkit-text-fill-color: #0446F1 !important;
   background: none !important;
@@ -3209,7 +3249,7 @@ body.sidebar-collapsed main.xp-card-main {
 }
 
 [data-theme="brutalist"] .lore-links-title {
-  font-family: 'Azonix', 'Poppins', sans-serif !important;
+  font-family: 'Mokoto', 'Satoshi', sans-serif !important;
   font-size: 0.85rem !important;
   color: #0446F1 !important;
   -webkit-text-fill-color: #0446F1 !important;
@@ -3502,7 +3542,7 @@ body.sidebar-collapsed main.xp-card-main {
 }
 
 .brutal-tier-header p {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Satoshi', sans-serif;
   font-weight: 400;
   color: #AE4DAF !important;
   margin-top: 8px;
@@ -4716,7 +4756,7 @@ body.sidebar-collapsed main.xp-card-main {
   box-shadow: none !important;
   display: block !important;
   font-size: 0.85rem !important;
-  font-family: 'Azonix', 'Poppins', sans-serif !important;
+  font-family: 'Mokoto', 'Satoshi', sans-serif !important;
   text-transform: uppercase !important;
   margin-bottom: 8px !important;
 }

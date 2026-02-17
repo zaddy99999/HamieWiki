@@ -720,9 +720,9 @@ export default function XPCardPage() {
                     <div className="abstract-id-avatar-placeholder" />
                   )}
                 </div>
-                <span className="abstract-id-name" style={{ marginLeft: '65px', marginTop: '-5px', fontFamily: 'Mokoto, sans-serif', color: textColor }}>{idDisplayName || 'Your Name'}</span>
-                <span className="abstract-id-rank" style={{ marginLeft: '75px', marginTop: '-13px', fontSize: '1.0625em', fontFamily: 'Mokoto, sans-serif', color: textColor }}>{role}</span>
-                <span className="abstract-id-role" style={{ marginLeft: '80px', marginTop: '3px', fontSize: '1.1875em', fontFamily: 'Mokoto, sans-serif', color: textColor }}>{faction}</span>
+                <span className="abstract-id-name" style={{ marginLeft: '65px', marginTop: '-5px', fontFamily: 'Satoshi, sans-serif', color: textColor }}>{idDisplayName || 'Your Name'}</span>
+                <span className="abstract-id-rank" style={{ marginLeft: '75px', marginTop: '-13px', fontSize: '1.0625em', fontFamily: 'Satoshi, sans-serif', color: textColor }}>{role}</span>
+                <span className="abstract-id-role" style={{ marginLeft: '80px', marginTop: '3px', fontSize: '1.1875em', fontFamily: 'Satoshi, sans-serif', color: textColor }}>{faction}</span>
               </div>
             ) : (
               /* XP Card Preview */

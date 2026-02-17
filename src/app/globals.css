@@ -114,8 +114,8 @@
 
   /* Typography */
   --font-sans: 'Satoshi', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-  --font-heading: 'Mokoto', 'Poppins', sans-serif;
-  --font-subheading: 'Bicubik', 'Poppins', sans-serif;
+  --font-heading: 'Mokoto', 'Satoshi', sans-serif;
+  --font-subheading: 'Bicubik', 'Satoshi', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
   --text-xs: 0.75rem;
@@ -15157,7 +15157,7 @@ html {
   writing-mode: vertical-rl;
   text-orientation: mixed;
   transform: rotate(180deg);
-  font-family: 'Azonix', sans-serif;
+  font-family: var(--font-heading);
   font-size: 2.5rem;
   letter-spacing: 6px;
   background: linear-gradient(135deg, #0446F1, #AE4DAF);
@@ -15198,7 +15198,7 @@ html {
 }
 
 .fanart-card-title {
-  font-family: 'Azonix', sans-serif;
+  font-family: var(--font-heading);
   font-size: 1.5rem;
   color: #fff;
   margin: 0;
@@ -15529,7 +15529,7 @@ html {
 }
 
 .community-art-empty h3 {
-  font-family: 'Azonix', sans-serif;
+  font-family: var(--font-subheading);
   font-size: 1.5rem;
   margin-bottom: 0.5rem;
 }
@@ -15582,7 +15582,7 @@ html {
 .slot-your,
 .slot-art,
 .slot-here {
-  font-family: 'Azonix', sans-serif;
+  font-family: var(--font-heading);
   text-transform: uppercase;
   letter-spacing: 2px;
 }
@@ -15730,7 +15730,7 @@ html {
 }
 
 .comic-issue-title {
-  font-family: 'Azonix', sans-serif;
+  font-family: var(--font-heading);
   font-size: 1.25rem;
   color: #fff;
   margin: 0;
@@ -16438,7 +16438,7 @@ html {
 }
 
 .admin-title {
-  font-family: 'Azonix', sans-serif;
+  font-family: var(--font-heading);
   font-size: 2rem;
   color: #fff;
   margin: 0;
