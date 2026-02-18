@@ -3,7 +3,8 @@
 /* Mokoto Font - Logo + Major Headers */
 @font-face {
   font-family: 'Mokoto';
-  src: url('/fonts/Mokoto.ttf') format('truetype');
+  src: url('/fonts/Mokoto.woff2') format('woff2'),
+       url('/fonts/Mokoto.ttf') format('truetype');
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
