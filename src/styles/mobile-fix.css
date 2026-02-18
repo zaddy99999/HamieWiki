@@ -33,6 +33,25 @@
     display: none !important;
   }
 
+  /* BACK TO TOP BUTTON - clean mobile styling */
+  .wiki-back-to-top {
+    width: 44px !important;
+    height: 44px !important;
+    bottom: 16px !important;
+    right: 16px !important;
+    border-width: 2px !important;
+    box-shadow: 2px 2px 0 #AE4DAF !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .wiki-back-to-top svg {
+    width: 20px !important;
+    height: 20px !important;
+  }
+
   /* RELATIONSHIP WEB - prevent overflow */
   .relationship-web,
   .relationship-web-container {
