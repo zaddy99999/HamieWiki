@@ -1303,9 +1303,12 @@
     padding: 60px 6px 6px 6px !important;
   }
 
-  /* Stack grids to single column */
+  /* Keep character grid 2 columns, others single */
   .wiki-character-grid,
-  .wiki-supporting-grid,
+  .wiki-supporting-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
   .wiki-themes-grid {
     grid-template-columns: 1fr !important;
   }
