@@ -205,35 +205,54 @@
     box-sizing: border-box !important;
   }
 
-  /* GRIDS */
+  /* GRIDS - SINGLE COLUMN ON MOBILE */
   .wiki-intro-grid-4,
   .wiki-intro-grid-3,
   .wiki-glossary-grid {
     display: flex !important;
     flex-direction: column !important;
-    gap: 10px !important;
-    position: relative !important;
-    z-index: 1 !important;
-  }
-
-  /* Intro section cards - ensure proper stacking */
-  .wiki-intro-section {
+    gap: 16px !important;
     position: relative !important;
     z-index: 1 !important;
     width: 100% !important;
   }
 
+  /* Intro section - full width stacking */
+  .wiki-intro-section {
+    position: relative !important;
+    z-index: 1 !important;
+    width: 100% !important;
+    display: block !important;
+  }
+
+  /* Each intro card - FULL WIDTH, SINGLE COLUMN */
   .cotd-container,
   .mini-quiz,
   .lore-links-section {
     position: relative !important;
     z-index: 1 !important;
     width: 100% !important;
+    max-width: 100% !important;
     flex-shrink: 0 !important;
+    display: block !important;
+    margin-bottom: 16px !important;
   }
 
-  .lore-links-section {
-    order: 3 !important;
+  /* Lore links grid - SINGLE COLUMN */
+  .lore-links-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    width: 100% !important;
+  }
+
+  /* Each lore link card - FULL WIDTH */
+  .lore-link-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
   }
 
   /* Main characters - 2 per row, smaller */
