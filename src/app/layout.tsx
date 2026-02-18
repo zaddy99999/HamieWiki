@@ -1,5 +1,12 @@
 import type { Metadata } from 'next';
+import localFont from 'next/font/local';
 import './globals.css';
+
+const mokoto = localFont({
+  src: '../../public/fonts/Mokoto.ttf',
+  variable: '--font-mokoto',
+  display: 'swap',
+});
 /**
  * All theme CSS files are imported upfront to enable instant theme switching.
  * Each theme contains unique visual effects (scanlines, animations, overlays)
@@ -37,7 +44,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" data-theme="brutalist">
+    <html lang="en" data-theme="brutalist" className={mokoto.variable}>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />

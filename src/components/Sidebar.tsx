@@ -66,7 +66,7 @@ export default function Sidebar() {
           {/* Logo */}
           <div className="mobile-nav-header" onClick={() => navigate('/')}>
             <img src="/images/hamiepfp.png" alt="Hamie" className="mobile-nav-logo" />
-            <span className="mobile-nav-title" style={{ fontFamily: "'Mokoto', 'Satoshi', sans-serif", fontWeight: 900 }}>HAMIEVERSE</span>
+            <span className="mobile-nav-title" style={{ fontFamily: "var(--font-mokoto), 'Satoshi', sans-serif" }}>HAMIEVERSE</span>
           </div>
 
           {/* Nav Links */}
@@ -142,7 +142,7 @@ export default function Sidebar() {
       {/* Logo */}
       <div className="brutal-sidebar-brand" onClick={() => navigate('/')}>
         <img src="/images/hamiepfp.png" alt="Hamie" className="brutal-sidebar-logo" />
-        <span className="brutal-sidebar-title" style={{ fontFamily: "'Mokoto', 'Satoshi', sans-serif", color: '#0446F1', textShadow: 'none', fontWeight: 900 }}>
+        <span className="brutal-sidebar-title" style={{ fontFamily: "var(--font-mokoto), 'Satoshi', sans-serif", color: '#0446F1', textShadow: 'none' }}>
           HAMIEVERSE
         </span>
       </div>
