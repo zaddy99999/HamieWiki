@@ -28,6 +28,24 @@
     width: 100% !important;
   }
 
+  /* HIDE RANDOM BUTTON ON MOBILE - use mobile menu version instead */
+  .wiki-random-btn {
+    display: none !important;
+  }
+
+  /* RELATIONSHIP WEB - prevent overflow */
+  .relationship-web,
+  .relationship-web-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+  }
+
+  .relationship-web svg {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
   /* HIDE ALL DECORATIVE BACKGROUNDS */
   .wiki-bg-effects,
   .wiki-orb, .wiki-orb-1, .wiki-orb-2, .wiki-orb-3,
