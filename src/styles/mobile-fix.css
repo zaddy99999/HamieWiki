@@ -65,28 +65,28 @@
     height: auto !important;
   }
 
-  /* FOOTER - single line on mobile */
+  /* FOOTER - left/right layout on mobile */
   .wiki-footer-inner {
     flex-direction: row !important;
-    flex-wrap: wrap !important;
-    justify-content: center !important;
+    justify-content: space-between !important;
     align-items: center !important;
-    gap: 8px !important;
-    text-align: center !important;
+    padding: 12px 16px !important;
+    gap: 16px !important;
   }
 
   .wiki-footer-text {
-    font-size: 12px !important;
+    font-size: 11px !important;
     margin: 0 !important;
+    text-align: left !important;
   }
 
   .wiki-footer-links {
     flex-direction: row !important;
-    gap: 12px !important;
+    gap: 16px !important;
   }
 
   .wiki-footer-link {
-    font-size: 12px !important;
+    font-size: 11px !important;
   }
 
   /* HIDE ALL DECORATIVE BACKGROUNDS */
