@@ -56,7 +56,7 @@ const comicSeries = [
   },
   {
     title: 'The Hamie Saga: Beyond The Hamieverse - Issue 2',
-    pages: [],
+    pages: Array.from({ length: 26 }, (_, i) => `/comics/issue2/${i + 1}.png`),
   },
 ];
 
