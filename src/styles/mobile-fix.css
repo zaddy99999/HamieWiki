@@ -405,8 +405,60 @@
 
   .abstract-id-card,
   .abstract-xp-card {
-    transform: scale(0.85) !important;
-    transform-origin: top left !important;
+    transform: scale(0.7) !important;
+    transform-origin: top center !important;
+    max-width: 100% !important;
+    width: auto !important;
+  }
+
+  /* XP Card fixed width override for mobile */
+  .abstract-xp-card {
+    width: 280px !important;
+    max-width: 90vw !important;
+  }
+
+  /* ID Card fixed width override for mobile */
+  .abstract-id-card {
+    width: 100% !important;
+    max-width: 450px !important;
+  }
+
+  /* XP Card content area - scale down on mobile */
+  .abstract-xp-content {
+    transform: scale(0.5) translateX(-45%) translateY(35%) !important;
+  }
+
+  .abstract-xp-header {
+    padding-left: 10px !important;
+  }
+
+  .abstract-xp-title {
+    font-size: 0.7rem !important;
+  }
+
+  .abstract-xp-header img {
+    height: 20px !important;
+  }
+
+  /* ID Card avatar adjustments */
+  .abstract-id-avatar {
+    transform: scale(1) !important;
+    margin-left: -50px !important;
+  }
+
+  .abstract-id-name {
+    margin-left: 40px !important;
+    font-size: 0.8rem !important;
+  }
+
+  .abstract-id-rank {
+    margin-left: 45px !important;
+    font-size: 0.7rem !important;
+  }
+
+  .abstract-id-role {
+    margin-left: 50px !important;
+    font-size: 0.75rem !important;
   }
 
   .card-type-toggle {
@@ -606,5 +658,846 @@
   .build-team-spent {
     font-size: 12px !important;
     padding: 4px 8px !important;
+  }
+
+  /* ===== GALLERY PAGE ===== */
+  .gallery-page-new {
+    padding: 8px !important;
+    min-height: 100vh !important;
+  }
+
+  .gallery-layout-new {
+    flex-direction: column !important;
+    height: auto !important;
+    min-height: calc(100vh - 16px) !important;
+  }
+
+  .gallery-sidebar-new {
+    width: 100% !important;
+    min-width: unset !important;
+    height: 36px !important;
+    border-right: none !important;
+    border-bottom: 2px solid var(--brand-primary) !important;
+  }
+
+  .gallery-sidebar-new span {
+    writing-mode: horizontal-tb !important;
+    transform: none !important;
+    font-size: 0.9rem !important;
+    letter-spacing: 2px !important;
+  }
+
+  .gallery-header-new {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 8px !important;
+    padding: 8px !important;
+  }
+
+  .gallery-tabs-new {
+    width: 100% !important;
+    justify-content: center !important;
+    flex-wrap: wrap !important;
+  }
+
+  .gallery-tabs-new button,
+  .gallery-tabs-new a {
+    padding: 8px 12px !important;
+    font-size: 0.75rem !important;
+    flex: 1 !important;
+    text-align: center !important;
+  }
+
+  .gallery-controls-new {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  .gallery-grid-new {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 6px !important;
+    padding: 6px !important;
+  }
+
+  .gallery-card-new {
+    border-radius: 8px !important;
+  }
+
+  /* Comics tab mobile */
+  .gallery-comics-new {
+    padding: 8px !important;
+  }
+
+  .comic-series-new h2 {
+    font-size: 1rem !important;
+    padding: 10px !important;
+  }
+
+  .comic-grid-new {
+    gap: 8px !important;
+  }
+
+  .comic-grid-new.cols-2,
+  .comic-grid-new.cols-3 {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* Chaos mode mobile */
+  .gallery-chaos-feed {
+    min-height: 400px !important;
+  }
+
+  .chaos-scatter-container {
+    height: 400vh !important;
+  }
+
+  .chaos-comic {
+    width: 100px !important;
+  }
+
+  /* Lightbox mobile */
+  .gallery-lightbox-new {
+    padding: 10px !important;
+  }
+
+  .gallery-lightbox-new img,
+  .gallery-lightbox-new video {
+    max-width: 95vw !important;
+    max-height: 85vh !important;
+  }
+
+  .gallery-lightbox-new button {
+    width: 36px !important;
+    height: 36px !important;
+    top: 10px !important;
+    right: 10px !important;
+    font-size: 1.25rem !important;
+  }
+
+  /* ===== TIER MAKER PAGE ===== */
+  .brutal-tier-maker {
+    padding: 8px !important;
+    margin-left: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .brutal-tier-header-wrapper {
+    margin-bottom: 10px !important;
+  }
+
+  .brutal-tier-header {
+    padding: 12px 16px !important;
+    box-shadow: 4px 4px 0 #AE4DAF !important;
+  }
+
+  .brutal-tier-header h1 {
+    font-size: 1.5rem !important;
+  }
+
+  .brutal-tier-header p {
+    font-size: 0.75rem !important;
+  }
+
+  .brutal-tier-container {
+    padding: 8px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .brutal-tier-top-row {
+    flex-direction: column !important;
+    gap: 8px !important;
+    align-items: stretch !important;
+  }
+
+  .brutal-tier-title {
+    font-size: 1.1rem !important;
+    text-align: center !important;
+  }
+
+  .brutal-tier-top-row .brutal-tier-actions {
+    justify-content: center !important;
+  }
+
+  .brutal-tier-row {
+    min-height: 50px !important;
+  }
+
+  .brutal-tier-label {
+    width: 36px !important;
+    min-width: 36px !important;
+    font-size: 1.3rem !important;
+  }
+
+  .brutal-tier-items {
+    gap: 3px !important;
+    padding: 3px !important;
+    min-height: 56px !important;
+  }
+
+  .brutal-tier-item {
+    width: 50px !important;
+    padding: 3px !important;
+  }
+
+  .brutal-tier-item img {
+    width: 36px !important;
+    height: 36px !important;
+  }
+
+  .brutal-tier-item span {
+    font-size: 0.5rem !important;
+    margin-top: 1px !important;
+  }
+
+  .brutal-unranked {
+    padding: 8px !important;
+  }
+
+  .brutal-unranked-header {
+    margin-bottom: 8px !important;
+    padding-bottom: 6px !important;
+  }
+
+  .brutal-unranked-header span {
+    font-size: 1rem !important;
+  }
+
+  .brutal-unranked-items {
+    gap: 4px !important;
+    max-height: 200px !important;
+  }
+
+  .brutal-faction-label {
+    font-size: 0.55rem !important;
+    padding: 2px 4px !important;
+    height: 20px !important;
+  }
+
+  .brutal-btn {
+    padding: 6px 12px !important;
+    font-size: 0.75rem !important;
+  }
+
+  .brutal-toast {
+    padding: 8px 16px !important;
+    font-size: 0.75rem !important;
+    top: 70px !important;
+  }
+
+  /* ===== ALL CHARACTERS SECTION (Build Team) ===== */
+  .tier-list-unranked {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 8px !important;
+  }
+
+  .tier-list-unranked-header {
+    font-size: 0.9rem !important;
+  }
+
+  .tier-list-unranked-items {
+    gap: 4px !important;
+  }
+
+  .tier-list-item {
+    width: 50px !important;
+    padding: 3px !important;
+  }
+
+  .tier-list-item img {
+    width: 36px !important;
+    height: 36px !important;
+  }
+
+  .tier-list-item span {
+    font-size: 0.5rem !important;
+  }
+
+  .faction-label-inline {
+    font-size: 0.5rem !important;
+    padding: 2px 4px !important;
+    height: 18px !important;
+  }
+
+  /* ===== TOUCH TARGET FIXES ===== */
+  /* Ensure minimum 44px touch targets for accessibility */
+  .cotd-nav-btn {
+    min-width: 44px !important;
+    min-height: 44px !important;
+    width: 44px !important;
+    height: 44px !important;
+  }
+
+  .mobile-nav-link {
+    min-height: 44px !important;
+  }
+
+  .mini-quiz-option {
+    min-height: 44px !important;
+  }
+
+  .lore-link-card {
+    min-height: 44px !important;
+  }
+
+  /* ===== FONT SIZE FIXES ===== */
+  /* Ensure readable font sizes on mobile */
+  .build-team-name {
+    font-size: 9px !important;
+  }
+
+  .build-team-pool-item span {
+    font-size: 10px !important;
+  }
+
+  /* ===== OVERFLOW PREVENTION ===== */
+  .wiki-quote-card,
+  .retro-chat-bubble {
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+  }
+
+  pre, code {
+    overflow-x: auto !important;
+    max-width: 100% !important;
+  }
+
+  table {
+    display: block !important;
+    overflow-x: auto !important;
+    max-width: 100% !important;
+  }
+
+  /* ===== CHARACTER DETAIL PAGE ===== */
+  .wiki-article-layout {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+  }
+
+  /* Infobox should appear FIRST on mobile (above content) */
+  .wiki-infobox {
+    order: -1 !important;
+    position: static !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-bottom: 16px !important;
+  }
+
+  .wiki-article-content {
+    order: 1 !important;
+    width: 100% !important;
+  }
+
+  /* Infobox image - constrain size on mobile */
+  .wiki-infobox-image {
+    max-height: 300px !important;
+    overflow: hidden !important;
+  }
+
+  .wiki-infobox-image img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 300px !important;
+    object-fit: contain !important;
+  }
+
+  /* Similar characters in infobox - 2 per row */
+  .wiki-similar-characters {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+  }
+
+  .wiki-similar-character {
+    flex-direction: column !important;
+    text-align: center !important;
+    padding: 8px !important;
+  }
+
+  .wiki-similar-avatar {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  .wiki-similar-name {
+    font-size: 11px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 100% !important;
+  }
+
+  /* Appearances table - make responsive */
+  .wiki-article-section table {
+    display: block !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  .wiki-article-section table th,
+  .wiki-article-section table td {
+    padding: 8px 10px !important;
+    font-size: 12px !important;
+    white-space: nowrap !important;
+  }
+
+  /* Related characters grid - 2 columns on mobile */
+  .related-characters-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+  }
+
+  .related-character-card {
+    padding: 8px !important;
+    gap: 8px !important;
+  }
+
+  .related-character-avatar {
+    width: 36px !important;
+    height: 36px !important;
+  }
+
+  .related-character-name {
+    font-size: 12px !important;
+  }
+
+  .related-character-role {
+    font-size: 10px !important;
+  }
+
+  /* Relationship grid - 2 columns on mobile */
+  .wiki-relationship-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+  }
+
+  .wiki-relationship-card {
+    padding: 10px !important;
+  }
+
+  .wiki-relationship-name {
+    font-size: 12px !important;
+  }
+
+  .wiki-relationship-type {
+    font-size: 10px !important;
+  }
+
+  /* Traits grid - wrap better on mobile */
+  .wiki-traits-grid {
+    gap: 6px !important;
+  }
+
+  .wiki-trait-badge {
+    font-size: 11px !important;
+    padding: 4px 8px !important;
+  }
+
+  .wiki-conflict-badge {
+    font-size: 11px !important;
+    padding: 4px 8px !important;
+  }
+
+  /* See also section */
+  .wiki-see-also {
+    margin-top: 24px !important;
+    padding-top: 16px !important;
+  }
+
+  .wiki-see-also-grid {
+    gap: 8px !important;
+  }
+
+  .wiki-see-also-link {
+    padding: 8px 12px !important;
+    font-size: 12px !important;
+  }
+
+  /* Share modal - full width on mobile */
+  .share-modal-overlay {
+    padding: 16px !important;
+  }
+
+  .share-modal {
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: 90vh !important;
+    overflow-y: auto !important;
+  }
+
+  .share-card-preview {
+    padding: 16px !important;
+  }
+
+  .share-card-preview img {
+    width: 80px !important;
+    height: 80px !important;
+  }
+
+  .share-actions {
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+
+  .share-action-btn {
+    width: 100% !important;
+  }
+
+  /* Article header adjustments */
+  .wiki-article-header {
+    padding: 0 12px !important;
+  }
+
+  .wiki-article-title {
+    font-size: 1.5rem !important;
+    word-break: break-word !important;
+  }
+
+  .wiki-article-subtitle {
+    font-size: 0.9rem !important;
+  }
+
+  /* Section headers */
+  .wiki-article-section h2 {
+    font-size: 1.1rem !important;
+  }
+
+  .wiki-section-header-with-link {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
+  }
+
+  /* Article sections padding */
+  .wiki-article-section {
+    padding: 0 12px !important;
+  }
+
+  /* Breadcrumb - smaller on mobile */
+  .breadcrumb {
+    font-size: 12px !important;
+    flex-wrap: wrap !important;
+    padding: 0 12px !important;
+  }
+
+  /* Infobox table adjustments */
+  .wiki-infobox-table th,
+  .wiki-infobox-table td {
+    padding: 8px 12px !important;
+    font-size: 13px !important;
+  }
+
+  /* Infobox badges */
+  .wiki-infobox-badges {
+    padding: 8px !important;
+    gap: 6px !important;
+  }
+
+  .wiki-infobox-badge {
+    font-size: 10px !important;
+    padding: 4px 8px !important;
+  }
+
+  /* Infobox section titles */
+  .wiki-infobox-section {
+    padding: 12px !important;
+  }
+
+  .wiki-infobox-section-title {
+    font-size: 10px !important;
+    margin-bottom: 8px !important;
+  }
+}
+
+/* ===== EXTRA SMALL SCREENS (320px - 480px) ===== */
+@media (max-width: 480px) {
+  /* Reduce padding further for very small screens */
+  .wiki-container,
+  .wiki-main,
+  main,
+  .container {
+    padding: 50px 0 0 0 !important;
+  }
+
+  .xp-card-main,
+  .build-team-page,
+  main.build-team-page {
+    padding: 60px 6px 6px 6px !important;
+  }
+
+  /* Stack grids to single column */
+  .wiki-character-grid,
+  .wiki-supporting-grid,
+  .wiki-themes-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Reduce character card image size */
+  .wiki-character-card img {
+    width: 50px !important;
+    height: 50px !important;
+  }
+
+  .wiki-character-card h3,
+  .wiki-character-name {
+    font-size: 0.7rem !important;
+    padding: 3px 5px !important;
+  }
+
+  /* XP Preset grid - 2 columns on very small screens */
+  .xp-preset-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 6px !important;
+    padding: 8px !important;
+  }
+
+  /* Build team - smaller items */
+  .build-team-slot {
+    height: 44px !important;
+  }
+
+  .build-team-avatar {
+    width: 28px !important;
+    height: 28px !important;
+  }
+
+  .build-team-pool-grid {
+    grid-template-columns: repeat(4, 1fr) !important;
+  }
+
+  .build-team-pool-item img {
+    width: 26px !important;
+    height: 26px !important;
+  }
+
+  .build-team-templates-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* Tier maker adjustments */
+  .brutal-tier-label {
+    width: 32px !important;
+    min-width: 32px !important;
+    font-size: 1.2rem !important;
+  }
+
+  .brutal-tier-item {
+    width: 44px !important;
+  }
+
+  .brutal-tier-item img {
+    width: 32px !important;
+    height: 32px !important;
+  }
+
+  .brutal-tier-item span {
+    font-size: 0.45rem !important;
+  }
+
+  .brutal-tier-row {
+    min-height: 44px !important;
+  }
+
+  .brutal-tier-items {
+    min-height: 48px !important;
+  }
+
+  /* Gallery adjustments for extra small screens */
+  .gallery-grid-new {
+    gap: 4px !important;
+    padding: 4px !important;
+  }
+
+  .gallery-tabs-new button,
+  .gallery-tabs-new a {
+    padding: 6px 8px !important;
+    font-size: 0.65rem !important;
+  }
+
+  .chaos-comic {
+    width: 80px !important;
+  }
+
+  /* Navigation menu adjustments */
+  .mobile-nav-menu {
+    width: 240px !important;
+  }
+
+  .mobile-nav-link {
+    padding: 12px 14px !important;
+    font-size: 14px !important;
+  }
+
+  /* Hero section */
+  .wiki-hero {
+    padding: 12px 16px !important;
+  }
+
+  .wiki-hero-text h1 {
+    font-size: clamp(1.5rem, 6vw, 2rem) !important;
+  }
+
+  /* Intro grid cards */
+  .wiki-intro-grid-3 {
+    gap: 8px !important;
+  }
+
+  .cotd-container,
+  .mini-quiz,
+  .lore-links,
+  .lore-links-section {
+    padding: 10px !important;
+  }
+
+  .cotd-avatar {
+    width: 80px !important;
+    height: 80px !important;
+  }
+
+  /* Font size minimums */
+  .mini-quiz-question {
+    font-size: 0.9rem !important;
+  }
+
+  .mini-quiz-option {
+    padding: 10px 12px !important;
+    font-size: 0.8rem !important;
+  }
+
+  /* Quote cards */
+  .wiki-quote-text {
+    font-size: 1rem !important;
+  }
+
+  .retro-quote-line {
+    font-size: 13px !important;
+  }
+
+  /* ===== CHARACTER DETAIL PAGE - Extra Small ===== */
+  /* Infobox image smaller */
+  .wiki-infobox-image {
+    max-height: 250px !important;
+  }
+
+  .wiki-infobox-image img {
+    max-height: 250px !important;
+  }
+
+  /* Smaller article title */
+  .wiki-article-title {
+    font-size: 1.25rem !important;
+  }
+
+  .wiki-article-subtitle {
+    font-size: 0.8rem !important;
+  }
+
+  /* Relationship grid single column on very small */
+  .wiki-relationship-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Related characters single column on very small */
+  .related-characters-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .related-character-card {
+    flex-direction: row !important;
+    justify-content: flex-start !important;
+  }
+
+  /* Similar characters in infobox - single column */
+  .wiki-similar-characters {
+    grid-template-columns: 1fr !important;
+  }
+
+  .wiki-similar-character {
+    flex-direction: row !important;
+    text-align: left !important;
+    gap: 8px !important;
+  }
+
+  /* Section headers smaller */
+  .wiki-article-section h2 {
+    font-size: 1rem !important;
+  }
+
+  /* Smaller padding for article sections */
+  .wiki-article-section {
+    padding: 0 8px !important;
+  }
+
+  /* Smaller trait badges */
+  .wiki-trait-badge,
+  .wiki-conflict-badge {
+    font-size: 10px !important;
+    padding: 3px 6px !important;
+  }
+
+  /* Share modal smaller preview */
+  .share-card-preview img {
+    width: 60px !important;
+    height: 60px !important;
+  }
+
+  .share-card-preview h4 {
+    font-size: 14px !important;
+  }
+
+  .share-card-preview p {
+    font-size: 12px !important;
+  }
+}
+
+/* ===== MINIMUM SCREEN (320px) ===== */
+@media (max-width: 360px) {
+  /* Further reduce for very narrow screens */
+  .mobile-hamburger {
+    top: 8px !important;
+    left: 8px !important;
+  }
+
+  .wiki-container,
+  .wiki-main,
+  main {
+    padding-top: 44px !important;
+  }
+
+  .xp-card-main,
+  .build-team-page {
+    padding: 52px 4px 4px 4px !important;
+  }
+
+  /* Single column everything */
+  .xp-preset-grid,
+  .build-team-templates-grid,
+  .build-team-pool-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .build-team-slot {
+    height: 40px !important;
+  }
+
+  .build-team-pool-item img {
+    width: 24px !important;
+    height: 24px !important;
+  }
+
+  /* Reduce mobile nav width */
+  .mobile-nav-menu {
+    width: 220px !important;
+  }
+
+  /* Scale down XP card preview */
+  .abstract-id-card,
+  .abstract-xp-card {
+    transform: scale(0.75) !important;
   }
 }

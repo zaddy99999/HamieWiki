@@ -99,11 +99,12 @@ export default function CharacterRating({ characterId, characterName }: Characte
         />
       </div>
 
-      <div className="char-rating-actions">
+      <div className="char-rating-actions" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', justifyContent: 'center' }}>
         <button
           className={`char-rating-btn upvote ${rating.userVote === 'up' ? 'active' : ''} ${isAnimating === 'up' ? 'animating' : ''}`}
           onClick={() => handleVote('up')}
           aria-label={`Upvote ${characterName}`}
+          style={{ minWidth: '44px', minHeight: '44px', padding: '8px 16px' }}
         >
           <span className="rating-icon">👍</span>
           <span className="rating-count">{rating.upvotes}</span>
@@ -119,6 +120,7 @@ export default function CharacterRating({ characterId, characterName }: Characte
           className={`char-rating-btn downvote ${rating.userVote === 'down' ? 'active' : ''} ${isAnimating === 'down' ? 'animating' : ''}`}
           onClick={() => handleVote('down')}
           aria-label={`Downvote ${characterName}`}
+          style={{ minWidth: '44px', minHeight: '44px', padding: '8px 16px' }}
         >
           <span className="rating-icon">👎</span>
           <span className="rating-count">{rating.downvotes}</span>

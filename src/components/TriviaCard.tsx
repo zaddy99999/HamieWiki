@@ -68,9 +68,9 @@ export default function TriviaCard() {
     : null;
 
   return (
-    <div className={`trivia-card ${isFlipping ? 'flipping' : ''}`} onClick={getNextTrivia}>
+    <div className={`trivia-card ${isFlipping ? 'flipping' : ''}`} onClick={getNextTrivia} style={{ cursor: 'pointer', padding: '20px' }}>
       <div className="trivia-header">
-        <span className="trivia-icon"><LightbulbIcon size={18} /></span>
+        <span className="trivia-icon"><LightbulbIcon size={20} /></span>
         <span className="trivia-label">Did You Know?</span>
         <span className="trivia-category">{currentTrivia.category}</span>
       </div>
@@ -80,7 +80,7 @@ export default function TriviaCard() {
           Related: <span>{character.displayName}</span>
         </div>
       )}
-      <div className="trivia-hint">Click for another fact</div>
+      <div className="trivia-hint">Tap for another fact</div>
     </div>
   );
 }

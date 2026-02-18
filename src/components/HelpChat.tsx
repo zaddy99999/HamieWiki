@@ -102,6 +102,7 @@ export default function HelpChat() {
         className={`help-chat-toggle ${isOpen ? 'open' : ''}`}
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Toggle help chat"
+        style={{ minWidth: '48px', minHeight: '48px' }}
       >
         {isOpen ? '×' : '?'}
       </button>
@@ -111,7 +112,7 @@ export default function HelpChat() {
         <div className="help-chat-window">
           <div className="help-chat-header">
             <span className="help-chat-title">Wiki Assistant</span>
-            <button className="help-chat-close" onClick={() => setIsOpen(false)}>×</button>
+            <button className="help-chat-close" onClick={() => setIsOpen(false)} style={{ minWidth: '44px', minHeight: '44px' }}>×</button>
           </div>
 
           <div className="help-chat-messages">
@@ -126,7 +127,7 @@ export default function HelpChat() {
           {messages.length === 1 && (
             <div className="help-chat-suggestions">
               {SUGGESTIONS.map((s, i) => (
-                <button key={i} className="help-chat-suggestion" onClick={() => handleSuggestion(s)}>
+                <button key={i} className="help-chat-suggestion" onClick={() => handleSuggestion(s)} style={{ minHeight: '44px', padding: '10px 14px' }}>
                   {s}
                 </button>
               ))}
@@ -140,8 +141,9 @@ export default function HelpChat() {
               placeholder="Ask a question..."
               value={input}
               onChange={(e) => setInput(e.target.value)}
+              style={{ fontSize: '16px' }}
             />
-            <button type="submit" className="help-chat-send"><ArrowRightIcon size={16} /></button>
+            <button type="submit" className="help-chat-send" style={{ minWidth: '44px', minHeight: '44px' }}><ArrowRightIcon size={20} /></button>
           </form>
         </div>
       )}

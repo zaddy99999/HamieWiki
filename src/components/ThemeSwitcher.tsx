@@ -29,8 +29,9 @@ export default function ThemeSwitcher() {
       onClick={toggleTheme}
       aria-label="Toggle theme"
       title={`Switch to ${currentTheme === 'brutalist' ? 'Arcade' : 'Brutal'} theme`}
+      style={{ minWidth: '44px', minHeight: '44px' }}
     >
-      {currentTheme === 'brutalist' ? <BrutalistIcon size={18} /> : <ArcadeIcon size={18} />}
+      {currentTheme === 'brutalist' ? <BrutalistIcon size={22} /> : <ArcadeIcon size={22} />}
     </button>
   );
 }

@@ -2987,10 +2987,13 @@ button {
 
   .wiki-hero-content {
     grid-template-columns: 1fr;
+    gap: var(--space-8);
   }
 
   .wiki-hero-featured {
     width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
   }
 }
 
@@ -3017,7 +3020,12 @@ button {
   }
 
   .wiki-character-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-4);
+  }
+
+  .wiki-character-card {
+    max-width: 100%;
   }
 
   .wiki-faction-grid,
@@ -3107,6 +3115,44 @@ button {
   flex-direction: column;
   padding: var(--space-6);
   gap: var(--space-2);
+}
+
+/* Mobile search input for mobile menu */
+.wiki-mobile-search {
+  position: relative;
+  margin-bottom: var(--space-4);
+}
+
+.wiki-mobile-search-input {
+  width: 100%;
+  height: 48px;
+  padding: 0 var(--space-4) 0 var(--space-12);
+  background: var(--bg-input);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  color: var(--text-primary);
+  font-size: 16px; /* Prevents iOS zoom */
+  outline: none;
+  transition: all var(--transition-fast);
+}
+
+.wiki-mobile-search-input::placeholder {
+  color: var(--text-muted);
+}
+
+.wiki-mobile-search-input:focus {
+  border-color: var(--brand-primary);
+  box-shadow: 0 0 0 3px rgba(4, 70, 241, 0.1);
+}
+
+.wiki-mobile-search-icon {
+  position: absolute;
+  left: var(--space-4);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: var(--text-lg);
+  pointer-events: none;
 }
 
 .wiki-mobile-link {
@@ -18271,4 +18317,490 @@ a.gallery-tab {
   align-self: center;
   flex-shrink: 0;
   margin-right: 4px;
+}
+
+/* ==================== MOBILE COMPATIBILITY IMPROVEMENTS ==================== */
+
+/* Tablet breakpoint (768px) - Enhanced */
+@media (max-width: 768px) {
+  /* Typography scaling for mobile */
+  :root {
+    --text-4xl: 2rem;
+    --text-3xl: 1.75rem;
+    --text-2xl: 1.375rem;
+    --text-xl: 1.125rem;
+  }
+
+  /* Hero section mobile adjustments */
+  .wiki-hero-featured {
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  .wiki-hero-text h1 {
+    font-size: var(--text-2xl);
+    line-height: 1.2;
+  }
+
+  .wiki-hero-subtitle {
+    font-size: var(--text-base);
+  }
+
+  /* Character grid - show 2 columns on tablets */
+  .wiki-character-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-4);
+  }
+
+  .wiki-character-card {
+    max-width: 100%;
+    padding: var(--space-4);
+  }
+
+  .wiki-character-avatar {
+    width: 100px;
+    height: 100px;
+  }
+
+  /* Footer mobile layout */
+  .wiki-footer-links {
+    flex-direction: column;
+    gap: var(--space-3);
+    align-items: center;
+  }
+
+  .wiki-footer-link {
+    padding: var(--space-2) var(--space-3);
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Form inputs - touch-friendly sizing */
+  .wiki-search-input,
+  .help-chat-input,
+  .compare-select,
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  textarea,
+  select {
+    min-height: 44px;
+    font-size: 16px; /* Prevents iOS zoom on focus */
+  }
+
+  /* Buttons - touch-friendly sizing */
+  button,
+  .wiki-random-btn,
+  .quiz-btn,
+  .mini-quiz-btn,
+  .char-rating-btn,
+  .help-chat-send {
+    min-height: 44px;
+    padding: var(--space-3) var(--space-4);
+  }
+
+  /* Card layouts */
+  .wiki-faction-grid,
+  .wiki-glossary-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  /* Infobox adjustments */
+  .wiki-infobox {
+    margin-bottom: var(--space-6);
+  }
+
+  /* Compare page */
+  .compare-selectors {
+    flex-direction: column;
+  }
+
+  .compare-select {
+    width: 100%;
+    max-width: none;
+  }
+
+  /* Reduce background effects on mobile for performance */
+  .wiki-orb {
+    opacity: 0.15;
+  }
+
+  .wiki-neon-grid,
+  .wiki-particles,
+  .wiki-lightning {
+    opacity: 0.2;
+  }
+}
+
+/* Small mobile breakpoint (480px) */
+@media (max-width: 480px) {
+  /* Further typography scaling */
+  :root {
+    --text-4xl: 1.75rem;
+    --text-3xl: 1.5rem;
+    --text-2xl: 1.25rem;
+    --text-xl: 1rem;
+    --text-lg: 0.9375rem;
+  }
+
+  /* Container padding */
+  .wiki-main,
+  .wiki-content,
+  .wiki-article,
+  .compare-main,
+  .quotes-main,
+  .forum-main {
+    padding-left: var(--space-3);
+    padding-right: var(--space-3);
+  }
+
+  /* Character grid - single column on very small screens */
+  .wiki-character-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+    padding: 0 var(--space-2);
+  }
+
+  .wiki-character-card {
+    max-width: 100%;
+    padding: var(--space-4);
+  }
+
+  .wiki-character-avatar {
+    width: 80px;
+    height: 80px;
+  }
+
+  .wiki-character-name {
+    font-size: var(--text-sm);
+  }
+
+  /* Hero section */
+  .wiki-hero-content {
+    padding: var(--space-8) var(--space-3);
+  }
+
+  .wiki-hero-featured {
+    max-width: 100%;
+    padding: var(--space-4);
+  }
+
+  .wiki-hero-stats {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-4);
+  }
+
+  .wiki-stat {
+    flex: 0 0 auto;
+    min-width: 80px;
+  }
+
+  .wiki-stat-value {
+    font-size: var(--text-xl);
+  }
+
+  /* Navigation */
+  .wiki-topbar-inner {
+    padding: 0 var(--space-3);
+    height: 52px;
+  }
+
+  .wiki-topbar-title {
+    font-size: var(--text-base);
+  }
+
+  /* Mobile menu links - larger touch targets */
+  .wiki-mobile-link {
+    padding: var(--space-4);
+    font-size: var(--text-base);
+    min-height: 48px;
+  }
+
+  /* Cards and grid items */
+  .wiki-faction-card,
+  .wiki-glossary-item {
+    padding: var(--space-4);
+  }
+
+  .wiki-faction-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+
+  /* Infobox - full width on mobile */
+  .wiki-infobox {
+    padding: var(--space-4);
+  }
+
+  .wiki-infobox-avatar {
+    width: 100px;
+    height: 100px;
+  }
+
+  /* Timeline adjustments */
+  .timeline-container {
+    padding: var(--space-6) var(--space-3);
+  }
+
+  .timeline-line {
+    left: 15px;
+  }
+
+  .timeline-marker {
+    left: 15px;
+    width: 30px;
+    height: 30px;
+    font-size: var(--text-xs);
+  }
+
+  .timeline-item,
+  .timeline-item-left,
+  .timeline-item-right,
+  .timeline-item-prologue,
+  .timeline-item-end {
+    padding-left: 50px;
+  }
+
+  .timeline-card {
+    padding: var(--space-3);
+  }
+
+  /* Quiz improvements */
+  .mini-quiz {
+    padding: var(--space-4);
+  }
+
+  .mini-quiz-option {
+    padding: var(--space-3);
+    font-size: var(--text-base);
+    min-height: 48px;
+  }
+
+  /* Footer */
+  .wiki-footer {
+    padding: var(--space-6) var(--space-3);
+  }
+
+  .wiki-footer-text {
+    font-size: var(--text-xs);
+  }
+
+  /* Floating buttons positioning */
+  .wiki-back-to-top,
+  .help-chat-toggle {
+    width: 40px;
+    height: 40px;
+    font-size: var(--text-base);
+  }
+
+  /* Disable heavy animations for performance */
+  .wiki-orb,
+  .wiki-particles,
+  .wiki-lightning,
+  .wiki-energy-stream {
+    display: none;
+  }
+
+  /* Keep only subtle background effect */
+  .wiki-aurora {
+    opacity: 0.3;
+  }
+}
+
+/* Extra small mobile breakpoint (320px) */
+@media (max-width: 320px) {
+  /* Minimal typography */
+  :root {
+    --text-4xl: 1.5rem;
+    --text-3xl: 1.375rem;
+    --text-2xl: 1.125rem;
+    --text-xl: 1rem;
+    --text-lg: 0.875rem;
+    --text-base: 0.875rem;
+    --text-sm: 0.8125rem;
+    --text-xs: 0.6875rem;
+  }
+
+  /* Tighter spacing */
+  .wiki-main,
+  .wiki-content,
+  .wiki-article {
+    padding-left: var(--space-2);
+    padding-right: var(--space-2);
+  }
+
+  /* Character cards */
+  .wiki-character-card {
+    padding: var(--space-3);
+  }
+
+  .wiki-character-avatar {
+    width: 64px;
+    height: 64px;
+  }
+
+  .wiki-character-name {
+    font-size: var(--text-xs);
+  }
+
+  .wiki-character-role,
+  .wiki-character-species {
+    font-size: 0.625rem;
+  }
+
+  /* Hero */
+  .wiki-hero-content {
+    padding: var(--space-6) var(--space-2);
+  }
+
+  .wiki-hero-text h1 {
+    font-size: 1.5rem;
+  }
+
+  /* Topbar */
+  .wiki-topbar-inner {
+    padding: 0 var(--space-2);
+    gap: var(--space-2);
+  }
+
+  .wiki-topbar-logo {
+    width: 28px;
+    height: 28px;
+  }
+
+  .wiki-topbar-title {
+    font-size: var(--text-sm);
+  }
+
+  /* Cards */
+  .wiki-faction-card,
+  .wiki-glossary-item,
+  .wiki-infobox {
+    padding: var(--space-3);
+  }
+
+  /* Footer */
+  .wiki-footer {
+    padding: var(--space-4) var(--space-2);
+  }
+
+  .wiki-footer-links {
+    gap: var(--space-2);
+  }
+
+  /* Mobile menu */
+  .wiki-mobile-menu-content {
+    padding: var(--space-4);
+  }
+
+  .wiki-mobile-link {
+    padding: var(--space-3);
+    font-size: var(--text-sm);
+  }
+
+  /* Floating buttons - smaller but still touch-friendly */
+  .wiki-back-to-top {
+    width: 36px;
+    height: 36px;
+    bottom: 12px;
+    right: 12px;
+  }
+
+  .help-chat-toggle {
+    width: 36px;
+    height: 36px;
+    bottom: 60px;
+    right: 12px;
+  }
+
+  .help-chat-window {
+    right: 8px;
+    left: 8px;
+    bottom: 110px;
+    max-height: 50vh;
+  }
+}
+
+/* Touch device enhancements */
+@media (hover: none) and (pointer: coarse) {
+  /* Remove hover effects that don't work on touch */
+  .wiki-character-card:hover,
+  .wiki-faction-card:hover,
+  .wiki-glossary-item:hover {
+    transform: none;
+  }
+
+  /* Keep active states for tap feedback */
+  .wiki-character-card:active,
+  .wiki-faction-card:active,
+  .wiki-glossary-item:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+
+  /* Ensure adequate touch targets */
+  a, button, [role="button"], .clickable {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Better tap highlight */
+  a, button {
+    -webkit-tap-highlight-color: rgba(4, 70, 241, 0.2);
+  }
+}
+
+/* Landscape mobile adjustments */
+@media (max-width: 896px) and (orientation: landscape) {
+  /* Reduce hero height in landscape */
+  .wiki-hero-content {
+    padding: var(--space-6) var(--space-4);
+  }
+
+  .wiki-hero-featured {
+    display: none;
+  }
+
+  /* 3-column grid in landscape for better use of space */
+  .wiki-character-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* Reduce topbar padding */
+  .wiki-topbar-inner {
+    height: 48px;
+  }
+}
+
+/* Safe area insets for notched devices */
+@supports (padding: max(0px)) {
+  .wiki-topbar {
+    padding-left: max(var(--space-4), env(safe-area-inset-left));
+    padding-right: max(var(--space-4), env(safe-area-inset-right));
+  }
+
+  .wiki-footer {
+    padding-bottom: max(var(--space-8), env(safe-area-inset-bottom));
+    padding-left: max(var(--space-6), env(safe-area-inset-left));
+    padding-right: max(var(--space-6), env(safe-area-inset-right));
+  }
+
+  .wiki-mobile-menu {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .wiki-back-to-top {
+    bottom: max(16px, calc(env(safe-area-inset-bottom) + 16px));
+    right: max(16px, calc(env(safe-area-inset-right) + 16px));
+  }
+
+  .help-chat-toggle {
+    bottom: max(76px, calc(env(safe-area-inset-bottom) + 76px));
+    right: max(16px, calc(env(safe-area-inset-right) + 16px));
+  }
 }

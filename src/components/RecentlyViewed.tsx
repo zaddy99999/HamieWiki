@@ -52,6 +52,7 @@ export default function RecentlyViewed({
             href={item.path}
             className="recently-viewed-compact-item"
             title={item.name}
+            style={{ minWidth: '44px', minHeight: '44px' }}
           >
             {item.image ? (
               <Image
@@ -76,7 +77,7 @@ export default function RecentlyViewed({
       <div className="recently-viewed-header">
         <h3>Recently Viewed</h3>
         {displayItems.length > 0 && (
-          <button className="recently-viewed-clear" onClick={clearAll}>
+          <button className="recently-viewed-clear" onClick={clearAll} style={{ minHeight: '36px', padding: '8px 16px' }}>
             Clear
           </button>
         )}
@@ -87,6 +88,7 @@ export default function RecentlyViewed({
             key={`${item.type}-${item.id}-${i}`}
             href={item.path}
             className="recently-viewed-item"
+            style={{ minHeight: '48px', padding: '10px 12px' }}
           >
             {item.image ? (
               <Image

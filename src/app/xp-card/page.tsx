@@ -708,21 +708,21 @@ export default function XPCardPage() {
         <div className="id-preview-card">
           <h3 className="id-card-header">Live Preview</h3>
 
-          <div className="id-preview-container" style={{ position: 'relative', zIndex: 101, backgroundColor: '#0f0f1a', padding: '1.5rem', borderRadius: '8px' }}>
+          <div className="id-preview-container" style={{ position: 'relative', zIndex: 101, backgroundColor: '#0f0f1a', padding: 'clamp(0.5rem, 2vw, 1.5rem)', borderRadius: '8px' }}>
             {cardType === 'id' ? (
               /* ID Card Preview */
               <div ref={cardRef} className="abstract-id-card" style={{ isolation: 'isolate', position: 'relative', zIndex: 10 }}>
                 <img src="/hamieversecardblank.png" alt="Hamieverse ID" className="abstract-id-bg" />
-                <div className={`abstract-id-avatar ${pfpShape === 'circle' ? 'pfp-circle' : 'pfp-square'}`} style={{ marginLeft: '-75px', marginTop: '17px', transform: 'scale(1.2)' }}>
+                <div className={`abstract-id-avatar ${pfpShape === 'circle' ? 'pfp-circle' : 'pfp-square'}`} style={{ marginLeft: 'clamp(-40px, -10vw, -75px)', marginTop: '17px', transform: 'scale(1.2)' }}>
                   {idProfileImage ? (
                     <img src={idProfileImage} alt="Profile" />
                   ) : (
                     <div className="abstract-id-avatar-placeholder" />
                   )}
                 </div>
-                <span className="abstract-id-name" style={{ marginLeft: '65px', marginTop: '-5px', fontFamily: 'Satoshi, sans-serif', color: textColor }}>{idDisplayName || 'Your Name'}</span>
-                <span className="abstract-id-rank" style={{ marginLeft: '75px', marginTop: '-13px', fontSize: '1.0625em', fontFamily: 'Satoshi, sans-serif', color: textColor }}>{role}</span>
-                <span className="abstract-id-role" style={{ marginLeft: '80px', marginTop: '3px', fontSize: '1.1875em', fontFamily: 'Satoshi, sans-serif', color: textColor }}>{faction}</span>
+                <span className="abstract-id-name" style={{ marginLeft: 'clamp(35px, 8vw, 65px)', marginTop: '-5px', fontFamily: 'Satoshi, sans-serif', color: textColor, fontSize: 'clamp(0.75rem, 2vw, 1rem)' }}>{idDisplayName || 'Your Name'}</span>
+                <span className="abstract-id-rank" style={{ marginLeft: 'clamp(40px, 9vw, 75px)', marginTop: '-13px', fontSize: 'clamp(0.7rem, 1.8vw, 1.0625em)', fontFamily: 'Satoshi, sans-serif', color: textColor }}>{role}</span>
+                <span className="abstract-id-role" style={{ marginLeft: 'clamp(45px, 10vw, 80px)', marginTop: '3px', fontSize: 'clamp(0.75rem, 2vw, 1.1875em)', fontFamily: 'Satoshi, sans-serif', color: textColor }}>{faction}</span>
               </div>
             ) : (
               /* XP Card Preview */
@@ -747,11 +747,11 @@ export default function XPCardPage() {
                     src={xpBackgroundVideo}
                   />
                 )}
-                <div className="abstract-xp-header" style={{ position: 'relative', zIndex: 1, justifyContent: 'flex-start', gap: '2px', paddingLeft: '16px', transform: 'translateX(-5%)' }}>
-                  <span className="abstract-xp-title" style={{ color: textColor }}>ABSTRACT</span>
-                  <img src="/AbsLogoWhite.png" alt="Abstract" style={{ height: '28px', width: 'auto', marginLeft: '-2px' }} />
+                <div className="abstract-xp-header" style={{ position: 'relative', zIndex: 1, justifyContent: 'flex-start', gap: '2px', paddingLeft: 'clamp(8px, 3vw, 16px)', transform: 'translateX(-5%)' }}>
+                  <span className="abstract-xp-title" style={{ color: textColor, fontSize: 'clamp(0.6rem, 2vw, 0.9rem)' }}>ABSTRACT</span>
+                  <img src="/AbsLogoWhite.png" alt="Abstract" style={{ height: 'clamp(20px, 5vw, 28px)', width: 'auto', marginLeft: '-2px' }} />
                 </div>
-                <img src="/images/hamiepfp.png" alt="Hamie" style={{ position: 'absolute', top: '12px', right: '12px', width: '37px', height: '37px', borderRadius: '50%', zIndex: 2 }} />
+                <img src="/images/hamiepfp.png" alt="Hamie" style={{ position: 'absolute', top: 'clamp(6px, 2vw, 12px)', right: 'clamp(6px, 2vw, 12px)', width: 'clamp(24px, 6vw, 37px)', height: 'clamp(24px, 6vw, 37px)', borderRadius: '50%', zIndex: 2 }} />
                 <div className="abstract-xp-content" style={{ position: 'relative', zIndex: 1, transform: 'scale(0.6) translateX(-35%) translateY(30%)', transformOrigin: 'center center' }}>
                   <div className={`abstract-xp-avatar ${pfpShape === 'circle' ? 'pfp-circle' : 'pfp-square'}`}>
                     {xpProfileImage ? (

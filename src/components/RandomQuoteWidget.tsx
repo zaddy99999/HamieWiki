@@ -77,8 +77,9 @@ export default function RandomQuoteWidget() {
           className="quote-widget-refresh"
           onClick={refreshQuote}
           title="Get another quote"
+          style={{ minWidth: '44px', minHeight: '44px' }}
         >
-          <DiceIcon size={16} />
+          <DiceIcon size={20} />
         </button>
       </div>
 
@@ -102,15 +103,16 @@ export default function RandomQuoteWidget() {
         </div>
       </div>
 
-      <div className="quote-widget-actions">
+      <div className="quote-widget-actions" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
         <button
           className="quote-widget-copy"
           onClick={copyQuote}
           title={copied ? 'Copied!' : 'Copy quote'}
+          style={{ minHeight: '44px', padding: '10px 16px' }}
         >
-          {copied ? <><CheckIcon size={14} /> Copied</> : <><CopyIcon size={14} /> Copy</>}
+          {copied ? <><CheckIcon size={16} /> Copied</> : <><CopyIcon size={16} /> Copy</>}
         </button>
-        <Link href="/quotes" className="quote-widget-more">
+        <Link href="/quotes" className="quote-widget-more" style={{ minHeight: '44px', padding: '10px 16px', display: 'inline-flex', alignItems: 'center' }}>
           View All Quotes
         </Link>
       </div>

@@ -27,7 +27,8 @@ export default function DarkModeToggle() {
     <button
       className="dark-mode-toggle"
       onClick={toggleMode}
-      title={`Color Mode: ${getModeLabel()} (click to change)`}
+      title={`Color Mode: ${getModeLabel()} (tap to change)`}
+      style={{ minHeight: '44px', padding: '10px 16px' }}
     >
       <span className="dark-mode-icon">{getModeIcon()}</span>
       <span className="dark-mode-label">{getModeLabel()}</span>

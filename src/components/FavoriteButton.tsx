@@ -19,7 +19,7 @@ export default function FavoriteButton({ characterId, size = 'md', showLabel = f
     toggleFavorite(characterId);
   };
 
-  const iconSize = size === 'sm' ? 14 : size === 'lg' ? 20 : 16;
+  const iconSize = size === 'sm' ? 18 : size === 'lg' ? 24 : 20;
 
   if (!isLoaded) {
     return (
@@ -35,6 +35,7 @@ export default function FavoriteButton({ characterId, size = 'md', showLabel = f
       onClick={handleClick}
       aria-label={favorited ? 'Remove from favorites' : 'Add to favorites'}
       title={favorited ? 'Remove from favorites' : 'Add to favorites'}
+      style={{ minWidth: '44px', minHeight: '44px' }}
     >
       <span className="favorite-icon">{favorited ? <HeartFilledIcon size={iconSize} /> : <HeartIcon size={iconSize} />}</span>
       {showLabel && (

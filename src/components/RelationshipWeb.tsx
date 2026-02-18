@@ -24,7 +24,7 @@ export default function RelationshipWeb() {
   const [selectedChar, setSelectedChar] = useState<string | null>(null);
   const [hoveredChar, setHoveredChar] = useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [dimensions, setDimensions] = useState({ width: 280, height: 280 });
+  const [dimensions, setDimensions] = useState({ width: 320, height: 320 });
 
   const characters = getAllCharacters();
   const relationships = getRelationships() as Relationship[];
@@ -89,9 +89,13 @@ export default function RelationshipWeb() {
   useEffect(() => {
     const handleResize = () => {
       if (containerRef.current) {
+        const containerWidth = containerRef.current.offsetWidth;
+        // Ensure minimum dimensions for mobile touch targets
+        const minWidth = 300;
+        const width = Math.max(minWidth, containerWidth);
         setDimensions({
-          width: containerRef.current.offsetWidth,
-          height: Math.min(500, containerRef.current.offsetWidth * 0.8),
+          width: width,
+          height: Math.max(300, Math.min(500, width * 0.8)),
         });
       }
     };

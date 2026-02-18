@@ -98,7 +98,7 @@ export default function MiniQuiz() {
         <div className="mini-quiz-result">
           <div className="mini-quiz-score">{score}/5</div>
           <p>{score >= 4 ? "Excellent! You know the Hamieverse!" : score >= 2 ? "Not bad! Keep exploring!" : "Time to read more lore!"}</p>
-          <button className="mini-quiz-btn" onClick={restart}>Play Again</button>
+          <button className="mini-quiz-btn" onClick={restart} style={{ minHeight: '44px', padding: '12px 24px' }}>Play Again</button>
         </div>
 
         {/* Trivia Section */}
@@ -132,27 +132,28 @@ export default function MiniQuiz() {
             className={`mini-quiz-option ${selected === i ? (i === q.correctIndex ? 'correct' : 'wrong') : ''} ${selected !== null && i === q.correctIndex ? 'correct' : ''}`}
             onClick={() => handleAnswer(i)}
             disabled={selected !== null}
+            style={{ minHeight: '44px', padding: '12px 16px' }}
           >
             {opt}
           </button>
         ))}
       </div>
       {selected !== null && (
-        <button className="mini-quiz-btn" onClick={nextQuestion}>
+        <button className="mini-quiz-btn" onClick={nextQuestion} style={{ minHeight: '44px', padding: '12px 24px' }}>
           {answered >= 5 ? 'See Results' : 'Next Question'}
         </button>
       )}
 
       {/* Trivia Section */}
       {currentTrivia && (
-        <div className="mini-quiz-trivia" onClick={getNextTrivia}>
+        <div className="mini-quiz-trivia" onClick={getNextTrivia} style={{ padding: '16px', cursor: 'pointer' }}>
           <div className="mini-quiz-trivia-header">
-            <LightbulbIcon size={14} />
+            <LightbulbIcon size={16} />
             <span>Did You Know?</span>
             <span className="mini-quiz-trivia-category">{currentTrivia.category}</span>
           </div>
           <p className="mini-quiz-trivia-fact">{currentTrivia.fact}</p>
-          <span className="mini-quiz-trivia-hint">Click for another fact</span>
+          <span className="mini-quiz-trivia-hint">Tap for another fact</span>
         </div>
       )}
     </div>

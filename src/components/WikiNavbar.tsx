@@ -193,6 +193,7 @@ export default function WikiNavbar({ currentPage }: WikiNavbarProps) {
               aria-autocomplete="list"
               aria-controls="search-results"
               aria-activedescendant={selectedResultIndex >= 0 ? `search-result-${selectedResultIndex}` : undefined}
+              style={{ fontSize: '16px' }}
             />
             {showSearchResults && searchResults.length > 0 && (
               <div className="wiki-search-dropdown" id="search-results" role="listbox" aria-label="Search results">
@@ -205,6 +206,7 @@ export default function WikiNavbar({ currentPage }: WikiNavbarProps) {
                     onClick={() => handleSearchSelect(result)}
                     role="option"
                     aria-selected={selectedResultIndex === i}
+                    style={{ minHeight: '48px', padding: '10px 12px' }}
                   >
                     {result.type === 'character' && result.image ? (
                       <Image
@@ -243,8 +245,8 @@ export default function WikiNavbar({ currentPage }: WikiNavbarProps) {
             )}
           </div>
 
-          <button className="wiki-random-btn" onClick={goToRandomCharacter}>
-            <span><DiceIcon size={16} /></span>
+          <button className="wiki-random-btn" onClick={goToRandomCharacter} style={{ minHeight: '44px', padding: '8px 16px' }}>
+            <span><DiceIcon size={18} /></span>
             <span>Random</span>
           </button>
 
@@ -253,6 +255,7 @@ export default function WikiNavbar({ currentPage }: WikiNavbarProps) {
             className="wiki-mobile-menu-btn"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
+            style={{ minWidth: '44px', minHeight: '44px' }}
           >
             <span className={`wiki-hamburger ${mobileMenuOpen ? 'open' : ''}`}>
               <span></span>
@@ -272,12 +275,13 @@ export default function WikiNavbar({ currentPage }: WikiNavbarProps) {
               href={link.href}
               className="wiki-mobile-link"
               onClick={() => setMobileMenuOpen(false)}
+              style={{ minHeight: '48px', padding: '14px 20px' }}
             >
               {link.label}
             </Link>
           ))}
-          <button className="wiki-mobile-random" onClick={() => { goToRandomCharacter(); setMobileMenuOpen(false); }}>
-            <DiceIcon size={16} /> Random Character
+          <button className="wiki-mobile-random" onClick={() => { goToRandomCharacter(); setMobileMenuOpen(false); }} style={{ minHeight: '48px', padding: '12px 20px' }}>
+            <DiceIcon size={20} /> Random Character
           </button>
         </div>
       </div>

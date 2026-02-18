@@ -66,8 +66,9 @@ export default function CharacterOfTheDay() {
           className="cotd-nav-btn"
           onClick={goToPrevious}
           title="Previous day"
+          style={{ minWidth: '44px', minHeight: '44px' }}
         >
-          <ChevronLeftIcon size={18} />
+          <ChevronLeftIcon size={20} />
         </button>
         <div className="cotd-header-center">
           <span className="cotd-badge">
@@ -80,8 +81,9 @@ export default function CharacterOfTheDay() {
           onClick={goToNext}
           disabled={isToday}
           title={isToday ? "You're on today" : "Next day"}
+          style={{ minWidth: '44px', minHeight: '44px' }}
         >
-          <ChevronRightIcon size={18} />
+          <ChevronRightIcon size={20} />
         </button>
       </div>
 
@@ -128,6 +130,7 @@ export default function CharacterOfTheDay() {
                 href={item.path}
                 className="cotd-recent-item"
                 title={item.name}
+                style={{ minWidth: '60px', minHeight: '60px', padding: '8px' }}
               >
                 {item.image ? (
                   <Image

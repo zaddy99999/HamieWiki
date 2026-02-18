@@ -46,6 +46,7 @@ export default function Sidebar() {
           className="mobile-hamburger"
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Toggle menu"
+          style={{ minWidth: '48px', minHeight: '48px' }}
         >
           <span className={`hamburger-line ${isOpen ? 'open' : ''}`} />
           <span className={`hamburger-line ${isOpen ? 'open' : ''}`} />
@@ -73,16 +74,18 @@ export default function Sidebar() {
             <div
               className={`mobile-nav-link ${pathname === '/' ? 'active' : ''}`}
               onClick={() => navigate('/')}
+              style={{ minHeight: '48px', padding: '12px 16px' }}
             >
-              <img src="/home_icon.png" alt="Home" className="mobile-nav-icon" style={{ width: '20px', height: '20px' }} />
+              <img src="/home_icon.png" alt="Home" className="mobile-nav-icon" style={{ width: '24px', height: '24px' }} />
               <span>HOME</span>
             </div>
 
             <div
               className={`mobile-nav-link ${pathname === '/xp-card' ? 'active' : ''}`}
               onClick={() => navigate('/xp-card')}
+              style={{ minHeight: '48px', padding: '12px 16px' }}
             >
-              <svg className="mobile-nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <svg className="mobile-nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/>
               </svg>
               <span>XP CARD</span>
@@ -91,39 +94,42 @@ export default function Sidebar() {
             <div
               className={`mobile-nav-link ${pathname === '/tier-maker' ? 'active' : ''}`}
               onClick={() => navigate('/tier-maker')}
+              style={{ minHeight: '48px', padding: '12px 16px' }}
             >
-              <span className="mobile-nav-icon">▤</span>
+              <span className="mobile-nav-icon" style={{ fontSize: '20px' }}>▤</span>
               <span>TIER MAKER</span>
             </div>
 
             <div
               className={`mobile-nav-link ${pathname === '/build-your-team' ? 'active' : ''}`}
               onClick={() => navigate('/build-your-team')}
+              style={{ minHeight: '48px', padding: '12px 16px' }}
             >
-              <span className="mobile-nav-icon">★</span>
+              <span className="mobile-nav-icon" style={{ fontSize: '20px' }}>★</span>
               <span>BUILD TEAM</span>
             </div>
 
             <div
               className={`mobile-nav-link ${pathname === '/gallery' ? 'active' : ''}`}
               onClick={() => navigate('/gallery')}
+              style={{ minHeight: '48px', padding: '12px 16px' }}
             >
-              <svg className="mobile-nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <svg className="mobile-nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M22 16V4c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2zm-11-4l2.03 2.71L16 11l4 5H8l3-4zM2 6v14c0 1.1.9 2 2 2h14v-2H4V6H2z"/>
               </svg>
               <span>GALLERY</span>
             </div>
 
-            <div className="mobile-nav-link" onClick={goRandom}>
-              <span className="mobile-nav-icon">🎲</span>
+            <div className="mobile-nav-link" onClick={goRandom} style={{ minHeight: '48px', padding: '12px 16px' }}>
+              <span className="mobile-nav-icon" style={{ fontSize: '20px' }}>🎲</span>
               <span>RANDOM</span>
             </div>
           </nav>
 
           {/* Footer */}
-          <div className="mobile-nav-footer">
-            <a href="https://x.com/hamieverse" target="_blank" rel="noopener noreferrer">X</a>
-            <a href="https://discord.gg/XpheMErdk6" target="_blank" rel="noopener noreferrer">DISCORD</a>
+          <div className="mobile-nav-footer" style={{ display: 'flex', gap: '16px', justifyContent: 'center' }}>
+            <a href="https://x.com/hamieverse" target="_blank" rel="noopener noreferrer" style={{ minWidth: '44px', minHeight: '44px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', padding: '10px 20px' }}>X</a>
+            <a href="https://discord.gg/XpheMErdk6" target="_blank" rel="noopener noreferrer" style={{ minWidth: '44px', minHeight: '44px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', padding: '10px 20px' }}>DISCORD</a>
           </div>
         </aside>
       </>

@@ -41,14 +41,15 @@ export class ErrorBoundary extends Component<Props, State> {
             <p className="error-boundary-message">
               We encountered an unexpected error. Please try again.
             </p>
-            <div className="error-boundary-actions">
+            <div className="error-boundary-actions" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', justifyContent: 'center' }}>
               <button
                 className="error-boundary-btn primary"
                 onClick={() => this.setState({ hasError: false })}
+                style={{ minHeight: '44px', padding: '12px 24px' }}
               >
                 Try Again
               </button>
-              <Link href="/" className="error-boundary-btn secondary">
+              <Link href="/" className="error-boundary-btn secondary" style={{ minHeight: '44px', padding: '12px 24px', display: 'inline-flex', alignItems: 'center' }}>
                 Return Home
               </Link>
             </div>
@@ -77,7 +78,7 @@ export function ErrorFallback({
         <h3 className="error-fallback-title">{title}</h3>
         <p className="error-fallback-message">{message}</p>
         {onRetry && (
-          <button className="error-fallback-btn" onClick={onRetry}>
+          <button className="error-fallback-btn" onClick={onRetry} style={{ minHeight: '44px', padding: '12px 24px' }}>
             Try Again
           </button>
         )}
@@ -101,7 +102,7 @@ export function NotFoundFallback({
         <p className="not-found-fallback-message">
           {message || `The ${type.toLowerCase()} you're looking for doesn't exist in the Hamieverse.`}
         </p>
-        <Link href="/" className="not-found-fallback-btn">
+        <Link href="/" className="not-found-fallback-btn" style={{ minHeight: '44px', padding: '12px 24px', display: 'inline-flex', alignItems: 'center' }}>
           Return to Wiki Home
         </Link>
       </div>
@@ -127,7 +128,7 @@ export function EmptyState({
         <h3 className="empty-state-title">{title}</h3>
         <p className="empty-state-message">{message}</p>
         {action && (
-          <button className="empty-state-btn" onClick={action.onClick}>
+          <button className="empty-state-btn" onClick={action.onClick} style={{ minHeight: '44px', padding: '12px 24px' }}>
             {action.label}
           </button>
         )}

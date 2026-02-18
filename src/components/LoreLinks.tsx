@@ -41,6 +41,7 @@ export default function LoreLinks() {
             target="_blank"
             rel="noopener noreferrer"
             className="lore-link-card"
+            style={{ minHeight: '56px', padding: '14px 16px' }}
           >
             <span className="lore-link-icon">{getTypeIcon(link.type)}</span>
             <div className="lore-link-content">

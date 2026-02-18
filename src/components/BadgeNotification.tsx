@@ -50,6 +50,7 @@ export default function BadgeNotification({ badge, onClose }: BadgeNotificationP
             className="badge-notification-close"
             onClick={handleClose}
             aria-label="Close notification"
+            style={{ minWidth: '44px', minHeight: '44px', fontSize: '24px' }}
           >
             &times;
           </button>

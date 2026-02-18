@@ -43,20 +43,21 @@ export default function AdminGuard({ children }: AdminGuardProps) {
             {ADMIN_WALLETS.length > 0 && ' Only authorized wallets can access this area.'}
           </p>
 
-          <div className="admin-guard-connectors">
+          <div className="admin-guard-connectors" style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             {connectors.map((connector) => (
               <button
                 key={connector.uid}
                 onClick={() => connect({ connector })}
                 disabled={isPending || isConnecting}
                 className="admin-guard-connect-btn"
+                style={{ minHeight: '48px', padding: '12px 24px' }}
               >
                 {isPending || isConnecting ? 'Connecting...' : `Connect ${connector.name}`}
               </button>
             ))}
           </div>
 
-          <Link href="/" className="admin-guard-back">
+          <Link href="/" className="admin-guard-back" style={{ minHeight: '44px', padding: '12px 20px', display: 'inline-flex', alignItems: 'center' }}>
             ← Back to Wiki
           </Link>
         </div>
@@ -78,11 +79,11 @@ export default function AdminGuard({ children }: AdminGuardProps) {
             Connected: {address?.slice(0, 6)}...{address?.slice(-4)}
           </p>
 
-          <div className="admin-guard-actions">
-            <button onClick={() => disconnect()} className="admin-guard-disconnect-btn">
+          <div className="admin-guard-actions" style={{ display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'center' }}>
+            <button onClick={() => disconnect()} className="admin-guard-disconnect-btn" style={{ minHeight: '48px', padding: '12px 24px' }}>
               Disconnect Wallet
             </button>
-            <Link href="/" className="admin-guard-back">
+            <Link href="/" className="admin-guard-back" style={{ minHeight: '44px', padding: '12px 20px', display: 'inline-flex', alignItems: 'center' }}>
               ← Back to Wiki
             </Link>
           </div>
@@ -98,7 +99,7 @@ export default function AdminGuard({ children }: AdminGuardProps) {
         <span className="admin-wallet-status">
           🟢 Admin: {address?.slice(0, 6)}...{address?.slice(-4)}
         </span>
-        <button onClick={() => disconnect()} className="admin-wallet-disconnect">
+        <button onClick={() => disconnect()} className="admin-wallet-disconnect" style={{ minHeight: '36px', padding: '8px 16px' }}>
           Disconnect
         </button>
       </div>

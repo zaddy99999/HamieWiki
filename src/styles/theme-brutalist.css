@@ -4785,3 +4785,226 @@ html[data-theme="brutalist"] .comic-thought-bubble {
   border-radius: 50% !important;
 }
 
+/* ==================== MOBILE COMPATIBILITY ENHANCEMENTS ==================== */
+/* Additional mobile fixes for better small screen support */
+
+@media (max-width: 768px) {
+  /* Ensure touch targets are at least 44px */
+  [data-theme="brutalist"] .brutal-btn,
+  [data-theme="brutalist"] .brutal-btn-sm {
+    min-height: 44px !important;
+    min-width: 44px !important;
+  }
+
+  [data-theme="brutalist"] .wiki-infobox-share-btn,
+  [data-theme="brutalist"] .wiki-infobox-actions .favorite-btn {
+    min-width: 44px !important;
+    min-height: 44px !important;
+    width: 44px !important;
+    height: 44px !important;
+  }
+
+  [data-theme="brutalist"] .text-color-btn {
+    min-width: 44px !important;
+    min-height: 44px !important;
+  }
+
+  [data-theme="brutalist"] .pfp-shape-btn {
+    min-height: 44px !important;
+    padding: 0.5rem 1.25rem !important;
+  }
+
+  /* Reduce box shadows that can cause visual overflow */
+  [data-theme="brutalist"] .wiki-hero,
+  [data-theme="brutalist"] .wiki-card,
+  [data-theme="brutalist"] .cotd-container,
+  [data-theme="brutalist"] .mini-quiz,
+  [data-theme="brutalist"] .lore-links-section {
+    box-shadow: 4px 4px 0 #AE4DAF !important;
+  }
+
+  [data-theme="brutalist"] .wiki-character-card,
+  [data-theme="brutalist"] .wiki-supporting-card {
+    box-shadow: 4px 4px 0 #AE4DAF !important;
+  }
+
+  [data-theme="brutalist"] .wiki-character-card:hover,
+  [data-theme="brutalist"] .wiki-supporting-card:hover {
+    transform: translate(-2px, -2px) !important;
+    box-shadow: 6px 6px 0 #0446F1 !important;
+  }
+
+  /* Reduce large text shadows */
+  [data-theme="brutalist"] .wiki-hero-text h1 {
+    text-shadow: 2px 2px 0 #AE4DAF !important;
+  }
+
+  /* Prevent horizontal overflow */
+  [data-theme="brutalist"] .wiki-container,
+  [data-theme="brutalist"] .wiki-main,
+  [data-theme="brutalist"] .wiki-article {
+    overflow-x: hidden !important;
+  }
+
+  /* Better scaling for tier maker */
+  [data-theme="brutalist"] .brutal-tier-header {
+    padding: 16px 24px !important;
+  }
+
+  [data-theme="brutalist"] .brutal-tier-header h1 {
+    font-size: 1.5rem !important;
+  }
+
+  [data-theme="brutalist"] .brutal-tier-actions {
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+  }
+
+  [data-theme="brutalist"] .brutal-tier-actions .brutal-btn {
+    min-height: 44px !important;
+    padding: 10px 14px !important;
+    font-size: 0.75rem !important;
+  }
+}
+
+/* Extra small screens (480px and below) */
+@media (max-width: 480px) {
+  /* Further reduce heading sizes */
+  [data-theme="brutalist"] h1 {
+    font-size: clamp(1.5rem, 6vw, 2.5rem) !important;
+  }
+
+  [data-theme="brutalist"] h2 {
+    font-size: clamp(1.2rem, 4vw, 1.8rem) !important;
+  }
+
+  [data-theme="brutalist"] h3 {
+    font-size: clamp(1rem, 3.5vw, 1.5rem) !important;
+  }
+
+  /* Section titles - smaller on mobile */
+  [data-theme="brutalist"] .wiki-section-title,
+  [data-theme="brutalist"] .wiki-section-header h3 {
+    padding: 8px 14px !important;
+    font-size: 0.9rem !important;
+  }
+
+  /* Reduce quote bubble size */
+  [data-theme="brutalist"] .wiki-quote-card {
+    padding: 16px 20px !important;
+    margin-bottom: 30px !important;
+  }
+
+  [data-theme="brutalist"] .wiki-quote-text {
+    font-size: 1rem !important;
+    line-height: 1.4 !important;
+  }
+
+  /* Reduce retro chat bubble */
+  [data-theme="brutalist"] .retro-chat-bubble {
+    padding: 16px 18px !important;
+    box-shadow: 5px 5px 0 #AE4DAF !important;
+  }
+
+  [data-theme="brutalist"] .retro-quote-line {
+    font-size: 13px !important;
+    padding-left: 12px !important;
+  }
+
+  /* Infobox adjustments */
+  [data-theme="brutalist"] .wiki-infobox {
+    box-shadow: 5px 5px 0 #AE4DAF !important;
+  }
+
+  [data-theme="brutalist"] .wiki-infobox-header {
+    padding: 0.5rem 0.75rem !important;
+  }
+
+  [data-theme="brutalist"] .wiki-infobox-name {
+    font-size: 1.1rem !important;
+  }
+
+  /* Glossary grid - single column */
+  [data-theme="brutalist"] .wiki-glossary-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  [data-theme="brutalist"] .wiki-glossary-item {
+    padding: 12px !important;
+    box-shadow: 4px 4px 0 #AE4DAF !important;
+  }
+
+  /* Theme cards - smaller */
+  [data-theme="brutalist"] .wiki-theme-card {
+    padding: 10px 16px !important;
+    font-size: 0.8rem !important;
+    box-shadow: 3px 3px 0 #AE4DAF !important;
+  }
+
+  /* Relationship web */
+  [data-theme="brutalist"] .relationship-web {
+    box-shadow: 4px 4px 0 #AE4DAF !important;
+  }
+
+  /* COTD adjustments */
+  [data-theme="brutalist"] .cotd-recent-avatar {
+    width: 48px !important;
+    height: 48px !important;
+  }
+
+  [data-theme="brutalist"] .cotd-recent-placeholder {
+    width: 48px !important;
+    height: 48px !important;
+  }
+}
+
+/* Very small screens (360px and below) */
+@media (max-width: 360px) {
+  /* Minimum font sizes for readability */
+  [data-theme="brutalist"] body {
+    font-size: 14px !important;
+  }
+
+  [data-theme="brutalist"] h1 {
+    font-size: clamp(1.25rem, 5vw, 1.75rem) !important;
+  }
+
+  [data-theme="brutalist"] h2 {
+    font-size: clamp(1rem, 4vw, 1.4rem) !important;
+  }
+
+  [data-theme="brutalist"] h3 {
+    font-size: clamp(0.9rem, 3vw, 1.2rem) !important;
+  }
+
+  /* Reduce all shadows further */
+  [data-theme="brutalist"] .wiki-hero,
+  [data-theme="brutalist"] .wiki-card,
+  [data-theme="brutalist"] .wiki-character-card,
+  [data-theme="brutalist"] .wiki-supporting-card,
+  [data-theme="brutalist"] .brutal-card {
+    box-shadow: 3px 3px 0 #AE4DAF !important;
+  }
+
+  /* Single column grids */
+  [data-theme="brutalist"] .wiki-intro-grid-3 {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  /* Smaller XP card preview */
+  [data-theme="brutalist"] .xp-card-header {
+    padding: 12px 20px !important;
+    box-shadow: 4px 4px 0 #AE4DAF !important;
+  }
+
+  [data-theme="brutalist"] .xp-card-title {
+    font-size: 1.25rem !important;
+  }
+
+  [data-theme="brutalist"] .id-config-card,
+  [data-theme="brutalist"] .id-preview-card {
+    box-shadow: 4px 4px 0 #AE4DAF !important;
+  }
+}
+
