@@ -4814,6 +4814,18 @@ html[data-theme="brutalist"] .comic-thought-bubble {
     padding: 0.5rem 1.25rem !important;
   }
 
+  /* INTRO GRID - SINGLE COLUMN ON MOBILE */
+  [data-theme="brutalist"] .wiki-intro-grid-3 {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+  }
+
+  [data-theme="brutalist"] .wiki-intro-grid-3 > * {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
   /* Reduce box shadows that can cause visual overflow */
   [data-theme="brutalist"] .wiki-hero,
   [data-theme="brutalist"] .wiki-card,
