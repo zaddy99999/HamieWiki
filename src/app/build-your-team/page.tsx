@@ -8,6 +8,7 @@ interface Character {
   id: string;
   displayName: string;
   gifFile?: string;
+  pngFile?: string;
   color?: string;
   roles: string[];
   faction?: string;
