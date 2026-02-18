@@ -9,6 +9,11 @@
   font-display: swap;
 }
 
+/* Direct Mokoto class - bypasses all variables */
+.font-mokoto {
+  font-family: 'Mokoto', sans-serif !important;
+}
+
 /* Bicubik Font - Headers + Subheaders */
 @font-face {
   font-family: 'Bicubik';
