@@ -212,6 +212,28 @@
     display: flex !important;
     flex-direction: column !important;
     gap: 10px !important;
+    position: relative !important;
+    z-index: 1 !important;
+  }
+
+  /* Intro section cards - ensure proper stacking */
+  .wiki-intro-section {
+    position: relative !important;
+    z-index: 1 !important;
+    width: 100% !important;
+  }
+
+  .cotd-container,
+  .mini-quiz,
+  .lore-links-section {
+    position: relative !important;
+    z-index: 1 !important;
+    width: 100% !important;
+    flex-shrink: 0 !important;
+  }
+
+  .lore-links-section {
+    order: 3 !important;
   }
 
   /* Main characters - 2 per row, smaller */
@@ -225,9 +247,21 @@
     padding: 8px !important;
   }
 
-  .wiki-character-card img {
-    width: 60px !important;
-    height: 60px !important;
+  .wiki-character-avatar {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 1 / 1 !important;
+    max-width: 120px !important;
+  }
+
+  .wiki-character-card img,
+  .wiki-character-gif {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
   }
 
   .wiki-character-card h3,
@@ -1237,10 +1271,10 @@
     grid-template-columns: 1fr !important;
   }
 
-  /* Reduce character card image size */
-  .wiki-character-card img {
-    width: 50px !important;
-    height: 50px !important;
+  /* Character avatar sizing for small screens */
+  .wiki-character-avatar {
+    width: 100% !important;
+    max-width: 100px !important;
   }
 
   .wiki-character-card h3,
