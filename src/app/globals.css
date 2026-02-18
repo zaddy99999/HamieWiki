@@ -1555,8 +1555,9 @@ button {
 .wiki-character-gif {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: top center;
+  object-fit: contain;
+  object-position: center;
+  background: #0f0f1a;
 }
 
 .wiki-character-placeholder {
@@ -1898,8 +1899,9 @@ button {
 .cotd-img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: top center;
+  object-fit: contain;
+  object-position: center;
+  background: #0f0f1a;
 }
 
 .cotd-placeholder {
