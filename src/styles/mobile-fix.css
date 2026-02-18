@@ -52,17 +52,21 @@
     height: 20px !important;
   }
 
-  /* RELATIONSHIP WEB - prevent overflow */
+  /* RELATIONSHIP WEB - center and prevent overflow */
   .relationship-web,
   .relationship-web-container {
     width: 100% !important;
     max-width: 100% !important;
     overflow: hidden !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
   }
 
   .relationship-web svg {
     max-width: 100% !important;
     height: auto !important;
+    transform: translateX(-10px) scale(0.9) !important;
   }
 
   /* FOOTER - left/right layout on mobile */
