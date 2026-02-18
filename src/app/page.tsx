@@ -196,7 +196,7 @@ export default function WikiHome() {
       {/* Footer */}
       <footer className="wiki-footer">
         <div className="wiki-footer-inner">
-          <p className="wiki-footer-text">© 2026 Hamieverse Wiki — Part of the Hamie Saga</p>
+          <p className="wiki-footer-text">© 2026 Hamieverse Wiki</p>
           <div className="wiki-footer-links">
             <a href="https://x.com/hamieverse" className="wiki-footer-link" target="_blank" rel="noopener noreferrer">Twitter</a>
             <a href="https://discord.gg/XpheMErdk6" className="wiki-footer-link" target="_blank" rel="noopener noreferrer">Discord</a>

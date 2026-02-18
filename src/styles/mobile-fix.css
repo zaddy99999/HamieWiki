@@ -65,6 +65,30 @@
     height: auto !important;
   }
 
+  /* FOOTER - single line on mobile */
+  .wiki-footer-inner {
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 8px !important;
+    text-align: center !important;
+  }
+
+  .wiki-footer-text {
+    font-size: 12px !important;
+    margin: 0 !important;
+  }
+
+  .wiki-footer-links {
+    flex-direction: row !important;
+    gap: 12px !important;
+  }
+
+  .wiki-footer-link {
+    font-size: 12px !important;
+  }
+
   /* HIDE ALL DECORATIVE BACKGROUNDS */
   .wiki-bg-effects,
   .wiki-orb, .wiki-orb-1, .wiki-orb-2, .wiki-orb-3,
