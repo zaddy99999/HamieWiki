@@ -2292,7 +2292,7 @@ body[data-theme="brutalist"] .xp-preset-placeholder {
 }
 
 .brutal-sidebar-title {
-  font-family: var(--font-brutal-display);
+  font-family: 'Mokoto', 'Satoshi', sans-serif !important;
   font-size: 14px;
   font-weight: bold;
   color: #AE4DAF;
@@ -2303,6 +2303,7 @@ body[data-theme="brutalist"] .xp-preset-placeholder {
   overflow: hidden;
   white-space: nowrap;
   transition: opacity 0.3s, width 0.3s;
+  letter-spacing: 1px;
 }
 
 .brutal-sidebar:hover .brutal-sidebar-title {

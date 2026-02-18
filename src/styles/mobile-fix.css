@@ -200,10 +200,11 @@
   }
 
   .mobile-nav-title {
-    font-family: var(--font-brutal-display), Arial, sans-serif !important;
+    font-family: 'Mokoto', 'Satoshi', sans-serif !important;
     font-size: 18px !important;
     font-weight: bold !important;
     color: #0446F1 !important;
+    letter-spacing: 1px !important;
   }
 
   .mobile-nav-links {
