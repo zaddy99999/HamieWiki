@@ -1593,14 +1593,16 @@ button {
 .wiki-character-species {
   font-size: var(--text-xs);
   font-weight: 600;
-  color: var(--brand-secondary);
+  color: #FFFFFF;
+  font-family: var(--font-sans);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
 .wiki-character-role {
   font-size: var(--text-sm);
-  color: var(--text-muted);
+  color: #FFFFFF;
+  font-family: var(--font-sans);
   text-transform: capitalize;
 }
 

@@ -278,11 +278,13 @@
 }
 
 [data-theme="brutalist"] .wiki-character-species {
-  color: #AE4DAF !important;
+  color: #FFFFFF !important;
+  font-family: var(--font-brutal-body) !important;
 }
 
 [data-theme="brutalist"] .wiki-character-role {
-  color: #a0a0a0 !important;
+  color: #FFFFFF !important;
+  font-family: var(--font-brutal-body) !important;
 }
 
 /* ==================== SUPPORTING CHARACTER CARDS ==================== */
