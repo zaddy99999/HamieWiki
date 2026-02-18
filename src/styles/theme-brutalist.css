@@ -3308,7 +3308,7 @@ body.sidebar-collapsed main.xp-card-main {
 
 [data-theme="brutalist"] .wiki-glossary-def {
   color: #FFFFFF !important;
-  font-family: var(--font-brutal-mono) !important;
+  font-family: var(--font-brutal-body) !important;
   line-height: 1.6 !important;
 }
 
