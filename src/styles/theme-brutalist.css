@@ -2292,9 +2292,9 @@ body[data-theme="brutalist"] .xp-preset-placeholder {
 }
 
 .brutal-sidebar-title {
-  font-family: 'Mokoto', 'Satoshi', sans-serif !important;
+  font-family: var(--font-mokoto), 'Mokoto', 'Satoshi', sans-serif !important;
   font-size: 20px;
-  font-weight: 900 !important;
+  font-weight: normal !important;
   color: #0446F1;
   text-shadow: none;
   background: none;
