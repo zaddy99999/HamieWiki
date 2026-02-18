@@ -455,12 +455,7 @@ export default function XPCardPage() {
   return (
     <ErrorBoundary>
       <style>{`
-        @font-face {
-          font-family: 'Mokoto';
-          src: url('/fonts/Mokoto.ttf') format('truetype');
-          font-weight: normal;
-          font-style: normal;
-        }
+        /* Mokoto font loaded from globals.css */
         @keyframes fadeInOut {
           0% { opacity: 0; transform: translateX(-50%) translateY(10px); }
           15% { opacity: 1; transform: translateX(-50%) translateY(0); }

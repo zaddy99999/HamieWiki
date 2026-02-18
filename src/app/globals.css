@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Orbitron:wght@400;700;900&display=swap');
 
 /* Mokoto Font - Logo + Major Headers */
 @font-face {
@@ -113,6 +113,7 @@
   /* Typography */
   --font-sans: 'Satoshi', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   --font-heading: 'Mokoto', 'Satoshi', sans-serif;
+  --font-mokoto: 'Mokoto', 'Satoshi', sans-serif;
   --font-subheading: 'Bicubik', 'Satoshi', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
