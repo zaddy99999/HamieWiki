@@ -871,7 +871,7 @@
 }
 
 .brutal-nav-link {
-  font-family: var(--font-brutal-mono);
+  font-family: var(--font-brutal-display);
   font-size: 0.875rem;
   text-transform: uppercase;
   padding: 0.75rem 1.5rem;
@@ -2323,7 +2323,7 @@ body[data-theme="brutalist"] .xp-preset-placeholder {
   gap: 12px;
   padding: 16px;
   color: #FFFFFF !important;
-  font-family: 'Satoshi', Arial, sans-serif;
+  font-family: var(--font-brutal-display);
   font-size: 12px;
   font-weight: bold;
   border-bottom: 2px solid rgba(174, 77, 175, 0.3);
