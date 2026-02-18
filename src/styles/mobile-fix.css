@@ -2,6 +2,26 @@
 /* This file MUST be imported LAST */
 
 @media (max-width: 768px) {
+  /* CRITICAL: INTRO GRID MUST BE SINGLE COLUMN */
+  .wiki-intro-grid-3,
+  [data-theme="brutalist"] .wiki-intro-grid-3,
+  [data-theme] .wiki-intro-grid-3,
+  body .wiki-intro-grid-3,
+  html body .wiki-intro-grid-3 {
+    display: flex !important;
+    flex-direction: column !important;
+    grid-template-columns: none !important;
+    gap: 16px !important;
+    width: 100% !important;
+  }
+
+  .wiki-intro-grid-3 > *,
+  [data-theme="brutalist"] .wiki-intro-grid-3 > * {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: none !important;
+  }
+
   /* ROOT - prevent any horizontal scroll */
   html, body {
     overflow-x: hidden !important;
