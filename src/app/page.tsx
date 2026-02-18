@@ -58,7 +58,7 @@ export default function WikiHome() {
         <div className="wiki-hero-bg" />
         <div className="wiki-hero-content">
           <div className="wiki-hero-text">
-            <h1>The <span>Hamieverse</span> Wiki</h1>
+            <h1>The Hamieverse Wiki</h1>
             <p className="wiki-hero-subtitle" style={{ color: '#a1a1aa' }}>{logline}</p>
           </div>
 
