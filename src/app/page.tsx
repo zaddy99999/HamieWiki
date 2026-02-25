@@ -11,6 +11,7 @@ import RelationshipWeb from '@/components/RelationshipWeb';
 import CharacterOfTheDay from '@/components/CharacterOfTheDay';
 import MiniQuiz from '@/components/MiniQuiz';
 import { HamieCharacter } from '@/lib/hamieverse/types';
+import { shownNames as staticShownNames, pfpMap as staticPfpMap, factionMap as staticFactionMap } from '@/lib/hamieverse/shownCharacters';
 
 function normStr(s: string) {
   return s.toLowerCase().replace(/[^a-z0-9]/g, '');
@@ -50,9 +51,10 @@ function isShown(char: HamieCharacter, shownNames: string[]): boolean {
 export default function WikiHome() {
   const router = useRouter();
   const [showBackToTop, setShowBackToTop] = useState(false);
-  const [shownNames, setShownNames] = useState<string[] | null>(null);
-  const [pfpMap, setPfpMap] = useState<Record<string, string>>({});
-  const [factionMap, setFactionMap] = useState<Record<string, string>>({});
+  const [glossaryExpanded, setGlossaryExpanded] = useState(false);
+  const shownNames = staticShownNames;
+  const pfpMap = staticPfpMap;
+  const factionMap = staticFactionMap;
   const allCharacters = getAllCharacters();
   const glossary = getGlossary();
   const logline = getLogline();
@@ -66,24 +68,12 @@ export default function WikiHome() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  useEffect(() => {
-    fetch('/api/shown-characters')
-      .then(r => r.json())
-      .then(data => {
-        setShownNames(data.shownNames || []);
-        setPfpMap(data.pfpMap || {});
-        setFactionMap(data.factionMap || {});
-      })
-      .catch(() => setShownNames([]));
-  }, []);
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const characters = shownNames === null
-    ? []
-    : allCharacters.filter(c => isShown(c, shownNames) && (c.gifFile || c.pngFile));
+  const characters = allCharacters.filter(c => isShown(c, shownNames) && (c.gifFile || c.pngFile));
 
   const goToRandomCharacter = () => {
     const randomChar = characters[Math.floor(Math.random() * characters.length)];
@@ -116,7 +106,7 @@ export default function WikiHome() {
         {/* Character of the Day, Quiz & Lore */}
         <section className="wiki-section wiki-intro-section">
           <div className="wiki-intro-grid-3">
-            <CharacterOfTheDay shownNames={shownNames ?? undefined} />
+            <CharacterOfTheDay shownNames={shownNames} />
             <MiniQuiz />
             <LoreLinks />
           </div>
@@ -205,13 +195,18 @@ export default function WikiHome() {
             </h2>
           </div>
           <div className="wiki-glossary-grid">
-            {Object.entries(glossary).slice(0, 12).map(([term, definition]) => (
+            {Object.entries(glossary).slice(0, glossaryExpanded ? 12 : 5).map(([term, definition]) => (
               <div key={term} className="wiki-glossary-item">
                 <dt className="wiki-glossary-term">{term}</dt>
                 <dd className="wiki-glossary-def">{definition}</dd>
               </div>
             ))}
           </div>
+          {Object.keys(glossary).length > 5 && (
+            <button className="wiki-glossary-toggle" onClick={() => setGlossaryExpanded(e => !e)}>
+              {glossaryExpanded ? 'Show less' : `Show all ${Object.keys(glossary).length}`}
+            </button>
+          )}
         </section>
 
         {/* Interactive Relationship Web */}

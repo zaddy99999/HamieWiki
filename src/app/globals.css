@@ -2273,6 +2273,23 @@ button {
   gap: var(--space-4);
 }
 
+.wiki-glossary-toggle {
+  display: block;
+  margin: var(--space-4) auto 0;
+  background: none;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-5);
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  cursor: pointer;
+  transition: border-color var(--transition-fast), color var(--transition-fast);
+}
+.wiki-glossary-toggle:hover {
+  border-color: var(--brand-primary);
+  color: var(--text-primary);
+}
+
 .wiki-glossary-item {
   position: relative;
   background: linear-gradient(90deg, var(--neutral-850) 0%, var(--bg-card) 100%);
@@ -2364,9 +2381,9 @@ button {
 /* ==================== THEMES ==================== */
 .wiki-themes-grid {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   justify-content: center;
-  gap: var(--space-3);
+  gap: var(--space-2);
 }
 
 .wiki-theme-card {
@@ -2539,6 +2556,7 @@ button {
   grid-template-columns: 1fr 320px;
   gap: var(--space-8);
   align-items: start;
+  margin-top: var(--space-6);
 }
 
 .wiki-article-content {
@@ -2560,6 +2578,7 @@ button {
 
 .wiki-article-section p {
   font-size: var(--text-base);
+  font-family: 'Bicubik', sans-serif;
   color: var(--text-secondary);
   line-height: 1.8;
   margin-bottom: var(--space-4);
@@ -3073,6 +3092,10 @@ button {
   .wiki-faction-grid,
   .wiki-glossary-grid {
     grid-template-columns: 1fr;
+  }
+
+  .wiki-character-grid-grouped .brutal-faction-group {
+    width: calc(50% - 8px);
   }
 
   .wiki-footer-inner {

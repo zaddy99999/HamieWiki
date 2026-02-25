@@ -16,6 +16,7 @@ import Breadcrumb from '@/components/Breadcrumb';
 import FavoriteButton from '@/components/FavoriteButton';
 import { useRecentlyViewed } from '@/hooks/useRecentlyViewed';
 import { CheckIcon, CopyIcon, ArrowUpIcon } from '@/components/Icons';
+import { shownNames as staticShownNames } from '@/lib/hamieverse/shownCharacters';
 
 function normStr(s: string) {
   return s.toLowerCase().replace(/[^a-z0-9]/g, '');
@@ -36,7 +37,7 @@ export default function CharacterPage() {
   const params = useParams();
   const characterId = params.id as string;
   const [showBackToTop, setShowBackToTop] = useState(false);
-  const [shownNames, setShownNames] = useState<string[] | null>(null);
+  const shownNames = staticShownNames;
   const { addItem } = useRecentlyViewed();
 
   const character = getCharacter(characterId);
@@ -45,16 +46,8 @@ export default function CharacterPage() {
   const plotOutline = getPlotOutline();
   const glossary = getGlossary();
 
+  // Track page view
   useEffect(() => {
-    fetch('/api/shown-characters')
-      .then(r => r.json())
-      .then(data => setShownNames(data.shownNames || []))
-      .catch(() => setShownNames([]));
-  }, []);
-
-  // Track page view — only once shownNames is loaded and character is confirmed shown
-  useEffect(() => {
-    if (shownNames === null) return;
     const char = getCharacter(characterId);
     if (char && isShown(char, shownNames)) {
       addItem({
@@ -95,9 +88,6 @@ export default function CharacterPage() {
     navigator.clipboard.writeText(`https://hamiewiki.vercel.app/character/${characterId}`);
     alert('Link copied to clipboard!');
   };
-
-  // Still loading shown list — don't render yet to avoid flash of wrong state
-  if (shownNames === null) return null;
 
   if (!character || !isShown(character, shownNames)) {
     return (

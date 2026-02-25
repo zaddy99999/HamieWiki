@@ -1,0 +1,50 @@
+export const shownNames: string[] = [
+  "Orrien Veynar","Sam","Silas","Hikari","Kael","Ace","Lira Veynar","Hamie","Luna",
+  "Kira","Halo Chryseos","Alistair Veynar","Simba","Veylor Quann","IronPaw Commander",
+  "Caligo","Lost Sentinel","Malvoria Chryseos","Kai Vox","Echo Whisperer"
+];
+
+export const pfpMap: Record<string, string> = {
+  "Orrien Veynar": "OrrienVeynar.png",
+  "Sam": "SamCharacter.png",
+  "Silas": "SilasCharacter.png",
+  "Hikari": "HikariCharacter.png",
+  "Kael": "KaelCharacter.png",
+  "Lira Veynar": "LiraCharacter.png",
+  "Hamie": "HamieCharacternft.png",
+  "Kira": "KiraFluxCharacter.png",
+  "Halo Chryseos": "HaloCharacter.png",
+  "Alistair Veynar": "AlistairVeynarCharacter.png",
+  "Simba": "SimbaCharacter.png",
+  "Veylor Quann": "VeylorQuann.png",
+  "IronPaw Commander": "IronPawCharacter.png",
+  "Caligo": "CaligoCharacter.png",
+  "Lost Sentinel": "LostSentinelCharacter.png",
+  "Malvoria Chryseos": "MalvoriaCharacter.png",
+  "Kai Vox": "KaiVoxCharacter.png",
+  "Echo Whisperer": "EchoWhispererCharacter.png",
+  "Elyndor": "ElyndorCharacter.png",
+};
+
+export const factionMap: Record<string, string> = {
+  "Orrien Veynar": "Aetherion",
+  "Sam": "Respeculators",
+  "Silas": "Aetherion",
+  "Hikari": "Liberators",
+  "Kael": "Liberators",
+  "Ace": "Liberators",
+  "Lira Veynar": "Respeculators",
+  "Hamie": "Liberators",
+  "Kira": "Aetherion",
+  "Halo Chryseos": "Liberators",
+  "Alistair Veynar": "Aetherion",
+  "Simba": "Liberators",
+  "Veylor Quann": "Respeculators",
+  "IronPaw Commander": "Aetherion",
+  "Caligo": "Liberators",
+  "Lost Sentinel": "Liberators",
+  "Malvoria Chryseos": "Aetherion",
+  "Kai Vox": "Aetherion",
+  "Echo Whisperer": "Liberators",
+  "Elyndor": "Liberators",
+};

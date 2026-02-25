@@ -4,6 +4,7 @@ import { useState, useCallback, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { getAllCharacters } from '@/lib/hamieverse/characters';
 import { HamieCharacter } from '@/lib/hamieverse/types';
+import { shownNames as staticShownNames, pfpMap as staticPfpMap } from '@/lib/hamieverse/shownCharacters';
 
 function normStr(s: string) {
   return s.toLowerCase().replace(/[^a-z0-9]/g, '');
@@ -68,8 +69,8 @@ export default function TierMaker() {
   const [selectedSource, setSelectedSource] = useState<string | null>(null);
 
   const allCharacters = getAllCharacters();
-  const [shownNames, setShownNames] = useState<string[]>([]);
-  const [pfpMap, setPfpMap] = useState<Record<string, string>>({});
+  const shownNames = staticShownNames;
+  const pfpMap = staticPfpMap;
 
   // Detect mobile
   useEffect(() => {
@@ -79,24 +80,16 @@ export default function TierMaker() {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Fetch sheet data then populate unranked items
+  // Populate unranked items from static data
   useEffect(() => {
-    fetch('/api/shown-characters')
-      .then(r => r.json())
-      .then(data => {
-        const names: string[] = data.shownNames || [];
-        const pMap: Record<string, string> = data.pfpMap || {};
-        setShownNames(names);
-        setPfpMap(pMap);
-        const filtered = allCharacters.filter(c => isShown(c, names) && (c.gifFile || c.pngFile));
-        const items: TierItem[] = filtered.map(char => ({
-          id: char.id,
-          name: char.displayName,
-          image: `/images/${getSheetPfp(char, pMap) || char.pngFile || char.gifFile || 'hamiepfp.png'}`,
-          faction: char.faction,
-        }));
-        setUnrankedItems(items);
-      });
+    const filtered = allCharacters.filter(c => isShown(c, shownNames) && (c.gifFile || c.pngFile));
+    const items: TierItem[] = filtered.map(char => ({
+      id: char.id,
+      name: char.displayName,
+      image: `/images/${getSheetPfp(char, pfpMap) || char.pngFile || char.gifFile || 'hamiepfp.png'}`,
+      faction: char.faction,
+    }));
+    setUnrankedItems(items);
   }, []);
 
   const showToast = (message: string, isError = false) => {
