@@ -17,10 +17,26 @@ import FavoriteButton from '@/components/FavoriteButton';
 import { useRecentlyViewed } from '@/hooks/useRecentlyViewed';
 import { CheckIcon, CopyIcon, ArrowUpIcon } from '@/components/Icons';
 
+function normStr(s: string) {
+  return s.toLowerCase().replace(/[^a-z0-9]/g, '');
+}
+
+function isShown(char: ReturnType<typeof getCharacter>, shownNames: string[]): boolean {
+  if (!char) return false;
+  const idNorm = normStr(char.id);
+  const displayNorm = normStr(char.displayName);
+  return shownNames.some(name => {
+    const nameNorm = normStr(name);
+    const firstWord = normStr(name.split(' ')[0]);
+    return nameNorm === idNorm || nameNorm === displayNorm || firstWord === displayNorm || idNorm.startsWith(firstWord);
+  });
+}
+
 export default function CharacterPage() {
   const params = useParams();
   const characterId = params.id as string;
   const [showBackToTop, setShowBackToTop] = useState(false);
+  const [shownNames, setShownNames] = useState<string[] | null>(null);
   const { addItem } = useRecentlyViewed();
 
   const character = getCharacter(characterId);
@@ -29,18 +45,27 @@ export default function CharacterPage() {
   const plotOutline = getPlotOutline();
   const glossary = getGlossary();
 
-  // Track page view
   useEffect(() => {
-    if (character) {
+    fetch('/api/shown-characters')
+      .then(r => r.json())
+      .then(data => setShownNames(data.shownNames || []))
+      .catch(() => setShownNames([]));
+  }, []);
+
+  // Track page view — only once shownNames is loaded and character is confirmed shown
+  useEffect(() => {
+    if (shownNames === null) return;
+    const char = getCharacter(characterId);
+    if (char && isShown(char, shownNames)) {
       addItem({
         type: 'character',
         id: characterId,
-        name: character.displayName,
+        name: char.displayName,
         path: `/character/${characterId}`,
-        image: character.gifFile ? `/images/${character.gifFile}` : character.pngFile ? `/images/${character.pngFile}` : undefined,
+        image: char.gifFile ? `/images/${char.gifFile}` : char.pngFile ? `/images/${char.pngFile}` : undefined,
       });
     }
-  }, [characterId, character, addItem]);
+  }, [characterId, shownNames, addItem]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -71,7 +96,10 @@ export default function CharacterPage() {
     alert('Link copied to clipboard!');
   };
 
-  if (!character) {
+  // Still loading shown list — don't render yet to avoid flash of wrong state
+  if (shownNames === null) return null;
+
+  if (!character || !isShown(character, shownNames)) {
     return (
       <div className="wiki-container">
         <div className="wiki-not-found">
@@ -83,6 +111,9 @@ export default function CharacterPage() {
     );
   }
 
+  // Only include shown characters in related/similar sections
+  const shownCharacters = allCharacters.filter(c => isShown(c, shownNames));
+
   const characterAppearances = plotOutline.chapters?.filter((ch: any) =>
     ch.introduces?.some((name: string) =>
       name.toLowerCase().includes(characterId.toLowerCase()) ||
@@ -93,7 +124,7 @@ export default function CharacterPage() {
   const relatedCharacters = relationships.map(r => {
     const charIdLower = characterId.toLowerCase();
     const otherId = r.a.toLowerCase() === charIdLower ? r.b : r.a;
-    return allCharacters.find(c => c.id.toLowerCase() === otherId.toLowerCase());
+    return shownCharacters.find(c => c.id.toLowerCase() === otherId.toLowerCase());
   }).filter(Boolean);
 
   const relatedTerms = Object.entries(glossary).filter(([term]) =>
@@ -101,8 +132,8 @@ export default function CharacterPage() {
     term.toLowerCase().includes(character.displayName.toLowerCase())
   );
 
-  // Find similar characters by faction or roles
-  const similarCharacters = allCharacters
+  // Find similar characters by faction or roles (shown only)
+  const similarCharacters = shownCharacters
     .filter(c => c.id !== characterId)
     .map(c => {
       let score = 0;
@@ -376,21 +407,6 @@ export default function CharacterPage() {
               </section>
             )}
 
-            {/* See Also */}
-            <div className="wiki-see-also">
-              <h3>See Also</h3>
-              <div className="wiki-see-also-grid">
-                <Link href="/compare" className="wiki-see-also-link">
-                  Compare Characters
-                </Link>
-                <Link href="/quotes" className="wiki-see-also-link">
-                  Quotes
-                </Link>
-                <Link href="/" className="wiki-see-also-link">
-                  Main Page
-                </Link>
-              </div>
-            </div>
           </div>
 
           {/* Infobox Sidebar */}
@@ -491,24 +507,14 @@ export default function CharacterPage() {
                 <div className="wiki-similar-characters">
                   {similarCharacters.map(c => (
                     <Link key={c.id} href={`/character/${c.id}`} className="wiki-similar-character">
-                      {c.gifFile ? (
-                        <Image
-                          src={`/images/${c.gifFile}`}
-                          alt={c.displayName}
-                          width={40}
-                          height={40}
-                          className="wiki-similar-avatar"
-                          unoptimized={c.gifFile?.endsWith('.gif')}
-                        />
-                      ) : (
-                        <Image
-                          src="/images/hamiepfp.png"
-                          alt={c.displayName}
-                          width={40}
-                          height={40}
-                          className="wiki-similar-avatar"
-                        />
-                      )}
+                      <Image
+                        src={c.gifFile ? `/images/${c.gifFile}` : c.pngFile ? `/images/${c.pngFile}` : '/images/hamiepfp.png'}
+                        alt={c.displayName}
+                        width={40}
+                        height={40}
+                        className="wiki-similar-avatar"
+                        unoptimized={!!c.gifFile}
+                      />
                       <span className="wiki-similar-name">{c.displayName}</span>
                     </Link>
                   ))}

@@ -100,14 +100,6 @@ export default function Sidebar() {
               <span>TIER MAKER</span>
             </div>
 
-            <div
-              className={`mobile-nav-link ${pathname === '/build-your-team' ? 'active' : ''}`}
-              onClick={() => navigate('/build-your-team')}
-              style={{ minHeight: '48px', padding: '12px 16px' }}
-            >
-              <span className="mobile-nav-icon" style={{ fontSize: '20px' }}>★</span>
-              <span>BUILD TEAM</span>
-            </div>
 
             <div
               className={`mobile-nav-link ${pathname === '/gallery' ? 'active' : ''}`}
@@ -175,13 +167,6 @@ export default function Sidebar() {
           <span className="brutal-sidebar-label">TIER MAKER</span>
         </div>
 
-        <div
-          className={`brutal-sidebar-link ${pathname === '/build-your-team' ? 'active' : ''}`}
-          onClick={() => navigate('/build-your-team')}
-        >
-          <span className="brutal-sidebar-icon">★</span>
-          <span className="brutal-sidebar-label">BUILD TEAM</span>
-        </div>
 
         <div
           className={`brutal-sidebar-link ${pathname === '/gallery' ? 'active' : ''}`}

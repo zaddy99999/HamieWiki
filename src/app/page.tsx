@@ -10,11 +10,50 @@ import LoreLinks from '@/components/LoreLinks';
 import RelationshipWeb from '@/components/RelationshipWeb';
 import CharacterOfTheDay from '@/components/CharacterOfTheDay';
 import MiniQuiz from '@/components/MiniQuiz';
+import { HamieCharacter } from '@/lib/hamieverse/types';
+
+function normStr(s: string) {
+  return s.toLowerCase().replace(/[^a-z0-9]/g, '');
+}
+
+function getSheetPfp(char: HamieCharacter, pfpMap: Record<string, string>): string | undefined {
+  for (const [name, file] of Object.entries(pfpMap)) {
+    const nameNorm = normStr(name);
+    const firstWord = normStr(name.split(' ')[0]);
+    if (
+      nameNorm === normStr(char.id) ||
+      nameNorm === normStr(char.displayName) ||
+      firstWord === normStr(char.displayName) ||
+      normStr(char.id).startsWith(firstWord)
+    ) {
+      return file;
+    }
+  }
+  return undefined;
+}
+
+function isShown(char: HamieCharacter, shownNames: string[]): boolean {
+  const idNorm = normStr(char.id);
+  const displayNorm = normStr(char.displayName);
+  return shownNames.some(name => {
+    const nameNorm = normStr(name);
+    const firstWord = normStr(name.split(' ')[0]);
+    return (
+      nameNorm === idNorm ||
+      nameNorm === displayNorm ||
+      firstWord === displayNorm ||
+      idNorm.startsWith(firstWord)
+    );
+  });
+}
 
 export default function WikiHome() {
   const router = useRouter();
   const [showBackToTop, setShowBackToTop] = useState(false);
-  const characters = getAllCharacters();
+  const [shownNames, setShownNames] = useState<string[] | null>(null);
+  const [pfpMap, setPfpMap] = useState<Record<string, string>>({});
+  const [factionMap, setFactionMap] = useState<Record<string, string>>({});
+  const allCharacters = getAllCharacters();
   const glossary = getGlossary();
   const logline = getLogline();
   const themes = getThemes();
@@ -27,22 +66,29 @@ export default function WikiHome() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    fetch('/api/shown-characters')
+      .then(r => r.json())
+      .then(data => {
+        setShownNames(data.shownNames || []);
+        setPfpMap(data.pfpMap || {});
+        setFactionMap(data.factionMap || {});
+      })
+      .catch(() => setShownNames([]));
+  }, []);
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const characters = shownNames === null
+    ? []
+    : allCharacters.filter(c => isShown(c, shownNames) && (c.gifFile || c.pngFile));
+
   const goToRandomCharacter = () => {
     const randomChar = characters[Math.floor(Math.random() * characters.length)];
-    router.push(`/character/${randomChar.id}`);
+    if (randomChar) router.push(`/character/${randomChar.id}`);
   };
-
-  const mainCharacters = characters.filter(c =>
-    ['hamie', 'sam', 'lira', 'silas', 'ace', 'hikari', 'kael', 'orrien'].includes(c.id)
-  );
-
-  const supportingCharacters = characters.filter(c =>
-    !['hamie', 'sam', 'lira', 'silas', 'ace', 'hikari', 'kael', 'orrien', 'simba_digital_identity', 'homeless_man_under_overpass', 'dog_simba', '479c', 'veynar_mother'].includes(c.id.toLowerCase())
-  );
 
   const glossaryCount = Object.keys(glossary).length;
 
@@ -70,86 +116,84 @@ export default function WikiHome() {
         {/* Character of the Day, Quiz & Lore */}
         <section className="wiki-section wiki-intro-section">
           <div className="wiki-intro-grid-3">
-            <CharacterOfTheDay />
+            <CharacterOfTheDay shownNames={shownNames ?? undefined} />
             <MiniQuiz />
             <LoreLinks />
           </div>
         </section>
 
-        {/* Main Characters */}
+        {/* Characters — grouped by faction */}
         <section id="characters" className="wiki-section">
           <div className="wiki-section-header">
             <h2 className="wiki-section-title">
-              Main Characters
-              <span className="wiki-section-count">({mainCharacters.length})</span>
+              Characters
+              <span className="wiki-section-count">({characters.length})</span>
             </h2>
           </div>
-          <div className="wiki-character-grid">
-            {mainCharacters.map((char) => (
-              <Link
-                key={char.id}
-                href={`/character/${char.id}`}
-                className="wiki-character-card"
-                style={{ '--char-color': char.color } as React.CSSProperties}
-              >
-                <div className="wiki-character-avatar">
-                  <Image
-                    src={char.gifFile ? `/images/${char.gifFile}` : char.pngFile ? `/images/${char.pngFile}` : '/images/hamiepfp.png'}
-                    alt={char.displayName}
-                    fill
-                    className="wiki-character-gif"
-                    unoptimized={char.gifFile?.endsWith('.gif')}
-                  />
-                </div>
-                <div className="wiki-character-info">
-                  <h3 className="wiki-character-name">{char.displayName}</h3>
-                  <div className="wiki-character-meta">
-                    {char.species && <span className="wiki-character-species">{char.species}</span>}
-                    <span className="wiki-character-role">
-                      {char.roles.slice(0, 2).map(r => r.replace(/_/g, ' ')).join(' · ')}
-                    </span>
-                  </div>
-                </div>
-                <span className="wiki-character-arrow">→</span>
-              </Link>
-            ))}
-          </div>
-        </section>
+          {(() => {
+            // Get faction for a character — sheet factionMap takes priority over lore data
+            const getCharFaction = (char: typeof characters[0]) => {
+              for (const [name, faction] of Object.entries(factionMap)) {
+                const nameNorm = normStr(name);
+                const firstWord = normStr(name.split(' ')[0]);
+                const idNorm = normStr(char.id);
+                const displayNorm = normStr(char.displayName);
+                if (nameNorm === idNorm || nameNorm === displayNorm || firstWord === displayNorm || idNorm.startsWith(firstWord)) {
+                  return faction;
+                }
+              }
+              return char.faction || '';
+            };
 
-        {/* Supporting Characters */}
-        <section id="supporting" className="wiki-section">
-          <div className="wiki-section-header">
-            <h2 className="wiki-section-title">
-              Supporting Characters
-              <span className="wiki-section-count">({supportingCharacters.length})</span>
-            </h2>
-          </div>
-          <div className="wiki-supporting-grid">
-            {supportingCharacters.map((char) => (
-              <Link
-                key={char.id}
-                href={`/character/${char.id}`}
-                className="wiki-supporting-card"
-                style={{ '--char-color': char.color } as React.CSSProperties}
-              >
-                <div className="wiki-supporting-avatar">
-                  <Image
-                    src={char.gifFile ? `/images/${char.gifFile}` : char.pngFile ? `/images/${char.pngFile}` : '/images/hamiepfp.png'}
-                    alt={char.displayName}
-                    fill
-                    className="wiki-supporting-img"
-                    unoptimized={char.gifFile?.endsWith('.gif')}
-                  />
-                </div>
-                <div className="wiki-supporting-info">
-                  <span className="wiki-supporting-name">{char.displayName}</span>
-                  <span className="wiki-supporting-role">
-                    {char.roles[0]?.replace(/_/g, ' ') || char.symbolicRole || char.species || 'Character'}
-                  </span>
-                </div>
-              </Link>
-            ))}
-          </div>
+            const factionOrder = ['Liberators', 'Aetherion', 'Respeculators'];
+            const getFactionGroup = (raw: string): string | undefined => {
+              if (raw.includes('respeculat')) return 'Respeculators';
+              if (raw.includes('aetherion')) return 'Aetherion';
+              if (raw.includes('undercode') || raw.includes('liberator')) return 'Liberators';
+              return undefined;
+            };
+            const grouped: Record<string, typeof characters> = {};
+            factionOrder.forEach(f => { grouped[f] = []; });
+            characters.forEach(c => {
+              const raw = getCharFaction(c).toLowerCase().trim();
+              const mapped = getFactionGroup(raw);
+              if (mapped) grouped[mapped].push(c);
+            });
+            return (
+              <div className="wiki-character-grid-grouped">
+                {factionOrder.filter(f => grouped[f].length > 0).flatMap(faction => [
+                  <div key={`label-${faction}`} className="wiki-faction-inline-label">{faction}</div>,
+                  ...grouped[faction].map((char) => (
+                    <Link
+                      key={char.id}
+                      href={`/character/${char.id}`}
+                      className="wiki-character-card"
+                      style={{ '--char-color': char.color } as React.CSSProperties}
+                    >
+                      <div className="wiki-character-avatar">
+                        <Image
+                          src={`/images/${getSheetPfp(char, pfpMap) || char.gifFile || char.pngFile || 'hamiepfp.png'}`}
+                          alt={char.displayName}
+                          fill
+                          className="wiki-character-gif"
+                          unoptimized
+                        />
+                      </div>
+                      <div className="wiki-character-info">
+                        <h3 className="wiki-character-name">{char.displayName}</h3>
+                        <div className="wiki-character-meta">
+                          {char.species && <span className="wiki-character-species">{char.species}</span>}
+                          <span className="wiki-character-role">
+                            {char.roles.slice(0, 2).map(r => r.replace(/_/g, ' ')).join(' · ')}
+                          </span>
+                        </div>
+                      </div>
+                    </Link>
+                  ))
+                ])}
+              </div>
+            );
+          })()}
         </section>
 
         {/* Glossary */}

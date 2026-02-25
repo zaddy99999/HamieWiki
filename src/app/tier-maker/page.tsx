@@ -1,7 +1,34 @@
 'use client';
 
-import { useState, useCallback, useEffect, useMemo, useRef } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 import { getAllCharacters } from '@/lib/hamieverse/characters';
+import { HamieCharacter } from '@/lib/hamieverse/types';
+
+function normStr(s: string) {
+  return s.toLowerCase().replace(/[^a-z0-9]/g, '');
+}
+
+function isShown(char: HamieCharacter, shownNames: string[]): boolean {
+  const idNorm = normStr(char.id);
+  const displayNorm = normStr(char.displayName);
+  return shownNames.some(name => {
+    const nameNorm = normStr(name);
+    const firstWord = normStr(name.split(' ')[0]);
+    return nameNorm === idNorm || nameNorm === displayNorm || firstWord === displayNorm || idNorm.startsWith(firstWord);
+  });
+}
+
+function getSheetPfp(char: HamieCharacter, pfpMap: Record<string, string>): string | undefined {
+  for (const [name, file] of Object.entries(pfpMap)) {
+    const firstWord = normStr(name.split(' ')[0]);
+    const nameNorm = normStr(name);
+    if (nameNorm === normStr(char.id) || nameNorm === normStr(char.displayName) || firstWord === normStr(char.displayName) || normStr(char.id).startsWith(firstWord)) {
+      return file;
+    }
+  }
+  return undefined;
+}
 
 interface TierItem {
   id: string;
@@ -27,6 +54,7 @@ const DEFAULT_TIERS: Tier[] = [
 ];
 
 export default function TierMaker() {
+  const router = useRouter();
   const [tiers, setTiers] = useState<Tier[]>(DEFAULT_TIERS);
   const [unrankedItems, setUnrankedItems] = useState<TierItem[]>([]);
   const [draggedItem, setDraggedItem] = useState<TierItem | null>(null);
@@ -39,7 +67,9 @@ export default function TierMaker() {
   const [selectedItem, setSelectedItem] = useState<TierItem | null>(null);
   const [selectedSource, setSelectedSource] = useState<string | null>(null);
 
-  const characters = getAllCharacters();
+  const allCharacters = getAllCharacters();
+  const [shownNames, setShownNames] = useState<string[]>([]);
+  const [pfpMap, setPfpMap] = useState<Record<string, string>>({});
 
   // Detect mobile
   useEffect(() => {
@@ -49,15 +79,24 @@ export default function TierMaker() {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Load characters as unranked items
+  // Fetch sheet data then populate unranked items
   useEffect(() => {
-    const items: TierItem[] = characters.map(char => ({
-      id: char.id,
-      name: char.displayName,
-      image: char.gifFile ? `/images/${char.gifFile}` : char.pngFile ? `/images/${char.pngFile}` : '/images/hamiepfp.png',
-      faction: char.faction,
-    }));
-    setUnrankedItems(items);
+    fetch('/api/shown-characters')
+      .then(r => r.json())
+      .then(data => {
+        const names: string[] = data.shownNames || [];
+        const pMap: Record<string, string> = data.pfpMap || {};
+        setShownNames(names);
+        setPfpMap(pMap);
+        const filtered = allCharacters.filter(c => isShown(c, names) && (c.gifFile || c.pngFile));
+        const items: TierItem[] = filtered.map(char => ({
+          id: char.id,
+          name: char.displayName,
+          image: `/images/${getSheetPfp(char, pMap) || char.pngFile || char.gifFile || 'hamiepfp.png'}`,
+          faction: char.faction,
+        }));
+        setUnrankedItems(items);
+      });
   }, []);
 
   const showToast = (message: string, isError = false) => {
@@ -192,10 +231,11 @@ export default function TierMaker() {
 
   const resetTiers = () => {
     setTiers(DEFAULT_TIERS);
-    const items: TierItem[] = characters.map(char => ({
+    const filtered = allCharacters.filter(c => isShown(c, shownNames) && (c.gifFile || c.pngFile));
+    const items: TierItem[] = filtered.map(char => ({
       id: char.id,
       name: char.displayName,
-      image: char.gifFile ? `/images/${char.gifFile}` : char.pngFile ? `/images/${char.pngFile}` : '/images/hamiepfp.png',
+      image: `/images/${getSheetPfp(char, pfpMap) || char.pngFile || char.gifFile || 'hamiepfp.png'}`,
       faction: char.faction,
     }));
     setUnrankedItems(items);
@@ -255,8 +295,13 @@ export default function TierMaker() {
                     onDragStart={() => handleDragStart(item, tier.id)}
                     onClick={(e) => {
                       e.stopPropagation();
-                      handleItemClick(item, tier.id);
+                      if (isMobile) {
+                        handleItemClick(item, tier.id);
+                      } else {
+                        router.push(`/character/${item.id}`);
+                      }
                     }}
+                    style={!isMobile ? { cursor: 'pointer' } : undefined}
                   >
                     <img src={item.image} alt={item.name} />
                     <span>{item.name}</span>
@@ -305,22 +350,30 @@ export default function TierMaker() {
               }
             });
 
-            return factionGroups.filter(g => grouped[g].length > 0).flatMap(group => [
-              ...(group === 'Other' ? [<div key="break" className="brutal-faction-break" />] : []),
-              <div key={`label-${group}`} className="brutal-faction-label">{group.toUpperCase()}</div>,
-              ...grouped[group].map((item) => (
-                <div
-                  key={item.id}
-                  className={`brutal-tier-item ${selectedItem?.id === item.id ? 'selected' : ''}`}
-                  draggable={!isMobile}
-                  onDragStart={() => handleDragStart(item, 'unranked')}
-                  onClick={() => handleItemClick(item, 'unranked')}
-                >
-                  <img src={item.image} alt={item.name} />
-                  <span>{item.name}</span>
-                </div>
-              ))
-            ]);
+            return factionGroups.filter(g => grouped[g].length > 0).map((group) => (
+              <div key={group} className="brutal-faction-group">
+                <div className="brutal-faction-label">{group.toUpperCase()}</div>
+                {grouped[group].map((item) => (
+                  <div
+                    key={item.id}
+                    className={`brutal-tier-item ${selectedItem?.id === item.id ? 'selected' : ''}`}
+                    draggable={!isMobile}
+                    onDragStart={() => handleDragStart(item, 'unranked')}
+                    onClick={() => {
+                      if (isMobile) {
+                        handleItemClick(item, 'unranked');
+                      } else {
+                        router.push(`/character/${item.id}`);
+                      }
+                    }}
+                    style={!isMobile ? { cursor: 'pointer' } : undefined}
+                  >
+                    <img src={item.image} alt={item.name} />
+                    <span>{item.name}</span>
+                  </div>
+                ))}
+              </div>
+            ));
           })()}
         </div>
       </div>

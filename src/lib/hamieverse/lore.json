@@ -379,16 +379,6 @@
       ],
       "arc": "A compliant runner becomes Simba in the Undercode after unlocking contraband tech and gaining sudden influence."
     },
-    "simba_digital_identity": {
-      "id": "simba",
-      "type": "alias",
-      "owner": "hamie",
-      "meaning": "Hamie’s Undercode persona; marks his shift from faceless worker to player in a larger game.",
-      "known_events": [
-        "Undercode buy action confirms +13,000,000 AC",
-        "Creator elite marker is overlaid/forged on his digital badge"
-      ]
-    },
     "grandma": {
       "display_name": "Grandma",
       "relationship": "Hamie’s grandmother",
@@ -471,7 +461,6 @@
         "respeculator_partner",
         "skeptical_enforcer"
       ],
-      "species_note": "Described as panther-like.",
       "traits": [
         "volatile",
         "intuitive",
@@ -486,7 +475,6 @@
         "party_companion",
         "warning_voice"
       ],
-      "species_note": "Described as a lithe ferret with eyes like spun glass.",
       "traits": [
         "smooth",
         "insistent",
@@ -504,7 +492,7 @@
       "status": "missing/disappeared"
     },
     "dog_simba": {
-      "display_name": "Simba (dog)",
+      "display_name": "Simba",
       "roles": [
         "survivor",
         "living_archive"
@@ -607,6 +595,42 @@
         "status-obsessed"
       ],
       "notes": "Reinforces the ideology that kindness is weakness; expects emotional suppression."
+    },
+    "iron_paw": {
+      "display_name": "IronPaw Commander",
+      "roles": ["military_commander", "enforcer"],
+      "traits": ["disciplined", "ruthless", "strategic"],
+      "notes": "High-ranking enforcer within the Aetherion military apparatus."
+    },
+    "caligo": {
+      "display_name": "Caligo",
+      "roles": ["shadow_operative", "infiltrator"],
+      "traits": ["elusive", "calculating", "dangerous"],
+      "notes": "Operates in the shadows; allegiances unclear."
+    },
+    "lost_sentinel": {
+      "display_name": "Lost Sentinel",
+      "roles": ["rogue_guardian", "wanderer"],
+      "traits": ["haunted", "protective", "isolated"],
+      "notes": "A guardian who lost their charge and now wanders without purpose."
+    },
+    "malvoria": {
+      "display_name": "Malvoria Chryseos",
+      "roles": ["antagonist", "power_broker"],
+      "traits": ["manipulative", "ambitious", "cold"],
+      "notes": "Connected to the Chryseos bloodline; operates through proxies."
+    },
+    "kai_vox": {
+      "display_name": "Kai Vox",
+      "roles": ["hacker", "undercode_operative"],
+      "traits": ["technical", "rebellious", "sharp"],
+      "notes": "Elite hacker operating within the Undercode network."
+    },
+    "echo_whisperer": {
+      "display_name": "Echo Whisperer",
+      "roles": ["intelligence_operative", "spy"],
+      "traits": ["quiet", "perceptive", "ghost-like"],
+      "notes": "Gathers intelligence through whisper networks across factions."
     }
   },
   "plot_outline": {
@@ -749,7 +773,7 @@
     },
     {
       "a": "respeculators",
-      "b": "simba_digital_identity",
+      "b": "hamie",
       "type": "target",
       "valence": "asset_recruitment"
     },

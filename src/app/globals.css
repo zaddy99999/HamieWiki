@@ -1468,6 +1468,24 @@ button {
   justify-items: center;
 }
 
+.wiki-character-grid-grouped {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  justify-items: center;
+}
+
+.wiki-faction-inline-label {
+  flex-basis: 100%;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
 .wiki-character-card {
   position: relative;
   background: linear-gradient(135deg, var(--bg-card) 0%, var(--neutral-850) 100%);
@@ -1583,6 +1601,8 @@ button {
   flex: 1;
   min-width: 0;
   text-align: center;
+  display: flex;
+  flex-direction: column;
 }
 
 .wiki-character-name {
@@ -1593,9 +1613,11 @@ button {
 }
 
 .wiki-character-meta {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: var(--space-1);
 }
 
@@ -1613,6 +1635,10 @@ button {
   color: #FFFFFF;
   font-family: var(--font-sans);
   text-transform: capitalize;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .wiki-character-arrow {
@@ -1932,6 +1958,10 @@ button {
   font-weight: 700;
   margin-bottom: var(--space-1);
   color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
 }
 
 .cotd-role {
@@ -2994,6 +3024,7 @@ button {
   .wiki-infobox {
     position: static;
     margin-bottom: var(--space-8);
+    order: -1;
   }
 
   .wiki-hero-content {
@@ -4262,7 +4293,7 @@ button {
 
 .lore-links-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: 1fr;
   gap: var(--space-4);
 }
 
@@ -17913,6 +17944,11 @@ a.gallery-tab {
   overflow-y: auto;
 }
 
+.gallery-stream-new.gallery-stream-scrollable {
+  overflow-y: scroll;
+  will-change: scroll-position;
+}
+
 .gallery-grid-new {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -17922,15 +17958,19 @@ a.gallery-tab {
 
 /* Animations */
 .gallery-grid-new.anim-fast {
-  animation: scrollUp 15s linear infinite;
+  animation: scrollUp 60s linear infinite;
 }
 
 .gallery-grid-new.anim-medium {
-  animation: scrollUp 30s linear infinite;
+  animation: scrollUp 120s linear infinite;
 }
 
 .gallery-grid-new.anim-slow {
-  animation: scrollUp 60s linear infinite;
+  animation: scrollUp 240s linear infinite;
+}
+
+.gallery-grid-new.paused {
+  animation-play-state: paused;
 }
 
 .gallery-grid-new.anim-scroll {
@@ -17939,7 +17979,7 @@ a.gallery-tab {
 
 @keyframes scrollUp {
   0% { transform: translateY(0); }
-  100% { transform: translateY(-66.666%); }
+  100% { transform: translateY(-50%); }
 }
 
 .gallery-card-new {
@@ -17959,8 +17999,23 @@ a.gallery-tab {
 .gallery-card-new img,
 .gallery-card-new video {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
   display: block;
+}
+
+.gallery-card-new {
+  aspect-ratio: 3/4;
+}
+
+.gallery-video-thumb {
+  width: 100%;
+  height: 100%;
+  background: #0a0a14;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255,255,255,0.1);
 }
 
 .gallery-card-new.placeholder-new {
@@ -18125,15 +18180,22 @@ a.gallery-tab {
 /* Chaos Feed */
 .gallery-chaos-feed {
   flex: 1;
-  overflow: auto;
+  overflow-y: scroll;
+  overflow-x: hidden;
   position: relative;
   background: #000;
+}
+
+.chaos-scroll-wrapper {
+  display: flex;
+  flex-direction: column;
 }
 
 .chaos-scatter-container {
   position: relative;
   width: 100%;
-  height: 500vh;
+  height: 150vh;
+  flex-shrink: 0;
   overflow: visible;
 }
 
@@ -18183,7 +18245,7 @@ a.gallery-tab {
   }
 
   .chaos-scatter-container {
-    height: 600vh;
+    height: 180vh;
   }
 }
 

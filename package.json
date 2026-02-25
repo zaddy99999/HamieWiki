@@ -12,6 +12,7 @@
     "@walletconnect/ethereum-provider": "^2.23.5",
     "gif.js": "^0.2.0",
     "gifuct-js": "^2.1.2",
+    "googleapis": "^171.4.0",
     "html2canvas": "^1.4.1",
     "next": "^16.1.6",
     "omggif": "^1.0.10",

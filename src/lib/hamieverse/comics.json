@@ -113,7 +113,7 @@
           "Creator Elite (status)"
         ],
         "species": "hamster",
-        "role": "Protagonist; runner who discovers Undercode and becomes a pivotal figure targeted by competing factions.",
+        "role": "protagonist",
         "personality": {
           "baseline": [
             "conscientious",
@@ -141,7 +141,7 @@
       },
       "grandma": {
         "name": "Grandma (Hamie's grandmother)",
-        "role": "Emotional anchor; prompts Hamie to eat/rest; later becomes the 'second' to feel the undercode pull.",
+        "role": "emotional_anchor",
         "notes": "Her unread messages and Hamie's avoidance are recurring guilt symbols."
       },
       "kira": {
@@ -149,20 +149,19 @@
         "aliases": [
           "#479C"
         ],
-        "species": "Hamster",
-        "role": "Key missing person / catalyst; her identity is discovered as code #479C; linked to the conspiracy and the planned operation.",
+        "role": "missing_person",
         "status": "Missing/hidden; her reveal is a major plot turn."
       },
       "sam": {
         "name": "Sam",
         "species": "mouse",
-        "role": "Inner Court contact; introduces Hamie to the Respeculators; claims unique lineage and frames Hamie as a useful outsider.",
+        "role": "inner_court_contact",
         "notes": "Tells Hamie that 'the only existing panther lineage is the Royals' and implies Sam is tied to it (or knows it intimately)."
       },
       "lira": {
         "name": "Lira Veyna",
         "species": "panther (humanoid-styled, black hair, eyepatch)",
-        "role": "Operative inside Inner Court; claims royal family connection but rejects the current order; runs monitoring/ops and negotiates a risky plan.",
+        "role": "inner_court_operative",
         "traits": [
           "strategic",
           "tense",
@@ -182,37 +181,36 @@
       "iris": {
         "name": "Iris",
         "species": "mouse",
-        "role": "Sam's associate/assistant in Inner Court scenes; warns about 'Orrien' planning and manages information flow."
+        "role": "inner_court_informant"
       },
       "silas": {
         "name": "Silas",
         "species": "unknown (depicted as a ruler figure; also shown as a red-lit throne silhouette/portrait)",
-        "role": "Primary antagonist; leader of the Aetherion (or the city's ruling structure); feared, ruthless, and framed as more dangerous than anyone else.",
+        "role": "primary_antagonist",
         "notes": "Discussed as 'the leader of the Aetherion' and 'not the scary one' by some, implying an even deeper threat or mythos beyond him."
       },
       "halo": {
         "name": "Halo",
-        "species": "deer/elk-like royal figure (white hair, antlers, ornate jewelry)",
-        "role": "Celebrity/royal-class presence drawn into Inner Court politics; tied to the concert spectacle; used as distraction/propaganda leverage."
+        "species": "deer/elk-like royal figure",
+        "role": ""
       },
       "weylor": {
         "name": "Weylor",
         "species": "cat",
-        "role": "Inner Court member; provides insider info; helps with 'concert <-> factory' reasoning; part of operational planning."
+        "role": "inner_court_operative"
       },
       "veylor": {
         "name": "Veylor",
-        "species": "cat",
-        "role": "Inner Court attendee; introduced as having been part of a past movement; present at planning table."
+        "role": "inner_court_attendee"
       },
       "contractor_friend": {
         "name": "Old Contractor (bearded figure)",
         "species": "unknown (small animal; older male with beard)",
-        "role": "Represents rare 'stillness' and human connection; shares a simple moment and warns about the 'kill zone' / danger areas."
+        "role": "old_contractor"
       },
       "pet_companion": {
         "name": "Companion (small dog/fox-like pet in tech harness)",
-        "role": "Hamie's companion; present during key scenes; used as emotional mirror and as a witness."
+        "role": "companion"
       }
     },
     "factions": {
