@@ -5,6 +5,7 @@ export async function GET() {
   try {
     const auth = new google.auth.GoogleAuth({
       credentials: {
+        type: 'service_account',
         client_email: process.env.GOOGLE_CLIENT_EMAIL,
         private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
       },
