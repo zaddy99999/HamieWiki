@@ -1633,7 +1633,7 @@ button {
 .wiki-character-role {
   font-size: var(--text-sm);
   color: #FFFFFF;
-  font-family: var(--font-sans);
+  font-family: 'Bicubik', sans-serif;
   text-transform: capitalize;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -2578,7 +2578,6 @@ button {
 
 .wiki-article-section p {
   font-size: var(--text-base);
-  font-family: 'Bicubik', sans-serif;
   color: var(--text-secondary);
   line-height: 1.8;
   margin-bottom: var(--space-4);
@@ -15021,6 +15020,7 @@ html {
   cursor: pointer;
   transition: all 0.2s ease;
   overflow: hidden;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -15036,10 +15036,14 @@ html {
   box-shadow: 0 4px 12px rgba(229, 57, 53, 0.25);
 }
 
-.xp-preset-card img {
+.xp-preset-card img,
+.xp-preset-card video {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
 }
 
 .xp-preset-placeholder {

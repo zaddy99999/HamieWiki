@@ -26,6 +26,13 @@ interface XPPreset {
 
 const XP_PRESETS: XPPreset[] = [
   { name: 'Hammie', image: '/HammieBannerBigger.gif', video: null, displayName: '', xp: '', level: '', joinDate: '' },
+  { name: 'Orrien', image: '/images/OrrienCharacter.gif', video: null, displayName: '', xp: '', level: '', joinDate: '' },
+  { name: 'Sam', image: '/images/SamCharacter.gif', video: null, displayName: '', xp: '', level: '', joinDate: '' },
+  { name: 'Silas', image: '/images/SilasCharacter.gif', video: null, displayName: '', xp: '', level: '', joinDate: '' },
+  { name: 'Hikari', image: '/images/HikariCharacter.gif', video: null, displayName: '', xp: '', level: '', joinDate: '' },
+  { name: 'Kael', image: '/images/KaelCharacter.gif', video: null, displayName: '', xp: '', level: '', joinDate: '' },
+  { name: 'Ace', image: '/images/AceCharacter.gif', video: null, displayName: '', xp: '', level: '', joinDate: '' },
+  { name: 'Lira', image: '/images/LiraCharacter.gif', video: null, displayName: '', xp: '', level: '', joinDate: '' },
   { name: 'Clip 1', image: null, video: '/hamie_clip_1.mp4', displayName: '', xp: '', level: '', joinDate: '' },
   { name: 'Clip 2', image: null, video: '/hamie_clip_2.mp4', displayName: '', xp: '', level: '', joinDate: '' },
   { name: 'Clip 3', image: null, video: '/hamie_clip_3.mp4', displayName: '', xp: '', level: '', joinDate: '' },
@@ -33,10 +40,6 @@ const XP_PRESETS: XPPreset[] = [
   { name: 'Custom 1', image: null, video: null, displayName: '', xp: '', level: '', joinDate: '' },
   { name: 'Custom 2', image: null, video: null, displayName: '', xp: '', level: '', joinDate: '' },
   { name: 'Custom 3', image: null, video: null, displayName: '', xp: '', level: '', joinDate: '' },
-  { name: 'Custom 4', image: null, video: null, displayName: '', xp: '', level: '', joinDate: '' },
-  { name: 'Custom 5', image: null, video: null, displayName: '', xp: '', level: '', joinDate: '' },
-  { name: 'Custom 6', image: null, video: null, displayName: '', xp: '', level: '', joinDate: '' },
-  { name: 'Custom 7', image: null, video: null, displayName: '', xp: '', level: '', joinDate: '' },
 ];
 
 export default function XPCardPage() {
@@ -237,166 +240,196 @@ export default function XPCardPage() {
     });
   };
 
-  // GIF Export function
+  // GIF Export — direct canvas render, no html2canvas
   const handleGifDownload = useCallback(async () => {
-    if ((!xpBackgroundImage && !xpBackgroundVideo) || cardType !== 'xp' || !cardRef.current) {
-      return;
-    }
+    if (!xpBackgroundImage || cardType !== 'xp' || !cardRef.current) return;
 
     setExportStatus('exporting');
     setExportProgress(0);
 
     try {
-      // Get card dimensions
       const cardEl = cardRef.current;
       const cardRect = cardEl.getBoundingClientRect();
-      const cardWidth = Math.round(cardRect.width);
-      const cardHeight = Math.round(cardRect.height);
+      const SCALE = 2;
+      const CW = Math.round(cardRect.width * SCALE);
+      const CH = Math.round(cardRect.height * SCALE);
 
-      // Import dependencies
-      const [html2canvas, GIF] = await Promise.all([
-        import('html2canvas').then(m => m.default),
-        import('gif.js').then(m => m.default),
-      ]);
+      // Load an image as HTMLImageElement
+      const loadImg = (src: string) => new Promise<HTMLImageElement>((resolve, reject) => {
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = () => resolve(img);
+        img.onerror = reject;
+        img.src = src;
+      });
 
-      // Create GIF encoder at 2x scale for quality
+      // Pre-load overlay images
+      const logoImg = await loadImg('/AbsLogoWhite.png');
+      const pfpImg = xpProfileImage ? await loadImg(xpProfileImage) : null;
+
+      // Parse GIF background frames
+      setExportProgress(5);
+      const { frames, width: bgW, height: bgH } = await parseGifFrames(xpBackgroundImage);
+      if (frames.length === 0) throw new Error('No frames in GIF');
+      setExportProgress(10);
+
+      // Get rendered positions of elements relative to the card
+      const relRect = (el: Element | null) => {
+        if (!el) return null;
+        const r = el.getBoundingClientRect();
+        return {
+          x: (r.left - cardRect.left) * SCALE,
+          y: (r.top - cardRect.top) * SCALE,
+          w: r.width * SCALE,
+          h: r.height * SCALE,
+        };
+      };
+
+      const titleRect  = relRect(cardEl.querySelector('.abstract-xp-title'));
+      const logoRect   = relRect(cardEl.querySelector('.abstract-xp-header img'));
+      const avatarRect = relRect(cardEl.querySelector('.abstract-xp-avatar'));
+      const nameRect   = relRect(cardEl.querySelector('.abstract-xp-name'));
+      const statValRect = relRect(cardEl.querySelector('.abstract-xp-stat-value'));
+      const statLblRect = relRect(cardEl.querySelector('.abstract-xp-stat-label'));
+
+      // GIF encoder
+      const GIF = (await import('gif.js')).default;
       const encoder = new GIF({
         workers: 2,
         quality: 10,
-        width: cardWidth * 2,
-        height: cardHeight * 2,
+        width: CW,
+        height: CH,
         workerScript: '/gif.worker.js',
       });
 
-      if (xpBackgroundVideo) {
-        // Handle video background
-        setExportProgress(5);
-        const { frames } = await extractVideoFrames(xpBackgroundVideo, 12);
-        setExportProgress(20);
+      const canvas = document.createElement('canvas');
+      canvas.width = CW;
+      canvas.height = CH;
+      const ctx = canvas.getContext('2d')!;
 
-        // Find the video element in the card and hide it temporarily
-        const videoEl = cardEl.querySelector('video');
-        if (videoEl) videoEl.style.display = 'none';
+      const roundRect = (x: number, y: number, w: number, h: number, r: number) => {
+        ctx.beginPath();
+        ctx.moveTo(x + r, y);
+        ctx.arcTo(x + w, y, x + w, y + h, r);
+        ctx.arcTo(x + w, y + h, x, y + h, r);
+        ctx.arcTo(x, y + h, x, y, r);
+        ctx.arcTo(x, y, x + w, y, r);
+        ctx.closePath();
+      };
 
-        // Process each video frame
-        for (let i = 0; i < frames.length; i++) {
-          const frame = frames[i];
-          setExportProgress(20 + Math.round((i / frames.length) * 70));
+      for (let i = 0; i < frames.length; i++) {
+        setExportProgress(10 + Math.round((i / frames.length) * 82));
+        if (i % 5 === 0) await new Promise(resolve => setTimeout(resolve, 0));
+        const frame = frames[i];
+        ctx.clearRect(0, 0, CW, CH);
 
-          // Set frame as background image
-          const frameDataUrl = frame.canvas.toDataURL('image/png');
-          cardEl.style.backgroundImage = `url(${frameDataUrl})`;
-          cardEl.style.backgroundSize = 'cover';
-          cardEl.style.backgroundPosition = 'center';
+        // Clip to card rounded rect
+        roundRect(0, 0, CW, CH, 16 * SCALE);
+        ctx.save();
+        ctx.clip();
 
-          // Wait for render
-          await new Promise(resolve => requestAnimationFrame(resolve));
-          await new Promise(resolve => setTimeout(resolve, 30));
+        // Draw GIF background frame scaled to cover
+        const bgCanvas = document.createElement('canvas');
+        bgCanvas.width = bgW;
+        bgCanvas.height = bgH;
+        bgCanvas.getContext('2d')!.putImageData(frame.imageData, 0, 0);
+        const bgScale = Math.max(CW / bgW, CH / bgH);
+        ctx.drawImage(bgCanvas, (CW - bgW * bgScale) / 2, (CH - bgH * bgScale) / 2, bgW * bgScale, bgH * bgScale);
 
-          // Capture card - ensure full height is captured
-          const capturedCanvas = await html2canvas(cardEl, {
-            backgroundColor: null,
-            scale: 2,
-            useCORS: true,
-            allowTaint: true,
-            scrollX: 0,
-            scrollY: 0,
-            width: cardEl.offsetWidth,
-            height: cardEl.offsetHeight,
-          });
+        ctx.restore();
 
-          encoder.addFrame(capturedCanvas, { delay: frame.delay, copy: true });
+        // Card border
+        ctx.strokeStyle = '#2edb84';
+        ctx.lineWidth = 2 * SCALE;
+        roundRect(SCALE, SCALE, CW - 2 * SCALE, CH - 2 * SCALE, 16 * SCALE);
+        ctx.stroke();
+
+        // "ABSTRACT" text
+        if (titleRect) {
+          ctx.fillStyle = textColor;
+          ctx.font = `bold ${Math.round(titleRect.h * 0.85)}px Satoshi, sans-serif`;
+          ctx.fillText('ABSTRACT', titleRect.x, titleRect.y + titleRect.h * 0.85);
         }
 
-        // Restore video
-        cardEl.style.backgroundImage = '';
-        if (videoEl) videoEl.style.display = '';
-
-      } else if (xpBackgroundImage) {
-        // Handle GIF background
-        const { frames, width, height } = await parseGifFrames(xpBackgroundImage);
-
-        if (frames.length === 0) {
-          throw new Error('No frames found in GIF');
+        // Abstract logo
+        if (logoRect) {
+          ctx.drawImage(logoImg, logoRect.x, logoRect.y, logoRect.w, logoRect.h);
         }
 
-        setExportProgress(10);
 
-        // Store original background
-        const originalBg = cardEl.style.backgroundImage;
-
-        // Process each frame
-        for (let i = 0; i < frames.length; i++) {
-          const frame = frames[i];
-          setExportProgress(10 + Math.round((i / frames.length) * 80));
-
-          // Convert frame ImageData to data URL
-          const frameCanvas = document.createElement('canvas');
-          frameCanvas.width = width;
-          frameCanvas.height = height;
-          const frameCtx = frameCanvas.getContext('2d')!;
-          frameCtx.putImageData(frame.imageData, 0, 0);
-          const frameDataUrl = frameCanvas.toDataURL('image/png');
-
-          // Set as card background
-          cardEl.style.backgroundImage = `url(${frameDataUrl})`;
-          cardEl.style.backgroundSize = 'cover';
-          cardEl.style.backgroundPosition = 'center';
-
-          // Wait for render
-          await new Promise(resolve => requestAnimationFrame(resolve));
-          await new Promise(resolve => setTimeout(resolve, 50));
-
-          // Capture card with html2canvas - ensure full height is captured
-          const capturedCanvas = await html2canvas(cardEl, {
-            backgroundColor: null,
-            scale: 2,
-            useCORS: true,
-            allowTaint: true,
-            scrollX: 0,
-            scrollY: 0,
-            width: cardEl.offsetWidth,
-            height: cardEl.offsetHeight,
-          });
-
-          // Add frame to GIF encoder
-          encoder.addFrame(capturedCanvas, { delay: frame.delay, copy: true });
+        // Profile avatar
+        if (avatarRect && pfpImg) {
+          ctx.save();
+          if (pfpShape === 'circle') {
+            ctx.beginPath();
+            ctx.arc(avatarRect.x + avatarRect.w / 2, avatarRect.y + avatarRect.h / 2, avatarRect.w / 2, 0, Math.PI * 2);
+            ctx.clip();
+          }
+          ctx.drawImage(pfpImg, avatarRect.x, avatarRect.y, avatarRect.w, avatarRect.h);
+          ctx.restore();
+          ctx.strokeStyle = 'rgba(46,219,132,0.4)';
+          ctx.lineWidth = 2 * SCALE;
+          if (pfpShape === 'circle') {
+            ctx.beginPath();
+            ctx.arc(avatarRect.x + avatarRect.w / 2, avatarRect.y + avatarRect.h / 2, avatarRect.w / 2, 0, Math.PI * 2);
+            ctx.stroke();
+          } else {
+            ctx.strokeRect(avatarRect.x, avatarRect.y, avatarRect.w, avatarRect.h);
+          }
         }
 
-        // Restore original background
-        cardEl.style.backgroundImage = originalBg;
+        // Display name
+        if (nameRect) {
+          ctx.fillStyle = textColor;
+          ctx.font = `600 ${Math.round(nameRect.h * 0.85)}px Satoshi, sans-serif`;
+          ctx.fillText(xpDisplayName || 'Your Name', nameRect.x, nameRect.y + nameRect.h * 0.85);
+        }
+
+        // XP amount
+        if (statValRect) {
+          ctx.fillStyle = textColor;
+          ctx.font = `bold ${Math.round(statValRect.h)}px Satoshi, sans-serif`;
+          ctx.fillText(xpAmount || '0', statValRect.x, statValRect.y + statValRect.h * 0.9);
+        }
+
+        // XP label
+        if (statLblRect) {
+          ctx.fillStyle = textColor;
+          ctx.font = `${Math.round(statLblRect.h * 0.85)}px Satoshi, sans-serif`;
+          ctx.fillText('XP', statLblRect.x, statLblRect.y + statLblRect.h * 0.9);
+        }
+
+        // Watermark
+        ctx.fillStyle = 'rgba(255,255,255,0.4)';
+        ctx.font = `${12 * SCALE}px Satoshi, sans-serif`;
+        const wmW = ctx.measureText('Hamieverse').width;
+        ctx.fillText('Hamieverse', CW - wmW - 10 * SCALE, CH - 8 * SCALE);
+
+        encoder.addFrame(canvas, { delay: frame.delay, copy: true });
       }
 
       setExportProgress(95);
 
-      // Render and download
       encoder.on('finished', (blob: Blob) => {
         const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
-        link.download = `abstract-xp-${xpDisplayName || 'card'}.gif`;
+        link.download = `Hamieverse-xp-${xpDisplayName || 'card'}.gif`;
         link.href = url;
         link.click();
         URL.revokeObjectURL(url);
-
         setExportStatus('success');
         setExportProgress(100);
-        setTimeout(() => {
-          setExportStatus('idle');
-          setExportProgress(0);
-        }, 2000);
+        setTimeout(() => { setExportStatus('idle'); setExportProgress(0); }, 2000);
       });
 
       encoder.render();
 
     } catch (error) {
-      console.error('Error generating GIF:', error);
+      console.error('GIF export error:', error);
       setExportStatus('error');
-      setTimeout(() => {
-        setExportStatus('idle');
-        setExportProgress(0);
-      }, 2000);
+      setTimeout(() => { setExportStatus('idle'); setExportProgress(0); }, 2000);
     }
-  }, [xpBackgroundImage, xpBackgroundVideo, xpDisplayName, cardType]);
+  }, [xpBackgroundImage, xpDisplayName, xpAmount, xpProfileImage, pfpShape, textColor, cardType]);
 
   const handleDownload = async () => {
     if (!cardRef.current) return;
@@ -707,7 +740,7 @@ export default function XPCardPage() {
             {cardType === 'id' ? (
               /* ID Card Preview */
               <div ref={cardRef} className="abstract-id-card" style={{ isolation: 'isolate', position: 'relative', zIndex: 10 }}>
-                <img src="/hamieversecardblank.png" alt="Hamieverse ID" className="abstract-id-bg" />
+                <img src="/Hamieversecardblank.png" alt="Hamieverse ID" className="abstract-id-bg" />
                 <div className={`abstract-id-avatar ${pfpShape === 'circle' ? 'pfp-circle' : 'pfp-square'}`} style={{ marginLeft: 'clamp(-40px, -10vw, -75px)', marginTop: '17px', transform: 'scale(1.2)' }}>
                   {idProfileImage ? (
                     <img src={idProfileImage} alt="Profile" />
@@ -718,6 +751,7 @@ export default function XPCardPage() {
                 <span className="abstract-id-name" style={{ marginLeft: 'clamp(35px, 8vw, 65px)', marginTop: '-5px', fontFamily: 'Satoshi, sans-serif', color: textColor, fontSize: 'clamp(0.75rem, 2vw, 1rem)' }}>{idDisplayName || 'Your Name'}</span>
                 <span className="abstract-id-rank" style={{ marginLeft: 'clamp(40px, 9vw, 75px)', marginTop: '-13px', fontSize: 'clamp(0.7rem, 1.8vw, 1.0625em)', fontFamily: 'Satoshi, sans-serif', color: textColor }}>{role}</span>
                 <span className="abstract-id-role" style={{ marginLeft: 'clamp(45px, 10vw, 80px)', marginTop: '3px', fontSize: 'clamp(0.75rem, 2vw, 1.1875em)', fontFamily: 'Satoshi, sans-serif', color: textColor }}>{faction}</span>
+                <span style={{ position: 'absolute', bottom: '8px', right: '10px', fontSize: '0.75rem', color: 'rgba(255,255,255,0.4)', fontFamily: 'Satoshi, sans-serif', letterSpacing: '0.08em', zIndex: 10 }}>Hamieverse</span>
               </div>
             ) : (
               /* XP Card Preview */
@@ -742,11 +776,11 @@ export default function XPCardPage() {
                     src={xpBackgroundVideo}
                   />
                 )}
-                <div className="abstract-xp-header" style={{ position: 'relative', zIndex: 1, justifyContent: 'flex-start', gap: '2px', paddingLeft: 'clamp(8px, 3vw, 16px)', transform: 'translateX(-5%)' }}>
+                <div className="abstract-xp-header" style={{ position: 'relative', zIndex: 1, justifyContent: 'flex-start', gap: '2px', paddingLeft: 'clamp(8px, 3vw, 16px)', transform: 'translateX(-5%) translateY(-25%)' }}>
                   <span className="abstract-xp-title" style={{ color: textColor, fontSize: 'clamp(0.6rem, 2vw, 0.9rem)' }}>ABSTRACT</span>
                   <img src="/AbsLogoWhite.png" alt="Abstract" style={{ height: 'clamp(20px, 5vw, 28px)', width: 'auto', marginLeft: '-2px' }} />
                 </div>
-                <img src="/images/hamiepfp.png" alt="Hamie" style={{ position: 'absolute', top: 'clamp(6px, 2vw, 12px)', right: 'clamp(6px, 2vw, 12px)', width: 'clamp(24px, 6vw, 37px)', height: 'clamp(24px, 6vw, 37px)', borderRadius: '50%', zIndex: 2 }} />
+                <span style={{ position: 'absolute', bottom: '8px', right: '10px', fontSize: '0.75rem', color: 'rgba(255,255,255,0.4)', fontFamily: 'Satoshi, sans-serif', letterSpacing: '0.08em', zIndex: 10 }}>Hamieverse</span>
                 <div className="abstract-xp-content" style={{ position: 'relative', zIndex: 1, transform: 'scale(0.6) translateX(-35%) translateY(30%)', transformOrigin: 'center center' }}>
                   <div className={`abstract-xp-avatar ${pfpShape === 'circle' ? 'pfp-circle' : 'pfp-square'}`}>
                     {xpProfileImage ? (
