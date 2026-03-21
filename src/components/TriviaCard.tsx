@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { getAllCharacters } from '@/lib/hamieverse/characters';
+import { getShownCharacters } from '@/lib/hamieverse/characters';
 import { LightbulbIcon } from './Icons';
 
 interface Trivia {
@@ -31,7 +31,7 @@ const triviaFacts: Trivia[] = [
 export default function TriviaCard() {
   const [currentTrivia, setCurrentTrivia] = useState<Trivia | null>(null);
   const [isFlipping, setIsFlipping] = useState(false);
-  const characters = getAllCharacters();
+  const characters = getShownCharacters();
 
   useEffect(() => {
     // Set initial trivia

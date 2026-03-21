@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
+import { getShownCharacters } from '@/lib/hamieverse/characters';
 
 export default function Sidebar() {
   const pathname = usePathname();
@@ -26,15 +27,10 @@ export default function Sidebar() {
   };
 
   const goRandom = () => {
-    // Valid character IDs from lore.json and comics.json
-    const characters = [
-      'hamie', 'sam', 'lira', 'silas', 'ace', 'hikari', 'kael', 'orrien',
-      'grandma', 'luna', 'kira', 'mitch', 'alistair_veynar', 'halo',
-      'veylor', 'iris'
-    ];
+    const characters = getShownCharacters().filter(c => c.gifFile || c.pngFile);
     const random = characters[Math.floor(Math.random() * characters.length)];
     setIsOpen(false);
-    window.location.href = `/character/${random}`;
+    if (random) window.location.href = `/character/${random.id}`;
   };
 
   // Mobile: show hamburger button + overlay menu
@@ -66,7 +62,7 @@ export default function Sidebar() {
           {/* Logo */}
           <div className="mobile-nav-header" onClick={() => navigate('/')}>
             <img src="/images/hamiepfp.png" alt="Hamie" className="mobile-nav-logo" />
-            <span className="mobile-nav-title" style={{ fontFamily: "'Mokoto', sans-serif", color: '#0446F1', fontSize: '18px' }}>HAMIEVERSE</span>
+            <span className="mobile-nav-title" style={{ fontFamily: "'Fauna', sans-serif", color: '#0446F1', fontSize: '18px' }}>HAMIEVERSE</span>
           </div>
 
           {/* Nav Links */}
@@ -134,7 +130,7 @@ export default function Sidebar() {
       {/* Logo */}
       <div className="brutal-sidebar-brand" onClick={() => navigate('/')}>
         <img src="/images/hamiepfp.png" alt="Hamie" className="brutal-sidebar-logo" />
-        <span className="brutal-sidebar-title" style={{ fontFamily: "'Mokoto', sans-serif", color: '#0446F1', fontSize: '20px' }}>
+        <span className="brutal-sidebar-title" style={{ fontFamily: "'Fauna', sans-serif", color: '#0446F1', fontSize: '20px' }}>
           HAMIEVERSE
         </span>
       </div>

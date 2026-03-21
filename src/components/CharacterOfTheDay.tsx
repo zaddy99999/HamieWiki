@@ -3,36 +3,16 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { getAllCharacters } from '@/lib/hamieverse/characters';
+import { getShownCharacters } from '@/lib/hamieverse/characters';
 import { ArrowRightIcon, ChevronLeftIcon, ChevronRightIcon } from './Icons';
 import { useRecentlyViewed } from '@/hooks/useRecentlyViewed';
 
-function normStr(s: string) {
-  return s.toLowerCase().replace(/[^a-z0-9]/g, '');
-}
-
-function isShown(char: ReturnType<typeof getAllCharacters>[0], shownNames: string[]): boolean {
-  const idNorm = normStr(char.id);
-  const displayNorm = normStr(char.displayName);
-  return shownNames.some(name => {
-    const nameNorm = normStr(name);
-    const firstWord = normStr(name.split(' ')[0]);
-    return nameNorm === idNorm || nameNorm === displayNorm || firstWord === displayNorm || idNorm.startsWith(firstWord);
-  });
-}
-
 export default function CharacterOfTheDay({ shownNames }: { shownNames?: string[] }) {
-  const [character, setCharacter] = useState<ReturnType<typeof getAllCharacters>[0] | null>(null);
+  const [character, setCharacter] = useState<ReturnType<typeof getShownCharacters>[0] | null>(null);
   const [dateString, setDateString] = useState<string>('');
   const [dayOffset, setDayOffset] = useState(0);
   const { items, isLoaded } = useRecentlyViewed();
-  const allCharacters = getAllCharacters();
-  // Only use characters that have a GIF/PNG image, filtered by shown list when available
-  const characters = allCharacters.filter(c => {
-    if (!(c.gifFile || c.pngFile)) return false;
-    if (shownNames && shownNames.length > 0) return isShown(c, shownNames);
-    return true;
-  });
+  const characters = getShownCharacters().filter(c => c.gifFile || c.pngFile);
 
   const getCharacterForDay = (offset: number) => {
     if (characters.length === 0) return null;

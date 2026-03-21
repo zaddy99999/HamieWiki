@@ -7,49 +7,31 @@ import Image from 'next/image';
 import {
   getCharacter,
   getCharacterRelationships,
-  getAllCharacters,
+  getShownCharacters,
   getPlotOutline,
   getGlossary,
 } from '@/lib/hamieverse/characters';
-import CharacterRating from '@/components/CharacterRating';
 import Breadcrumb from '@/components/Breadcrumb';
 import FavoriteButton from '@/components/FavoriteButton';
 import { useRecentlyViewed } from '@/hooks/useRecentlyViewed';
 import { CheckIcon, CopyIcon, ArrowUpIcon } from '@/components/Icons';
-import { shownNames as staticShownNames } from '@/lib/hamieverse/shownCharacters';
-
-function normStr(s: string) {
-  return s.toLowerCase().replace(/[^a-z0-9]/g, '');
-}
-
-function isShown(char: ReturnType<typeof getCharacter>, shownNames: string[]): boolean {
-  if (!char) return false;
-  const idNorm = normStr(char.id);
-  const displayNorm = normStr(char.displayName);
-  return shownNames.some(name => {
-    const nameNorm = normStr(name);
-    const firstWord = normStr(name.split(' ')[0]);
-    return nameNorm === idNorm || nameNorm === displayNorm || firstWord === displayNorm || idNorm.startsWith(firstWord);
-  });
-}
 
 export default function CharacterPage() {
   const params = useParams();
   const characterId = params.id as string;
   const [showBackToTop, setShowBackToTop] = useState(false);
-  const shownNames = staticShownNames;
   const { addItem } = useRecentlyViewed();
 
   const character = getCharacter(characterId);
   const relationships = getCharacterRelationships(characterId);
-  const allCharacters = getAllCharacters();
+  const allCharacters = getShownCharacters();
   const plotOutline = getPlotOutline();
   const glossary = getGlossary();
 
   // Track page view
   useEffect(() => {
     const char = getCharacter(characterId);
-    if (char && isShown(char, shownNames)) {
+    if (char) {
       addItem({
         type: 'character',
         id: characterId,
@@ -58,7 +40,7 @@ export default function CharacterPage() {
         image: char.gifFile ? `/images/${char.gifFile}` : char.pngFile ? `/images/${char.pngFile}` : undefined,
       });
     }
-  }, [characterId, shownNames, addItem]);
+  }, [characterId, addItem]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -89,7 +71,7 @@ export default function CharacterPage() {
     alert('Link copied to clipboard!');
   };
 
-  if (!character || !isShown(character, shownNames)) {
+  if (!character) {
     return (
       <div className="wiki-container">
         <div className="wiki-not-found">
@@ -101,8 +83,7 @@ export default function CharacterPage() {
     );
   }
 
-  // Only include shown characters in related/similar sections
-  const shownCharacters = allCharacters.filter(c => isShown(c, shownNames));
+  const shownCharacters = allCharacters;
 
   const characterAppearances = plotOutline.chapters?.filter((ch: any) =>
     ch.introduces?.some((name: string) =>
@@ -176,7 +157,9 @@ export default function CharacterPage() {
             {/* Overview */}
             <section className="wiki-article-section">
               <h2>Overview</h2>
-              {character.summary ? (
+              {character.notableInfo ? (
+                <p>{character.notableInfo}</p>
+              ) : character.summary ? (
                 <p>{character.summary}</p>
               ) : (
                 <p>
@@ -186,8 +169,6 @@ export default function CharacterPage() {
                   {character.origin && ` originally from ${character.origin}`}.
                 </p>
               )}
-              {!character.summary && character.notes && <p>{character.notes}</p>}
-              {!character.summary && character.notableInfo && <p>{character.notableInfo}</p>}
               {character.speciesNote && <p style={{ color: '#FFFFFF', WebkitTextFillColor: '#FFFFFF', background: 'none' }}>Species note: {character.speciesNote}</p>}
             </section>
 
@@ -278,32 +259,46 @@ export default function CharacterPage() {
             ) : null}
 
             {/* Relationships */}
-            {relationships.length > 0 && (
+            {(relationships.length > 0 || character.relationship) && (
               <section className="wiki-article-section">
                 <h2>Relationships</h2>
-                <div className="wiki-relationship-grid">
-                  {relationships.map((rel, i) => {
-                    const charIdLower = characterId.toLowerCase();
-                    const otherId = rel.a.toLowerCase() === charIdLower ? rel.b : rel.a;
-                    const otherChar = allCharacters.find(c => c.id.toLowerCase() === otherId.toLowerCase());
-                    return (
-                      <Link
-                        key={i}
-                        href={`/character/${otherId.toLowerCase()}`}
-                        className="wiki-relationship-card"
-                      >
-                        <div className="wiki-relationship-name">
-                          {otherChar?.displayName || otherId}
-                        </div>
-                        <span className="wiki-relationship-type">{rel.type.replace(/_/g, ' ')}</span>
-                      </Link>
-                    );
-                  })}
-                </div>
-                {character.dynamics && (
-                  <p style={{ marginTop: '1rem', fontStyle: 'italic', color: 'var(--text-muted)' }}>
-                    {character.dynamics}
-                  </p>
+                {character.relationship && (
+                  <div style={{
+                    background: 'var(--bg-card)',
+                    border: '1px solid var(--border-default)',
+                    borderLeft: '3px solid var(--brand-secondary)',
+                    borderRadius: '0 8px 8px 0',
+                    padding: '1rem 1.25rem',
+                    marginBottom: relationships.length > 0 ? '1rem' : 0,
+                    fontSize: '0.95rem',
+                    color: 'var(--text-primary)',
+                    whiteSpace: 'pre-line',
+                    fontFamily: 'var(--font-sans)',
+                    lineHeight: '1.7',
+                  }}>
+                    {character.relationship}
+                  </div>
+                )}
+                {relationships.length > 0 && (
+                  <div className="wiki-relationship-grid">
+                    {relationships.map((rel, i) => {
+                      const charIdLower = characterId.toLowerCase();
+                      const otherId = rel.a.toLowerCase() === charIdLower ? rel.b : rel.a;
+                      const otherChar = allCharacters.find(c => c.id.toLowerCase() === otherId.toLowerCase());
+                      return (
+                        <Link
+                          key={i}
+                          href={`/character/${otherId.toLowerCase()}`}
+                          className="wiki-relationship-card"
+                        >
+                          <div className="wiki-relationship-name">
+                            {otherChar?.displayName || otherId}
+                          </div>
+                          <span className="wiki-relationship-type">{rel.type.replace(/_/g, ' ')}</span>
+                        </Link>
+                      );
+                    })}
+                  </div>
                 )}
               </section>
             )}
@@ -432,14 +427,17 @@ export default function CharacterPage() {
                 {character.species && (
                   <tr><th>Species</th><td>{character.species}</td></tr>
                 )}
+                {character.aliases && character.aliases.filter(a => a !== 'N/A').length > 0 && (
+                  <tr><th>Also Known As</th><td>{character.aliases.filter(a => a !== 'N/A').join(', ')}</td></tr>
+                )}
+                {character.faction && (
+                  <tr><th>Faction</th><td>{character.faction}</td></tr>
+                )}
                 {character.origin && (
                   <tr><th>Origin</th><td>{character.origin}</td></tr>
                 )}
                 {character.home && (
                   <tr><th>Residence</th><td>{character.home}</td></tr>
-                )}
-                {character.location && (
-                  <tr><th>Location</th><td>{character.location}</td></tr>
                 )}
                 {character.status && (
                   <tr>
@@ -487,8 +485,6 @@ export default function CharacterPage() {
               </div>
             )}
 
-            {/* Character Rating */}
-            <CharacterRating characterId={characterId} characterName={character.displayName} />
 
             {/* Similar Characters */}
             {similarCharacters.length > 0 && (

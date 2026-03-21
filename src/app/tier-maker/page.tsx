@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { getAllCharacters } from '@/lib/hamieverse/characters';
+import { getShownCharacters } from '@/lib/hamieverse/characters';
 import { HamieCharacter } from '@/lib/hamieverse/types';
 import { shownNames as staticShownNames, pfpMap as staticPfpMap } from '@/lib/hamieverse/shownCharacters';
 
@@ -68,7 +68,7 @@ export default function TierMaker() {
   const [selectedItem, setSelectedItem] = useState<TierItem | null>(null);
   const [selectedSource, setSelectedSource] = useState<string | null>(null);
 
-  const allCharacters = getAllCharacters();
+  const allCharacters = getShownCharacters();
   const shownNames = staticShownNames;
   const pfpMap = staticPfpMap;
 

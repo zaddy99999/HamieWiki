@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import GifReader from 'omggif';
 
@@ -33,10 +33,24 @@ const XP_PRESETS: XPPreset[] = [
   { name: 'Kael', image: '/images/KaelCharacter.gif', video: null, displayName: '', xp: '', level: '', joinDate: '' },
   { name: 'Ace', image: '/images/AceCharacter.gif', video: null, displayName: '', xp: '', level: '', joinDate: '' },
   { name: 'Lira', image: '/images/LiraCharacter.gif', video: null, displayName: '', xp: '', level: '', joinDate: '' },
-  { name: 'Clip 1', image: null, video: '/hamie_clip_1.mp4', displayName: '', xp: '', level: '', joinDate: '' },
-  { name: 'Clip 2', image: null, video: '/hamie_clip_2.mp4', displayName: '', xp: '', level: '', joinDate: '' },
-  { name: 'Clip 3', image: null, video: '/hamie_clip_3.mp4', displayName: '', xp: '', level: '', joinDate: '' },
-  { name: 'Clip 4', image: null, video: '/hamie_clip_4.mp4', displayName: '', xp: '', level: '', joinDate: '' },
+  { name: 'XP Card 1', image: '/xp-card-1.png', video: null, displayName: '', xp: '', level: '', joinDate: '' },
+  { name: 'XP Card 2', image: '/xp-card-2.png', video: null, displayName: '', xp: '', level: '', joinDate: '' },
+  { name: 'XP Card 3', image: '/xp-card-3.png', video: null, displayName: '', xp: '', level: '', joinDate: '' },
+  { name: 'XP Card 4', image: '/xp-card-4.png', video: null, displayName: '', xp: '', level: '', joinDate: '' },
+  { name: 'XP Card 5', image: '/xp-card-5.png', video: null, displayName: '', xp: '', level: '', joinDate: '' },
+  { name: 'XP Card 6', image: '/xp-card-6.png', video: null, displayName: '', xp: '', level: '', joinDate: '' },
+  { name: 'XP Card 7', image: '/xp-card-7.png', video: null, displayName: '', xp: '', level: '', joinDate: '' },
+  { name: 'XP Card 8', image: '/xp-card-8.png', video: null, displayName: '', xp: '', level: '', joinDate: '' },
+  { name: 'XP Card 9', image: '/xp-card-9.png', video: null, displayName: '', xp: '', level: '', joinDate: '' },
+  { name: 'XP Card 10', image: '/xp-card-10.png', video: null, displayName: '', xp: '', level: '', joinDate: '' },
+  { name: 'XP Card 11', image: '/xp-card-11.png', video: null, displayName: '', xp: '', level: '', joinDate: '' },
+  { name: 'XP Card 12', image: '/xp-card-12.png', video: null, displayName: '', xp: '', level: '', joinDate: '' },
+  { name: 'XP Card 13', image: '/xp-card-13.png', video: null, displayName: '', xp: '', level: '', joinDate: '' },
+  { name: 'XP Card 14', image: '/xp-card-14.png', video: null, displayName: '', xp: '', level: '', joinDate: '' },
+  { name: 'XP Card 15', image: '/xp-card-15.png', video: null, displayName: '', xp: '', level: '', joinDate: '' },
+  { name: 'XP Card 16', image: '/xp-card-16.png', video: null, displayName: '', xp: '', level: '', joinDate: '' },
+  { name: 'XP Card 17', image: '/xp-card-17.png', video: null, displayName: '', xp: '', level: '', joinDate: '' },
+  { name: 'XP Card 18', image: '/xp-card-18.png', video: null, displayName: '', xp: '', level: '', joinDate: '' },
   { name: 'Custom 1', image: null, video: null, displayName: '', xp: '', level: '', joinDate: '' },
   { name: 'Custom 2', image: null, video: null, displayName: '', xp: '', level: '', joinDate: '' },
   { name: 'Custom 3', image: null, video: null, displayName: '', xp: '', level: '', joinDate: '' },
@@ -46,20 +60,79 @@ export default function XPCardPage() {
   const [cardType, setCardType] = useState<CardType>('xp');
 
   // ID Card state - defaults for testing
-  const [idProfileImage, setIdProfileImage] = useState<string | null>('/ZaddyPFP.png');
-  const [idDisplayName, setIdDisplayName] = useState('Zaddy');
+  const [idProfileImage, setIdProfileImage] = useState<string | null>(null);
+  const [idDisplayName, setIdDisplayName] = useState('');
   const [faction, setFaction] = useState<Faction>('Aetherion');
   const [role, setRole] = useState<Role>('Genesis Holder');
 
   // XP Card state
-  const [xpProfileImage, setXpProfileImage] = useState<string | null>('/ZaddyPFP.png');
+  const [xpProfileImage, setXpProfileImage] = useState<string | null>(null);
   const [xpBackgroundImage, setXpBackgroundImage] = useState<string | null>('/HammieBannerBigger.gif');
   const [xpBackgroundVideo, setXpBackgroundVideo] = useState<string | null>(null);
-  const [xpDisplayName, setXpDisplayName] = useState('Zaddy');
-  const [xpAmount, setXpAmount] = useState('69,000');
+  const [xpDisplayName, setXpDisplayName] = useState('');
+  const [xpAmount, setXpAmount] = useState('');
   const [level, setLevel] = useState('');
   const [joinDate, setJoinDate] = useState('');
   const [selectedPreset, setSelectedPreset] = useState<string>('Hammie');
+
+  // Template filter
+  const [templateFilter, setTemplateFilter] = useState<'static' | 'videos'>('videos');
+
+  // Preset likes
+  const [presetLikes, setPresetLikes] = useState<Record<string, boolean>>(() => {
+    try { return JSON.parse(localStorage.getItem('xp-preset-likes') || '{}'); } catch { return {}; }
+  });
+  const [presetCounts, setPresetCounts] = useState<Record<string, number>>({});
+  const [showLikedOnly, setShowLikedOnly] = useState(false);
+
+  const getUserId = () => {
+    let id = localStorage.getItem('xp-user-id');
+    if (!id) { id = crypto.randomUUID(); localStorage.setItem('xp-user-id', id); }
+    return id;
+  };
+
+  useEffect(() => {
+    fetch('/api/preset-votes')
+      .then(r => r.json())
+      .then(data => setPresetCounts(data))
+      .catch(() => {});
+  }, []);
+
+  const handleLike = async (e: React.MouseEvent, name: string) => {
+    e.stopPropagation();
+    const liked = !presetLikes[name];
+    // Optimistic update
+    setPresetLikes(prev => {
+      const updated = { ...prev, [name]: liked };
+      localStorage.setItem('xp-preset-likes', JSON.stringify(updated));
+      return updated;
+    });
+    setPresetCounts(prev => ({ ...prev, [name]: Math.max(0, (prev[name] ?? 0) + (liked ? 1 : -1)) }));
+    try {
+      const res = await fetch('/api/preset-votes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ presetName: name, uuid: getUserId(), action: liked ? 'like' : 'unlike' }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setPresetCounts(prev => ({ ...prev, [name]: data.count }));
+      } else if (res.status === 409 && liked) {
+        // Only revert a like if server says already voted (don't revert unlikes)
+        setPresetLikes(prev => {
+          const reverted = { ...prev, [name]: false };
+          localStorage.setItem('xp-preset-likes', JSON.stringify(reverted));
+          return reverted;
+        });
+        setPresetCounts(prev => ({ ...prev, [name]: Math.max(0, (prev[name] ?? 0) - 1) }));
+      }
+    } catch {
+      // Keep optimistic update on network error, will sync next load
+    }
+  };
+
+  // Text size state
+  const [textScale, setTextScale] = useState(1.1);
 
   // Text color state
   const [textColor, setTextColor] = useState('#FFFFFF');
@@ -87,8 +160,47 @@ export default function XPCardPage() {
   const idFileInputRef = useRef<HTMLInputElement>(null);
   const xpFileInputRef = useRef<HTMLInputElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
   const [idDragging, setIdDragging] = useState(false);
   const [xpDragging, setXpDragging] = useState(false);
+
+  // Position preset
+  const [positionPreset, setPositionPreset] = useState<'low' | 'medium'>('low');
+  const [contentNaturalSize, setContentNaturalSize] = useState({ w: 0, h: 0 });
+
+  // Draggable content group
+  const [contentPos, setContentPos] = useState({ x: 0, y: 0 });
+  const [isContentDragging, setIsContentDragging] = useState(false);
+  const dragStart = useRef({ mx: 0, my: 0, px: 0, py: 0 });
+
+  const handleContentMouseDown = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setIsContentDragging(true);
+    dragStart.current = { mx: e.clientX, my: e.clientY, px: contentPos.x, py: contentPos.y };
+  };
+
+  useEffect(() => {
+    if (contentRef.current) {
+      setContentNaturalSize({ w: contentRef.current.scrollWidth, h: contentRef.current.scrollHeight });
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!isContentDragging) return;
+    const onMove = (e: MouseEvent) => {
+      setContentPos({
+        x: dragStart.current.px + (e.clientX - dragStart.current.mx),
+        y: dragStart.current.py + (e.clientY - dragStart.current.my),
+      });
+    };
+    const onUp = () => setIsContentDragging(false);
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseup', onUp);
+    return () => {
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('mouseup', onUp);
+    };
+  }, [isContentDragging]);
 
   const factions: Faction[] = ['Aetherion', 'Liberators'];
 
@@ -431,6 +543,207 @@ export default function XPCardPage() {
     }
   }, [xpBackgroundImage, xpDisplayName, xpAmount, xpProfileImage, pfpShape, textColor, cardType]);
 
+  const handleStaticCopy = useCallback(async () => {
+    if (!cardRef.current || !xpBackgroundImage) return;
+    setCopyStatus('idle');
+
+    try {
+      const cardEl = cardRef.current;
+      const cardRect = cardEl.getBoundingClientRect();
+      const SCALE = 4;
+      const CW = Math.round(cardRect.width * SCALE);
+      const CH = Math.round(cardRect.height * SCALE);
+
+      // Step 1: load PNG and draw it scaled to cover at SCALE resolution
+      const bgImg = await new Promise<HTMLImageElement>((res, rej) => {
+        const img = new Image();
+        img.onload = () => res(img);
+        img.onerror = rej;
+        img.src = xpBackgroundImage;
+      });
+      const finalCanvas = document.createElement('canvas');
+      finalCanvas.width = CW;
+      finalCanvas.height = CH;
+      const finalCtx = finalCanvas.getContext('2d')!;
+      const bgScale = Math.max(CW / bgImg.naturalWidth, CH / bgImg.naturalHeight);
+      const bgW = bgImg.naturalWidth * bgScale;
+      const bgH = bgImg.naturalHeight * bgScale;
+      finalCtx.drawImage(bgImg, (CW - bgW) / 2, (CH - bgH) / 2, bgW, bgH);
+
+      // Step 2: capture overlay (avatar, text, etc.) with html2canvas, background stripped
+      const html2canvas = (await import('html2canvas')).default;
+      const overlayCanvas = await html2canvas(cardEl, {
+        backgroundColor: null,
+        scale: SCALE,
+        useCORS: true,
+        allowTaint: true,
+        logging: false,
+        onclone: (_doc, el) => {
+          el.style.setProperty('background', 'transparent', 'important');
+          el.style.setProperty('box-shadow', 'none', 'important');
+          el.style.setProperty('border', 'none', 'important');
+        },
+      });
+
+      // Step 3: composite overlay on top of the sharp PNG background
+      finalCtx.drawImage(overlayCanvas, 0, 0);
+
+      finalCanvas.toBlob(async (blob) => {
+        if (!blob) { setCopyStatus('error'); setTimeout(() => setCopyStatus('idle'), 2000); return; }
+        try {
+          await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+          setCopyStatus('success');
+          setTimeout(() => setCopyStatus('idle'), 2000);
+        } catch {
+          setCopyStatus('error');
+          setTimeout(() => setCopyStatus('idle'), 2000);
+        }
+      }, 'image/png');
+    } catch (error) {
+      console.error('Copy error:', error);
+      setCopyStatus('error');
+      setTimeout(() => setCopyStatus('idle'), 2000);
+    }
+  }, [cardRef, xpBackgroundImage]);
+
+  const _handleStaticCopy_unused = async () => {
+    if (!xpBackgroundImage || !cardRef.current) return;
+
+    try {
+      const cardEl = cardRef.current;
+      const cardRect = cardEl.getBoundingClientRect();
+      const SCALE = 2;
+      const CW = Math.round(cardRect.width * SCALE);
+      const CH = Math.round(cardRect.height * SCALE);
+
+      const loadImg = (src: string) => new Promise<HTMLImageElement>((resolve, reject) => {
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = () => resolve(img);
+        img.onerror = reject;
+        img.src = src;
+      });
+
+      const [bgImg, logoImg, pfpImg] = await Promise.all([
+        loadImg(xpBackgroundImage),
+        loadImg('/AbsLogoWhite.png'),
+        xpProfileImage ? loadImg(xpProfileImage) : Promise.resolve(null),
+      ]);
+
+      const relRect = (el: Element | null) => {
+        if (!el) return null;
+        const r = el.getBoundingClientRect();
+        return {
+          x: (r.left - cardRect.left) * SCALE,
+          y: (r.top - cardRect.top) * SCALE,
+          w: r.width * SCALE,
+          h: r.height * SCALE,
+        };
+      };
+
+      const titleRect   = relRect(cardEl.querySelector('.abstract-xp-title'));
+      const logoRect    = relRect(cardEl.querySelector('.abstract-xp-header img'));
+      const avatarRect  = relRect(cardEl.querySelector('.abstract-xp-avatar'));
+      const nameRect    = relRect(cardEl.querySelector('.abstract-xp-name'));
+      const statValRect = relRect(cardEl.querySelector('.abstract-xp-stat-value'));
+      const statLblRect = relRect(cardEl.querySelector('.abstract-xp-stat-label'));
+
+      const canvas = document.createElement('canvas');
+      canvas.width = CW;
+      canvas.height = CH;
+      const ctx = canvas.getContext('2d')!;
+
+      const roundRect = (x: number, y: number, w: number, h: number, r: number) => {
+        ctx.beginPath();
+        ctx.moveTo(x + r, y);
+        ctx.arcTo(x + w, y, x + w, y + h, r);
+        ctx.arcTo(x + w, y + h, x, y + h, r);
+        ctx.arcTo(x, y + h, x, y, r);
+        ctx.arcTo(x, y, x + w, y, r);
+        ctx.closePath();
+      };
+
+      // Clip + background
+      roundRect(0, 0, CW, CH, 16 * SCALE);
+      ctx.save();
+      ctx.clip();
+      const bgScale = Math.max(CW / bgImg.width, CH / bgImg.height);
+      ctx.drawImage(bgImg, (CW - bgImg.width * bgScale) / 2, (CH - bgImg.height * bgScale) / 2, bgImg.width * bgScale, bgImg.height * bgScale);
+      ctx.restore();
+
+      // Border
+      ctx.strokeStyle = '#2edb84';
+      ctx.lineWidth = 2 * SCALE;
+      roundRect(SCALE, SCALE, CW - 2 * SCALE, CH - 2 * SCALE, 16 * SCALE);
+      ctx.stroke();
+
+      if (titleRect) {
+        ctx.fillStyle = textColor;
+        ctx.font = `bold ${Math.round(titleRect.h * 0.85)}px Satoshi, sans-serif`;
+        ctx.fillText('ABSTRACT', titleRect.x, titleRect.y + titleRect.h * 0.85);
+      }
+      if (logoRect) {
+        ctx.drawImage(logoImg, logoRect.x, logoRect.y, logoRect.w, logoRect.h);
+      }
+      if (avatarRect && pfpImg) {
+        ctx.save();
+        if (pfpShape === 'circle') {
+          ctx.beginPath();
+          ctx.arc(avatarRect.x + avatarRect.w / 2, avatarRect.y + avatarRect.h / 2, avatarRect.w / 2, 0, Math.PI * 2);
+          ctx.clip();
+        }
+        ctx.drawImage(pfpImg, avatarRect.x, avatarRect.y, avatarRect.w, avatarRect.h);
+        ctx.restore();
+        ctx.strokeStyle = 'rgba(46,219,132,0.4)';
+        ctx.lineWidth = 2 * SCALE;
+        if (pfpShape === 'circle') {
+          ctx.beginPath();
+          ctx.arc(avatarRect.x + avatarRect.w / 2, avatarRect.y + avatarRect.h / 2, avatarRect.w / 2, 0, Math.PI * 2);
+          ctx.stroke();
+        } else {
+          ctx.strokeRect(avatarRect.x, avatarRect.y, avatarRect.w, avatarRect.h);
+        }
+      }
+      if (nameRect) {
+        ctx.fillStyle = textColor;
+        ctx.font = `600 ${Math.round(nameRect.h * 0.85)}px Satoshi, sans-serif`;
+        ctx.fillText(xpDisplayName || 'Your Name', nameRect.x, nameRect.y + nameRect.h * 0.85);
+      }
+      if (statValRect) {
+        ctx.fillStyle = textColor;
+        ctx.font = `bold ${Math.round(statValRect.h)}px Satoshi, sans-serif`;
+        ctx.fillText(xpAmount || '0', statValRect.x, statValRect.y + statValRect.h * 0.9);
+      }
+      if (statLblRect) {
+        ctx.fillStyle = textColor;
+        ctx.font = `${Math.round(statLblRect.h * 0.85)}px Satoshi, sans-serif`;
+        ctx.fillText('XP', statLblRect.x, statLblRect.y + statLblRect.h * 0.9);
+      }
+
+      // Watermark
+      ctx.fillStyle = 'rgba(255,255,255,0.4)';
+      ctx.font = `${12 * SCALE}px Satoshi, sans-serif`;
+      const wmW = ctx.measureText('Hamieverse').width;
+      ctx.fillText('Hamieverse', CW - wmW - 10 * SCALE, CH - 8 * SCALE);
+
+      canvas.toBlob(async (blob) => {
+        if (!blob) { setCopyStatus('error'); setTimeout(() => setCopyStatus('idle'), 2000); return; }
+        try {
+          await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+          setCopyStatus('success');
+          setTimeout(() => setCopyStatus('idle'), 2000);
+        } catch {
+          setCopyStatus('error');
+          setTimeout(() => setCopyStatus('idle'), 2000);
+        }
+      }, 'image/png');
+    } catch (error) {
+      console.error('Static copy error:', error);
+      setCopyStatus('error');
+      setTimeout(() => setCopyStatus('idle'), 2000);
+    }
+  };
+
   const handleDownload = async () => {
     if (!cardRef.current) return;
 
@@ -488,7 +801,7 @@ export default function XPCardPage() {
   return (
     <ErrorBoundary>
       <style>{`
-        /* Mokoto font loaded from globals.css */
+        /* Fauna font loaded from globals.css */
         @keyframes fadeInOut {
           0% { opacity: 0; transform: translateX(-50%) translateY(10px); }
           15% { opacity: 1; transform: translateX(-50%) translateY(0); }
@@ -681,6 +994,13 @@ export default function XPCardPage() {
                   </div>
                 </div>
                 <div className="id-section">
+                  <label className="id-label">Text / PFP Size</label>
+                  <div className="pfp-shape-picker">
+                    <button className="pfp-shape-btn" onClick={() => setTextScale(s => Math.max(0.5, +(s - 0.1).toFixed(1)))}>−</button>
+                    <button className="pfp-shape-btn" onClick={() => setTextScale(s => Math.min(2, +(s + 0.1).toFixed(1)))}>+</button>
+                  </div>
+                </div>
+                <div className="id-section">
                   <label className="id-label">PFP Shape</label>
                   <div className="pfp-shape-picker">
                     <button
@@ -697,18 +1017,62 @@ export default function XPCardPage() {
                     </button>
                   </div>
                 </div>
+                <div className="id-section">
+                  <label className="id-label">Text Position</label>
+                  <div className="pfp-shape-picker">
+                    <button
+                      className={`pfp-shape-btn ${positionPreset === 'low' ? 'active' : ''}`}
+                      onClick={() => { setPositionPreset('low'); setContentPos({ x: 0, y: 0 }); }}
+                    >
+                      Low
+                    </button>
+                    <button
+                      className={`pfp-shape-btn ${positionPreset === 'medium' ? 'active' : ''}`}
+                      onClick={() => { setPositionPreset('medium'); setContentPos({ x: 0, y: 0 }); }}
+                    >
+                      Medium
+                    </button>
+                  </div>
+                </div>
               </div>
 
               {/* XP Card Presets - below fields */}
-              <div className="id-section">
-                <label className="id-label">Background Presets</label>
+              <div className="id-section" style={{ marginTop: '1.5rem', marginBottom: 0 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.4rem' }}>
+                  <label className="id-label" style={{ margin: 0 }}>Background Presets</label>
+                  <div className="pfp-shape-picker" style={{ margin: 0 }}>
+                    <button className={`pfp-shape-btn ${templateFilter === 'static' ? 'active' : ''}`} onClick={() => setTemplateFilter('static')}>Static</button>
+                    <button className={`pfp-shape-btn ${templateFilter === 'videos' ? 'active' : ''}`} onClick={() => setTemplateFilter('videos')}>Videos</button>
+                  </div>
+                  <button
+                    title="Reset card"
+                    className="pfp-shape-btn"
+                    style={{ marginLeft: 'auto' }}
+                    onClick={() => {
+                      setPositionPreset('low');
+                      setContentPos({ x: 0, y: 0 });
+                      setTextScale(1);
+                      setPfpShape('circle');
+                      setXpBackgroundImage('/HammieBannerBigger.gif');
+                      setXpBackgroundVideo(null);
+                      setSelectedPreset('Hammie');
+                      setTemplateFilter('videos');
+                    }}
+                  >↺</button>
+                </div>
                 <div className="xp-preset-grid">
-                  {XP_PRESETS.map((preset) => (
+                  {XP_PRESETS
+                    .filter(p => templateFilter === 'videos'
+                      ? (p.video !== null || (p.image !== null && p.image.endsWith('.gif')))
+                      : (p.image !== null && !p.image.endsWith('.gif')))
+                    .sort((a, b) => (presetCounts[b.name] ?? 0) - (presetCounts[a.name] ?? 0))
+                    .map((preset) => (
                     <div
                       key={preset.name}
                       className={`xp-preset-card ${selectedPreset === preset.name ? 'active' : ''}`}
                       onClick={() => applyPreset(preset.name)}
                       title={preset.name}
+                      style={{ position: 'relative' }}
                     >
                       {preset.image ? (
                         <img src={preset.image} alt={preset.name} />
@@ -724,6 +1088,19 @@ export default function XPCardPage() {
                       ) : (
                         <span className="xp-preset-placeholder">+</span>
                       )}
+                      <button
+                        onClick={(e) => handleLike(e, preset.name)}
+                        style={{
+                          position: 'absolute', top: '3px', right: '3px',
+                          background: 'none', border: 'none',
+                          color: presetLikes[preset.name] ? '#ff6b8a' : 'rgba(255,255,255,0.8)',
+                          fontSize: '0.85rem', cursor: 'pointer', padding: '2px',
+                          display: 'flex', alignItems: 'center', gap: '2px', lineHeight: 1,
+                          textShadow: '0 1px 3px rgba(0,0,0,0.8)',
+                        }}
+                      >
+                        {presetLikes[preset.name] ? '♥' : '♡'}
+                      </button>
                     </div>
                   ))}
                 </div>
@@ -781,7 +1158,18 @@ export default function XPCardPage() {
                   <img src="/AbsLogoWhite.png" alt="Abstract" style={{ height: 'clamp(20px, 5vw, 28px)', width: 'auto', marginLeft: '-2px' }} />
                 </div>
                 <span style={{ position: 'absolute', bottom: '8px', right: '10px', fontSize: '0.75rem', color: 'rgba(255,255,255,0.4)', fontFamily: 'Satoshi, sans-serif', letterSpacing: '0.08em', zIndex: 10 }}>Hamieverse</span>
-                <div className="abstract-xp-content" style={{ position: 'relative', zIndex: 1, transform: 'scale(0.6) translateX(-35%) translateY(30%)', transformOrigin: 'center center' }}>
+                <div
+                  ref={contentRef}
+                  className="abstract-xp-content"
+                  style={{
+                    position: 'relative', zIndex: 2,
+                    transform: `translate(calc(-20% + ${contentPos.x + 0.3 * (textScale - 1) * contentNaturalSize.w}px), calc(${positionPreset === 'medium' ? '-35%' : '30%'} + ${contentPos.y - 0.3 * (textScale - 1) * contentNaturalSize.h}px)) scale(${0.6 * textScale})`,
+                    transformOrigin: 'center center',
+                    cursor: isContentDragging ? 'grabbing' : 'grab',
+                    userSelect: 'none',
+                  }}
+                  onMouseDown={handleContentMouseDown}
+                >
                   <div className={`abstract-xp-avatar ${pfpShape === 'circle' ? 'pfp-circle' : 'pfp-square'}`}>
                     {xpProfileImage ? (
                       <img src={xpProfileImage} alt="Profile" />
@@ -813,6 +1201,10 @@ export default function XPCardPage() {
                   DOWNLOAD PNG
                 </button>
               </>
+            ) : xpBackgroundImage && !xpBackgroundImage.endsWith('.gif') && !xpBackgroundVideo ? (
+              <button className="id-download-btn" onClick={handleStaticCopy}>
+                {copyStatus === 'success' ? 'COPIED!' : copyStatus === 'error' ? 'FAILED' : 'COPY CARD'}
+              </button>
             ) : (
               <button
                 className="id-download-btn"

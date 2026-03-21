@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { getAllCharacters } from '@/lib/hamieverse/characters';
+import { getShownCharacters } from '@/lib/hamieverse/characters';
 import { DiceIcon, CheckIcon, CopyIcon } from './Icons';
 
 interface Quote {
@@ -19,7 +19,7 @@ export default function RandomQuoteWidget() {
   const [isAnimating, setIsAnimating] = useState(false);
   const [copied, setCopied] = useState(false);
 
-  const characters = getAllCharacters();
+  const characters = getShownCharacters();
 
   // Collect all quotes from characters
   const allQuotes: Quote[] = characters

@@ -26,22 +26,6 @@ export default function CharacterRating({ characterId, characterName }: Characte
       } catch {
         // Invalid data, use defaults
       }
-    } else {
-      // Initialize with some base ratings for main characters
-      const baseRatings: Record<string, number> = {
-        hamie: 42,
-        sam: 28,
-        lira: 31,
-        silas: 19,
-        ace: 24,
-        hikari: 22,
-        kael: 18,
-        orrien: 15,
-        grandma: 35,
-        luna: 20,
-      };
-      const base = baseRatings[characterId.toLowerCase()] || 5;
-      setRating({ upvotes: base, downvotes: Math.floor(base * 0.1), userVote: null });
     }
   }, [characterId]);
 

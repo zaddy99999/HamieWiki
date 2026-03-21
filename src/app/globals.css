@@ -1,18 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Orbitron:wght@400;700;900&display=swap');
 
-/* Mokoto Font - Logo + Major Headers */
+/* Fauna Thin Font - Logo + Major Headers */
 @font-face {
-  font-family: 'Mokoto';
-  src: url('/fonts/Mokoto.woff2') format('woff2'),
-       url('/fonts/Mokoto.ttf') format('truetype');
+  font-family: 'Fauna';
+  src: url('/fonts/fauna-thin.ttf') format('truetype');
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
 
-/* Direct Mokoto class - bypasses all variables */
+/* Direct Fauna class - bypasses all variables */
 .font-mokoto {
-  font-family: 'Orbitron', sans-serif !important;
+  font-family: 'Fauna', sans-serif !important;
 }
 
 /* Bicubik Font - Headers + Subheaders */
@@ -112,8 +111,8 @@
 
   /* Typography */
   --font-sans: 'Satoshi', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-  --font-heading: 'Mokoto', 'Satoshi', sans-serif;
-  --font-mokoto: 'Mokoto', 'Satoshi', sans-serif;
+  --font-heading: 'Fauna', 'Satoshi', sans-serif;
+  --font-mokoto: 'Fauna', 'Satoshi', sans-serif;
   --font-subheading: 'Bicubik', 'Satoshi', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
@@ -229,7 +228,7 @@ body {
 }
 
 /* ==================== HEADINGS ==================== */
-/* Major Headers - Mokoto */
+/* Major Headers - Fauna */
 h1, h2 {
   font-family: var(--font-heading);
   background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
@@ -1477,13 +1476,15 @@ button {
 
 .wiki-faction-inline-label {
   flex-basis: 100%;
-  font-size: var(--text-sm);
+  font-size: var(--text-base);
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--text-muted);
-  padding-bottom: var(--space-2);
-  border-bottom: 1px solid var(--border-subtle);
+  letter-spacing: 0.12em;
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-4);
 }
 
 .wiki-character-card {
@@ -1585,6 +1586,24 @@ button {
   background: #0f0f1a;
 }
 
+.wiki-char-static {
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}
+
+.wiki-char-animated {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.wiki-character-card:hover .has-hover-gif .wiki-char-static {
+  opacity: 0;
+}
+
+.wiki-character-card:hover .has-hover-gif .wiki-char-animated {
+  opacity: 1;
+}
+
 .wiki-character-placeholder {
   width: 100%;
   height: 100%;
@@ -1603,12 +1622,17 @@ button {
   text-align: center;
   display: flex;
   flex-direction: column;
+  background: rgba(0, 0, 0, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-3);
+  width: 100%;
 }
 
 .wiki-character-name {
   font-size: var(--text-base);
-  font-weight: 600;
-  color: var(--text-primary);
+  font-weight: 700;
+  color: #ffffff;
   margin-bottom: var(--space-1);
 }
 
@@ -2515,10 +2539,16 @@ button {
 }
 
 .wiki-article-title {
-  font-size: var(--text-3xl);
-  font-weight: 800;
-  letter-spacing: -0.02em;
+  font-size: var(--text-xl);
+  font-weight: 700;
+  letter-spacing: -0.01em;
   margin-bottom: 0;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-4);
+  display: inline-block;
 }
 
 .wiki-article-actions {
@@ -2805,6 +2835,45 @@ button {
   text-transform: uppercase;
   letter-spacing: 0.08em;
   margin-bottom: var(--space-3);
+}
+
+/* ==================== SIMILAR CHARACTERS ==================== */
+.wiki-similar-characters {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.wiki-similar-character {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: all var(--transition-base);
+}
+
+.wiki-similar-character:hover {
+  background: rgba(0, 0, 0, 0.75);
+  border-color: var(--char-color, var(--brand-primary));
+}
+
+.wiki-similar-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 1px solid var(--border-default);
+}
+
+.wiki-similar-name {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: #ffffff;
 }
 
 /* ==================== TRAITS & BADGES ==================== */

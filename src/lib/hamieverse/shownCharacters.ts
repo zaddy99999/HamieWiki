@@ -1,7 +1,24 @@
 export const shownNames: string[] = [
-  "Orrien Veynar","Sam","Silas","Hikari","Kael","Ace","Lira Veynar","Hamie","Luna",
-  "Kira","Halo Chryseos","Alistair Veynar","Simba","Veylor Quann","IronPaw Commander",
-  "Caligo","Lost Sentinel","Malvoria Chryseos","Kai Vox","Echo Whisperer"
+  "Orrien Veynar",
+  "Sam",
+  "Silas",
+  "Hikari",
+  "Kael",
+  "Ace",
+  "Lira Veynar",
+  "Hamie",
+  "Luna",
+  "Kira",
+  "Halo Chryseos",
+  "Alistair Veynar",
+  "Simba",
+  "Veylor Quann",
+  "IronPaw Commander",
+  "Caligo",
+  "Lost Sentinel",
+  "Malvoria Chryseos",
+  "Kai Vox",
+  "Echo Whisperer"
 ];
 
 export const pfpMap: Record<string, string> = {
@@ -23,28 +40,28 @@ export const pfpMap: Record<string, string> = {
   "Malvoria Chryseos": "MalvoriaCharacter.png",
   "Kai Vox": "KaiVoxCharacter.png",
   "Echo Whisperer": "EchoWhispererCharacter.png",
-  "Elyndor": "ElyndorCharacter.png",
+  "Elyndor": "ElyndorCharacter.png"
 };
 
 export const factionMap: Record<string, string> = {
   "Orrien Veynar": "Aetherion",
-  "Sam": "Respeculators",
+  "Sam": "Respectulators",
   "Silas": "Aetherion",
   "Hikari": "Liberators",
   "Kael": "Liberators",
   "Ace": "Liberators",
-  "Lira Veynar": "Respeculators",
+  "Lira Veynar": "Respectulators",
   "Hamie": "Liberators",
   "Kira": "Aetherion",
   "Halo Chryseos": "Liberators",
   "Alistair Veynar": "Aetherion",
   "Simba": "Liberators",
-  "Veylor Quann": "Respeculators",
+  "Veylor Quann": "Respectulators",
   "IronPaw Commander": "Aetherion",
   "Caligo": "Liberators",
   "Lost Sentinel": "Liberators",
   "Malvoria Chryseos": "Aetherion",
   "Kai Vox": "Aetherion",
   "Echo Whisperer": "Liberators",
-  "Elyndor": "Liberators",
+  "Elyndor": "Liberators"
 };

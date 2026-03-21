@@ -62,13 +62,13 @@
   --brand-secondary: #AE4DAF;
   --brand-accent: #AE4DAF;
 
-  /* Typography - Mokoto for major headers, Bicubik for subheaders, Satoshi for body */
-  --font-brutal-display: 'Mokoto', 'Satoshi', sans-serif;
+  /* Typography - Fauna for major headers, Bicubik for subheaders, Satoshi for body */
+  --font-brutal-display: 'Fauna', 'Satoshi', sans-serif;
   --font-brutal-subheading: 'Bicubik', 'Satoshi', sans-serif;
   --font-brutal-mono: 'JetBrains Mono', monospace;
   --font-brutal-body: 'Satoshi', sans-serif;
-  --font-comic-marker: 'Mokoto', 'Satoshi', sans-serif;
-  --font-heading: 'Mokoto', 'Satoshi', sans-serif;
+  --font-comic-marker: 'Fauna', 'Satoshi', sans-serif;
+  --font-heading: 'Fauna', 'Satoshi', sans-serif;
   --font-subheading: 'Bicubik', 'Satoshi', sans-serif;
 
   /* Override base fonts */
@@ -144,10 +144,10 @@
   font-weight: 400;
 }
 
-/* Major headings - Mokoto */
+/* Major headings - Fauna */
 [data-theme="brutalist"] h1,
 [data-theme="brutalist"] h2 {
-  font-family: 'Mokoto', 'Satoshi', sans-serif !important;
+  font-family: 'Fauna', 'Satoshi', sans-serif !important;
   font-weight: normal;
 }
 
@@ -1531,7 +1531,7 @@
 }
 
 [data-theme="brutalist"] .wiki-infobox-heading {
-  font-family: 'Mokoto', 'Satoshi', sans-serif;
+  font-family: 'Fauna', 'Satoshi', sans-serif;
   font-size: 0.85rem;
   font-weight: bold;
   color: #0446F1;
@@ -2987,7 +2987,7 @@ body.sidebar-collapsed .gallery-page-new {
 
 /* Hero title - all text should be red and visible */
 [data-theme="brutalist"] .wiki-hero-text h1 {
-  font-family: 'Mokoto', 'Satoshi', sans-serif !important;
+  font-family: 'Fauna', 'Satoshi', sans-serif !important;
   color: #0446F1 !important;
   -webkit-text-fill-color: #0446F1 !important;
   background: none !important;
@@ -3266,7 +3266,7 @@ body.sidebar-collapsed .gallery-page-new {
 }
 
 [data-theme="brutalist"] .lore-links-title {
-  font-family: 'Mokoto', 'Satoshi', sans-serif !important;
+  font-family: 'Fauna', 'Satoshi', sans-serif !important;
   font-size: 0.85rem !important;
   color: #0446F1 !important;
   -webkit-text-fill-color: #0446F1 !important;
@@ -3917,12 +3917,23 @@ body.sidebar-collapsed .gallery-page-new {
 }
 
 /* ===== TYPOGRAPHY ===== */
-[data-theme="brutalist"] h1,
-[data-theme="brutalist"] .wiki-article-title {
+[data-theme="brutalist"] h1 {
   color: var(--palette-primary) !important;
   text-shadow:
     2px 2px 0 var(--palette-bg),
     -1px -1px 0 var(--palette-bg) !important;
+}
+
+[data-theme="brutalist"] .wiki-article-title {
+  color: #ffffff !important;
+  text-shadow: none !important;
+  background: rgba(0, 0, 0, 0.75) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 6px !important;
+  padding: 6px 16px !important;
+  display: inline-block !important;
+  font-size: clamp(1rem, 2.5vw, 1.4rem) !important;
+  font-weight: 700 !important;
 }
 
 [data-theme="brutalist"] h2 {
@@ -4782,7 +4793,7 @@ body.sidebar-collapsed .gallery-page-new {
   box-shadow: none !important;
   display: block !important;
   font-size: 0.85rem !important;
-  font-family: 'Mokoto', 'Satoshi', sans-serif !important;
+  font-family: 'Fauna', 'Satoshi', sans-serif !important;
   text-transform: uppercase !important;
   margin-bottom: 8px !important;
 }

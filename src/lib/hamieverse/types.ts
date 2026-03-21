@@ -12,6 +12,8 @@ export interface HamieCharacter {
   notableActions?: string[];
   symbolicRole?: string;
   notes?: string;
+  aliases?: string[];
+  loreKey?: string;
   relationship?: string;
   location?: string;
   function?: string;

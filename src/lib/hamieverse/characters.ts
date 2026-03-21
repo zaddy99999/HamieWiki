@@ -1,7 +1,45 @@
 import loreData from './lore.json';
 import comicsData from './comics.json';
+import { sheetCharacters } from './sheetCharacters';
+import { shownNames } from './shownCharacters';
 import { HamieCharacter, HamieRelationship, HamieFaction } from './types';
 import { characterColors, getCharacterColor } from './colors';
+
+function normStr(s: string) {
+  return s.toLowerCase().replace(/[^a-z0-9]/g, '');
+}
+
+function isShownChar(char: HamieCharacter): boolean {
+  const idNorm = normStr(char.id);
+  const displayNorm = normStr(char.displayName);
+  return shownNames.some(name => {
+    const nameNorm = normStr(name);
+    const firstWord = normStr(name.split(' ')[0]);
+    return nameNorm === idNorm || nameNorm === displayNorm || firstWord === displayNorm || idNorm.startsWith(firstWord);
+  });
+}
+
+// Find sheet data by display name or id (case-insensitive, with first-word matching)
+function findSheetChar(key: string, displayName?: string): any {
+  const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, '');
+  const firstWord = (s: string) => norm(s.split(/[\s_]/)[0]);
+  const keyNorm = norm(key);
+  const displayNorm = displayName ? norm(displayName) : '';
+  const keyFirst = firstWord(key);
+  const displayFirst = displayName ? firstWord(displayName) : '';
+
+  for (const [sheetName, data] of Object.entries(sheetCharacters)) {
+    const sheetNorm = norm(sheetName);
+    const sheetFirst = firstWord(sheetName);
+    // Exact match
+    if (sheetNorm === keyNorm) return data;
+    if (displayNorm && sheetNorm === displayNorm) return data;
+    // First-word match: "orrien" matches "Orrien Veynar", "halo" matches "Halo Chryseos"
+    if (sheetFirst === keyFirst) return data;
+    if (displayFirst && sheetFirst === displayFirst) return data;
+  }
+  return null;
+}
 
 // Character GIF mappings (animated)
 const characterGifs: Record<string, string> = {
@@ -119,21 +157,34 @@ const characterFactions: Record<string, string> = {
 
 // Transform raw character data into wiki-friendly format
 function transformCharacter(key: string, data: any): HamieCharacter {
+  const displayName = data.display_name || data.name || key;
+  const sheet = findSheetChar(key, displayName);
+
+  // Parse sheet roles (newline or comma separated) into array
+  const sheetRoles = sheet?.role
+    ? sheet.role.split(/[\n,]/).map((r: string) => r.trim()).filter(Boolean)
+    : undefined;
+
+  // Use sheet name as the URL slug for cleaner URLs (e.g. "orrien_veynar" not "orrien")
+  const sheetId = sheet ? sheet.name.toLowerCase().replace(/\s+/g, '_') : null;
+
   return {
-    id: key,
-    displayName: data.display_name || data.name || key,
-    species: data.species || data.species_note,
-    roles: data.roles || (data.role ? [data.role] : []),
-    traits: data.traits || [],
+    id: sheetId || key,
+    loreKey: sheetId && sheetId !== key ? key : undefined,
+    displayName: sheet?.name || displayName,
+    species: sheet?.species,
+    roles: sheetRoles || [],
+    traits: sheet?.traits || [],
     origin: data.origin,
     home: data.home,
-    coreConflicts: data.core_conflicts,
+    aliases: sheet?.aliases,
+    coreConflicts: sheet?.motivations,
     inventory: data.inventory,
-    arc: data.arc,
+    arc: sheet?.arc,
     notableActions: data.notable_actions,
     symbolicRole: data.symbolic_role,
-    notes: data.notes,
-    relationship: data.relationship,
+    notes: undefined,
+    relationship: sheet?.relationships,
     location: data.location,
     function: data.function,
     dynamics: data.dynamics,
@@ -143,15 +194,15 @@ function transformCharacter(key: string, data: any): HamieCharacter {
     doctrine: data.doctrine,
     symbols: data.symbols,
     status: data.status,
-    notableInfo: data.notable_info,
+    notableInfo: sheet?.notableInfo,
     notableLineSummary: data.notable_line_summary,
     meaning: data.meaning,
     summary: data.summary,
-    gifFile: characterGifs[key.toLowerCase()] || undefined,
-    pngFile: characterPngs[key.toLowerCase()] || undefined,
-    color: getCharacterColor(key),
+    gifFile: sheet?.gifFile || characterGifs[key.toLowerCase()] || undefined,
+    pngFile: sheet?.pfpFile || characterPngs[key.toLowerCase()] || undefined,
+    color: sheet?.color,
     quotes: characterQuotes[key.toLowerCase()] || undefined,
-    faction: characterFactions[key.toLowerCase()] || undefined,
+    faction: sheet?.faction,
   };
 }
 
@@ -200,10 +251,18 @@ export function getAllCharacters(): HamieCharacter[] {
   });
 }
 
+export function getShownCharacters(): HamieCharacter[] {
+  return getAllCharacters().filter(isShownChar);
+}
+
 export function getCharacter(id: string): HamieCharacter | null {
-  const characters = getAllCharacters();
   const normalizedId = id.toLowerCase();
-  return characters.find(c => c.id.toLowerCase() === normalizedId) || null;
+  const chars = getShownCharacters();
+  return (
+    chars.find(c => c.id.toLowerCase() === normalizedId) ||
+    chars.find(c => c.loreKey?.toLowerCase() === normalizedId) ||
+    null
+  );
 }
 
 export function getRelationships(): HamieRelationship[] {
@@ -212,11 +271,10 @@ export function getRelationships(): HamieRelationship[] {
 
 export function getCharacterRelationships(characterId: string): HamieRelationship[] {
   const relationships = getRelationships();
+  const char = getCharacter(characterId);
+  const ids = [characterId, char?.loreKey].filter(Boolean).map(s => s!.toLowerCase());
   return relationships.filter(r =>
-    r.a === characterId ||
-    r.b === characterId ||
-    r.a.toLowerCase() === characterId.toLowerCase() ||
-    r.b.toLowerCase() === characterId.toLowerCase()
+    ids.includes(r.a.toLowerCase()) || ids.includes(r.b.toLowerCase())
   );
 }
 

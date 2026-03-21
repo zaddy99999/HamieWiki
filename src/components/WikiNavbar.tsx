@@ -4,7 +4,7 @@ import { useState, useRef, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { getAllCharacters, getFactions, getGlossary } from '@/lib/hamieverse/characters';
+import { getShownCharacters, getFactions, getGlossary } from '@/lib/hamieverse/characters';
 import { DiceIcon } from './Icons';
 
 interface SearchResult {
@@ -13,6 +13,7 @@ interface SearchResult {
   name: string;
   subtitle?: string;
   image?: string;
+  aliases?: string[];
 }
 
 interface WikiNavbarProps {
@@ -31,7 +32,7 @@ export default function WikiNavbar({ currentPage }: WikiNavbarProps) {
   const resultRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   // Load character data once using useMemo (data from centralized characters.ts)
-  const characters = useMemo(() => getAllCharacters(), []);
+  const characters = useMemo(() => getShownCharacters(), []);
   const factions = useMemo(() => getFactions(), []);
   const glossary = useMemo(() => getGlossary(), []);
 
@@ -43,6 +44,7 @@ export default function WikiNavbar({ currentPage }: WikiNavbarProps) {
       name: c.displayName,
       subtitle: c.roles[0]?.replace(/_/g, ' ') || c.species || '',
       image: c.gifFile ? `/images/${c.gifFile}` : c.pngFile ? `/images/${c.pngFile}` : undefined,
+      aliases: c.aliases?.filter(a => a !== 'N/A'),
     })),
     ...Object.keys(factions).map(key => ({
       type: 'faction' as const,
@@ -78,7 +80,8 @@ export default function WikiNavbar({ currentPage }: WikiNavbarProps) {
     const query = searchQuery.toLowerCase();
     const filtered = allSearchItems.filter(item =>
       item.name.toLowerCase().includes(query) ||
-      item.subtitle?.toLowerCase().includes(query)
+      item.subtitle?.toLowerCase().includes(query) ||
+      item.aliases?.some(a => a.toLowerCase().includes(query))
     ).slice(0, 8);
     setSearchResults(filtered);
   }, [searchQuery]);

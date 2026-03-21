@@ -2,7 +2,7 @@
 
 import { useState, useMemo, useRef, useEffect } from 'react';
 import Link from 'next/link';
-import { getAllCharacters, getRelationships } from '@/lib/hamieverse/characters';
+import { getShownCharacters, getRelationships } from '@/lib/hamieverse/characters';
 import { relationshipColors, getRelationshipColor } from '@/lib/hamieverse/colors';
 
 interface Relationship {
@@ -26,7 +26,7 @@ export default function RelationshipWeb() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [dimensions, setDimensions] = useState({ width: 320, height: 320 });
 
-  const characters = getAllCharacters();
+  const characters = getShownCharacters();
   const relationships = getRelationships() as Relationship[];
 
   // Memoize the filtered display characters to avoid recalculating on each render
