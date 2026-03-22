@@ -1982,10 +1982,8 @@ button {
   font-weight: 700;
   margin-bottom: var(--space-1);
   color: var(--text-primary);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   max-width: 100%;
+  word-break: break-word;
 }
 
 .cotd-role {

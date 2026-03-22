@@ -70,7 +70,7 @@ export default function CharacterOfTheDay({ shownNames }: { shownNames?: string[
         </button>
         <div className="cotd-header-center">
           <span className="cotd-badge">
-            {isToday ? 'Character of the Day' : 'Past Character'}
+            Character of the Day
           </span>
           <span className="cotd-date">{dateString}</span>
         </div>
