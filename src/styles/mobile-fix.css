@@ -1349,6 +1349,16 @@
     font-size: 10px !important;
     margin-bottom: 8px !important;
   }
+
+  /* Character of the Day - bump up tiny role text */
+  .cotd-role {
+    font-size: 0.75rem !important;
+  }
+
+  /* Hide heart/like button on XP card presets */
+  .xp-preset-like-btn {
+    display: none !important;
+  }
 }
 
 /* ===== EXTRA SMALL SCREENS (320px - 480px) ===== */
@@ -1451,6 +1461,11 @@
   .gallery-grid-new {
     gap: 4px !important;
     padding: 4px !important;
+  }
+
+  .comic-grid-new.cols-2,
+  .comic-grid-new.cols-3 {
+    grid-template-columns: 1fr !important;
   }
 
   .gallery-tabs-new button,

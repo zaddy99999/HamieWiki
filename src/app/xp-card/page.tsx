@@ -79,9 +79,14 @@ export default function XPCardPage() {
   const [templateFilter, setTemplateFilter] = useState<'static' | 'videos'>('videos');
 
   // Preset likes
-  const [presetLikes, setPresetLikes] = useState<Record<string, boolean>>(() => {
-    try { return JSON.parse(localStorage.getItem('xp-preset-likes') || '{}'); } catch { return {}; }
-  });
+  const [presetLikes, setPresetLikes] = useState<Record<string, boolean>>({});
+
+  useEffect(() => {
+    try {
+      const stored = JSON.parse(localStorage.getItem('xp-preset-likes') || '{}');
+      setPresetLikes(stored);
+    } catch {}
+  }, []);
   const [presetCounts, setPresetCounts] = useState<Record<string, number>>({});
   const [showLikedOnly, setShowLikedOnly] = useState(false);
 
@@ -248,6 +253,15 @@ export default function XPCardPage() {
   const [copyStatus, setCopyStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [exportStatus, setExportStatus] = useState<'idle' | 'exporting' | 'success' | 'error'>('idle');
   const [exportProgress, setExportProgress] = useState(0);
+
+  const canvasToBlob = (canvas: HTMLCanvasElement): Promise<Blob> =>
+    new Promise((resolve, reject) =>
+      canvas.toBlob((b) => (b ? resolve(b) : reject(new Error('toBlob failed'))), 'image/png')
+    );
+
+  const clipboardWriteFromCanvas = async (blobPromise: Promise<Blob>) => {
+    await navigator.clipboard.write([new ClipboardItem({ 'image/png': blobPromise })]);
+  };
 
   // Parse GIF frames using omggif
   const parseGifFrames = async (url: string) => {
@@ -588,17 +602,14 @@ export default function XPCardPage() {
       // Step 3: composite overlay on top of the sharp PNG background
       finalCtx.drawImage(overlayCanvas, 0, 0);
 
-      finalCanvas.toBlob(async (blob) => {
-        if (!blob) { setCopyStatus('error'); setTimeout(() => setCopyStatus('idle'), 2000); return; }
-        try {
-          await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
-          setCopyStatus('success');
-          setTimeout(() => setCopyStatus('idle'), 2000);
-        } catch {
-          setCopyStatus('error');
-          setTimeout(() => setCopyStatus('idle'), 2000);
-        }
-      }, 'image/png');
+      try {
+        await clipboardWriteFromCanvas(canvasToBlob(finalCanvas));
+        setCopyStatus('success');
+        setTimeout(() => setCopyStatus('idle'), 2000);
+      } catch {
+        setCopyStatus('error');
+        setTimeout(() => setCopyStatus('idle'), 2000);
+      }
     } catch (error) {
       console.error('Copy error:', error);
       setCopyStatus('error');
@@ -726,17 +737,14 @@ export default function XPCardPage() {
       const wmW = ctx.measureText('Hamieverse').width;
       ctx.fillText('Hamieverse', CW - wmW - 10 * SCALE, CH - 8 * SCALE);
 
-      canvas.toBlob(async (blob) => {
-        if (!blob) { setCopyStatus('error'); setTimeout(() => setCopyStatus('idle'), 2000); return; }
-        try {
-          await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
-          setCopyStatus('success');
-          setTimeout(() => setCopyStatus('idle'), 2000);
-        } catch {
-          setCopyStatus('error');
-          setTimeout(() => setCopyStatus('idle'), 2000);
-        }
-      }, 'image/png');
+      try {
+        await clipboardWriteFromCanvas(canvasToBlob(canvas));
+        setCopyStatus('success');
+        setTimeout(() => setCopyStatus('idle'), 2000);
+      } catch {
+        setCopyStatus('error');
+        setTimeout(() => setCopyStatus('idle'), 2000);
+      }
     } catch (error) {
       console.error('Static copy error:', error);
       setCopyStatus('error');
@@ -774,23 +782,14 @@ export default function XPCardPage() {
         scale: 2,
       });
 
-      canvas.toBlob(async (blob) => {
-        if (!blob) {
-          setCopyStatus('error');
-          setTimeout(() => setCopyStatus('idle'), 2000);
-          return;
-        }
-        try {
-          await navigator.clipboard.write([
-            new ClipboardItem({ 'image/png': blob })
-          ]);
-          setCopyStatus('success');
-          setTimeout(() => setCopyStatus('idle'), 2000);
-        } catch {
-          setCopyStatus('error');
-          setTimeout(() => setCopyStatus('idle'), 2000);
-        }
-      }, 'image/png');
+      try {
+        await clipboardWriteFromCanvas(canvasToBlob(canvas));
+        setCopyStatus('success');
+        setTimeout(() => setCopyStatus('idle'), 2000);
+      } catch {
+        setCopyStatus('error');
+        setTimeout(() => setCopyStatus('idle'), 2000);
+      }
     } catch (error) {
       console.error('Error copying image:', error);
       setCopyStatus('error');
@@ -1090,6 +1089,7 @@ export default function XPCardPage() {
                       )}
                       <button
                         onClick={(e) => handleLike(e, preset.name)}
+                        className="xp-preset-like-btn"
                         style={{
                           position: 'absolute', top: '3px', right: '3px',
                           background: 'none', border: 'none',

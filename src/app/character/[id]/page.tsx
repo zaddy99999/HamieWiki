@@ -313,7 +313,8 @@ export default function CharacterPage() {
                   borderRadius: '12px',
                   overflow: 'hidden'
                 }}>
-                  <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                  <div style={{ overflowX: 'auto' }}>
+                  <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: '400px' }}>
                     <thead>
                       <tr style={{ background: 'var(--bg-elevated)' }}>
                         <th style={{ padding: '12px 16px', textAlign: 'left', fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Chapter</th>
@@ -331,6 +332,7 @@ export default function CharacterPage() {
                       ))}
                     </tbody>
                   </table>
+                  </div>
                 </div>
               </section>
             )}
