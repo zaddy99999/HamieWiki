@@ -5,13 +5,17 @@ import { dirname, join } from 'path';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-// Load env
-const envPath = join(__dirname, '../.env.local');
-const env = readFileSync(envPath, 'utf-8');
+// Load env - from .env.local if available, otherwise from process.env (Vercel)
 const envVars = {};
-for (const line of env.split('\n')) {
-  const match = line.match(/^([^=]+)=(.*)$/);
-  if (match) envVars[match[1]] = match[2].replace(/^"|"$/g, '');
+const envPath = join(__dirname, '../.env.local');
+try {
+  const env = readFileSync(envPath, 'utf-8');
+  for (const line of env.split('\n')) {
+    const match = line.match(/^([^=]+)=(.*)$/);
+    if (match) envVars[match[1]] = match[2].replace(/^"|"$/g, '');
+  }
+} catch {
+  Object.assign(envVars, process.env);
 }
 
 const auth = new google.auth.GoogleAuth({
